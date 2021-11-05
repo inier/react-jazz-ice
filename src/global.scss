@@ -1,0 +1,9 @@
+// 引入默认全局样式
+@import '@alifd/next/reset.scss';
+
+$page-min-width: 1280px;
+
+body {
+  -webkit-font-smoothing: antialiased;
+  min-width: $page-min-width;
+}
