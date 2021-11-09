@@ -23,6 +23,7 @@ Thumbs.db
 *.patch
 *.bak
 *.snap
+.eslintcache
 .project
 .idea
 .settings
@@ -44,3 +45,6 @@ Thumbs.db
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# screenshot
+screenshot

@@ -3,12 +3,13 @@ build/
 tests/
 demo/
 doc/
-node_modules/
-src/**/node_modules/
 public/
+dist/
+mock/
 .ice/
 .git/
 .vscode/
+.history/
 
 # node 覆盖率文件
 coverage/

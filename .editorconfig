@@ -20,3 +20,6 @@ trim_trailing_whitespace = true
 [*.md]
 # .md 文件不去掉每行末尾的空格
 trim_trailing_whitespace = false
+
+[Makefile]
+indent_style = tab
