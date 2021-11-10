@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import APIAgent from '@/api/Agent'; // 请求底层处理
 import { persistParam } from '@/utils/persistData.js'; // 数据持久化
 
@@ -12,6 +13,14 @@ const Agent = new APIAgent();
  * @class Store
  */
 export default class Store {
+  static commonRequestData: any;
+  static handleShowLoading: (arg0: boolean) => any;
+  static refreshToken(url: any, params: any) {
+    throw new Error('Method not implemented.');
+  }
+  static handleRequestError(result: any) {
+    throw new Error('Method not implemented.');
+  }
   /**
    * @description 数据持久化(localStorage或sessionStorage)
    * @param {string|array} keyNames 键值项名称
@@ -92,7 +101,7 @@ function _handleData(json, url, params, opts) {
       return json;
     // token过期
     case '-1': {
-      return this.refreshToken(url, params);
+      return Store.refreshToken(url, params);
     }
     // 自动显示错误信息
     default: {

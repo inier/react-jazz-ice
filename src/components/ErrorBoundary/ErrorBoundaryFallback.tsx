@@ -5,7 +5,7 @@ import BG_2 from './img/bc-2.png';
 
 interface IProps {
   componentStack: string;
-  error: Error;
+  error?: any;
 }
 
 const ErrorBoundaryFallback = ({ componentStack = '', error = null }: IProps) => {

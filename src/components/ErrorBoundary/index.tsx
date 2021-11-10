@@ -6,7 +6,7 @@ import ErrorBoundaryFallback from './ErrorBoundaryFallback';
 interface IProps {
   children?: React.ReactNode;
   Fallback?: React.ComponentType<any>;
-  onError?: (err: Error, componentStack: string) => void;
+  onError?: (err: any, componentStack: string) => void;
 }
 
 interface IErrorInfo {
@@ -15,7 +15,7 @@ interface IErrorInfo {
 
 interface IState {
   hasError: boolean;
-  error?: Error | null;
+  error?: any;
   info?: IErrorInfo;
 }
 
@@ -25,15 +25,12 @@ class ErrorBoundary extends Component<IProps, IState> {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
-  static defaultProps: IProps = {
-    Fallback: ErrorBoundaryFallback,
-  };
 
   constructor(props) {
     super(props);
     this.state = {
       hasError: false,
-      error: null,
+      error: undefined,
       info: {
         componentStack: '',
       },
@@ -64,7 +61,7 @@ class ErrorBoundary extends Component<IProps, IState> {
 
   render() {
     const { hasError, error, info } = this.state;
-    const { children, Fallback } = this.props;
+    const { children, Fallback = ErrorBoundaryFallback } = this.props;
 
     // render fallback UI if there is error
     if (hasError || error !== null) {

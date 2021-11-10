@@ -1,3 +1,5 @@
+/* eslint-disable @iceworks/best-practices/recommend-polyfill */
+/* eslint-disable no-console */
 import { Agent, ApiUrls } from '@/api';
 
 const APIAgent = new Agent();
@@ -7,6 +9,7 @@ const APIAgent = new Agent();
  */
 class ResponseCode {
   codes = {};
+  newCodes: any;
 
   constructor() {
     // 用应用的第一级目录做不同应用的区分
@@ -17,7 +20,8 @@ class ResponseCode {
     } catch (error) {
       console.log('ResponseCode:constructor', error);
     }
-    this.getNewCode();
+
+    ApiUrls.GET_RESPONSE_CODE && this.getNewCode();
   }
 
   /**
@@ -25,7 +29,7 @@ class ResponseCode {
    * @param {*} code 错误码
    * @returns 错误的中文信息
    */
-  showMsg(code) {
+  showMsg(code = '') {
     if (code === '-1') return;
 
     if (this.codes && Object.prototype.hasOwnProperty.call(this.codes, code)) {

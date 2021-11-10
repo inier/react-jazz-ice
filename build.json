@@ -4,19 +4,11 @@
     "PUBLIC_URL": "/toxic"
   },
   "vite": true,
-  "externals": {
-    "@alifd/next": "Next"
-  },
   "plugins": [
     [
       "build-plugin-fusion",
       {
-        "themePackage": "@alifd/theme-design-pro",
-        "themeConfig": {
-          "icon-font-path": "'/icon-font/icon'",
-          "font-custom-path": "'/font/'"
-        },
-        "externalNext": true
+        "themePackage": "@alifd/theme-design-pro"
       }
     ],
     [

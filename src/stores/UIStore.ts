@@ -1,12 +1,13 @@
-import { observable, action } from 'mobx';
+/* eslint-disable no-param-reassign */
+import { makeAutoObservable, observable, action } from 'mobx';
 import { ResponseCode } from '@/api';
-import Store from '@/stores/Store';
 import { isMicroMessenger } from '@/utils';
 
 /**
  * 应用当前UI的状态，比如：窗口尺寸、当前展示的页面、渲染状态、网络状态等等
  */
-class UIStore extends Store {
+class UIStore {
+  rootStore: any;
   // 判断是否在微信浏览器还是普通浏览器
   inWeChat = false;
 
@@ -14,30 +15,30 @@ class UIStore extends Store {
   @observable loading = false;
 
   // 需要展示的错误信息
-  @observable toastMsg;
+  @observable toastMsg: any;
 
   constructor(rootStore) {
-    super();
+    makeAutoObservable(this, { rootStore: false });
 
     this.rootStore = rootStore;
     // 请求是否展示loading的回调
-    Store.handleShowLoading = this.handleShowLoading.bind(this);
+    rootStore.handleShowLoading = this.handleShowLoading.bind(this);
     // 监控错误的回调
-    Store.handleRequestError = this.handleRequestError.bind(this);
+    rootStore.handleRequestError = this.handleRequestError.bind(this);
 
     // 浏览器UA判断，true：微信，false：h5等其他
     this.inWeChat = isMicroMessenger();
     // 数据持久化
-    this.persistParam('inWeChat', undefined, true);
+    rootStore.persistParam('inWeChat', undefined, true);
   }
 
   @action
-  setLoading(boolean) {
+  setLoading(boolean: boolean) {
     this.loading = boolean;
   }
 
   @action
-  setToastMsg(msg) {
+  setToastMsg(msg: string) {
     this.toastMsg = msg;
   }
   /**
@@ -46,13 +47,13 @@ class UIStore extends Store {
    * @param {*} autoClose 是否自动关闭
    * @param {*} duration toast显示的持续时间，默认3秒
    */
-  showToast(msg, autoClose = true, duration = 3000) {
+  showToast(msg: any, autoClose = true, duration = 3000) {
     this.setToastMsg(msg);
 
     // 指定时间后自动关闭toast，默认3秒
     if (autoClose) {
       setTimeout(() => {
-        this.setToastMsg();
+        this.setToastMsg('');
       }, duration);
     }
   }
@@ -60,7 +61,7 @@ class UIStore extends Store {
    * @description loading图标的展示状态回调
    * @param {*} boolean true：展示，false：不展示
    */
-  handleShowLoading(boolean) {
+  handleShowLoading(boolean: any) {
     this.setLoading(boolean);
   }
 
@@ -68,8 +69,8 @@ class UIStore extends Store {
    * @description 请求发送错误码的回调
    * @param {*} code 错误码
    */
-  handleRequestError(code) {
-    this.showToast(ResponseCode.getMsg(code));
+  handleRequestError(code: string | undefined) {
+    this.showToast(ResponseCode.showMsg(code));
   }
 }
 

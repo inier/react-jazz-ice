@@ -1,6 +1,6 @@
 import { ResponsiveGrid } from '@alifd/next';
 import PageHeader from '@/components/PageHeader';
-import SuccessDetail from '@/components/SuccessDetail';
+import SuccessDetail from './components/SuccessDetail';
 
 const { Cell } = ResponsiveGrid;
 

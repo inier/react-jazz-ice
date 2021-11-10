@@ -44,7 +44,7 @@ export default class Agent {
   //     }
   //     return res.json();
   // }
-  handleResponse = (res) => {
+  handleResponse(res) {
     if (res && res.ok) {
       const tHeader = res.headers;
       if (!Object.keys(tHeader).length || checkContentType(tHeader, 'application/json')) {
@@ -98,7 +98,7 @@ export default class Agent {
    * @returns Promise
    */
   postWithHeader(url, param, headers) {
-    return this.sendRequstWithHeader(url, param, 'POST', headers);
+    return this.sendRequestWithHeader(url, param, 'POST', headers);
   }
 
   /**
@@ -109,7 +109,7 @@ export default class Agent {
    * @returns Promise
    */
   getWithHeader(url, param, headers) {
-    return this.sendRequstWithHeader(url, param, 'GET', headers);
+    return this.sendRequestWithHeader(url, param, 'GET', headers);
   }
 
   /**
@@ -194,7 +194,7 @@ export default class Agent {
    * @param {*} headers 自定义的header
    * @returns  Promise
    */
-  sendRequstWithHeader(url, _params, type = 'GET', headers) {
+  sendRequestWithHeader(url, _params, type = 'GET', headers) {
     let fullUrl = url;
     let params = _params;
     let form = [];

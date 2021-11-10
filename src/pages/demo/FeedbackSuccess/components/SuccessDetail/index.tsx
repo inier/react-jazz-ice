@@ -14,7 +14,7 @@ export interface SuccessDetailProps {
   image: string;
   buttonBackDesc: string;
   buttonContinueDesc: string;
-  countDownSecnods: number;
+  countDownSeconds: number;
   onButtonBack: DetailProcessFunc;
   onButtonContinue: DetailProcessFunc;
 }
@@ -26,12 +26,12 @@ export default function SuccessDetail(props: SuccessDetailProps) {
     image = 'https://img.alicdn.com/tfs/TB1UOSVoqL7gK0jSZFBXXXZZpXa-73-72.png',
     buttonBackDesc = '返回列表',
     buttonContinueDesc = '继续创建',
-    countDownSecnods = 5,
+    countDownSeconds = 5,
     onButtonBack = null,
     onButtonContinue = null,
   } = props;
 
-  const [second, setSecond] = useState(countDownSecnods);
+  const [second, setSecond] = useState(countDownSeconds);
 
   const gobackHandle = () => {
     if (onButtonBack) {
@@ -48,7 +48,7 @@ export default function SuccessDetail(props: SuccessDetailProps) {
         gobackHandle();
       }
     },
-    second >= 0 ? 1000 : null,
+    second >= 0 ? 1000 : 0,
   );
 
   const goContinueHandle = () => {
