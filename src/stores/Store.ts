@@ -1,8 +1,6 @@
 /* eslint-disable no-console */
-import APIAgent from '@/api/Agent'; // 请求底层处理
+import { request } from 'ice'; // 请求底层处理
 import { persistParam } from '@/utils/persistData.js'; // 数据持久化
-
-const Agent = new APIAgent();
 
 /* eslint-disable no-use-before-define */
 /**

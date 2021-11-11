@@ -36,6 +36,33 @@ const appConfig: IAppConfig = {
     basename: PUBLIC_URL, // 暂不支持，process.env.PUBLIC_URL
     // fallback: <></>, // 组件加载动画
   },
+  request: {
+    // 拦截器
+    interceptors: {
+      request: {
+        onConfig: (config) => {
+          // 发送请求前：可以对 RequestConfig 做一些统一处理
+          config.headers = { a: 1 };
+          return config;
+        },
+        onError: (error) => {
+          return Promise.reject(error);
+        },
+      },
+      response: {
+        onConfig: (response) => {          
+          return response;
+        },
+        onError: (error) => {
+          // 请求出错：服务端返回错误状态码
+          console.log(error?.response?.data);
+          console.log(error?.response?.status);
+          console.log(error?.response?.headers);
+          return Promise.reject(error);
+        },
+      },
+    },
+  },
 };
 
 runApp(appConfig);
