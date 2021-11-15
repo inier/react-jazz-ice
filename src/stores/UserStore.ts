@@ -4,6 +4,8 @@
  */
 import { makeAutoObservable, observable, action } from 'mobx';
 import { getQueryString } from '@/utils';
+import { getLocationByIP } from '@/api/services/user';
+import { fakeAccountLogin } from '@/api/services/login';
 
 class UserStore {
   // 全局token
@@ -26,6 +28,7 @@ class UserStore {
 
     rootStore.commonRequestData = { token: this.token };
     rootStore.refreshToken = this.refreshToken.bind(this);
+    this.getIP();
   }
 
   /**
@@ -45,12 +48,25 @@ class UserStore {
     this.token = token;
   }
 
-
   /**
    * 退出登录
    */
   loginOut = () => {
     this.setToken(undefined);
+  };
+
+  getIP = () => {
+    return getLocationByIP().then((res) => {
+      console.log('location:', res);
+      return res;
+    });
+  };
+
+  getUser = () => {
+    return fakeAccountLogin().then((res) => {
+      console.log('getUser:', res);
+      return res;
+    });;
   };
 }
 

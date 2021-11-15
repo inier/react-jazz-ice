@@ -5,7 +5,7 @@
  * @param {String} url url
  * @returns {*} url对象，没有返回null
  */
-export function urlParse(url) {
+export function urlParse(url: any): any {
   /* eslint-disable no-useless-escape */
   const urlObj = {
     protocol: /^(.+)\:\/\//,
@@ -15,7 +15,7 @@ export function urlParse(url) {
     hash: /\#(\w+)\s$/,
   };
 
-  function formatQuery(str) {
+  function formatQuery(str: string) {
     return str.split('&').reduce((a, b) => {
       const arr = b.split('=');
       a[arr[0]] = arr[1];
@@ -117,38 +117,38 @@ export function replaceQueryParams(url, arg, val) {
  * @returns 返回删除参数后的URL
  */
 export function removeQueryParams(url, param) {
-  const urlparts = url.split('?');
-  if (urlparts.length >= 2) {
+  const urlParts = url.split('?');
+  if (urlParts.length >= 2) {
     // 参数名前缀
     const prefix = `${encodeURIComponent(param)}=`;
-    const pars = urlparts[1].split(/[&;]/g);
+    const paras = urlParts[1].split(/[&;]/g);
 
     // 循环查找匹配参数
-    for (let i = pars.length; i-- > 0;) {
-      if (pars[i].lastIndexOf(prefix, 0) !== -1) {
+    for (let i = paras.length; i > 0; i--) {
+      if (paras[i].lastIndexOf(prefix, 0) !== -1) {
         // 存在则删除
-        pars.splice(i, 1);
+        paras.splice(i, 1);
       }
     }
 
-    return urlparts[0] + (pars.length > 0 ? `?${pars.join('&')}` : '');
+    return `${urlParts[0]}${paras.length > 0 ? `?${paras.join('&')}` : ''}`;
   }
   return url;
 }
 
 /**
  * @description url的search转换为参数对象 ?a=1&b=2  => {a:'1',b:'2'}
- * @param {String} lsearch =location.search
+ * @param {String} search =location.search
  * @returns {Object} 转换后的对象
  */
-export function search2obj(lsearch) {
-  const search = (lsearch && lsearch.substr(1)) || '';
+export function search2obj(search) {
+  const searchT = (search && search.substr(1)) || '';
 
-  if (!search) {
+  if (!searchT) {
     return {};
   }
 
-  const paramsList = search.split('&');
+  const paramsList = searchT.split('&');
   const params = {};
 
   paramsList.forEach((i) => {
@@ -219,7 +219,7 @@ export function urlDecodeBase64(val) {
  * @param {string} path path
  * @returns {string} 格式化后的path
  */
-export function fomatPath(path) {
+export function formatPath(path) {
   if (!path) {
     return '/404';
   } else if (path.indexOf('//') >= -1) {
@@ -241,6 +241,6 @@ export function getUrl(path) {
   if (path.indexOf('://') > -1) {
     return path;
   } else {
-    return `${window.location.origin}${fomatPath(path)}`;
+    return `${window.location.origin}${formatPath(path)}`;
   }
 }

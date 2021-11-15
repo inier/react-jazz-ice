@@ -1,10 +1,10 @@
 // 发布后的相对根目录
 const ROOT = process.env.NODE_ENV === 'development' ? '/api' : '';
 const loc = '';
-const urls = {
-  GET_RESPONSE_CODE: `${loc}/resc/list`, // 获取统一返回码
-  CHECK_RESCODE_AUTHORITY: '/resApiEdge/resAPI/check', // 资源验证
-  GET_AUTHORIZE_URL: '/wxApiEdge/wxapi/getAuthorizeUrl', // 获取授权链接
+const urls: any = {
+  // GET_RESPONSE_CODE: `${loc}/resc/list`, // 获取统一返回码
+  CHECK_RES_CODE_AUTHORITY: '/resApiEdge/resAPI/check', // 资源验证
+  GET_IP: `${loc}/json/`, // 获取ip信息
 };
 
 Object.keys(urls).forEach((key) => {

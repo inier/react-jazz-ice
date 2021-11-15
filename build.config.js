@@ -7,6 +7,7 @@ module.exports = {
     PUBLIC_URL: '/toxic',
   },
   vite: true,
+  eslint: false,
   plugins: [
     [
       'build-plugin-fusion',
@@ -28,7 +29,7 @@ module.exports = {
       },
     ],
     ['build-plugin-keep-alive'],
-    ['build-plugin-dev-inspector'],
+    // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
   proxy: proxyConfig,
 };

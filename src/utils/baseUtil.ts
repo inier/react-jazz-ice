@@ -1,5 +1,4 @@
 // 基础方法集
-import { upperFirst } from 'lodash-es';
 
 /**
  * get value of name from cookie
@@ -13,21 +12,6 @@ export function getCookie(name) {
     return unescape(arr[2]);
   }
   return null;
-}
-
-/**
- * 字母前加前缀
- * @param {string} str 操作数
- * @param {string} [prefix='btn']  前缀，默认为'btn'
- * @returns 操作后值
- */
-export function addPrefix(str, prefix = 'btn') {
-  const arr = upperFirst(str.trim()).split(/\s+/);
-  const tResult = [];
-  for (let i = arr.length - 1; i >= 0; i--) {
-    tResult.push(`${prefix}${arr[i]}`);
-  }
-  return tResult.join(' ');
 }
 
 /**

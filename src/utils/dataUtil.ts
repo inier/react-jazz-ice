@@ -41,8 +41,9 @@ export function initObjValue(obj) {
  * @returns {object} 找到的对象，没找到返回{}
  */
 export function findDeepByKey(data, { key, value }, seed) {
-  const result = [];
-  function tFindDeepByKey(dataT, checkKey) {
+  const result: any = [];
+
+  function tFindDeepByKey(dataT: string | any[], checkKey: string | number) {
     for (let i = 0; i < dataT.length; i++) {
       const item = dataT[i];
       const tValue = item[key];
@@ -94,7 +95,7 @@ export function findLeafForMap(arr = [], seed = 'data') {
  * @param {string} [key='id'] 指定key
  * @returns {array} 返回指定key的value集合 [xx,xxx]
  */
-export function getValuesForMap(data = [], key = 'id') {
+export function getValuesForMap(data: string[] = [], key = 'id'): any[] {
   if (isEmpty(data) || data === null) {
     return [];
   }
@@ -120,8 +121,8 @@ export function assembleData(
   // 是否扩展的开关
   let flag = false;
   // 选择对象片段
-  const tArr = [];
-  return (function tAssembleData(array) {
+  const tArr: any = [];
+  return (function tAssembleData(array: any) {
     if (array === null) {
       return [];
     }
@@ -135,8 +136,8 @@ export function assembleData(
 
       // 获取满足options中key和value相等的子树
       if (item[optKey] === optValue) {
-        (function tMapResult(result) {
-          return result.map((it) => {
+        (function tMapResult(result: any) {
+          return result.map((it: any) => {
             tArr.push(it[optKey]);
             const data = it[seed];
             if (data && data.length) {
@@ -150,7 +151,7 @@ export function assembleData(
       // 根据keysMap条件组合数据
       const tResult = tMapKeys.reduce((result, key) => {
         const res = { ...result };
-        const tData = item[key];
+        const tData: any = item[key];
 
         if (key === seed && tData !== null && typeof tData === 'object' && Array.isArray(tData) && tData.length > 0) {
           res[keysMap[key]] = tAssembleData(tData);
@@ -175,14 +176,17 @@ export function assembleData(
  * @param {object} [keysMap={ value: 'key' }] 键值映射表，{原key: 目标key}
  * @returns 组装后的数组，格式:[{}]
  */
-export function bindKeyForData(data, keysMap = { value: 'key' }) {
+export function bindKeyForData(data: any[], keysMap: object = { value: 'key' }) {
   if (data !== null && typeof data === 'object' && Array.isArray(data) && data.length > 0) {
     const tKey = Object.keys(keysMap)[0];
+
     data.forEach((item) => {
       item[keysMap[tKey]] = item[tKey];
     });
+
     return data;
   }
+  return [];
 }
 
 /**
@@ -192,7 +196,7 @@ export function bindKeyForData(data, keysMap = { value: 'key' }) {
  * @param {*} flatObj 操作对象
  * @returns 映射对象
  */
-export function flatObjectMap(prefix = '', mapKeys = [], flatObj = {}) {
+export function flatObjectMap(prefix = '', mapKeys: string[] = [], flatObj = {}) {
   if (mapKeys.length === 0) {
     return;
   }
@@ -200,10 +204,10 @@ export function flatObjectMap(prefix = '', mapKeys = [], flatObj = {}) {
   if (tKeys.length === 0) {
     tKeys = mapKeys;
   }
-  return tKeys.map((key) => {
+  return tKeys.map((key: string) => {
     if (mapKeys.includes(key)) {
       return {
-        [key]: `${this.prefix}${upperFirst(key)}`,
+        [key]: `${prefix}${upperFirst(key)}`,
       };
     } else {
       return { [key]: key };
@@ -232,8 +236,10 @@ export function flatDataToArr(data = [], seed = 'data') {
 export function flatDataToObj(data, key = 'id', seed = 'data') {
   const results = {};
   const mROOT = '0';
+
   (function tFlatData(dataT) {
-    const r = [];
+    const r: any = [];
+
     dataT.forEach((item) => {
       r.push(item);
       results[item[key]] = item;
@@ -262,37 +268,21 @@ export function flatDataToObj(data, key = 'id', seed = 'data') {
  * @param {*} [renameKeys=[]] 要重命名的keys  ['id', 'name', 'code', 'pid']
  * @returns 重命名后的对象
  */
-export function renameFlatObject(flatObj, prefix = '', renameKeys = []) {
+export function renameFlatObject(flatObj: any, prefix = '', renameKeys: any = []) {
   if (renameKeys.length === 0) {
     return;
   }
-  const tKeys = Object.keys(flatObj);
+  const tKeys: string[] = Object.keys(flatObj);
   return tKeys.map((key) => {
     if (renameKeys.includes(key)) {
       return {
-        [`${this.prefix}${upperFirst(key)}`]: flatObj[key],
+        [`${prefix}${upperFirst(key)}`]: flatObj[key],
       };
     } else {
       return { [key]: flatObj[key] };
     }
   });
 }
-
-// 分类阶层对应关系整理，格式：{子id:父id}
-// export function dataRank(data, key="id") {
-//     var rank = {};
-//     data.forEach((item)=>{
-//         const tKey = item[key];
-//         const tVal = value;
-//         if (Array.isArray(tVal)) {
-//             tVal.forEach((item)=>{
-//               rank[item.value + ""] = tKey;
-//             });
-//           }
-//     });
-
-//     return rank;
-//   }
 
 /**
  * @description 通过id获取其遗传基因链，顺序：[...,父id,当前id]
@@ -301,13 +291,13 @@ export function renameFlatObject(flatObj, prefix = '', renameKeys = []) {
  * @param {*} reverse 是否反序
  * @returns {array}
  */
-export function getGenes(data, id, reverse = false) {
-  const genes = [];
+export function getGenes(data: any, id: any, reverse = false) {
+  const genes: number[] = [];
   const mROOT = '0';
 
   if (!isEmpty(data)) {
     (function tGetGenes(dataT, idT) {
-      each(dataT, (value, key) => {
+      each(dataT, (value: any, key: any) => {
         if (idT === key) {
           genes.push(Number(idT));
 
@@ -324,43 +314,4 @@ export function getGenes(data, id, reverse = false) {
   } else {
     return genes.reverse();
   }
-}
-
-/** * 以下为非通用方法 ** */
-// 根据传入的选中的ID，反查组织数据，返回对应的角色(树形的结构不一样，所以另外处理)
-export function getInitRoleArry(idsArry, dataSource) {
-  const newArray = [];
-  idsArry.forEach((item) => {
-    newArray.push(dataSource.find((it) => it.id === item));
-  });
-  return newArray;
-}
-
-// 穿梭框返回的是：key,label
-export function getInitArry(data) {
-  const newPosArr = [];
-  data.forEach((it) => {
-    const obj = {};
-    obj.id = it.key;
-    obj.name = it.label;
-    obj.isCheck = it.disabled ? '' : 'Y';
-    newPosArr.push(obj);
-  });
-  return newPosArr;
-}
-
-// 根据数组对象，返回取对应的ID，字符串拼接
-// param:一维数组
-export function initIdsStr(param) {
-  if (!param) {
-    return;
-  }
-  const newArry = [];
-  param.forEach((item) => {
-    newArry.push(item.id);
-    if (item.data && item.data.length > 0) {
-      initIdsStr(item.data);
-    }
-  });
-  return newArry.join(',');
 }

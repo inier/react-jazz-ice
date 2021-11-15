@@ -12,16 +12,18 @@ class ResponseCode {
   newCodes: any;
 
   constructor() {
-    // 用应用的第一级目录做不同应用的区分
-    const appPath = window.location.pathname.split('/')[1];
+    if (ApiUrls.GET_RESPONSE_CODE) {
+      // 用应用的第一级目录做不同应用的区分
+      const appPath = window.location.pathname.split('/')[1];
 
-    try {
-      this.newCodes = JSON.parse(window.localStorage.getItem(`${appPath}_error_codes`) || '{}');
-    } catch (error) {
-      console.log('ResponseCode:constructor', error);
+      try {
+        this.newCodes = JSON.parse(window.localStorage.getItem(`${appPath}_error_codes`) || '{}');
+      } catch (error) {
+        console.log('ResponseCode:constructor', error);
+      }
+
+      ApiUrls.GET_RESPONSE_CODE && this.getNewCode();
     }
-
-    ApiUrls.GET_RESPONSE_CODE && this.getNewCode();
   }
 
   /**

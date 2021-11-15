@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { makeAutoObservable, observable, action } from 'mobx';
 import { ResponseCode } from '@/api';
-import { isMicroMessenger } from '@/utils';
+import { isMobile } from '@/utils';
 
 /**
  * 应用当前UI的状态，比如：窗口尺寸、当前展示的页面、渲染状态、网络状态等等
@@ -16,6 +16,7 @@ class UIStore {
 
   // 需要展示的错误信息
   @observable toastMsg: any;
+  isMobile: boolean | RegExpMatchArray | null;
 
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false });
@@ -27,9 +28,9 @@ class UIStore {
     rootStore.handleRequestError = this.handleRequestError.bind(this);
 
     // 浏览器UA判断，true：微信，false：h5等其他
-    this.inWeChat = isMicroMessenger();
+    this.isMobile = isMobile;
     // 数据持久化
-    rootStore.persistParam('inWeChat', undefined, true);
+    rootStore.persistParam('isMobile', undefined, true);
   }
 
   @action

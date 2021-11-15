@@ -6,7 +6,7 @@
  * @param {*} type 请求类型, application/json：JSON数据格式,默认;application/octet-stream：二进制流数据（如常见的文件下载）
  * @returns {boolean}
  */
-export function checkContentType(headers = {}, type = 'application/json') {
+export function checkContentType(headers: any = {}, type: any = 'application/json'): boolean {
   if (!Object.keys(headers).length) {
     console.log('header配置有误，', headers);
     return false;
@@ -26,6 +26,7 @@ export function checkContentType(headers = {}, type = 'application/json') {
  * @class Agent
  */
 export default class Agent {
+  headers: Headers;
   constructor() {
     this.headers = new Headers();
     // header类型不区分大小写
@@ -44,7 +45,7 @@ export default class Agent {
   //     }
   //     return res.json();
   // }
-  handleResponse(res) {
+  handleResponse(res: { ok: any; headers: any; json: () => any; text: () => any; status: any; statusText: any }) {
     if (res && res.ok) {
       const tHeader = res.headers;
       if (!Object.keys(tHeader).length || checkContentType(tHeader, 'application/json')) {
@@ -55,17 +56,18 @@ export default class Agent {
         return res.text();
       }
     } else {
-      const error = new Error(`请求失败！状态码：${res.status}，失败信息：${res.statusText}`);
+      const error: any = new Error(`请求失败！状态码：${res.status}，失败信息：${res.statusText}`);
       error.response = res;
       return Promise.reject(error);
     }
-  };
+  }
+
   /**
    * @description 发生错误的回调
-   * @param {*} error 错误内容
+   * @param {Error} error 错误内容
    * @returns undefined
    */
-  handleCatch(error) {
+  handleCatch(error: Error) {
     console.error(error);
     return undefined;
   }
@@ -76,7 +78,7 @@ export default class Agent {
    * @param {*} params 参数
    * @returns Promise
    */
-  post(url, params) {
+  post(url: any, params: any) {
     return this.sendRequest(url, params, 'POST', false);
   }
 
@@ -86,7 +88,7 @@ export default class Agent {
    * @param {*} params 参数
    * @returns Promise
    */
-  get(url, params) {
+  get(url: any, params: any) {
     return this.sendRequest(url, params, 'GET', false);
   }
 
@@ -97,7 +99,7 @@ export default class Agent {
    * @param {*} headers 自定义的header
    * @returns Promise
    */
-  postWithHeader(url, param, headers) {
+  postWithHeader(url: any, param: any, headers: any) {
     return this.sendRequestWithHeader(url, param, 'POST', headers);
   }
 
@@ -108,7 +110,7 @@ export default class Agent {
    * @param {*} headers 自定义的header
    * @returns Promise
    */
-  getWithHeader(url, param, headers) {
+  getWithHeader(url: any, param: any, headers: any) {
     return this.sendRequestWithHeader(url, param, 'GET', headers);
   }
 
@@ -118,7 +120,7 @@ export default class Agent {
    * @param {*} params 参数
    * @returns Promise
    */
-  postFile(url, params) {
+  postFile(url: any, params: any) {
     return this.sendRequest(url, params, 'POST', true);
   }
 
@@ -130,11 +132,11 @@ export default class Agent {
    * @param {boolean} isFile 是否为上传文件
    * @returns Promise
    */
-  sendRequest(url, _params, _type, isFile) {
+  sendRequest(url: any, _params: any, _type: any, isFile: boolean) {
     let fullUrl = url;
     let type = _type;
     let params = _params;
-    let form = [];
+    let form: any = [];
 
     // type不传就默认为GET
     type = type || 'GET';
@@ -162,7 +164,7 @@ export default class Agent {
       form = form.join('&');
     }
 
-    const rq = {
+    const rq: any = {
       method: type,
       headers: this.headers,
       // 提交cookie
@@ -194,10 +196,10 @@ export default class Agent {
    * @param {*} headers 自定义的header
    * @returns  Promise
    */
-  sendRequestWithHeader(url, _params, type = 'GET', headers) {
+  sendRequestWithHeader(url: any, _params: any, type = 'GET', headers: any) {
     let fullUrl = url;
     let params = _params;
-    let form = [];
+    let form: any = [];
 
     // 组装参数
     params = params || {};
@@ -210,7 +212,7 @@ export default class Agent {
     });
     form = form.join('&');
 
-    const rq = {
+    const rq: any = {
       method: type,
       headers,
       // 提交cookie

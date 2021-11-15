@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import { request } from 'ice'; // 请求底层处理
-import { persistParam } from '@/utils/persistData.js'; // 数据持久化
+import { Agent } from '@/api';
+import { persistParam } from '@/utils/persistData'; // 数据持久化
 
 /* eslint-disable no-use-before-define */
 /**

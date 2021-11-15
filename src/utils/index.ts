@@ -4,13 +4,11 @@
 export * from './checkDevice';
 // 基础库
 export * from './baseUtil';
-// UI相关
-export * from './viewUtil';
 // URL相关
 export * from './urlUtil';
 // 数据相关：Array和Map等
 export * from './dataUtil';
 // 表单处理相关
-export * from './formUtil';
+export * from './viewUtil';
 // 鉴权相关
 export * from './authority';

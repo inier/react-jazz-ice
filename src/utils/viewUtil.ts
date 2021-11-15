@@ -6,12 +6,12 @@ import { cloneDeep } from 'lodash-es';
  * @param {array} ext 扩展数据，默认值[]
  * @returns {array} 组装后的值
  */
-export function assembleFormConfig(src = [], ext = []) {
+export function assembleFormConfig(src: any[] = [], ext: any[] = []): any[] {
   if (ext.length === 0) {
     return src;
   }
   const tData = cloneDeep(src);
-  ext.forEach((item) => {
+  ext.forEach((item: any) => {
     const tId = item.key;
     const tIndex = tData.findIndex((it) => {
       return it.key === tId;

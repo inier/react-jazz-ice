@@ -67,21 +67,3 @@ import 'core-js/fn/object/entries';
 import 'core-js/fn/promise/finally';
 
 require('raf').polyfill(window);
-
-// CustomEvent() constructor functionality in IE9, IE10, IE11
-(function () {
-  if (typeof window.CustomEvent === 'function') {
-    return false;
-  }
-
-  function CustomEvent(event, params) {
-    const tParams = params || { bubbles: false, cancelable: false, detail: undefined };
-    const evt = document.createEvent('CustomEvent');
-    evt.initCustomEvent(event, tParams.bubbles, tParams.cancelable, tParams.detail);
-    return evt;
-  }
-
-  CustomEvent.prototype = window.Event.prototype;
-
-  window.CustomEvent = CustomEvent;
-})();
