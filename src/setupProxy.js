@@ -1,10 +1,10 @@
+/* eslint-disable @iceworks/best-practices/no-http-url */
 // 开发环境代理配置
 
 module.exports = {
   '/api/mock': {
     // mock api地址
     target: 'http://localhost:3000/mock/12',
-    enable: true,
     changeOrigin: true,
     pathRewrite: {
       '^/api/mock': '',
@@ -12,7 +12,6 @@ module.exports = {
   },
   '/api': {
     target: 'http://ip-api.com/',
-    enable: true,
     changeOrigin: true,
     pathRewrite: {
       '^/api': '',

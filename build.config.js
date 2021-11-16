@@ -31,5 +31,21 @@ module.exports = {
     ['build-plugin-keep-alive'],
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
-  proxy: proxyConfig,
+  proxy: {
+    '/api/mock': {
+      // mock api地址
+      target: 'http://localhost:3000/mock/12',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api/mock': '',
+      },
+    },
+    '/api': {
+      target: 'http://ip-api.com/',
+      changeOrigin: true,
+      pathRewrite: {
+        '^/api': '',
+      },
+    },
+  },
 };

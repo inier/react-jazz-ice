@@ -66,7 +66,7 @@ class UserStore {
     return fakeAccountLogin().then((res) => {
       console.log('getUser:', res);
       return res;
-    });;
+    });
   };
 }
 

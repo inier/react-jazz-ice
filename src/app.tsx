@@ -1,4 +1,4 @@
-import { runApp, IAppConfig } from 'ice';
+import { runApp, IAppConfig, request } from 'ice';
 import LocaleProvider from '@/components/LocaleProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { getLocale } from '@/utils/locale';
@@ -13,9 +13,8 @@ configure({
   observableRequiresReaction: true,
   disableErrorBoundaries: false,
 });
-
 const locale = getLocale();
-
+let cancel;
 const appConfig: IAppConfig = {
   app: {
     rootId: 'ice-container',
@@ -35,6 +34,50 @@ const appConfig: IAppConfig = {
     type: 'browser',
     basename: PUBLIC_URL, // 暂不支持，process.env.PUBLIC_URL
     // fallback: <></>, // 组件加载动画
+  },
+  request: {
+    // 拦截器
+    interceptors: {
+      request: {
+        onConfig: (config) => {
+          // 发送请求前：可以对 RequestConfig 做一些统一处理
+          // 实现上一个接口还未响应  下一个接口开始请求，把上一个接口取消
+          if (typeof cancel === 'function') {
+            cancel('强制取消了请求');
+          }
+          config.cancelToken = new request.CancelToken((c) => {
+            cancel = c;
+          });
+
+          return config;
+        },
+        onError: (error) => {
+          return Promise.reject(error);
+        },
+      },
+      response: {
+        onConfig: (response) => {
+          cancel = null;
+
+          return response;
+        },
+        onError: (error) => {
+          // 请求出错：服务端返回错误状态码
+          console.log(error.response?.data);
+          console.log(error.response?.status);
+          console.log(error.response?.headers);
+
+          cancel = null;
+          if (request.isCancel(error)) {
+            // 中断promise链接
+            return new Promise(() => {});
+          } else {
+            // 把错误继续向下传递
+            return Promise.reject(error);
+          }
+        },
+      },
+    },
   },
 };
 

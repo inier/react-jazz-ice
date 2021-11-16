@@ -1,5 +1,5 @@
 // 页面注册
-import { lazy } from 'ice';
+import { lazy } from '@ozo/lazy-loader';
 
 const Login = lazy(() => import('./Login'));
 
