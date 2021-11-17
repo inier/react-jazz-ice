@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Form, Typography, Avatar, Tab, MenuButton, Button, Card, Step, Table, Divider } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -47,14 +48,12 @@ const DEFAULT_DATA: DataSource = {
     ['C&B审核人', '吴永辉'],
     ['业务线审批', '倩倩'],
     ['HR线审批', '叶俊'],
-  ].map(
-    (item): LogItem => ({
-      opStatus: item[0],
-      operator: item[1],
-      opResult: '同意',
-      opTime: '2019-11-11 09:36',
-    }),
-  ),
+  ].map((item): LogItem => ({
+    opStatus: item[0],
+    operator: item[1],
+    opResult: '同意',
+    opTime: '2019-11-11 09:36',
+  })),
   person: {
     avatar: 'https://img.alicdn.com/tfs/TB10Kr8orj1gK0jSZFOXXc7GpXa-1000-1000.png',
     surname: '谢',
@@ -74,8 +73,7 @@ const DEFAULT_DATA: DataSource = {
     company: '浙江杭州天猫有限公司',
     position: '高级研发专家',
     address: '中国/浙江',
-    descripton:
-      'Fusion 是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
+    descripton: 'Fusion 是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
   },
   salary: {
     month: '20,000 USD',
@@ -86,7 +84,11 @@ const DEFAULT_DATA: DataSource = {
 };
 
 const AdvancedDetail: React.FunctionComponent<AdvancedDetailProps> = (props: AdvancedDetailProps): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onTabChange = (): viod => {}, onTableTabChange = (): void => {} } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+    onTabChange = (): viod => { },
+    onTableTabChange = (): void => { },
+  } = props;
 
   const renderTab = (): JSX.Element => {
     return (

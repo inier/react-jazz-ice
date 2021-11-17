@@ -1,4 +1,4 @@
-import { useEffect, useImperativeHandle } from 'react';
+import React, { useEffect, useImperativeHandle } from 'react';
 import { Select, Form, Field, Input } from '@alifd/next';
 
 const FormItem = Form.Item;
@@ -42,34 +42,67 @@ const Operation: React.ForwardRefRenderFunction<OperationRef, OperaitionProps> =
       field.setValues(newValues);
     }
   }, [field, dataSource]);
-  useImperativeHandle<OperationRef, OperationRef>(ref, () => {
-    return {
-      getValues(callback: (vals: Record<string, unknown>) => void) {
-        field.validate((errors, values): void => {
-          if (errors) {
-            return;
-          }
-          callback(values);
-        });
-      },
-    };
-  });
+  useImperativeHandle<OperationRef, OperationRef>(
+    ref,
+    () => {
+      return {
+        getValues(callback: (vals: Record<string, unknown>) => void) {
+          field.validate((errors, values): void => {
+            if (errors) {
+              return;
+            }
+            callback(values);
+          });
+        },
+      };
+    },
+  );
 
   const isPreview = actionType === 'preview';
 
   return (
     <>
-      <Form isPreview={isPreview} fullWidth labelAlign={isPreview ? 'left' : 'top'} field={field} {...formItemLayout}>
-        <FormItem label="姓名:" required={!isPreview} requiredMessage="必填">
-          <Input {...field.init('name')} />
+      <Form
+        isPreview={isPreview}
+        fullWidth
+        labelAlign={isPreview ? 'left' : 'top'}
+        field={field}
+        {...formItemLayout}
+      >
+        <FormItem
+          label="姓名:"
+          required={!isPreview}
+          requiredMessage="必填"
+        >
+          <Input
+            {...field.init('name')}
+          />
         </FormItem>
-        <FormItem label="邮箱:" format="email" required={!isPreview} requiredMessage="必填">
-          <Input name="email" />
+        <FormItem
+          label="邮箱:"
+          format="email"
+          required={!isPreview}
+          requiredMessage="必填"
+        >
+          <Input
+            name="email"
+          />
         </FormItem>
-        <FormItem label="手机号:" format="tel" required={!isPreview} requiredMessage="必填">
-          <Input name="phone" />
+        <FormItem
+          label="手机号:"
+          format="tel"
+          required={!isPreview}
+          requiredMessage="必填"
+        >
+          <Input
+            name="phone"
+          />
         </FormItem>
-        <FormItem label="性别:" required={!isPreview} requiredMessage="必填">
+        <FormItem
+          label="性别:"
+          required={!isPreview}
+          requiredMessage="必填"
+        >
           <Select
             name="gender"
             dataSource={[

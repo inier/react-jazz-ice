@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button, Icon, Checkbox, Overlay } from '@alifd/next';
 import { ReactSortable, ItemInterface } from 'react-sortablejs';
 import { ColumnProps } from '@alifd/next/types/table/index';
@@ -7,8 +7,7 @@ import { getColumnKey } from './util';
 
 import styles from './index.module.scss';
 
-export type Column = ColumnProps &
-ItemInterface & {
+export type Column = ColumnProps & ItemInterface & {
   id?: string | number;
   children?: Column[];
 };
@@ -50,15 +49,33 @@ function CustomList({ columns, onChange }: { columns: Column[]; onChange: (cols:
     onChange(visibleColumns);
   };
 
+
   return (
     <React.Fragment>
-      <Button text size="large" ref={buttonRef} onClick={() => setVisible(!visible)}>
+      <Button
+        text
+        size="large"
+        ref={buttonRef}
+        onClick={() => setVisible(!visible)}
+      >
         <TableActionIcon type="custom-list" size="small" />
       </Button>
-      <Overlay align="tr br" visible={visible} target={buttonRef.current}>
-        <ReactSortable className={styles.columnSortPanel} handle=".column-handle" list={columns} setList={onChange}>
+      <Overlay
+        align="tr br"
+        visible={visible}
+        target={buttonRef.current}
+      >
+        <ReactSortable
+          className={styles.columnSortPanel}
+          handle=".column-handle"
+          list={columns}
+          setList={onChange}
+        >
           {columns.map((item, idx) => (
-            <div className="sort-item-container" key={getColumnKey(item)}>
+            <div
+              className="sort-item-container"
+              key={getColumnKey(item)}
+            >
               <div className="sort-item">
                 <Checkbox
                   className="sort-checkbox"
@@ -70,26 +87,28 @@ function CustomList({ columns, onChange }: { columns: Column[]; onChange: (cols:
 
                 <Icon className="column-handle" type="ellipsis" size="small" />
               </div>
-              {Array.isArray(item.children) && (
-                <ReactSortable
-                  handle=".column-handle"
-                  list={item.children}
-                  setList={(newState) => onColumnChildrenChange(idx, newState)}
-                >
-                  {item.children.map((childrenItem) => (
-                    <div key={getColumnKey(childrenItem)} className="sort-item sort-item-children">
-                      <Checkbox
-                        checked={!childrenItem.hidden}
-                        onChange={(status) => onHiddenChange(getColumnKey(childrenItem), !status)}
-                      >
-                        {childrenItem.title}
-                      </Checkbox>
+              {
+                Array.isArray(item.children) && (
+                  <ReactSortable
+                    handle=".column-handle"
+                    list={item.children}
+                    setList={(newState) => onColumnChildrenChange(idx, newState)}
+                  >
+                    {item.children.map((childrenItem) => (
+                      <div key={getColumnKey(childrenItem)} className="sort-item sort-item-children">
+                        <Checkbox
+                          checked={!childrenItem.hidden}
+                          onChange={(status) => onHiddenChange(getColumnKey(childrenItem), !status)}
+                        >
+                          {childrenItem.title}
+                        </Checkbox>
 
-                      <Icon className="column-handle" type="ellipsis" size="small" />
-                    </div>
-                  ))}
-                </ReactSortable>
-              )}
+                        <Icon className="column-handle" type="ellipsis" size="small" />
+                      </div>
+                    ))}
+                  </ReactSortable>
+                )
+              }
             </div>
           ))}
         </ReactSortable>

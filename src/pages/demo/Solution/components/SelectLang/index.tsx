@@ -1,3 +1,4 @@
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Select, Card } from '@alifd/next';
 import { getLocale, setLocale } from '@/utils/locale';
@@ -24,7 +25,7 @@ export default function SelectLang() {
     <Card free>
       <Card.Header
         title={<FormattedMessage id="app.i18n.demo" />}
-        extra={
+        extra={(
           <Select
             onChange={changeLang}
             value={selectedLang}
@@ -38,8 +39,7 @@ export default function SelectLang() {
                 </Option>
               );
             })}
-          </Select>
-        }
+          </Select>)}
       />
       <Card.Divider />
       <Card.Content>

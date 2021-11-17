@@ -1,4 +1,16 @@
-import { Box, Button, Card, Form, Input, Select, Radio, Field, Divider, Message } from '@alifd/next';
+import React, { SFC } from 'react';
+import {
+  Box,
+  Button,
+  Card,
+  Form,
+  Input,
+  Select,
+  Radio,
+  Field,
+  Divider,
+  Message,
+} from '@alifd/next';
 import styles from './index.module.scss';
 
 export interface DataSource {
@@ -36,8 +48,12 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const ClassifiedForm = (props): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
+const ClassifiedForm: SFC<ClassifiedFormProps> = (props): JSX.Element => {
+  const {
+    dataSource = DEFAULT_DATA,
+    onSubmit = () => {},
+    onCancel = () => {},
+  } = props;
 
   const jobField = Field.useField({ values: dataSource.job });
   const treatmentField = Field.useField({ values: dataSource.treatment });
@@ -111,12 +127,8 @@ const ClassifiedForm = (props): JSX.Element => {
             </Form.Item>
             <Form.Item colSpan={4} label="选项/RSU">
               <Radio.Group name="rsu" aria-labelledby="rsu">
-                <Radio id="has-rsu" value>
-                  是
-                </Radio>
-                <Radio id="has-not-rsu" value={false}>
-                  否
-                </Radio>
+                <Radio id="has-rsu" value>是</Radio>
+                <Radio id="has-not-rsu" value={false}>否</Radio>
               </Radio.Group>
             </Form.Item>
             <Form.Item colSpan={8} label="选项/RSU 描述">
@@ -126,12 +138,13 @@ const ClassifiedForm = (props): JSX.Element => {
           <Divider />
           <Form.Item colSpan={12}>
             <Box spacing={8} direction="row">
-              <Form.Submit type="primary" onClick={handleSubmit} validate>
-                提交
+              <Form.Submit
+                type="primary"
+                onClick={handleSubmit}
+                validate
+              >提交
               </Form.Submit>
-              <Button onClick={onCancel} type="secondary">
-                取消
-              </Button>
+              <Button onClick={onCancel} type="secondary">取消</Button>
             </Box>
           </Form.Item>
         </Card.Content>

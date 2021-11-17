@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Button, Field, Table, Card, Pagination, Message, Dialog } from '@alifd/next';
 import { useFusionTable, useSetState } from 'ahooks';
 
@@ -21,8 +21,8 @@ const getTableData = (
       }
     });
     return fetch(`https://randomuser.me/api?results=${pageSize}&${query}`)
-      .then((res) => res.json())
-      .then((res) => ({
+      .then(res => res.json())
+      .then(res => ({
         total: 55,
         list: res.results.slice(0, 10),
       }));
@@ -86,16 +86,13 @@ const DialogTable: React.FC = () => {
     setState({ columnWidth: newWidth });
   };
 
-  const operationCallback = useCallback(
-    ({ actionType, dataSource }: OperaitionProps): void => {
-      setState({
-        actionType,
-        optCol: dataSource,
-        actionVisible: true,
-      });
-    },
-    [setState],
-  );
+  const operationCallback = useCallback(({ actionType, dataSource }: OperaitionProps): void => {
+    setState({
+      actionType,
+      optCol: dataSource,
+      actionVisible: true,
+    });
+  }, [setState]);
 
   const handleCancel = useCallback((): void => {
     setState({ actionVisible: false });
@@ -112,36 +109,45 @@ const DialogTable: React.FC = () => {
     handleCancel();
   }, [handleCancel, reset, state]);
 
-  const handleDelete = useCallback(
-    (data: any) => {
-      if (!data) {
-        return;
-      }
-      Dialog.confirm({
-        title: '删除提醒',
-        content: `确定删除 ${data.name.last} 吗`,
-        onOk() {
-          Message.success(`${data.name.last} 删除成功!`);
-          reset();
-        },
-      });
-    },
-    [reset],
-  );
+  const handleDelete = useCallback((data: any) => {
+    if (!data) {
+      return;
+    }
+    Dialog.confirm({
+      title: '删除提醒',
+      content: `确定删除 ${data.name.last} 吗`,
+      onOk() {
+        Message.success(`${data.name.last} 删除成功!`);
+        reset();
+      },
+    });
+  }, [reset]);
 
   const cellOperation = (...args: any[]): React.ReactNode => {
     const record = args[2];
     return (
       <div>
-        <Button text type="primary" onClick={() => operationCallback({ actionType: 'edit', dataSource: record })}>
+        <Button
+          text
+          type="primary"
+          onClick={() => operationCallback({ actionType: 'edit', dataSource: record })}
+        >
           编辑
         </Button>
         &nbsp;&nbsp;
-        <Button text type="primary" onClick={() => handleDelete(record)}>
+        <Button
+          text
+          type="primary"
+          onClick={() => handleDelete(record)}
+        >
           删除
         </Button>
         &nbsp;&nbsp;
-        <Button text type="primary" onClick={() => operationCallback({ actionType: 'preview', dataSource: record })}>
+        <Button
+          text
+          type="primary"
+          onClick={() => operationCallback({ actionType: 'preview', dataSource: record })}
+        >
           查看
         </Button>
       </div>
@@ -162,7 +168,12 @@ const DialogTable: React.FC = () => {
             <Table.Column title="email" dataIndex="email" resizable width={columnWidth.email} />
             <Table.Column title="phone" dataIndex="phone" resizable width={columnWidth.phone} />
             <Table.Column title="gender" dataIndex="gender" resizable width={columnWidth.gender} />
-            <Table.Column title="操作" resizable width={columnWidth.operation} cell={cellOperation} />
+            <Table.Column
+              title="操作"
+              resizable
+              width={columnWidth.operation}
+              cell={cellOperation}
+            />
           </Table>
           <Pagination
             style={{ marginTop: 16, textAlign: 'right' }}

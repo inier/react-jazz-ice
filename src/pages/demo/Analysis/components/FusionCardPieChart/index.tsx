@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Radio, Card, Box } from '@alifd/next';
 import { Chart, Geom, Coord, Axis, Legend, Guide } from 'bizcharts';
 
@@ -56,15 +56,16 @@ export interface FusionCardLineChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
-  props: FusionCardLineChartProps,
-): JSX.Element => {
-  const { cardConfig = DEFAULT_DATA } = props;
+const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (props: FusionCardLineChartProps): JSX.Element => {
+  const {
+    cardConfig = DEFAULT_DATA,
+  } = props;
 
   const { title, value, chartData, chartHeight } = cardConfig;
 
   const [type, setType] = useState('one');
   const changeType = (key: string) => setType(key);
+
 
   return (
     <Card free>
@@ -72,7 +73,12 @@ const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
       <Card.Divider />
       <Card.Content>
         <Box align="center">
-          <Radio.Group shape="button" value={type} onChange={changeType} className={styles.radioGroup}>
+          <Radio.Group
+            shape="button"
+            value={type}
+            onChange={changeType}
+            className={styles.radioGroup}
+          >
             <Radio value="one" className={styles.flex1}>
               类目一
             </Radio>

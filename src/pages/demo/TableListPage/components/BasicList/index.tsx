@@ -1,18 +1,5 @@
-import { useState, useEffect } from 'react';
-import {
-  Card,
-  Table,
-  Pagination,
-  Divider,
-  ResponsiveGrid,
-  Button,
-  Box,
-  Form,
-  Input,
-  Select,
-  Icon,
-  Loading,
-} from '@alifd/next';
+import React, { useState, useEffect } from 'react';
+import { Card, Table, Pagination, Divider, ResponsiveGrid, Button, Box, Form, Input, Select, Icon, Loading } from '@alifd/next';
 
 import styles from './index.module.scss';
 
@@ -53,7 +40,9 @@ interface ITableListProps {
 }
 
 const TableList: React.FunctionComponent<ITableListProps> = (props: ITableListProps): JSX.Element => {
-  const { dataSource = DEFAULT_DATA } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+  } = props;
 
   const [loading, setLoading] = useState(true);
   const [expand, setExpand] = useState(false);
@@ -123,7 +112,13 @@ const TableList: React.FunctionComponent<ITableListProps> = (props: ITableListPr
                 </>
               )}
               <Cell colSpan={3} className={styles.btns}>
-                <Box spacing={8} direction="row" align="flex-end" justify="center" style={{ height: '100%' }}>
+                <Box
+                  spacing={8}
+                  direction="row"
+                  align="flex-end"
+                  justify="center"
+                  style={{ height: '100%' }}
+                >
                   <Button type="primary" onClick={onOperation}>
                     查询
                   </Button>

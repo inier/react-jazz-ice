@@ -1,4 +1,18 @@
-import { Form, Input, Radio, Select, Checkbox, Field, Table, Grid, Button, Icon, Card, Pagination } from '@alifd/next';
+import * as React from 'react';
+import {
+  Form,
+  Input,
+  Radio,
+  Select,
+  Checkbox,
+  Field,
+  Table,
+  Grid,
+  Button,
+  Icon,
+  Card,
+  Pagination,
+} from '@alifd/next';
 
 import { useFusionTable } from 'ahooks';
 
@@ -51,10 +65,7 @@ const LOCATIONS = [
   { label: '杭州', value: 'hz' },
 ];
 
-const getTableData = async (
-  { current, pageSize }: { current: number; pageSize: number },
-  formData: Record<string, any>,
-) => {
+const getTableData = async ({ current, pageSize }: { current: number; pageSize: number }, formData: Record<string, any>) => {
   const query = Object.entries(formData)
     .map(([key, value]) => (value ? `&${key}=${value}` : ''))
     .reduce((prev, curr) => prev + curr, `page=${current}&size=${pageSize}`);
@@ -69,9 +80,12 @@ const getTableData = async (
 
 export default function SingleColFilterTable() {
   const field = Field.useField();
-  const { paginationProps, tableProps, search } = useFusionTable(getTableData, {
-    field,
-  });
+  const { paginationProps, tableProps, search } = useFusionTable(
+    getTableData,
+    {
+      field,
+    },
+  );
   const { type, changeType, submit } = search;
   return (
     <Card free>

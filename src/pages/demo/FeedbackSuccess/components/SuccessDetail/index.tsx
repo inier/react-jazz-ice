@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Message, Card } from '@alifd/next';
 import { useInterval } from './utils';
 
@@ -14,9 +14,10 @@ export interface SuccessDetailProps {
   image: string;
   buttonBackDesc: string;
   buttonContinueDesc: string;
-  countDownSeconds: number;
+  countDownSecnods: number;
   onButtonBack: DetailProcessFunc;
   onButtonContinue: DetailProcessFunc;
+
 }
 
 export default function SuccessDetail(props: SuccessDetailProps) {
@@ -26,12 +27,12 @@ export default function SuccessDetail(props: SuccessDetailProps) {
     image = 'https://img.alicdn.com/tfs/TB1UOSVoqL7gK0jSZFBXXXZZpXa-73-72.png',
     buttonBackDesc = '返回列表',
     buttonContinueDesc = '继续创建',
-    countDownSeconds = 5,
+    countDownSecnods = 5,
     onButtonBack = null,
     onButtonContinue = null,
   } = props;
 
-  const [second, setSecond] = useState(countDownSeconds);
+  const [second, setSecond] = useState(countDownSecnods);
 
   const gobackHandle = () => {
     if (onButtonBack) {
@@ -41,15 +42,12 @@ export default function SuccessDetail(props: SuccessDetailProps) {
     }
   };
 
-  useInterval(
-    () => {
-      setSecond(second - 1);
-      if (second <= 0) {
-        gobackHandle();
-      }
-    },
-    second >= 0 ? 1000 : 0,
-  );
+  useInterval(() => {
+    setSecond(second - 1);
+    if (second <= 0) {
+      gobackHandle();
+    }
+  }, second >= 0 ? 1000 : null);
 
   const goContinueHandle = () => {
     if (onButtonContinue) {
@@ -66,9 +64,7 @@ export default function SuccessDetail(props: SuccessDetailProps) {
         <h1 className={styles.statuscode}>{statusCode}</h1>
         <div className={styles.description}>{`${second > 0 ? second : 0}${description}`}</div>
         <div className={styles.operationWrap}>
-          <Button type="primary" onClick={gobackHandle} className={styles.mainAction}>
-            {buttonBackDesc}
-          </Button>
+          <Button type="primary" onClick={gobackHandle} className={styles.mainAction}>{buttonBackDesc}</Button>
           <Button onClick={goContinueHandle}>{buttonContinueDesc}</Button>
         </div>
       </div>

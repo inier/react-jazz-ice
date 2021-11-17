@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from '@alifd/next';
 import { Chart, Geom, Coord, Axis, Legend } from 'bizcharts';
 
@@ -53,10 +54,10 @@ export interface FusionCardLineChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
-  props: FusionCardLineChartProps,
-): JSX.Element => {
-  const { cardConfig = DEFAULT_DATA } = props;
+const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (props: FusionCardLineChartProps): JSX.Element => {
+  const {
+    cardConfig = DEFAULT_DATA,
+  } = props;
 
   const { title, chartData, chartHeight } = cardConfig;
   return (
@@ -64,7 +65,15 @@ const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
       <Card.Header title={<span className={styles.title}>{title}</span>} />
       <Card.Divider />
       <Card.Content>
-        <Chart width={10} height={chartHeight} forceFit data={chartData} padding={['auto', 'auto']}>
+
+        <Chart
+          width={10}
+          height={chartHeight}
+          forceFit
+          data={chartData}
+          padding={['auto', 'auto']}
+
+        >
           <Coord type="theta" radius={0.75} innerRadius={0.6} />
           <Axis name="percent" />
           <Legend

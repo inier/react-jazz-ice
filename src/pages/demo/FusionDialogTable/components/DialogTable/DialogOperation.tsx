@@ -1,4 +1,4 @@
-import { useRef, useCallback } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { Dialog } from '@alifd/next';
 import { DialogProps } from '@alifd/next/types/dialog';
 

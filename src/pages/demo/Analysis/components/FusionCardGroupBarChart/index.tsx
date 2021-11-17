@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from '@alifd/next';
 import { Chart, Geom, Axis, Legend } from 'bizcharts';
 
@@ -41,10 +42,10 @@ export interface FusionCardGroupBarChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardGroupBarChart: React.FunctionComponent<FusionCardGroupBarChartProps> = (
-  props: FusionCardGroupBarChartProps,
-): JSX.Element => {
-  const { cardConfig = DEFAULT_DATA } = props;
+const FusionCardGroupBarChart: React.FunctionComponent<FusionCardGroupBarChartProps> = (props: FusionCardGroupBarChartProps): JSX.Element => {
+  const {
+    cardConfig = DEFAULT_DATA,
+  } = props;
 
   const { title, chartData, chartHeight } = cardConfig;
 

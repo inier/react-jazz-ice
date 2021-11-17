@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Box } from '@alifd/next';
 import { Chart, Geom, Axis, Tooltip } from 'bizcharts';
 import classNames from 'classnames';
@@ -9,6 +10,7 @@ interface TitleItem {
   value?: string;
   des?: string;
   rate?: number;
+
 }
 interface ChartItem {
   type?: string;
@@ -23,20 +25,17 @@ interface CardConfig {
 }
 
 const DEFAULT_DATA: CardConfig = {
-  titleItem: [
-    {
-      name: '总PV',
-      value: '234,465789',
-      des: '周同比:',
-      rate: 10.1,
-    },
-    {
-      name: '总UV',
-      value: '234,465789',
-      des: '周同比:',
-      rate: -10.1,
-    },
-  ],
+  titleItem: [{
+    name: '总PV',
+    value: '234,465789',
+    des: '周同比:',
+    rate: 10.1,
+  }, {
+    name: '总UV',
+    value: '234,465789',
+    des: '周同比:',
+    rate: -10.1,
+  }],
   chartData: [
     { type: 'pv', date: 1489593600000, value: 100 },
     { type: 'pv', date: 1489593630000, value: 220 },
@@ -47,6 +46,7 @@ const DEFAULT_DATA: CardConfig = {
   ],
   chartHeight: 300,
 };
+
 
 export interface CardConfigProps {
   cardConfig?: CardConfig;
@@ -64,8 +64,7 @@ const InfoBlock: React.FC<CardConfig> = (props = DEFAULT_DATA.titleItem[0]): JSX
         <span className={styles.title}>{value}</span>
         <span className={styles.compare}>
           <span>{des}123</span>
-          <span style={{ color: rate > 0 ? '#36CFC9' : '#D23C26' }}>
-            8.1%
+          <span style={{ color: rate > 0 ? '#36CFC9' : '#D23C26' }}>8.1%
             {rate > 0 ? <> ↑ </> : <>↓</>}
           </span>
           {/* <i className={classNames(styles.cocofont, styles.arrow_down)} /></span> */}
@@ -90,10 +89,7 @@ const RenderPvChart: React.FunctionComponent<CardConfig> = (props = DEFAULT_DATA
   };
 
   // 虚线处理
-  const areaColors = [
-    'l(100) 0:rgba(253,250,242) 1:rgba(255,245,205)',
-    'l(100) 0:rgba(221,246,250) 1:rgba(244,252,253)',
-  ];
+  const areaColors = ['l(100) 0:rgba(253,250,242) 1:rgba(255,245,205)', 'l(100) 0:rgba(221,246,250) 1:rgba(244,252,253)'];
   const lineColors = ['#FFCE03', '#00C1DE'];
   // 传入的height - 底部padding
   return (
@@ -120,13 +116,11 @@ const VisitBlock: React.FunctionComponent<CardConfigProps> = ({ cardConfig = DEF
   return (
     <Card free style={{ height: '100%' }}>
       <React.Fragment>
-        <Card.Header
-          title={
-            <Box direction="row" spacing={50}>
-              <InfoBlock {...titleItem[0]} />
-              <InfoBlock {...titleItem[1]} />
-            </Box>
-          }
+        <Card.Header title={
+          <Box direction="row" spacing={50}>
+            <InfoBlock {...titleItem[0]} />
+            <InfoBlock {...titleItem[1]} />
+          </Box>}
         />
       </React.Fragment>
       <Card.Content>

@@ -1,21 +1,5 @@
-import { useState, useEffect } from 'react';
-import {
-  Avatar,
-  Card,
-  Tab,
-  ResponsiveGrid,
-  Table,
-  Typography,
-  Upload,
-  Button,
-  Form,
-  Input,
-  Message,
-  Box,
-  Radio,
-  Dialog,
-  Icon,
-} from '@alifd/next';
+import React, { useState, useEffect } from 'react';
+import { Avatar, Card, Tab, ResponsiveGrid, Table, Typography, Upload, Button, Form, Input, Message, Box, Radio, Dialog, Icon } from '@alifd/next';
 import { UploadProps } from '@alifd/next/types/upload';
 import styles from './index.module.scss';
 
@@ -82,8 +66,7 @@ export interface SettingSystemProps {
 const DEFAULT_DATA: DataSource = {
   name: 'lily',
   type: 'private',
-  description:
-    'Fusion是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
+  description: 'Fusion是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
 };
 
 const DEFAULT_ON_SUBMIT = (values: SettingSystemProps, errors: []): void => {
@@ -96,7 +79,10 @@ const DEFAULT_ON_SUBMIT = (values: SettingSystemProps, errors: []): void => {
 };
 
 const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+    onSubmit = DEFAULT_ON_SUBMIT,
+  } = props;
 
   const [priList, setPriList] = useState([]);
   const [inited, setInited] = useState(false);
@@ -106,6 +92,7 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
     setPriList(MockData);
     setInited(true);
   }, [inited]);
+
 
   const formChange = (values: SettingSystemProps): void => {
     setValue(values);
@@ -130,19 +117,21 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
           <Card free>
             <Card.Content>
               <Box className={styles.baseSettingContainer}>
-                <Form className={styles.baseSetting} value={postData} labelAlign="top" onChange={formChange} responsive>
+                <Form
+                  className={styles.baseSetting}
+                  value={postData}
+                  labelAlign="top"
+                  onChange={formChange}
+                  responsive
+                >
                   <FormItem label="项目封面" colSpan={12}>
                     <ResponsiveGrid gap={10}>
-                      <Cell colSpan={2}>
-                        <Avatar shape="circle" size={64} icon="account" />
-                      </Cell>
+                      <Cell colSpan={2}><Avatar shape="circle" size={64} icon="account" /></Cell>
                       <Cell colSpan={10} className={styles.changeLogo}>
                         <Box spacing={12}>
                           <FormItem>
                             <Upload name="pic">
-                              <Button className={styles.uploadButton} type="normal">
-                                更新头像
-                              </Button>
+                              <Button className={styles.uploadButton} type="normal">更新头像</Button>
                             </Upload>
                           </FormItem>
                           <Box>
@@ -161,17 +150,11 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
                     <Input placeholder="请输入你的分类" name="category" />
                   </FormItem>
 
-                  <FormItem colSpan={12} label="项目权限">
+                  <FormItem colSpan={12} label="项目权限" >
                     <Radio.Group name="type" aria-labelledby="authority of project">
-                      <Radio id="private" value="private">
-                        私密项目
-                      </Radio>
-                      <Radio id="internal" value="internal">
-                        内部项目
-                      </Radio>
-                      <Radio id="public" value="public">
-                        开放项目
-                      </Radio>
+                      <Radio id="private" value="private">私密项目</Radio>
+                      <Radio id="internal" value="internal">内部项目</Radio>
+                      <Radio id="public" value="public">开放项目</Radio>
                     </Radio.Group>
                   </FormItem>
                   <FormItem label="项目描述" colSpan={12}>
@@ -180,8 +163,11 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
 
                   <FormItem colSpan={12}>
                     <Box spacing={8} direction="row">
-                      <Form.Submit type="primary" onClick={onSubmit} validate>
-                        保存
+                      <Form.Submit
+                        type="primary"
+                        onClick={onSubmit}
+                        validate
+                      >保存
                       </Form.Submit>
                     </Box>
                   </FormItem>
@@ -200,11 +186,11 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
                   <Button type="secondary">设置角色 1 权限</Button>
                   <Button type="primary">新增</Button>
                 </Box>
-              }
+            }
             />
             <Card.Content>
               <Table dataSource={priList} hasHeader={false} hasBorder={false}>
-                <Table.Column dataIndex="logo" cell={(url) => <Avatar src={url} />} width={50} />
+                <Table.Column dataIndex="logo" cell={url => <Avatar src={url} />} width={50} />
                 <Table.Column dataIndex="name" />
                 <Table.Column dataIndex="privilege" />
                 <Table.Column cell={() => <Icon type="ellipsis" />} />
@@ -218,13 +204,9 @@ const SettingSystemBlock: React.SFC<SettingSystemProps> = (props): JSX.Element =
             <Card.Content>
               <Box spacing={12}>
                 <Typography.H3 className={styles.h3}>退出项目</Typography.H3>
-                <Typography.Text className={styles.p}>
-                  一旦你退出这个项目，你将无法访问这个项目的任何内容。
-                </Typography.Text>
+                <Typography.Text className={styles.p}>一旦你退出这个项目，你将无法访问这个项目的任何内容。</Typography.Text>
                 <span>
-                  <Button type="normal" warning onClick={onExitButtonClicked}>
-                    退出项目
-                  </Button>
+                  <Button type="normal" warning onClick={onExitButtonClicked}>退出项目</Button>
                 </span>
               </Box>
             </Card.Content>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Search, Card, Tag, ResponsiveGrid, Divider, Typography, Icon, Loading } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -32,7 +32,10 @@ const DEFAULT_DATA: DataSource = {
 };
 
 const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onSearch = (): void => {} } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+    onSearch = (): void => { },
+  } = props;
 
   const [tagAValue, setTagAValue] = useState(dataSource.tagA);
   const [tagBValue, setTagBValue] = useState(dataSource.tagB);
@@ -61,16 +64,24 @@ const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps):
 
   const renderTagListA = () => {
     return dataSource.tagsA.map((name: string) => (
-      <SelectableTag key={name} checked={tagAValue === name} onChange={() => onTagAValueChange(name)} {...props}>
-        {name}
+      <SelectableTag
+        key={name}
+        checked={tagAValue === name}
+        onChange={() => onTagAValueChange(name)}
+        {...props}
+      >{name}
       </SelectableTag>
     ));
   };
 
   const renderTagListB = () => {
     return dataSource.tagsB.map((name: string) => (
-      <SelectableTag key={name} checked={tagBValue === name} onChange={() => onTagBValueChange(name)} {...props}>
-        {name}
+      <SelectableTag
+        key={name}
+        checked={tagBValue === name}
+        onChange={() => onTagBValueChange(name)}
+        {...props}
+      >{name}
       </SelectableTag>
     ));
   };
@@ -81,8 +92,12 @@ const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps):
         <div className={styles.main}>
           <img src="https://shadow.elemecdn.com/app/element/list.76b098b1-1732-11ea-948d-7d2ddf6d1c39.png" alt="img" />
           <div className={styles.content}>
-            <div className={styles.title}>{c.title}</div>
-            <div className={styles.info}>{c.content}</div>
+            <div className={styles.title}>
+              {c.title}
+            </div>
+            <div className={styles.info}>
+              {c.content}
+            </div>
             <div className={styles.link}>
               <a href="#">{c.link[0]}</a>
               <a href="#">{c.link[1]}</a>

@@ -1,5 +1,5 @@
 /* eslint-disable @iceworks/best-practices/no-secret-info */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Input, Message, Form } from '@alifd/next';
 
@@ -28,16 +28,13 @@ export default function RegisterBlock() {
   const [isRunning, checkRunning] = useState(false);
   const [second, setSecond] = useState(59);
 
-  useInterval(
-    () => {
-      setSecond(second - 1);
-      if (second <= 0) {
-        checkRunning(false);
-        setSecond(59);
-      }
-    },
-    isRunning ? 1000 : null,
-  );
+  useInterval(() => {
+    setSecond(second - 1);
+    if (second <= 0) {
+      checkRunning(false);
+      setSecond(59);
+    }
+  }, isRunning ? 1000 : null);
 
   const formChange = (value: RegisterProps) => {
     setValue(value);
@@ -85,10 +82,20 @@ export default function RegisterBlock() {
             <Input name="email" size="large" maxLength={20} placeholder="邮箱" />
           </Item>
           <Item required requiredMessage="必填">
-            <Input.Password name="password" size="large" htmlType="password" placeholder="至少六位密码，区分大小写" />
+            <Input.Password
+              name="password"
+              size="large"
+              htmlType="password"
+              placeholder="至少六位密码，区分大小写"
+            />
           </Item>
           <Item required requiredTrigger="onFocus" requiredMessage="必填" validator={checkPass}>
-            <Input.Password name="rePassword" size="large" htmlType="password" placeholder="确认密码" />
+            <Input.Password
+              name="rePassword"
+              size="large"
+              htmlType="password"
+              placeholder="确认密码"
+            />
           </Item>
           <Item format="tel" required requiredMessage="必填" asterisk={false}>
             <Input
@@ -129,7 +136,12 @@ export default function RegisterBlock() {
             />
           </Item>
           <Item>
-            <Form.Submit type="primary" onClick={handleSubmit} className={styles.submitBtn} validate>
+            <Form.Submit
+              type="primary"
+              onClick={handleSubmit}
+              className={styles.submitBtn}
+              validate
+            >
               注册账号
             </Form.Submit>
           </Item>

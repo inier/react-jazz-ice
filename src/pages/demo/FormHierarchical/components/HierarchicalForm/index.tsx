@@ -1,3 +1,4 @@
+import React, { SFC } from 'react';
 import { Card, Form, ResponsiveGrid, Field, Input, Radio, Select, Button, Box } from '@alifd/next';
 import styles from './index.module.scss';
 
@@ -18,7 +19,7 @@ export interface HierarchicalFormProps {
   onCancel?: () => void;
 }
 
-const HierarchicalForm = (props) => {
+const HierarchicalForm: SFC<HierarchicalFormProps> = (props) => {
   const {
     dataSource = {
       authType: 1,

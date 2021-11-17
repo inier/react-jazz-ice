@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Card, Table, Button, Icon, Pagination, Message } from '@alifd/next';
 import { TableProps } from '@alifd/next/lib/table';
 import { useFusionTable, useFullscreen } from 'ahooks';
@@ -15,8 +15,8 @@ const TableActionIcon = Icon.createFromIconfontCN({
 const getTableData = ({ current, pageSize }: { current: number; pageSize: number }): Promise<any> => {
   const query = `page=${current}&size=${pageSize}`;
   return fetch(`https://randomuser.me/api?results=${pageSize}&${query}`)
-    .then((res) => res.json())
-    .then((res) => ({
+    .then(res => res.json())
+    .then(res => ({
       total: 55,
       list: res.results.slice(0, 10),
     }));

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Box, Card, Table, Form } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -37,10 +38,8 @@ const DEFAULT_DATA: DataSource = {
   },
   projectMember: {
     icMemeber: '阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞，阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞',
-    forensicReview:
-      '阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞，阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞',
-    financialReview:
-      '阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞，阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞',
+    forensicReview: '阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞，阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞',
+    financialReview: '阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞，阮小五，阮小二，阮小七，公孙胜，曹正，李立，樊瑞',
   },
   targetCompanys: new Array(10).fill({
     targetCompany: '蚂蚁证券投资有限公司',
@@ -51,7 +50,9 @@ const DEFAULT_DATA: DataSource = {
 };
 
 const BasicDetail: React.FunctionComponent<BasicDetailProps> = (props) => {
-  const { dataSource = DEFAULT_DATA } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+  } = props;
 
   return (
     <div>

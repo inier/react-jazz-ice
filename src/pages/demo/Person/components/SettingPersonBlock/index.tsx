@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Box, ResponsiveGrid, Divider, Card, Avatar, Upload, Button, Form, Input, Message } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -33,7 +33,10 @@ const DEFAULT_ON_SUBMIT = (values: SettingPersonProps, errors: []): void => {
 };
 
 const SettingPersonBlock: React.SFC<SettingPersonProps> = (props): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+    onSubmit = DEFAULT_ON_SUBMIT,
+  } = props;
 
   const [postData, setValue] = useState<SettingPersonProps>(dataSource);
   const [buttonText, setButtonText] = useState('发送验证码');

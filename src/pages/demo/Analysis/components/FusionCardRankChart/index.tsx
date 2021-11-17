@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, ResponsiveGrid, Box, Divider } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -29,9 +30,7 @@ const DEFAULT_DATA: CardConfig = {
   ],
 };
 
-const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (
-  props: FusionCardRankChartProps,
-): JSX.Element => {
+const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (props: FusionCardRankChartProps): JSX.Element => {
   const { cardConfig = DEFAULT_DATA } = props;
   const { title, dataSource } = cardConfig;
   return (
@@ -63,7 +62,13 @@ const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (
               <div className={styles.subBody}>
                 <div className={styles.subName}>亚洲</div>
                 <Divider direction="hoz" />
-                <Box className={styles.subMain} spacing={20} direction="row" align="center" justify="center">
+                <Box
+                  className={styles.subMain}
+                  spacing={20}
+                  direction="row"
+                  align="center"
+                  justify="center"
+                >
                   <Box>
                     <div className={styles.subTypeName}>商品类目1</div>
                     <div className={styles.subTypeValue}>6,123</div>
@@ -74,7 +79,12 @@ const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (
                     <div className={styles.subTypeValue}>132,4</div>
                   </Box>
                 </Box>
-                <Box className={styles.subFooter} direction="column" justify="center" align="center">
+                <Box
+                  className={styles.subFooter}
+                  direction="column"
+                  justify="center"
+                  align="center"
+                >
                   <div>周同比</div>
                   <div>45%↑</div>
                 </Box>

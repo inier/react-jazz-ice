@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from '@alifd/next';
 import { Chart, Geom } from 'bizcharts';
 import mock from './mock.js';
@@ -32,12 +33,14 @@ const FusionCardAreaChart: React.FunctionComponent<FusionCardAreaChartProps> = (
 
   return (
     <Card free className={styles.areaChart}>
-      {title ? (
-        <React.Fragment>
-          <Card.Header title={<span className={styles.title}>{title}</span>} />
-          <Card.Divider />
-        </React.Fragment>
-      ) : null}
+      {
+        title ? (
+          <React.Fragment>
+            <Card.Header title={<span className={styles.title}>{title}</span>} />
+            <Card.Divider />
+          </React.Fragment>
+        ) : null
+      }
       <Card.Content>
         <div className={styles.subTitle}>{subTitle}</div>
         <div className={styles.value}>{value}</div>
@@ -57,6 +60,7 @@ const FusionCardAreaChart: React.FunctionComponent<FusionCardAreaChartProps> = (
           <Geom type="area" position="date*value" color="#2B7FFB" shape="smooth" opacity={1} />
         </Chart>
       </Card.Content>
+
     </Card>
   );
 };

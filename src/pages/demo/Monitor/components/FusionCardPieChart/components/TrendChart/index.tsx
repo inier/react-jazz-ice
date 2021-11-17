@@ -1,6 +1,8 @@
+import React from 'react';
 import { Card } from '@alifd/next';
 import { Chart, Geom, Axis, Tooltip, Legend } from 'bizcharts';
 import classNames from 'classnames';
+
 
 import styles from './index.module.scss';
 
@@ -65,7 +67,9 @@ export interface JSErrorChartProps {
 }
 
 const JSErrorChart: React.FunctionComponent<JSErrorChartProps> = (props: JSErrorChartProps): JSX.Element => {
-  const { cardConfig = DEFAULT_DATA } = props;
+  const {
+    cardConfig = DEFAULT_DATA,
+  } = props;
   const { title, chartData, chartHeight } = cardConfig;
 
   const scale = {
@@ -95,40 +99,21 @@ const JSErrorChart: React.FunctionComponent<JSErrorChartProps> = (props: JSError
             itemTpl={(alias) => {
               let name = '';
               switch (alias) {
-                case 'rate':
-                  name = '成功率';
-                  break;
-                case 'fail':
-                  name = '错误次数';
-                  break;
-                case 'success':
-                  name = '调用成功次数';
-                  break;
+                case 'rate': name = '成功率'; break;
+                case 'fail': name = '错误次数'; break;
+                case 'success': name = '调用成功次数'; break;
                 default:
                   break;
               }
-              return `<li style="padding:10px;"><i class="${classNames(
-                styles[`${alias}Icon`],
-              )}"></i><span >${name}</span></li>`;
+              return `<li style="padding:10px;"><i class="${classNames(styles[`${alias}Icon`])}"></i><span >${name}</span></li>`;
             }}
           />
-          <Geom
-            type="intervalStack"
-            position="date*value"
-            adjust={['fail', 'success']}
-            color={['name', ['#2B7FFB', '#00D6CB']]}
-          />
+          <Geom type="intervalStack" position="date*value" adjust={['fail', 'success']} color={['name', ['#2B7FFB', '#00D6CB']]} />
           <Axis name="date" title={null} />
           <Axis name="value" title={null} />
           <Axis name="count" title={null} visible={false} />
           <Geom type="line" position="date*count" color="#4492E0" shape="smooth" tooltip={false} />
-          <Geom
-            type="area"
-            position="date*count"
-            color="l (90) 0:rgba(68,146,224,0.2) 1:rgba(68,146,224,0.02)"
-            shape="smooth"
-            tooltip={false}
-          />
+          <Geom type="area" position="date*count" color="l (90) 0:rgba(68,146,224,0.2) 1:rgba(68,146,224,0.02)" shape="smooth" tooltip={false} />
         </Chart>
       </Card.Content>
     </Card>

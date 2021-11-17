@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Search, Card, Tag, Divider, Typography, Icon, Loading, Button, Pagination } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -26,14 +26,16 @@ const DEFAULT_DATA: DataSource = {
   tagB: '一年以上三年以下',
   cards: new Array(5).fill({
     title: '构建一套产品化设计系统',
-    content:
-      '随着互联网行业的聚变式发展，在电商业务从“信息透出” 到 “在线交易” 的过程中，网站 UI 构建也经历了“体验一致性”、“设计效率”、“UI系统构建/应用效率”、“多端适配” …',
+    content: '随着互联网行业的聚变式发展，在电商业务从“信息透出” 到 “在线交易” 的过程中，网站 UI 构建也经历了“体验一致性”、“设计效率”、“UI系统构建/应用效率”、“多端适配” …',
     subContent: '谢瑶 3 小时前更新',
   }),
 };
 
 const BasicList: React.FunctionComponent<BasicListProps> = (props: BasicListProps): JSX.Element => {
-  const { dataSource = DEFAULT_DATA, onSearch = (): void => {} } = props;
+  const {
+    dataSource = DEFAULT_DATA,
+    onSearch = (): void => { },
+  } = props;
 
   const [tagAValue, setTagAValue] = useState(dataSource.tagA);
   const [tagBValue, setTagBValue] = useState(dataSource.tagB);
@@ -66,16 +68,24 @@ const BasicList: React.FunctionComponent<BasicListProps> = (props: BasicListProp
 
   const renderTagListA = () => {
     return dataSource.tagsA.map((name: string) => (
-      <SelectableTag key={name} checked={tagAValue === name} onChange={() => onTagAValueChange(name)} {...props}>
-        {name}
+      <SelectableTag
+        key={name}
+        checked={tagAValue === name}
+        onChange={() => onTagAValueChange(name)}
+        {...props}
+      >{name}
       </SelectableTag>
     ));
   };
 
   const renderTagListB = () => {
     return dataSource.tagsB.map((name: string) => (
-      <SelectableTag key={name} checked={tagBValue === name} onChange={() => onTagBValueChange(name)} {...props}>
-        {name}
+      <SelectableTag
+        key={name}
+        checked={tagBValue === name}
+        onChange={() => onTagBValueChange(name)}
+        {...props}
+      >{name}
       </SelectableTag>
     ));
   };
@@ -85,26 +95,23 @@ const BasicList: React.FunctionComponent<BasicListProps> = (props: BasicListProp
       <div className={styles.ListItem} key={i}>
         <div className={styles.main}>
           <div className={styles.left}>
-            <img
-              src="https://shadow.elemecdn.com/app/element/list.62a82841-1bcb-11ea-a71c-17428dec1b82.png"
-              alt="img"
-            />
+            <img src="https://shadow.elemecdn.com/app/element/list.62a82841-1bcb-11ea-a71c-17428dec1b82.png" alt="img" />
             <div>
-              <div className={styles.title}>{c.title}</div>
-              <div className={styles.content}>{c.content}</div>
-              <div className={styles.subContent}>{c.subContent}</div>
+              <div className={styles.title}>
+                {c.title}
+              </div>
+              <div className={styles.content}>
+                {c.content}
+              </div>
+              <div className={styles.subContent}>
+                {c.subContent}
+              </div>
             </div>
           </div>
           <div className={styles.right}>
-            <Button type="primary" text>
-              编辑
-            </Button>
-            <Button type="primary" text>
-              订阅
-            </Button>
-            <Button type="primary" text>
-              删除
-            </Button>
+            <Button type="primary" text>编辑</Button>
+            <Button type="primary" text>订阅</Button>
+            <Button type="primary" text>删除</Button>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Select, Form, Field, Table, Card, Pagination } from '@alifd/next';
 import { useFusionTable } from 'ahooks';
 
@@ -22,8 +22,8 @@ const getTableData = (
       }
     });
     return fetch(`https://randomuser.me/api?results=${pageSize}&${query}`)
-      .then((res) => res.json())
-      .then((res) => ({
+      .then(res => res.json())
+      .then(res => ({
         total: 55,
         list: res.results.slice(0, 10),
       }));
@@ -113,7 +113,12 @@ const FilterTable: React.FunctionComponent = (): JSX.Element => {
             emptyContent={error ? <ExceptionBlock onRefresh={refresh} /> : <EmptyBlock />}
             primaryKey="email"
           >
-            <Table.Column title="name" dataIndex="name.last" resizable width={columnWidth['name.last']} />
+            <Table.Column
+              title="name"
+              dataIndex="name.last"
+              resizable
+              width={columnWidth['name.last']}
+            />
             <Table.Column title="email" dataIndex="email" resizable width={columnWidth.email} />
             <Table.Column title="phone" dataIndex="phone" resizable width={columnWidth.phone} />
             <Table.Column title="gender" dataIndex="gender" resizable width={columnWidth.gender} />

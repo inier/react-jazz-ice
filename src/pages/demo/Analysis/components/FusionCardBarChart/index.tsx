@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card } from '@alifd/next';
 import { Chart, Geom } from 'bizcharts';
 import mock from './mock.js';
@@ -32,28 +33,27 @@ export interface FusionCardBarChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardBarChart: React.FunctionComponent<FusionCardBarChartProps> = (
-  props: FusionCardBarChartProps,
-): JSX.Element => {
-  const { cardConfig = DEFAULT_DATA } = props;
+const FusionCardBarChart: React.FunctionComponent<FusionCardBarChartProps> = (props: FusionCardBarChartProps): JSX.Element => {
+  const {
+    cardConfig = DEFAULT_DATA,
+  } = props;
 
   const { title, subTitle, value, chartData, des, rate, chartHeight } = cardConfig;
 
   return (
     <Card free>
-      {title ? (
-        <>
-          <Card.Header title={title} />
-          <Card.Divider />
-        </>
-      ) : null}
+      {
+        title ? (
+          <>
+            <Card.Header title={title} />
+            <Card.Divider />
+          </>
+        ) : null
+      }
       <Card.Content>
         <div className={styles.subTitle}>{subTitle}</div>
         <div className={styles.value}>{value}</div>
-        <div className={styles.des}>
-          {des}
-          <span>{rate}↑</span>
-        </div>
+        <div className={styles.des}>{des}<span>{rate}↑</span></div>
         <Chart
           width={10}
           height={chartHeight}

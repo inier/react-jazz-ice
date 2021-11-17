@@ -1,21 +1,6 @@
-import { SFC, useEffect, useState, useRef } from 'react';
+import React, { SFC, useEffect, useState, useRef } from 'react';
 import { findDOMNode } from 'react-dom';
-import {
-  Box,
-  Card,
-  Button,
-  Form,
-  Input,
-  Select,
-  Radio,
-  Step,
-  Field,
-  Divider,
-  Tag,
-  Avatar,
-  Typography,
-  ResponsiveGrid,
-} from '@alifd/next';
+import { Box, Card, Button, Form, Input, Select, Radio, Step, Field, Divider, Tag, Avatar, Typography, ResponsiveGrid } from '@alifd/next';
 import styles from './index.module.scss';
 
 export interface Experience {
@@ -87,19 +72,16 @@ const DEFAULT_DATA: DataSource = {
     department: 'aliwork&EHR',
     workAddress: '杭州',
     salary: '20,000',
-    experiences: [
-      {
-        company: '浙江杭州天猫有限公司',
-        position: '高级研发专家',
-        region: '中国/浙江',
-        description:
-          'Fusion 是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
-        salary: '20,000 USD',
-        time: 13,
-        allowance: '5,000 USD',
-        rsu: false,
-      },
-    ],
+    experiences: [{
+      company: '浙江杭州天猫有限公司',
+      position: '高级研发专家',
+      region: '中国/浙江',
+      description: 'Fusion 是一套企业级中后台设计系统解决方案，致力于解决产品体验一致性问题、设计研发协同问题，以及UI开发效率问题。',
+      salary: '20,000 USD',
+      time: 13,
+      allowance: '5,000 USD',
+      rsu: false,
+    }],
   },
 };
 
@@ -191,9 +173,7 @@ const FlowForm: SFC<FlowFormProps> = (props) => {
                 <Box spacing={10}>
                   <Form labelAlign="top" responsive>
                     <Form.Item label={`${dataSource.person.surname}${dataSource.person.name}`} colSpan={12}>
-                      <span className="next-form-preview">
-                        {dataSource.person.phone} | {dataSource.person.email}
-                      </span>
+                      <span className="next-form-preview">{dataSource.person.phone} | {dataSource.person.email}</span>
                     </Form.Item>
                     <Form.Item label="现在所在地" colSpan={6}>
                       <span className="next-form-preview">{dataSource.person.address}</span>
@@ -262,67 +242,54 @@ const FlowForm: SFC<FlowFormProps> = (props) => {
       <Card free>
         <Card.Header title="工作经历" />
         <Card.Divider />
-        {dataSource.person.experiences.map((experience, idx) => (
-          <Card.Content key={idx}>
-            <Box>
-              <Typography.Text className={styles.SubTitle}>公司信息</Typography.Text>
-              <Form labelAlign="top" responsive>
-                <Form.Item label="工作单位" required colSpan={4}>
-                  <span className="next-form-preview">{experience.company}</span>
-                </Form.Item>
-                <Form.Item label="职位" required colSpan={4}>
-                  <span className="next-form-preview">{experience.position}</span>
-                </Form.Item>
-                <Form.Item label="国家/地区" colSpan={4}>
-                  <span className="next-form-preview">{experience.region}</span>
-                </Form.Item>
-                <Form.Item label="职责描述" required colSpan={8}>
-                  <span className="next-form-preview">{experience.description}</span>
-                </Form.Item>
-              </Form>
-            </Box>
-            <Divider dashed />
-            <Box>
-              <Typography.Text className={styles.SubTitle}>待遇信息</Typography.Text>
-              <Form labelAlign="top" responsive>
-                <Form.Item label="月薪" colSpan={4}>
-                  <span className="next-form-preview">{experience.salary}</span>
-                </Form.Item>
-                <Form.Item label="月数" colSpan={4}>
-                  <span className="next-form-preview">{experience.time}</span>
-                </Form.Item>
-                <Form.Item label="国家/地区" colSpan={4}>
-                  <span className="next-form-preview">{experience.region}</span>
-                </Form.Item>
-                <Form.Item label="Options/RSU" colSpan={4}>
-                  <span className="next-form-preview">{experience.rsu ? 'Yes' : 'No'}</span>
-                </Form.Item>
-              </Form>
-            </Box>
-          </Card.Content>
-        ))}
+        {
+          dataSource.person.experiences.map((experience, idx) => (
+            <Card.Content key={idx}>
+              <Box>
+                <Typography.Text className={styles.SubTitle}>公司信息</Typography.Text>
+                <Form labelAlign="top" responsive>
+                  <Form.Item label="工作单位" required colSpan={4}>
+                    <span className="next-form-preview">{experience.company}</span>
+                  </Form.Item>
+                  <Form.Item label="职位" required colSpan={4}>
+                    <span className="next-form-preview">{experience.position}</span>
+                  </Form.Item>
+                  <Form.Item label="国家/地区" colSpan={4}>
+                    <span className="next-form-preview">{experience.region}</span>
+                  </Form.Item>
+                  <Form.Item label="职责描述" required colSpan={8}>
+                    <span className="next-form-preview">{experience.description}</span>
+                  </Form.Item>
+                </Form>
+              </Box>
+              <Divider dashed />
+              <Box>
+                <Typography.Text className={styles.SubTitle}>待遇信息</Typography.Text>
+                <Form labelAlign="top" responsive>
+                  <Form.Item label="月薪" colSpan={4}>
+                    <span className="next-form-preview">{experience.salary}</span>
+                  </Form.Item>
+                  <Form.Item label="月数" colSpan={4}>
+                    <span className="next-form-preview">{experience.time}</span>
+                  </Form.Item>
+                  <Form.Item label="国家/地区" colSpan={4}>
+                    <span className="next-form-preview">{experience.region}</span>
+                  </Form.Item>
+                  <Form.Item label="Options/RSU" colSpan={4}>
+                    <span className="next-form-preview">{experience.rsu ? 'Yes' : 'No'}</span>
+                  </Form.Item>
+                </Form>
+              </Box>
+            </Card.Content>
+          ))
+        }
       </Card>
       <div>
-        <Box
-          direction="row"
-          spacing={8}
-          align="center"
-          justify="center"
-          style={{ left, right }}
-          className={styles.FlowFormFooter}
-        >
-          <Button onClick={() => onAgree(field.getValues())} type="primary">
-            同意
-          </Button>
-          <Button onClick={onRefuse} type="secondary">
-            拒绝
-          </Button>
-          <Button onClick={onTransfer} type="secondary">
-            转移
-          </Button>
-          <Button onClick={onSignature} type="secondary">
-            加签
-          </Button>
+        <Box direction="row" spacing={8} align="center" justify="center" style={{ left, right }} className={styles.FlowFormFooter}>
+          <Button onClick={() => onAgree(field.getValues())} type="primary">同意</Button>
+          <Button onClick={onRefuse} type="secondary">拒绝</Button>
+          <Button onClick={onTransfer} type="secondary">转移</Button>
+          <Button onClick={onSignature} type="secondary">加签</Button>
         </Box>
       </div>
     </Box>

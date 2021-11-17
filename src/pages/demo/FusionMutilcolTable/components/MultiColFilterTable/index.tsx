@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Button, Select, Input, Form, Field, Table, Card, Pagination, Icon } from '@alifd/next';
 import { useFusionTable, useSetState } from 'ahooks';
 
@@ -22,8 +22,8 @@ const getTableData = (
       }
     });
     return fetch(`https://randomuser.me/api?results=${pageSize}&${query}`)
-      .then((res) => res.json())
-      .then((res) => ({
+      .then(res => res.json())
+      .then(res => ({
         total: 55,
         list: res.results.slice(0, 10),
       }));
@@ -90,16 +90,13 @@ const MultiColFilterTable: React.FC = () => {
   const { submit, reset } = search;
   const { columnWidth } = state;
 
-  const handleResizeChange = useCallback(
-    (dataIndex: keyof typeof defaultColumnWidth, width: number) => {
-      const newWidth = {
-        ...columnWidth,
-      };
-      newWidth[dataIndex] += width;
-      setState({ columnWidth: newWidth });
-    },
-    [columnWidth, setState],
-  );
+  const handleResizeChange = useCallback((dataIndex: keyof typeof defaultColumnWidth, width: number) => {
+    const newWidth = {
+      ...columnWidth,
+    };
+    newWidth[dataIndex] += width;
+    setState({ columnWidth: newWidth });
+  }, [columnWidth, setState]);
 
   const handleSetExpand = useCallback(() => {
     const nextExpand = !state.expandStatus;

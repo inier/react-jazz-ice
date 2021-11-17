@@ -1,6 +1,18 @@
-import { SFC, useState, useEffect, useRef } from 'react';
+import React, { SFC, useState, useEffect, useRef } from 'react';
 import { findDOMNode } from 'react-dom';
-import { Card, Form, Input, Select, Button, Table, Box, Divider, MenuButton, Dialog, Field } from '@alifd/next';
+import {
+  Card,
+  Form,
+  Input,
+  Select,
+  Button,
+  Table,
+  Box,
+  Divider,
+  MenuButton,
+  Dialog,
+  Field,
+} from '@alifd/next';
 import styles from './index.module.scss';
 
 export interface Company {
@@ -102,7 +114,11 @@ const DEFAULT_DATA: DataSource = {
 };
 
 const GroupForm: SFC<GroupFormProps> = (props) => {
-  const { dataSource: defaultDataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
+  const {
+    dataSource: defaultDataSource = DEFAULT_DATA,
+    onSubmit = () => {},
+    onCancel = () => {},
+  } = props;
 
   const [dataSource, setDataSouce] = useState<DataSource>(defaultDataSource);
   const basicField = Field.useField({ values: dataSource.basic });
@@ -120,7 +136,11 @@ const GroupForm: SFC<GroupFormProps> = (props) => {
     setRight(document.documentElement.offsetWidth - rect.left - rect.width);
   }, []);
 
-  const changeRowData = (index: number, key: keyof Company, value: string | number | boolean | []) => {
+  const changeRowData = (
+    index: number,
+    key: keyof Company,
+    value: string | number | boolean | [],
+  ) => {
     const company: Company[] = [...dataSource.company];
     (company[index][key] as string | number | boolean | []) = value;
 
@@ -169,7 +189,13 @@ const GroupForm: SFC<GroupFormProps> = (props) => {
 
   const renderEditCell = (v: string, i: number, row: { edited: boolean }, key: keyof Company) => {
     if (row.edited) {
-      return <Input style={{ width: '100%' }} onChange={(value) => changeRowData(i, key, value)} value={v || ''} />;
+      return (
+        <Input
+          style={{ width: '100%' }}
+          onChange={(value) => changeRowData(i, key, value)}
+          value={v || ''}
+        />
+      );
     }
     return v;
   };

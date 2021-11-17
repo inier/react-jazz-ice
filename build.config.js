@@ -6,7 +6,7 @@ module.exports = {
     env: process.env.NODE_ENV,
     PUBLIC_URL: '/toxic',
   },
-  vite: true,
+  // vite: true,
   eslint: false,
   plugins: [
     [
@@ -32,14 +32,6 @@ module.exports = {
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
   proxy: {
-    '/api/mock': {
-      // mock api地址
-      target: 'http://localhost:3000/mock/12',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api/mock': '',
-      },
-    },
     '/api': {
       target: 'http://ip-api.com/',
       changeOrigin: true,

@@ -42,8 +42,8 @@
     "sortablejs": "^1.12.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
     "@iceworks/spec": "^1.0.0",
     "@ozo/mixins-sass": "^1.1.7",
     "@types/react": "^17.0.2",
@@ -69,7 +69,8 @@
     "jest": "^27.3.1",
     "lint-md": "^0.2.0",
     "lint-md-cli": "^0.1.2",
-    "lint-staged": "^10.0.9",
+    "lint-staged": "^12.0.2",
+    "mrm": "2",
     "npm-run-all": "^4.1.5",
     "onchange": "^6.1.0",
     "react-test-renderer": "^16.13.1",
@@ -94,13 +95,15 @@
     "prettier": "prettier --write src/**/*.{js,jsx,ts,tsx,css,sass,scss,less,json,md,mdx}",
     "mdlint": "lint-md **/*.{md,markdown}",
     "mdlint:fix": "lint-md **/*.{md,markdown} --fix",
+    "lint-staged": "lint-staged",
+    "lint-staged:js": "eslint --ext .js,.jsx,.ts,.tsx",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "autoFormat": "onchange src/**/*.js src/**/*.jsx src/**/*.scss -- prettier --write {{changed}}",
     "analyze": "icejs build && source-map-explorer build/static/js/main.*"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "echo 'Pre-commit checks......' && lint-staged",
+      "pre-commit": "echo 'Pre-commit checks......' && lint-staged --allow-empty",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
