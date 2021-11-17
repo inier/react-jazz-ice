@@ -1,3 +1,4 @@
+import React from 'react';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { ConfigProvider } from '@alifd/next';
 

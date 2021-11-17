@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './ErrorBoundary.module.scss';
 // 图片引入
 import BG_1 from './img/bc-1.png';

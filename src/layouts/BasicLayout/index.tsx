@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Shell, ConfigProvider } from '@alifd/next';
 import PageNav from './components/PageNav';
 import GlobalSearch from './components/GlobalSearch';

@@ -1,3 +1,4 @@
+import React from 'react';
 import { runApp, IAppConfig, request } from 'ice';
 import LocaleProvider from '@/components/LocaleProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';

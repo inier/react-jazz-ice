@@ -1,3 +1,4 @@
+import React, { SFC } from 'react';
 import { Breadcrumb, Box, Typography } from '@alifd/next';
 import styles from './index.module.scss';
 
@@ -7,7 +8,7 @@ export interface PageHeaderProps {
   description?: string;
 }
 
-const PageHeader = (props) => {
+const PageHeader: SFC<PageHeaderProps> = (props) => {
   const { breadcrumbs, title, description, ...others } = props;
   return (
     <Box spacing={8} className={styles.PageHeader} {...others}>

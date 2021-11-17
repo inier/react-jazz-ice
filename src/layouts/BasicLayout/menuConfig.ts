@@ -7,10 +7,6 @@ const asideMenuConfig = [
     icon: 'chart-pie',
     children: [
       {
-        name: '工作台',
-        path: '/dashboard/workplace',
-      },
-      {
         name: '分析页面',
         path: '/dashboard/analysis',
       },
@@ -19,8 +15,8 @@ const asideMenuConfig = [
         path: '/dashboard/monitor',
       },
       {
-        name: '解决方案',
-        path: '/solution',
+        name: '工作台',
+        path: '/dashboard/workplace',
       },
     ],
   },
