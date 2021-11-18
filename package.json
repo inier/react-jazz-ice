@@ -104,7 +104,13 @@
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
     "autoFormat": "onchange src/**/*.js src/**/*.jsx src/**/*.scss -- prettier --write {{changed}}",
     "analyze": "icejs build && source-map-explorer build/static/js/main.*"
-  }, 
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "echo 'Pre-commit checks......' && lint-staged --allow-empty",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "publishConfig": {
     "access": "public"
   },
