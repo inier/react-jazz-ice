@@ -215,11 +215,23 @@ export function urlDecodeBase64(val) {
 }
 
 /**
+ * @description 是否为绝对地址
+ * @param {string} path path
+ * @returns {boolean}
+ */
+export function isAbsolutePath(path = '') {
+  if (path.indexOf('//') >= 0) {
+    return true;
+  }
+  return false;
+}
+
+/**
  * @description 格式化path
  * @param {string} path path
- * @returns {string} 格式化后的path
+ * @returns {string|undefined} 格式化后的path
  */
-export function formatPath(path) {
+export function formatPath(path: string): string | undefined {
   if (!path) {
     return '/404';
   } else if (path.indexOf('//') >= -1) {
@@ -231,9 +243,9 @@ export function formatPath(path) {
 /**
  * @description 获取包含path的url
  * @param {string} path path
- * @returns {string} 格式化后的path
+ * @returns {string|undefined} 格式化后的path
  */
-export function getUrl(path) {
+export function getUrl(path: string): string | undefined {
   if (!path) {
     return '/404';
   }

@@ -315,3 +315,46 @@ export function getGenes(data: any, id: any, reverse = false) {
     return genes.reverse();
   }
 }
+
+/**
+ * json字符串识别和转换
+ * @param {string} jsonStr 对象字符串
+ * @param {string | undefined} errMessage 错误信息
+ * @param {function | undefined} errCb 错误提示回调
+ * @returns {any} 正常转换返回{}，不符合对象字符串的返回null
+ */
+export function jsonParse(jsonStr = '', errMessage = '', errCb?: Function): any {
+  if (!jsonStr) {
+    return null;
+  }
+
+  if (typeof jsonStr === 'string') {
+    try {
+      if (jsonStr.indexOf('{') === -1 && jsonStr.lastIndexOf('}') === -1) {
+        return null;
+      } else if (errMessage && (jsonStr.indexOf('{') === -1 || jsonStr.lastIndexOf('}') === -1)) {
+        throw Error(errMessage);
+      }
+
+      const obj = JSON.parse(jsonStr);
+
+      if (isObject(obj) && Object.keys(obj).length) {
+        return obj;
+      }
+
+      throw Error(errMessage);
+    } catch (e) {
+      // console.log(e);
+      errCb && errMessage && errCb(e, errMessage);
+
+      return null;
+    }
+  }
+
+  return jsonStr;
+}
+
+// 判断是否为对象
+export function isObject(obj) {
+  return obj !== null && typeof obj === 'object';
+}

@@ -8,8 +8,6 @@ import { isMobile } from '@/utils';
  */
 class UIStore {
   rootStore: any;
-  // 判断是否在微信浏览器还是普通浏览器
-  inWeChat = false;
 
   // 是否展示loading图标
   @observable loading = false;
@@ -42,6 +40,7 @@ class UIStore {
   setToastMsg(msg: string) {
     this.toastMsg = msg;
   }
+
   /**
    * @description 显示Toast提示
    * @param {*} msg 需要显示的提示内容
@@ -58,6 +57,7 @@ class UIStore {
       }, duration);
     }
   }
+
   /**
    * @description loading图标的展示状态回调
    * @param {*} boolean true：展示，false：不展示

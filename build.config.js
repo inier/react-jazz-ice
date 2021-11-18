@@ -33,7 +33,7 @@ module.exports = {
   ],
   proxy: {
     '/api': {
-      target: 'http://ip-api.com/',
+      target: '//ip-api.com/',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',

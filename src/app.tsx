@@ -6,6 +6,7 @@ import { getLocale } from '@/utils/locale';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import stores from '@/stores';
+import { Loading } from '@alifd/next';
 
 configure({
   enforceActions: 'observed',
@@ -41,6 +42,7 @@ const appConfig: IAppConfig = {
     interceptors: {
       request: {
         onConfig: (config) => {
+          console.log('request loading...');
           // 发送请求前：可以对 RequestConfig 做一些统一处理
           // 实现上一个接口还未响应  下一个接口开始请求，把上一个接口取消
           if (typeof cancel === 'function') {
@@ -53,16 +55,19 @@ const appConfig: IAppConfig = {
           return config;
         },
         onError: (error) => {
+          console.log('request loading... err');
           return Promise.reject(error);
         },
       },
       response: {
         onConfig: (response) => {
+          console.log('request loaded success');
           cancel = null;
 
           return response;
         },
         onError: (error) => {
+          console.log('request loaded err');
           // 请求出错：服务端返回错误状态码
           console.log(error.response?.data);
           console.log(error.response?.status);

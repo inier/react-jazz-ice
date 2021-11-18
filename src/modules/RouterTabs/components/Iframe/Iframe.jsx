@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '@icedesign/layout';
-import { Loading } from '@alifd/next';
-import { Iframe } from '@components';
+
+import { Shell, Loading } from '@alifd/next';
+import { Iframe } from '@/components';
 // import { urlParse } from '@utils';
 import styles from './Iframe.module.scss';
 
@@ -37,7 +37,7 @@ export default ({ id, url: initialUrl, isRefresh = false, handleRefreshChange })
   }
 
   return (
-    <Layout.Main className={styles.iframeWrap}>
+    <Shell className={styles.iframeWrap}>
       <Loading
         visible={visible}
         onVisibleChange={onClose}
@@ -72,6 +72,6 @@ export default ({ id, url: initialUrl, isRefresh = false, handleRefreshChange })
           border: 'none',
         }}
       />
-    </Layout.Main>
+    </Shell>
   );
 };

@@ -3,17 +3,13 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { appHistory } from '@ice/stark';
-import { Tag, Dropdown, Icon, Balloon, Menu } from '@alifd/next';
+// import { appHistory } from '@ice/stark';
 import Main from './components/Main';
 import Iframe from './components/Iframe';
 import { obj2search } from '@/utils';
+import TabTagArea from './components/TabTagArea';
 import styles from './index.module.scss';
-
-const { Tooltip } = Balloon;
-const { SubMenu } = Menu;
-
-@inject('UIStore')
+@inject('UIStore', 'menuStore')
 @withRouter
 @observer
 class RouterTabs extends Component {
@@ -22,6 +18,19 @@ class RouterTabs extends Component {
     routeType: 'iframe',
     initTitle: '404',
   };
+
+  // 更新tab选中值
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { value } = nextProps;
+
+    if (value && value !== prevState.currentPageName) {
+      return {
+        currentPageName: value,
+      };
+    }
+
+    return null;
+  }
 
   constructor(props) {
     super(props);
@@ -37,19 +46,6 @@ class RouterTabs extends Component {
 
     this.handleMenuClick = this.handleMenuClick.bind(this);
     this.ref = React.createRef();
-  }
-
-  // 更新tab选中值
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { value } = nextProps;
-
-    if (value && value !== prevState.currentPageName) {
-      return {
-        currentPageName: value,
-      };
-    }
-
-    return null;
   }
 
   componentDidMount() {
@@ -73,7 +69,7 @@ class RouterTabs extends Component {
       }
 
       const { refsTag } = this.state;
-      const { UIStore } = this.props;
+      const { menuStore } = this.props;
       const { pathname, search } = _location;
       const newRefsTag = [...refsTag];
       const currentPathname = pathname;
@@ -92,11 +88,11 @@ class RouterTabs extends Component {
 
       // 当前路由不在路由表中
       if (newRefsTag.indexOf(currentPathname) === -1) {
-        if (UIStore.pathValidate(currentPathname)) {
+        if (menuStore.pathValidate(currentPathname)) {
           newRefsTag.push(currentPathname);
         } else {
           // 默认标签页处理
-          const tDefaultPath = UIStore.getDefaultMenuItemPath(_location);
+          const tDefaultPath = menuStore.getDefaultMenuItemPath(_location);
           if (tDefaultPath && !refsTag.includes(tDefaultPath)) {
             newRefsTag.push(tDefaultPath);
           }
@@ -179,7 +175,7 @@ class RouterTabs extends Component {
     }
 
     const { currentPageName, refsTag, searchMap } = this.state;
-    const { routeType, handleChange, history, UIStore } = this.props;
+    const { routeType, handleChange, history, menuStore } = this.props;
 
     // 切换不同标签：相同标签不处理
     if (tag !== currentPageName) {
@@ -199,17 +195,17 @@ class RouterTabs extends Component {
 
         case 'route':
         default: {
-          appHistory.push(tag);
+          // appHistory.push(tag);
           break;
         }
       }
 
       // 按当前菜单项反选顶部菜单
-      const targetPath = UIStore.menuPaths.filter((item) => {
+      const targetPath = menuStore.menuPaths.filter((item) => {
         return item.path === tag;
       });
-      if (targetPath[0] && UIStore.headerMenuCurrent !== targetPath[0].topPath) {
-        UIStore.setHeaderMenuCurrent(targetPath[0].topPath);
+      if (targetPath[0] && menuStore.headerMenuCurrent !== targetPath[0].topPath) {
+        menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
       }
 
       // 点击tab标签时返回外部回调
@@ -222,7 +218,7 @@ class RouterTabs extends Component {
   // 标签选项的快捷操作事件处理
   handleMenuClick = (e) => {
     const eKey = e;
-    const { UIStore, location } = this.props;
+    const { menuStore, location } = this.props;
     const { currentPageName, searchMap } = this.state;
     let currentPathname = location.pathname;
     let newRefsTag;
@@ -266,9 +262,9 @@ class RouterTabs extends Component {
     });
 
     // 取消顶部菜单选中
-    UIStore.setHeaderMenuCurrent();
+    menuStore.setHeaderMenuCurrent();
     // 取消侧边菜单选中
-    UIStore.setAsideMenuCurrent();
+    menuStore.setAsideMenuCurrent();
   };
 
   handleRefreshChange = (value = false) => {
@@ -298,32 +294,19 @@ class RouterTabs extends Component {
     }
 
     const { currentPageName, searchMap, isRefreshCurrentPage } = this.state;
-    const { className, style, routeType, UIStore } = this.props;
-
-    const cls = classNames(styles['router-tabs-tags'], className);
-    const { url } = UIStore.pathValidate(currentPageName);
-    // 订单全流程系统需要单独加载扩展view,当前采用iframe引入
-    const hasExtra = url.indexOf('cfb-order-pc') >= 0;
-    let extraViewUrl = '';
-    if (hasExtra) {
-      extraViewUrl = `${url.split('cfb-order-pc')[0]}cfb-order-pc/sc/iframeOut${obj2search({
-        token: UIStore.token,
-      })}`;
-    }
+    const { routeType, menuStore } = this.props;
 
     /* eslint-disable */
     return (
       <div className={styles['router-tabs']} ref={this.ref}>
-        <div className={cls} style={{ ...style }}>
-          <TabTagArea
-            panes={refsTag}
-            activeKey={currentPageName}
-            handleClick={this.handleClickTag}
-            handleClose={this.handleClose}
-            handleMenuClick={this.handleMenuClick}
-            restProps={this.props}
-          />
-        </div>
+        <TabTagArea
+          panes={refsTag}
+          activeKey={currentPageName}
+          handleClick={this.handleClickTag}
+          handleClose={this.handleClose}
+          handleMenuClick={this.handleMenuClick}
+          getTitleByPathname={menuStore.getTitleByPathname}
+        />
         <div className={styles['router-tabs-content']}>
           {/* 方式：多页tab */}
           {routeType === 'iframe' ? (
@@ -336,7 +319,6 @@ class RouterTabs extends Component {
                 searchMap={searchMap}
                 restProps={this.props}
               />
-              {hasExtra && <ExtraView url={extraViewUrl} />}
             </>
           ) : (
             <Main /> // 方式：路由驱动
@@ -347,92 +329,6 @@ class RouterTabs extends Component {
   }
 }
 
-// 扩展显示View，用于订单全流程系统的额外挂载
-const ExtraView = ({ url }) => {
-  if (!url) {
-    return null;
-  }
-
-  return (
-    <div className={styles.extraIframe}>
-      <iframe width={'100%'} height={'100%'} frameBorder="0" src={url} scrolling="no" />
-    </div>
-  );
-};
-
-// Tab标签区
-const TabTagArea = ({ panes, activeKey, handleClick, handleClose, handleMenuClick, restProps }) => {
-  const { initTitle, UIStore } = restProps;
-  const tags = panes.map((pathname, index) => {
-    // 通过pathname获取到指定的页面名称
-    const routeInfo = UIStore.getTitleByPathname(pathname);
-    const title = routeInfo ? routeInfo.name : initTitle;
-    const isLongTag = title.length > 8; //title超过8个字符的标记
-
-    const tagElem = (
-      <Tag
-        key={pathname}
-        data-key={pathname}
-        className={classNames(styles.tag, { [styles.active]: pathname === activeKey })}
-        onClick={(e) => handleClick(pathname, e)}
-        closable={index !== 0}
-        afterClose={() => handleClose(pathname)}
-      >
-        {/* 小蓝点，高亮显示 */}
-        <span className={styles.icon} />
-        {/* title 超过8个字符的处理 */}
-        {isLongTag ? `${title.slice(0, 8)}...` : title}
-      </Tag>
-    );
-
-    /* title 超过8个字符的处理 */
-    return isLongTag ? (
-      <Tooltip key={`tooltip_${pathname}`} trigger={tagElem} align="b">
-        {title}
-      </Tooltip>
-    ) : (
-      tagElem
-    );
-  });
-
-  return (
-    <React.Fragment>
-      {/* tabs的tags容器 */}
-      <div className={`${styles['router-tabs-tags-box']}`}>
-        <div className={`${styles['router-tabs-tags-cont']}`}>{tags}</div>
-      </div>
-      {/* 快捷功能 */}
-      <TabOptionArea tags={tags} handleClick={handleMenuClick} />
-    </React.Fragment>
-  );
-};
-
-// Tab标签操作区
-const TabOptionArea = ({ tags, handleClick }) => {
-  return (
-    <div className={`${styles['router-tabs-options']}`}>
-      <Dropdown
-        trigger={
-          <Tag size={'small'} color="#2d8cf0" style={{ margin: '0 12px' }}>
-            标签选项 <Icon size="xxs" type="arrow-down" />
-          </Tag>
-        }
-        triggerType="click"
-      >
-        <Menu onItemClick={handleClick}>
-          <Menu.Item key="1">关闭所有标签</Menu.Item>
-          <Menu.Item key="2">关闭其他标签</Menu.Item>
-          <Menu.Item key="3">刷新当前标签</Menu.Item>
-          <SubMenu key="tag-sub-menu" label="切换到标签" mode="popup">
-            {tags.map((item) => (
-              <Menu.Item key={item.key}>{item.props.children}</Menu.Item>
-            ))}
-          </SubMenu>
-        </Menu>
-      </Dropdown>
-    </div>
-  );
-};
 function getSearchByResCode(url, token, resCode) {
   let prefix = '';
 
@@ -444,11 +340,12 @@ function getSearchByResCode(url, token, resCode) {
 
   return `${prefix}token=${token}&resCode=${resCode}&ver=${+new Date()}`;
 }
+
 // Tab内容区
 const TabContent = ({ panes = [], activeKey, isRefreshCurrentPage, handleRefreshChange, searchMap, restProps }) => {
-  const { UIStore } = restProps;
+  const { menuStore } = restProps;
   const tContent = panes.map((pathname) => {
-    let { url: tUrl, key: resCode } = UIStore.pathValidate(pathname);
+    let { url: tUrl, key: resCode } = menuStore.pathValidate(pathname);
 
     // 不是合法的路径
     if (!tUrl) {

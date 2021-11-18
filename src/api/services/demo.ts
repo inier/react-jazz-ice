@@ -11,6 +11,11 @@ export default {
     return await request(`/api/repo/${id}`);
   },
 
+  // 简单场景
+  async getResList() {
+    return await request('/api/res/list');
+  },
+
   // 格式化返回值
   async getDetail(params) {
     const data = await request({

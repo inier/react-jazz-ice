@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import { request } from 'ice'; // 请求底层处理
-import { Agent } from '@/api';
+import { request, Agent } from '@/api';
 import { persistParam } from '@/utils/persistData'; // 数据持久化
 
+const apiAgent = new Agent();
 /* eslint-disable no-use-before-define */
 /**
  * @description Store公共基类，集成了发送请求，持久化字段等功能
@@ -46,7 +46,7 @@ export default class Store {
     opts.loading && Store.handleShowLoading && Store.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, Store.commonRequestData);
-    return Agent.post(url, _params).then((json) => _handleData(json, url, _params, opts));
+    return apiAgent.post(url, _params).then((json) => _handleData(json, url, _params, opts));
   }
 
   /**
@@ -65,7 +65,12 @@ export default class Store {
     opts.loading && Store.handleShowLoading && Store.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, Store.commonRequestData);
-    return Agent.get(url, _params).then((json) => _handleData.call(this, json, url, _params, opts));
+    return (
+      request
+        .get(url, _params)
+        // return Agent.get(url, _params)
+        .then((json) => _handleData.call(this, json, url, _params, opts))
+    );
   }
 }
 

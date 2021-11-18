@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Shell, ConfigProvider } from '@alifd/next';
+import { inject, observer } from 'mobx-react';
+import { Shell, ConfigProvider, Loading } from '@alifd/next';
+import RouterTabs from '@/modules/RouterTabs';
 import PageNav from './components/PageNav';
 import GlobalSearch from './components/GlobalSearch';
 import Notice from './components/Notice';
@@ -7,6 +9,9 @@ import SolutionLink from './components/SolutionLink';
 import HeaderAvatar from './components/HeaderAvatar';
 import Logo from './components/Logo';
 import Footer from './components/Footer';
+
+const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
+const siteName = '长安商城门户端';
 
 (function () {
   const throttle = function (type: string, name: string, obj: Window = window) {
@@ -35,7 +40,7 @@ import Footer from './components/Footer';
 interface IGetDevice {
   (width: number): 'phone' | 'tablet' | 'desktop';
 }
-export default function BasicLayout({ children }: { children: React.ReactNode }) {
+function BasicLayout({ getDefaultMenuItemPath, location, loading, children }) {
   const getDevice: IGetDevice = (width) => {
     const isPhone = typeof navigator !== 'undefined' && navigator && navigator.userAgent.match(/phone/gi);
 
@@ -56,6 +61,7 @@ export default function BasicLayout({ children }: { children: React.ReactNode })
       setDevice(getDevice(deviceWidth));
     });
   }
+  const defaultRouteTab = getDefaultMenuItemPath(location);
 
   return (
     <ConfigProvider device={device}>
@@ -67,7 +73,7 @@ export default function BasicLayout({ children }: { children: React.ReactNode })
         fixedHeader={false}
       >
         <Shell.Branding>
-          <Logo image="https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png" text="Logo" />
+          <Logo image={siteLogo} text={siteName} />
         </Shell.Branding>
         <Shell.Navigation
           direction="hoz"
@@ -86,7 +92,12 @@ export default function BasicLayout({ children }: { children: React.ReactNode })
           <PageNav />
         </Shell.Navigation>
 
-        <Shell.Content>{children}</Shell.Content>
+        <Shell.Content>
+          <Loading visible={!!loading} fullScreen />
+          {/* 多标签路由 */}
+          <RouterTabs value={defaultRouteTab} />
+          {children}
+        </Shell.Content>
         <Shell.Footer>
           <Footer />
         </Shell.Footer>
@@ -94,3 +105,8 @@ export default function BasicLayout({ children }: { children: React.ReactNode })
     </ConfigProvider>
   );
 }
+
+export default inject((stores) => ({
+  loading: stores.UIStore.loading,
+  getDefaultMenuItemPath: stores.menuStore.getDefaultMenuItemPath,
+}))(observer(BasicLayout));

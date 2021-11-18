@@ -4,6 +4,7 @@ const loc = '';
 const urls: any = {
   // GET_RESPONSE_CODE: `${loc}/resc/list`, // 获取统一返回码
   CHECK_RES_CODE_AUTHORITY: '/resApiEdge/resAPI/check', // 资源验证
+  GET_ADMIN_RES_LIST: '/res/list',
   GET_IP: `${loc}/json/`, // 获取ip信息
 };
 

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-cycle */
 import React from 'react';
-import { NotFound as Exception } from '@components';
+import { NotFound as Exception } from '@/components';
 import { checkPermissions } from './CheckPermissions';
 
 /**
