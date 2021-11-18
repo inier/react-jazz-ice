@@ -9,6 +9,7 @@ import Iframe from './components/Iframe';
 import { obj2search } from '@/utils';
 import TabTagArea from './components/TabTagArea';
 import styles from './index.module.scss';
+
 @inject('UIStore', 'menuStore')
 @withRouter
 @observer

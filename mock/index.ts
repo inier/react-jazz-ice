@@ -6,7 +6,11 @@ export default {
   // 同时支持 GET 和 POST
   '/api/users/1': { result: 0, data: {} },
   '/api/foo/bar': { result: 0, data: {} },
-  '/api/res/list': resList,
+  '/api/res/list': (req, res) => {
+    setTimeout(()=>{
+      res.send(resList);
+    }, 3000);    
+  },
 
   // 支持标准 HTTP
   'GET /api/profile': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: '管理员' } },

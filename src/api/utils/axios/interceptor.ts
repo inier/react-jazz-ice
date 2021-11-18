@@ -1,54 +1,81 @@
-/** 生成基础axios对象，并对请求和响应做处理
- * 前后端约定接口返回解构规范
- * { 
- *    code:0, 
- *    data:"成功",
- *    message:"" 
- * } 
- */
-import axios from 'axios';
-import { Message } from 'element-ui';
-// 创建一个独立的axios实例
+import axios, { CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'; // 此处引入axios官方文件
+import { addPendingRequest, removePendingRequest } from './cancelRepeatRquest'; // 取消重复请求
+import { againRequest } from './requestAgainSend'; // 请求重发
+import { requestInterceptor as cacheReqInterceptor, responseInterceptor as cacheResInterceptor } from './requestCache';
+import { Message } from '@alifd/next';
+
+// 返回结果处理
+// 自定义约定接口返回{result: xxx, data: xxx, total:"", msg:'err message'}
+const responseHandle = {
+  200: (response) => {
+    return response.data;
+  },
+  401: (response) => {
+    Message.show({
+      title: '认证异常',
+      content: '登录状态已过期，请重新登录！',
+      type: 'error',
+    });
+
+    window.location.href = window.location.origin;
+  },
+  default: (response) => {
+    Message.show({
+      title: '操作失败',
+      content: response.data.msg,
+      type: 'error',
+    });
+    return Promise.reject(response);
+  },
+};
+
 const service = axios.create({
-    // 设置baseUr地址,如果通过proxy跨域可直接填写base地址  
-    baseURL: '/api',
-    // 定义统一的请求头部 
-    headers: {
-        post: {
-            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
-        }
-    },
-    // 配置请求超时时间
-    timeout: 10000,
-    // 如果用的JSONP，可以配置此参数带上cookie凭证，如果是代理和CORS不用设置 
-    withCredentials: true
+  timeout: 50000,
 });
-// 请求拦截
-service.interceptors.request.use(config => {
-    // 自定义header，可添加项目token  
-    config.headers.token = 'token';
+
+// 设置post请求头
+service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+
+// 请求拦截器
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    // pending 中的请求，后续请求不发送（由于存放的pendingMap 的key 和参数有关，所以放在参数处理之后）
+    addPendingRequest(config); // 把当前请求信息添加到pendingRequest对象中
+    // 请求缓存
+    cacheReqInterceptor(config, service);
+
     return config;
-});
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
-// 返回拦截
+// 响应拦截器
+service.interceptors.response.use(
+  (response: AxiosResponse) => {
+    // 响应正常时从pendingRequest对象中移除请求
+    removePendingRequest(response);
+    cacheResInterceptor(response);
 
-service.interceptors.response.use((response) => {
-    // 获取接口返回结果   
-    const res = response.data;
-    // code为0，直接把结果返回回去，这样前端代码就不用在获取一次data.  
-    if (res.code === 0) { return res; } else if (res.code === 10000) {
-        // 10000假设是未登录状态码    
-        Message.warning(res.message);
-        // 也可使用router进行跳转    
-        window.location.href = '/#/login';
-        return res;
-    } else {
-        // 错误显示可在service中控制，因为某些场景我们不想要展示错误    
-        // Message.error(res.message);  
-        return res;
+    return responseHandle[response.status || 'default'](response);
+  },
+  (error: AxiosError) => {
+    // 从pending 列表中移除请求
+    removePendingRequest(error.config || {});
+
+    // 需要特殊处理请求被取消的情况
+    if (!axios.isCancel(error)) {
+      // 请求重发
+      againRequest(error, service);
     }
-}, () => {
-    Message.error('网络请求异常，请稍后重试!');
-});
+    // 请求缓存处理方式
+    if (axios.isCancel(error) && error.message?.data && error.message?.data?.config.cache) {
+      return Promise.resolve(error.message?.data?.data); // 返回结果数据
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 export default service;

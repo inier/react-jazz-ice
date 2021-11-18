@@ -5,12 +5,11 @@ import { persistParam } from '@/utils/persistData'; // 数据持久化
 const apiAgent = new Agent();
 /* eslint-disable no-use-before-define */
 /**
- * @description Store公共基类，集成了发送请求，持久化字段等功能
- *   用handleShowLoading handleRequestError配合UIStore，实现展示loading和错误提示，
- *   用commonRequestData 配合UserStore，实现请求中挂全局参数，比如token
- * @export
- * @class Store
+ * Store公共基类，集成了发送请求，持久化字段等功能
+ * 用handleShowLoading handleRequestError配合UIStore，实现展示loading和错误提示，
+ * 用commonRequestData 配合UserStore，实现请求中挂全局参数，比如token
  */
+
 export default class Store {
   static commonRequestData: any;
   static handleShowLoading: (arg0: boolean) => any;
@@ -46,7 +45,7 @@ export default class Store {
     opts.loading && Store.handleShowLoading && Store.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, Store.commonRequestData);
-    return apiAgent.post(url, _params).then((json) => _handleData(json, url, _params, opts));
+    return request.post(url, _params, opts).then((json) => _handleData(json, url, _params, opts));
   }
 
   /**
@@ -65,12 +64,7 @@ export default class Store {
     opts.loading && Store.handleShowLoading && Store.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, Store.commonRequestData);
-    return (
-      request
-        .get(url, _params)
-        // return Agent.get(url, _params)
-        .then((json) => _handleData.call(this, json, url, _params, opts))
-    );
+    return request.get(url, _params, opts).then((json) => _handleData.call(this, json, url, _params, opts));
   }
 }
 

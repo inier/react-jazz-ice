@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { makeAutoObservable, observable, action } from 'mobx';
-import { ResponseCode } from '@/api';
+import { responseCode } from '@/api';
 import { isMobile } from '@/utils';
 
 /**
@@ -47,7 +47,7 @@ class UIStore {
    * @param {*} autoClose 是否自动关闭
    * @param {*} duration toast显示的持续时间，默认3秒
    */
-  showToast(msg: any, autoClose = true, duration = 3000) {
+  showToast = (msg: any, autoClose = true, duration = 3000) => {
     this.setToastMsg(msg);
 
     // 指定时间后自动关闭toast，默认3秒
@@ -56,7 +56,7 @@ class UIStore {
         this.setToastMsg('');
       }, duration);
     }
-  }
+  };
 
   /**
    * @description loading图标的展示状态回调
@@ -71,7 +71,7 @@ class UIStore {
    * @param {*} code 错误码
    */
   handleRequestError(code: string | undefined) {
-    this.showToast(ResponseCode.showMsg(code));
+    this.showToast(responseCode.codeMsg(code));
   }
 }
 

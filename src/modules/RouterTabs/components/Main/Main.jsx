@@ -1,14 +1,14 @@
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-// import { AppRouter, AppRoute } from '@ice/stark';
-// import NotFound from '@/components/NotFound';
-// import PageLoading from '@/components/PageLoading';
+import { AppRouter, AppRoute } from '@ice/stark';
+import NotFound from '@/components/NotFound';
+import PageLoading from '@/components/PageLoading';
 
 export default inject('UIStore')(
   /* eslint-disable prefer-arrow-callback */
   observer(function BasicPage({ setPathname, setRouteArr, UIStore }) {
     const { appRoutes } = UIStore;
-    return null;
+
     return (
       <AppRouter
         NotFoundComponent={NotFound}

@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { makeAutoObservable, observable, action, computed } from 'mobx';
-import { ApiUrls, ResponseCode } from '@/api';
+import { apiUrls, responseCode } from '@/api';
 import { formatPath, isAbsolutePath, getUrl, jsonParse } from '@/utils';
 
 // 菜单项
@@ -283,10 +283,11 @@ class MenuStore {
    * @param {object} params 参数
    * @returns {promise}
    */
-  getAdminResList = (params = {}) => {
-    const { sendGet, showToast } = this.rootStore;
+  getAdminResList = (params = {}, options = {}) => {
+    const { sendPost } = this.rootStore;
+    const { showToast } = this.rootStore.UIStore;
 
-    return sendGet(ApiUrls.GET_ADMIN_RES_LIST, params, true).then(({ result, data }): any => {
+    return sendPost(apiUrls.GET_ADMIN_RES_LIST, params, options).then(({ result, data }): any => {
       if (result === '0' && Array.isArray(data)) {
         const tResourceList: IResItem[] = data.filter((item: IResItem) => {
           const tExtras = jsonParse(item.extras);
@@ -302,7 +303,7 @@ class MenuStore {
 
         return true;
       } else {
-        showToast(ResponseCode.showMsg('2'));
+        showToast(responseCode.codeMsg('2'));
         return false;
       }
     });

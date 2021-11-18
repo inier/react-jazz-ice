@@ -6,7 +6,6 @@ import { getLocale } from '@/utils/locale';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import stores from '@/stores';
-import { Loading } from '@alifd/next';
 
 configure({
   enforceActions: 'observed',
@@ -15,8 +14,10 @@ configure({
   observableRequiresReaction: true,
   disableErrorBoundaries: false,
 });
+
 const locale = getLocale();
 let cancel;
+
 const appConfig: IAppConfig = {
   app: {
     rootId: 'ice-container',
@@ -44,14 +45,6 @@ const appConfig: IAppConfig = {
         onConfig: (config) => {
           console.log('request loading...');
           // 发送请求前：可以对 RequestConfig 做一些统一处理
-          // 实现上一个接口还未响应  下一个接口开始请求，把上一个接口取消
-          if (typeof cancel === 'function') {
-            cancel('强制取消了请求');
-          }
-          config.cancelToken = new request.CancelToken((c) => {
-            cancel = c;
-          });
-
           return config;
         },
         onError: (error) => {
@@ -62,7 +55,6 @@ const appConfig: IAppConfig = {
       response: {
         onConfig: (response) => {
           console.log('request loaded success');
-          cancel = null;
 
           return response;
         },
@@ -73,14 +65,8 @@ const appConfig: IAppConfig = {
           console.log(error.response?.status);
           console.log(error.response?.headers);
 
-          cancel = null;
-          if (request.isCancel(error)) {
-            // 中断promise链接
-            return new Promise(() => {});
-          } else {
-            // 把错误继续向下传递
-            return Promise.reject(error);
-          }
+          // 把错误继续向下传递
+          return Promise.reject(error);
         },
       },
     },

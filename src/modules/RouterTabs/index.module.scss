@@ -4,9 +4,9 @@ $routerTabs-item-max-width: 6em;
 $routerTabs-item-min-width: 2em;
 $routerTabs-text-size: $font-size-body-2;
 $routerTabs-border-radius: $corner-2;
-$routerTabs-box-shadow: rgba(0, 0, 0, .18) 0 1px 1px 0, inset rgba(0, 0, 0, .24) 0 5px 2px;
-$routerTabs-item-box-shadow: rgba(0, 0, 0, .18) 4px -4px 10px 0;
-$routerTabs-item-box-shadow-2: rgba(0, 0, 0, .12) 4px -4px 10px 0;
+$routerTabs-box-shadow: rgba(0, 0, 0, 0.18) 0 1px 1px 0, inset rgba(0, 0, 0, 0.24) 0 5px 2px;
+$routerTabs-item-box-shadow: rgba(0, 0, 0, 0.18) 4px -4px 10px 0;
+$routerTabs-item-box-shadow-2: rgba(0, 0, 0, 0.12) 4px -4px 10px 0;
 
 .router-tabs {
   position: relative;

@@ -7,7 +7,6 @@ module.exports = {
     PUBLIC_URL: '/toxic',
   },
   // vite: true,
-  eslint: false,
   plugins: [
     [
       'build-plugin-fusion',
@@ -33,7 +32,7 @@ module.exports = {
   ],
   proxy: {
     '/api': {
-      target: '//ip-api.com/',
+      target: 'http://ip-api.com/',
       changeOrigin: true,
       pathRewrite: {
         '^/api': '',

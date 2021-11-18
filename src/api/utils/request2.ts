@@ -29,8 +29,8 @@ const apiCache = {
   /** 删除任务 */
   deleteTask(config, start, cancelToken?) {
     let cancel = false;
-    for (let i in this.taskList) {
-      if (this.taskList[i]['original'] === `${config.url}&${config.method}`) {
+    for (const i in this.taskList) {
+      if (this.taskList[i].original === `${config.url}&${config.method}`) {
         this.taskList[i].cancelToken('');
         this.taskList.splice(i, 1);
         cancel = true;
@@ -57,10 +57,10 @@ const apiCache = {
   },
   /** 删除缓存 */
   deleteCache(config, cancelToken) {
-    let cacheMap = this.cacheMap;
-    const key = this.createKey(config),
-      now = new Date().getTime();
-    let cache = cacheMap.get(key) || {};
+    const { cacheMap } = this;
+    const key = this.createKey(config);
+    const now = new Date().getTime();
+    const cache = cacheMap.get(key) || {};
 
     if (cache && cache.expirationTime && now <= cache.deadline && cache.data) {
       cache.cache = true;
@@ -96,12 +96,12 @@ const apiCache = {
 const instance = axios.create({
   // 配置请求超时时间
   timeout: 1000 * 60,
-   // 如果用的JSONP，可以配置此参数带上cookie凭证，如果是代理和CORS不用设置
-   withCredentials: true
+  // 如果用的JSONP，可以配置此参数带上cookie凭证，如果是代理和CORS不用设置
+  withCredentials: true,
 });
 
 /** 设置post请求头 */
-instance.defaults.headers.post['Content-Type'] = "application/x-www-form-urlencoded;charset=UTF-8";
+instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 
 /** 请求拦截器 */
 instance.interceptors.request.use(
@@ -156,10 +156,6 @@ instance.interceptors.response.use(
     }
   },
 );
-
-
-
-
 
 /**
  * 封装 get、post 请求

@@ -1,6 +1,6 @@
 /* eslint-disable @iceworks/best-practices/recommend-polyfill */
 /* eslint-disable no-console */
-import { Agent, ApiUrls } from '@/api';
+import { Agent, apiUrls } from '@/api';
 
 const APIAgent = new Agent();
 
@@ -12,7 +12,7 @@ class ResponseCode {
   newCodes: any;
 
   constructor() {
-    if (ApiUrls.GET_RESPONSE_CODE) {
+    if (apiUrls.GET_RESPONSE_CODE) {
       // 用应用的第一级目录做不同应用的区分
       const appPath = window.location.pathname.split('/')[1];
 
@@ -22,7 +22,7 @@ class ResponseCode {
         console.log('ResponseCode:constructor', error);
       }
 
-      ApiUrls.GET_RESPONSE_CODE && this.getNewCode();
+      apiUrls.GET_RESPONSE_CODE && this.getNewCode();
     }
   }
 
@@ -31,7 +31,7 @@ class ResponseCode {
    * @param {*} code 错误码
    * @returns 错误的中文信息
    */
-  showMsg(code = '') {
+  codeMsg(code = '') {
     if (code === '-1') return;
 
     if (this.codes && Object.prototype.hasOwnProperty.call(this.codes, code)) {
@@ -56,7 +56,7 @@ class ResponseCode {
     // 本地的版本号
     const oldVer = window.localStorage.getItem(`${appPath}_error_code_v`);
 
-    APIAgent.get(ApiUrls.GET_RESPONSE_CODE, { version: oldVer || undefined }).then((json) => {
+    APIAgent.get(apiUrls.GET_RESPONSE_CODE, { version: oldVer || undefined }).then((json) => {
       if (json && Number(json.result) === 0 && json.data) {
         window.localStorage.setItem(`${appPath}_error_code_v`, json.version);
         try {

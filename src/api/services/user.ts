@@ -1,5 +1,5 @@
-import { request, getSearchParams } from 'ice';
-import { ApiUrls } from '@/api';
+import { getSearchParams } from 'ice';
+import { request, apiUrls } from '@/api';
 
 /**
  * 检查权限
@@ -8,7 +8,7 @@ export async function checkAuth() {
   const searchParams = getSearchParams();
   // 请求权限鉴定
   return request
-    .get(ApiUrls.CHECK_RES_CODE_AUTHORITY, {
+    .get(apiUrls.CHECK_RES_CODE_AUTHORITY, {
       params: {
         resourceCode: searchParams.resCode,
       },
@@ -21,10 +21,8 @@ export async function checkAuth() {
  */
 export async function getLocationByIP() {
   return request
-    .get(ApiUrls.GET_IP, {
-      params: {
-        fields: 66666,
-      },
+    .get(apiUrls.GET_IP, {
+      fields: 66666,
     })
     .then((res) => {
       if (!res) {

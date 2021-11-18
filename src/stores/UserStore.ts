@@ -28,7 +28,6 @@ class UserStore {
 
     rootStore.commonRequestData = { token: this.token };
     rootStore.refreshToken = this.refreshToken.bind(this);
-    this.getIP();
   }
 
   /**
