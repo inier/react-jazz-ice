@@ -5,6 +5,7 @@ const Login = lazy(() => import('./Login'));
 
 export { Login };
 export {
+  Home,
   Register,
   // Analysis,
   // Monitor,
@@ -23,11 +24,11 @@ export {
   BasicListPage,
   CardListPage,
   FusionFilterTable,
-  FusionMutilcolTable,
-  FusionSinglecolTable,
+  FusionMultiColTable,
+  FusionSingleColTable,
   FusionExpandTable,
   FusionActionTable,
-  FusionMergecellTable,
+  FusionMergeCellTable,
   FusionSingletreeTable,
   FusionDialogTable,
   TableListPage,

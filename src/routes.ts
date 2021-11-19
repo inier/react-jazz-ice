@@ -22,11 +22,11 @@ import {
   BasicListPage,
   CardListPage,
   FusionFilterTable,
-  FusionMutilcolTable,
-  FusionSinglecolTable,
+  FusionMultiColTable,
+  FusionSingleColTable,
   FusionExpandTable,
   FusionActionTable,
-  FusionMergecellTable,
+  FusionMergeCellTable,
   FusionSingletreeTable,
   FusionDialogTable,
   TableListPage,
@@ -68,6 +68,13 @@ const routerConfig: IRouterConfig[] = [
     path: '/',
     component: BasicLayout,
     children: [
+      {
+        path: '/home',
+        component: Home,
+        pageConfig: {
+          title: '首页',
+        },
+      },
       // {
       //   path: '/dashboard/analysis',
       //   component: Analysis,
@@ -145,11 +152,11 @@ const routerConfig: IRouterConfig[] = [
       },
       {
         path: '/list/table/mutilcol',
-        component: FusionMutilcolTable,
+        component: FusionMultiColTable,
       },
       {
         path: '/list/table/singlecol',
-        component: FusionSinglecolTable,
+        component: FusionSingleColTable,
       },
       {
         path: '/list/table/expand',
@@ -161,7 +168,7 @@ const routerConfig: IRouterConfig[] = [
       },
       {
         path: '/list/table/mergecell',
-        component: FusionMergecellTable,
+        component: FusionMergeCellTable,
       },
       {
         path: '/list/table/singletree',

@@ -5,7 +5,7 @@ import SingleColFilterTable from './components/SingleColFilterTable';
 
 const { Cell } = ResponsiveGrid;
 
-const FusionSinglecolTable = () => {
+const FusionSingleColTable = () => {
   return (
     <ResponsiveGrid gap={20}>
       <Cell colSpan={12}>
@@ -27,4 +27,4 @@ const FusionSinglecolTable = () => {
   );
 };
 
-export default FusionSinglecolTable;
+export default FusionSingleColTable;

@@ -1,6 +1,7 @@
 // 页面注册
 import { lazy } from 'ice';
 
+const Home = lazy(()=>import('./Home'));
 const Register = lazy(()=>import('./Register'));
 const Solution = lazy(()=>import('./Solution'));
 // const Analysis = lazy(()=>import('./Analysis'));
@@ -20,11 +21,11 @@ const Advanced = lazy(()=>import('./Advanced'));
 const BasicListPage = lazy(()=>import('./BasicListPage'));
 const CardListPage = lazy(()=>import('./CardListPage'));
 const FusionFilterTable = lazy(()=>import('./FusionFilterTable'));
-const FusionMutilcolTable = lazy(()=>import('./FusionMutilcolTable'));
-const FusionSinglecolTable = lazy(()=>import('./FusionSinglecolTable'));
+const FusionMultiColTable = lazy(()=>import('./FusionMultiColTable'));
+const FusionSingleColTable = lazy(()=>import('./FusionSingleColTable'));
 const FusionExpandTable = lazy(()=>import('./FusionExpandTable'));
 const FusionActionTable = lazy(()=>import('./FusionActionTable'));
-const FusionMergecellTable = lazy(()=>import('./FusionMergecellTable'));
+const FusionMergeCellTable = lazy(()=>import('./FusionMergeCellTable'));
 const FusionSingletreeTable = lazy(()=>import('./FusionSingletreeTable'));
 const FusionDialogTable = lazy(()=>import('./FusionDialogTable'));
 const TableListPage = lazy(()=>import('./TableListPage'));
@@ -37,6 +38,7 @@ const Settings = lazy(()=>import('./Settings'));
 const Person = lazy(()=>import('./Person'));
 
 export {
+  Home,
   Register,
   // Analysis,
   // Monitor,
@@ -55,11 +57,11 @@ export {
   BasicListPage,
   CardListPage,
   FusionFilterTable,
-  FusionMutilcolTable,
-  FusionSinglecolTable,
+  FusionMultiColTable,
+  FusionSingleColTable,
   FusionExpandTable,
   FusionActionTable,
-  FusionMergecellTable,
+  FusionMergeCellTable,
   FusionSingletreeTable,
   FusionDialogTable,
   TableListPage,

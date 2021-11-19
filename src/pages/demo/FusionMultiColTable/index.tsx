@@ -5,7 +5,7 @@ import MultiColFilterTable from './components/MultiColFilterTable';
 
 const { Cell } = ResponsiveGrid;
 
-const FusionMutilcolTable = () => {
+const FusionMultiColTable = () => {
   return (
     <ResponsiveGrid gap={20}>
       <Cell colSpan={12}>
@@ -27,4 +27,4 @@ const FusionMutilcolTable = () => {
   );
 };
 
-export default FusionMutilcolTable;
+export default FusionMultiColTable;
