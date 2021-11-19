@@ -44,15 +44,6 @@ export default inject('UIStore')(
                     ]}
                 />
                 <AppRoute
-                    path="/rcmtest"
-                    basename="/rcmtest"
-                    title="权限中心"
-                    url={[
-                        '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                        '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
-                    ]}
-                />
-                <AppRoute
                     path="/waiter"
                     basename="/waiter"
                     title="小二平台"

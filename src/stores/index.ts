@@ -20,5 +20,5 @@ class RootStore extends Store {
   }
 }
 
-export {};
 export default new RootStore();
+export { UserStore, UIStore, MenuStore };

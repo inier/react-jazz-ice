@@ -321,15 +321,15 @@ class MenuStore {
   };
 
   // 可添加到标签页的菜单路径有效性检测，在menuPaths中视为有效
-  pathValidate(path) {
+  pathValidate = (path) => {
     if (path) {
       return this.menuPaths.find((item) => {
         return item.path === path;
       });
     }
 
-    return false;
-  }
+    return {};
+  };
 
   // 获取默认菜单项: location
   getDefaultMenuItemPath = ({ pathname, search }) => {
@@ -366,6 +366,8 @@ class MenuStore {
     if (result) {
       return result.parentKey;
     }
+
+    return '';
   };
 }
 

@@ -5,9 +5,22 @@ import styles from './index.module.scss';
 
 const { Tooltip } = Balloon;
 const { SubMenu } = Menu;
+const { Closeable: CloseableTag } = Tag;
+
+interface IProps {
+  panes: string[];
+  activeKey: string;
+  initTitle?: string;
+  handleClick: (tag, e?) => void;
+  handleClose: (tag) => void;
+  handleMenuClick: (e) => void;
+  getTitleByPathname: (tag) => object;
+  className?: string;
+  style?: object;
+}
 
 // Tab标签区
-const TabTagArea = ({
+const TabTagArea: React.FC<IProps> = ({
   panes,
   activeKey,
   initTitle,
@@ -21,25 +34,36 @@ const TabTagArea = ({
   const cls = classNames(styles['router-tabs-tags'], className);
   const tags = panes.map((pathname, index) => {
     // 通过pathname获取到指定的页面名称
-    const routeInfo = getTitleByPathname(pathname);
-    const title = routeInfo ? routeInfo.name : initTitle;
+    const routeInfo: any = getTitleByPathname(pathname);
+    const title = routeInfo?.name || initTitle;
     const isLongTag = title.length > 8; // title超过8个字符的标记
 
-    const tagElem = (
-      <Tag
-        key={pathname}
-        data-key={pathname}
-        className={classNames(styles.tag, { [styles.active]: pathname === activeKey })}
-        onClick={(e) => handleClick(pathname, e)}
-        closable={index !== 0}
-        afterClose={() => handleClose(pathname)}
-      >
-        {/* 小蓝点，高亮显示 */}
-        <span className={styles.icon} />
-        {/* title 超过8个字符的处理 */}
-        {isLongTag ? `${title.slice(0, 8)}...` : title}
-      </Tag>
-    );
+    const tagElem = () => {
+      const props = {
+        key: pathname,
+        ['data-key']: pathname,
+        className: classNames(styles.tag, { [styles.active]: pathname === activeKey }),
+        onClick: (e) => handleClick(pathname, e),
+      };
+      const Child = (
+        <>
+          {/* 小蓝点，高亮显示 */}
+          <span className={styles.icon} />
+          {/* title 超过8个字符的处理 */}
+          {isLongTag ? `${title.slice(0, 8)}...` : title}
+        </>
+      );
+      let content = <Tag {...props}>{Child}</Tag>;
+      if (index !== 0) {
+        content = (
+          <CloseableTag {...props} afterClose={() => handleClose(pathname)}>
+            {Child}
+          </CloseableTag>
+        );
+      }
+
+      return content;
+    };
 
     /* title 超过8个字符的处理 */
     return isLongTag ? (

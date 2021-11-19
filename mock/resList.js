@@ -26,7 +26,7 @@ export default {
                         ],
                         icon: 'cry',
                         routePath: '/merchant?tt=123',
-                        url: 'https://mall.changan.com.cn/ca-web/home/',
+                        url: 'https://www.tmall.com/',
                     },
                     resourceList: [
                         {
@@ -42,7 +42,7 @@ export default {
                                 ],
                                 icon: 'cry',
                                 routePath: '/merchant/list',
-                                url: 'https://cloud.mall.changan.com.cn/reactcaecapp/',
+                                url: 'https://www.taobao.com/',
                             },
                         },
                         {
@@ -118,8 +118,8 @@ export default {
                     isCheck: null,
                     extras: {
                         loadUrl: [
-                            '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                            '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                            '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                            '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                         ],
                         icon: 'cry',
                         routePath: '/rcmtest',
@@ -133,8 +133,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 icon: 'cry',
                                 routePath: '/rcmtest/list',
@@ -149,8 +149,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 icon: 'cry',
                                 routePath: '/rcmtest/detail',
@@ -165,8 +165,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 icon: 'cry',
                                 routePath: '/rcmtest/about',
@@ -242,8 +242,8 @@ export default {
                     isCheck: null,
                     extras: {
                         loadUrl: [
-                            '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                            '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                            '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                            '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                         ],
                         icon: 'cry',
                         routePath: '/rcmtest1',
@@ -257,8 +257,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 routePath: '/rcmtest1/list',
                                 url: 'https://www.jd.com/',
@@ -272,8 +272,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 routePath: '/rcmtest1/detail',
                                 url: 'https://www.suning.com/',
@@ -287,8 +287,8 @@ export default {
                             resourceList: null,
                             extras: {
                                 loadUrl: [
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/js/index.js',
-                                    '//ssl.mall.changan.com.cn/rcmtest/0.0.5/css/index.css',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/js/index.js',
+                                    '//ssl.xxx.com.cn/rcmtest/0.0.5/css/index.css',
                                 ],
                                 routePath: '/rcmtest1/about',
                                 url: 'https://ice.work/scaffold',
@@ -308,7 +308,7 @@ export default {
                         ],
                         icon: 'cry',
                         routePath: '/merchant1?tt=123',
-                        url: 'https://mall.changan.com.cn/ca-web/home/',
+                        url: 'https://www.tmall.com/',
                     },
                     resourceList: [
                         {
@@ -323,7 +323,7 @@ export default {
                                     '//g.alicdn.com/icestark-demo/child/0.2.0/css/index.css',
                                 ],
                                 routePath: '/merchant1/list',
-                                url: 'https://cloud.mall.changan.com.cn/reactcaecapp/',
+                                url: 'https://www.tmall.com/',
                             },
                         },
                         {

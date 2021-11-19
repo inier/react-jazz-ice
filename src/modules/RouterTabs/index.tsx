@@ -1,19 +1,35 @@
 /* eslint-disable @iceworks/best-practices/recommend-functional-component */
 import classNames from 'classnames';
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-// import { appHistory } from '@ice/stark';
+import { appHistory } from '@ice/stark';
 import Main from './components/Main';
 import Iframe from './components/Iframe';
 import { obj2search } from '@/utils';
 import TabTagArea from './components/TabTagArea';
 import styles from './index.module.scss';
+import { UIStore, MenuStore } from '@/stores';
+
+interface IRouterTabsProps extends RouteComponentProps {
+  value: string;
+  routeType: string;
+  initTitle: string;
+  handleChange: (params?) => void;
+  menuStore: MenuStore;
+  UIStore: UIStore;
+}
+interface IRouterTabsStates {
+  currentPageName: string; // 当前路由对应的pathname
+  refsTag: string[]; // 所有tab标签列表
+  searchMap: object; // 每个tab标签对应的search参数
+  isRefreshCurrentPage: boolean; // 当前iframe是否刷新
+}
 
 @inject('UIStore', 'menuStore')
 @withRouter
 @observer
-class RouterTabs extends Component {
+class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
   static defaultProps = {
     value: '',
     routeType: 'iframe',
@@ -32,6 +48,12 @@ class RouterTabs extends Component {
 
     return null;
   }
+
+  unListen: any;
+  ref: any;
+  notListenOnce: boolean;
+  didUnMounted: boolean;
+  tagChangeTimerId: any;
 
   constructor(props) {
     super(props);
@@ -85,7 +107,7 @@ class RouterTabs extends Component {
       }
 
       // 临时变量，用于汇集新的state，便于一次性setState
-      const tStateObj = {};
+      const tStateObj: any = {};
 
       // 当前路由不在路由表中
       if (newRefsTag.indexOf(currentPathname) === -1) {
@@ -131,8 +153,6 @@ class RouterTabs extends Component {
     }
   }
 
-  static unListen = null;
-
   addRouteTagDispatch = (event) => {
     if (event.origin !== window.location.origin) {
       return;
@@ -169,7 +189,7 @@ class RouterTabs extends Component {
     }
   };
 
-  handleClickTag = (tag, e) => {
+  handleClickTag = (tag, e?) => {
     // 排除Tag上的小图标点击
     if (e && e.target.tagName.toLowerCase() === 'i') {
       return;
@@ -196,7 +216,7 @@ class RouterTabs extends Component {
 
         case 'route':
         default: {
-          // appHistory.push(tag);
+          appHistory.push(tag);
           break;
         }
       }
