@@ -1,8 +1,16 @@
 import axios, { CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'; // 此处引入axios官方文件
-import { addPendingRequest, removePendingRequest } from './cancelRepeatRquest'; // 取消重复请求
+import { cacheAdapterEnhancer, throttleAdapterEnhancer, retryAdapterEnhancer } from 'axios-extensions';
+import { addPendingRequest, removePendingRequest } from './cancelRepeatRequest'; // 取消重复请求
 import { againRequest } from './requestAgainSend'; // 请求重发
 import { requestInterceptor as cacheReqInterceptor, responseInterceptor as cacheResInterceptor } from './requestCache';
 import { Message } from '@alifd/next';
+import LRUCache from 'lru-cache';
+
+const defaultAdapter = axios.defaults.adapter;
+const cacheCfg = new LRUCache({
+  maxAge: 1000 * 10, // 有效期10s
+  max: 1000, // 最大缓存数量
+});
 
 // 返回结果处理
 // 自定义约定接口返回{result: xxx, data: xxx, total:"", msg:'err message'}
@@ -31,6 +39,13 @@ const responseHandle = {
 
 const service = axios.create({
   timeout: 50000,
+  adapter: throttleAdapterEnhancer(
+    cacheAdapterEnhancer(retryAdapterEnhancer(defaultAdapter), {
+      enabledByDefault: false,
+      cacheFlag: 'useCache',
+      defaultCache: cacheCfg,
+    }),
+  ),
 });
 
 // 设置post请求头
