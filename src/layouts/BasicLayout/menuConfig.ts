@@ -7,6 +7,10 @@ const asideMenuConfig = [
     icon: 'chart-pie',
     children: [
       {
+        name: '首页',
+        path: '/home',
+      },
+      {
         name: '分析页面',
         path: '/dashboard/analysis',
       },

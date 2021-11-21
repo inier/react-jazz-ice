@@ -26,7 +26,7 @@ const FusionSingleColTable = lazy(()=>import('./FusionSingleColTable'));
 const FusionExpandTable = lazy(()=>import('./FusionExpandTable'));
 const FusionActionTable = lazy(()=>import('./FusionActionTable'));
 const FusionMergeCellTable = lazy(()=>import('./FusionMergeCellTable'));
-const FusionSingletreeTable = lazy(()=>import('./FusionSingletreeTable'));
+const FusionSingleTreeTable = lazy(()=>import('./FusionSingleTreeTable'));
 const FusionDialogTable = lazy(()=>import('./FusionDialogTable'));
 const TableListPage = lazy(()=>import('./TableListPage'));
 const FeedbackFail = lazy(()=>import('./FeedbackFail'));
@@ -62,7 +62,7 @@ export {
   FusionExpandTable,
   FusionActionTable,
   FusionMergeCellTable,
-  FusionSingletreeTable,
+  FusionSingleTreeTable,
   FusionDialogTable,
   TableListPage,
   FeedbackFail,

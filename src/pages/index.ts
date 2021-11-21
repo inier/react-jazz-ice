@@ -29,7 +29,7 @@ export {
   FusionExpandTable,
   FusionActionTable,
   FusionMergeCellTable,
-  FusionSingletreeTable,
+  FusionSingleTreeTable,
   FusionDialogTable,
   TableListPage,
   FeedbackFail,

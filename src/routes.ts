@@ -2,6 +2,7 @@ import { IRouterConfig } from 'ice';
 import UserLayout from '@/layouts/UserLayout';
 import BasicLayout from '@/layouts/BasicLayout';
 import {
+  Home,
   Login,
   Register,
   Workplace,
@@ -27,7 +28,7 @@ import {
   FusionExpandTable,
   FusionActionTable,
   FusionMergeCellTable,
-  FusionSingletreeTable,
+  FusionSingleTreeTable,
   FusionDialogTable,
   TableListPage,
   FeedbackFail,
@@ -172,7 +173,7 @@ const routerConfig: IRouterConfig[] = [
       },
       {
         path: '/list/table/singletree',
-        component: FusionSingletreeTable,
+        component: FusionSingleTreeTable,
       },
       {
         path: '/list/table/dialog',
@@ -213,7 +214,7 @@ const routerConfig: IRouterConfig[] = [
       {
         path: '/',
         // 重定向
-        redirect: '/dashboard/workplace',
+        redirect: '/home',
       },
     ],
   },

@@ -126,8 +126,7 @@ const WorkTable: SFC<WorkTableProps> = (props: WorkTableProps): JSX.Element => {
               </Typography.Text>
               <Typography.Text className={styles.TitleInfo}>{person.email}</Typography.Text>
             </Box>
-          </Box>
-          <Box direction="row" spacing={28}><Demo /></Box>
+          </Box>          
           <Tab activeKey={tab} className={styles.tab} onChange={changeTab}>
             <Tab.Item title="选项卡一" key="1" />
             <Tab.Item title="选项卡二" key="2" />
