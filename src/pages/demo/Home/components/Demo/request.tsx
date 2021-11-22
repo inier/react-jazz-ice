@@ -6,7 +6,7 @@ function DemoRequest(props) {
   const data = { x: 101 };
   const handleClick = () => {
     // 正常请求
-    menuStore.getAdminResList(data);
+    menuStore.getAdminResList(data, { loading: true });
   };
   const handleClickCancel = () => {
     // 测试取消请求

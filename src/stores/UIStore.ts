@@ -62,17 +62,17 @@ class UIStore {
    * @description loading图标的展示状态回调
    * @param {*} boolean true：展示，false：不展示
    */
-  handleShowLoading(boolean: any) {
+  handleShowLoading = (boolean: any) => {
     this.setLoading(boolean);
-  }
+  };
 
   /**
    * @description 请求发送错误码的回调
    * @param {*} code 错误码
    */
-  handleRequestError(code: string | undefined) {
+  handleRequestError = (code: string | undefined) => {
     this.showToast(responseCode.codeMsg(code));
-  }
+  };
 }
 
 export default UIStore;

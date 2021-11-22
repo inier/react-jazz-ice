@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { inject, observer } from 'mobx-react';
-import { Shell, ConfigProvider, Loading } from '@alifd/next';
+import { Shell, ConfigProvider, Loading, Message } from '@alifd/next';
 import RouterTabs from '@/modules/RouterTabs';
 import PageNav from './components/PageNav';
 import GlobalSearch from './components/GlobalSearch';
@@ -40,7 +40,7 @@ const siteName = '长安商城门户端';
 interface IGetDevice {
   (width: number): 'phone' | 'tablet' | 'desktop';
 }
-function BasicLayout({ getDefaultMenuItemPath, location, loading, children }) {
+function BasicLayout({ getDefaultMenuItemPath, location, toastMsg, loading, children }) {
   const getDevice: IGetDevice = (width) => {
     const isPhone = typeof navigator !== 'undefined' && navigator && navigator.userAgent.match(/phone/gi);
 
@@ -94,6 +94,7 @@ function BasicLayout({ getDefaultMenuItemPath, location, loading, children }) {
 
         <Shell.Content>
           <Loading visible={!!loading} fullScreen />
+          <Message visible={!!toastMsg}>{toastMsg}</Message>
           {/* 多标签路由 */}
           <RouterTabs value={defaultRouteTab} />
           {children}
@@ -108,5 +109,6 @@ function BasicLayout({ getDefaultMenuItemPath, location, loading, children }) {
 
 export default inject((stores) => ({
   loading: stores.UIStore.loading,
+  toastMsg: stores.UIStore.toastMsg,
   getDefaultMenuItemPath: stores.menuStore.getDefaultMenuItemPath,
 }))(observer(BasicLayout));

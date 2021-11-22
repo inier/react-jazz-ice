@@ -1,11 +1,13 @@
 import React from 'react';
-import { runApp, IAppConfig, request } from 'ice';
+import { runApp, IAppConfig } from 'ice';
 import LocaleProvider from '@/components/LocaleProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { getLocale } from '@/utils/locale';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
 import stores from '@/stores';
+import { Message } from '@alifd/next';
+import { responseCode } from '@/api';
 
 configure({
   enforceActions: 'observed',
@@ -16,7 +18,6 @@ configure({
 });
 
 const locale = getLocale();
-let cancel;
 
 const appConfig: IAppConfig = {
   app: {
@@ -54,8 +55,24 @@ const appConfig: IAppConfig = {
       },
       response: {
         onConfig: (response) => {
-          console.log('request loaded success');
-
+          const { data, config } = response;
+          stores.handleResponse(
+            data,
+            config.url,
+            config.data,
+            { loading: true, toast: true },
+            {
+              handleShowLoading: () => {
+                console.log('request loaded success');
+              },
+              handleRequestError: (errCode) => {
+                Message.error(responseCode.codeMsg(errCode));
+              },
+              handleRequestExpire: (tUrl, tParams, tOpts) => {
+                return stores.refreshToken(tUrl, tParams, tOpts);
+              },
+            },
+          );
           return response;
         },
         onError: (error) => {

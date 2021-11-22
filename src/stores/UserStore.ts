@@ -14,8 +14,8 @@ class UserStore {
 
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false });
-
     this.rootStore = rootStore;
+
     // 数据持久化
     rootStore.persistParam('token', true, true); // 单个key
     // this.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
@@ -26,21 +26,22 @@ class UserStore {
       this.setToken(tToken);
     }
 
+    // 请求中挂全局参数，比如token
     rootStore.commonRequestData = { token: this.token };
-    rootStore.refreshToken = this.refreshToken.bind(this);
   }
 
   /**
    * @description token 过期后自动刷新 token
    * @param {String} url 调用刷新的接口
    * @param {Object} params 调用刷新的接口的参数
+   * @param {object} opts 其他操作参数
    * @param {String} type 请求类型
    */
-  refreshToken(url, params, type) {
+  refreshToken = (url, params, opts, type?) => {
     this.setToken(undefined);
     // 刷新token的逻辑
     // ...
-  }
+  };
 
   @action
   setToken(token) {

@@ -45,11 +45,19 @@ function request(url, params, options = { loading: true, mock: false, error: tru
       .then((res: any) => {
         // 可扩展: 做接口适配器，对接多个后台(返回结构不一致)；可对返回日期/金额/数字等统一预处理
         if (Number(res.result) === 0) {
-          resolve(res);
+          resolve({
+            ...res,
+            config: {
+              url,
+              params,
+              options,
+            },
+          });
         } else {
           // 通过配置可关闭错误提示
           if (options.error) {
-            Message.error(responseCode.codeMsg(res.result));
+            const errorMsg = responseCode.codeMsg(res.result);
+            Message.error(errorMsg);
           }
           reject(res);
         }

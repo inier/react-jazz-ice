@@ -32,3 +32,12 @@ export async function getLocationByIP() {
       return { ...res, result: 0 };
     });
 }
+
+/**
+ * 获取资源列表
+ * @param {object} params 参数
+ * @returns {promise}
+ */
+export async function getResList(params, options) {
+  return request.post(apiUrls.GET_ADMIN_RES_LIST, params, options);
+}
