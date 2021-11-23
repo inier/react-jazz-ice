@@ -22,7 +22,7 @@
     "jsconfig.json"
   ],
   "dependencies": {
-    "@alifd/next": "^1.24.16",
+    "@alifd/next": "^1.24.18",
     "@alifd/theme-design-pro": "0.x",
     "@antv/data-set": "^0.11.8",
     "@ice/stark": "^2.6.2",
@@ -71,11 +71,11 @@
     "express-useragent": "^1.0.15",
     "gh-pages": "^3.2.3",
     "husky": "^4.2.3",
-    "ice.js": "^2.2.0",
+    "ice.js": "^2.2.2",
     "jest": "^27.3.1",
     "lint-md": "^0.2.0",
     "lint-md-cli": "^0.1.2",
-    "lint-staged": "^12.0.2",
+    "lint-staged": "^12.1.2",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
     "postcss": "^8.3.11",

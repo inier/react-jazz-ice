@@ -56,23 +56,20 @@ const appConfig: IAppConfig = {
       response: {
         onConfig: (response) => {
           const { data, config } = response;
-          stores.handleResponse(
-            data,
-            config.url,
-            config.data,
-            { loading: true, toast: true },
-            {
-              handleShowLoading: () => {
-                console.log('request loaded success');
-              },
-              handleRequestError: (errCode) => {
-                Message.error(responseCode.codeMsg(errCode));
-              },
-              handleRequestExpire: (tUrl, tParams, tOpts) => {
-                return stores.refreshToken(tUrl, tParams, tOpts);
-              },
+          stores.handleResponse(data, {
+            url: config.url,
+            params: config.data,
+            opts: { loading: true, toast: true },
+            handleShowLoading: () => {
+              console.log('request loaded success');
             },
-          );
+            handleRequestError: (errCode) => {
+              Message.error(responseCode.codeMsg(errCode));
+            },
+            handleRequestExpire: (tUrl, tParams, tOpts) => {
+              return stores.refreshToken(tUrl, tParams, tOpts);
+            },
+          });
           return response;
         },
         onError: (error) => {

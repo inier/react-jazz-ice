@@ -33,6 +33,8 @@ function DemoRequest(props) {
     menuStore.getAdminResList(data, { cache: true });
   };
 
+  const { resList = [] } = menuStore;
+
   return (
     <div>
       <button onClick={handleClick}>request正常请求</button>
@@ -49,7 +51,7 @@ function DemoRequest(props) {
       <br />
       <button onClick={handleClickThrottle}>request请求节流(plugin)</button>
       <br />
-      DemoRequest: <span>{menuStore.resList[0]?.resourceName}</span>
+      DemoRequest: <span>{resList[0]?.resourceName}</span>
     </div>
   );
 }

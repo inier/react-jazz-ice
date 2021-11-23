@@ -7,9 +7,9 @@ export default {
   '/api/users/1': { result: 0, data: {} },
   '/api/foo/bar': { result: 0, data: {} },
   '/api/res/list': (req, res) => {
-    setTimeout(()=>{
+    setTimeout(() => {
       res.send(resList);
-    }, 3000);    
+    }, 3000);
   },
 
   // 支持标准 HTTP

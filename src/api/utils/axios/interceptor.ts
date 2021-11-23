@@ -39,13 +39,14 @@ const responseHandle = {
 
 const service = axios.create({
   timeout: 50000,
-  adapter: throttleAdapterEnhancer(
-    cacheAdapterEnhancer(retryAdapterEnhancer(defaultAdapter), {
-      enabledByDefault: false,
-      cacheFlag: 'useCache',
-      defaultCache: cacheCfg,
-    }),
-  ),
+  // adapter: throttleAdapterEnhancer(
+  //   cacheAdapterEnhancer(retryAdapterEnhancer(defaultAdapter), {
+  //     enabledByDefault: false,
+  //     cacheFlag: 'useCache',
+  //     defaultCache: cacheCfg,
+  //   }),
+  //   { threshold: 4000 },
+  // ),
 });
 
 // 设置post请求头
@@ -75,7 +76,7 @@ service.interceptors.response.use(
 
     return responseHandle[response.status || 'default'](response);
   },
-  (error: AxiosError) => {
+  (error) => {
     // 从pending 列表中移除请求
     removePendingRequest(error.config || {});
 

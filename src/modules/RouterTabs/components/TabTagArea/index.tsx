@@ -41,7 +41,7 @@ const TabTagArea: React.FC<IProps> = ({
     const tagElem = () => {
       const props = {
         key: pathname,
-        ['data-key']: pathname,
+        'data-key': pathname,
         className: classNames(styles.tag, { [styles.active]: pathname === activeKey }),
         onClick: (e) => handleClick(pathname, e),
       };
