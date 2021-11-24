@@ -18,7 +18,7 @@ class UserStore {
 
     // 数据持久化
     rootStore.persistParam('token', true, true); // 单个key
-    // this.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
+    // rootStore.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
 
     // 从Url获得token参数
     const tToken = getQueryString('token');
@@ -53,20 +53,6 @@ class UserStore {
    */
   loginOut = () => {
     this.setToken(undefined);
-  };
-
-  getIP = () => {
-    return getLocationByIP().then((res) => {
-      console.log('location:', res);
-      return res;
-    });
-  };
-
-  getUser = () => {
-    return fakeAccountLogin().then((res) => {
-      console.log('getUser:', res);
-      return res;
-    });
   };
 }
 

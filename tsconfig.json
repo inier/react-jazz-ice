@@ -3,6 +3,7 @@
   "buildOnSave": false,
   "compilerOptions": {
     "experimentalDecorators": true,
+    "useDefineForClassFields": true,
     "baseUrl": ".",
     "outDir": "build",
     "module": "esnext",

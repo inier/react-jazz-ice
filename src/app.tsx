@@ -5,7 +5,7 @@ import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallb
 import { getLocale } from '@/utils/locale';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
-import stores from '@/stores';
+import stores, { StoresContext } from '@/stores';
 import { Message } from '@alifd/next';
 import { responseCode } from '@/api';
 
@@ -24,7 +24,10 @@ const appConfig: IAppConfig = {
     rootId: 'ice-container',
     addProvider: ({ children }) => (
       <LocaleProvider locale={locale}>
-        <Provider {...stores}>{children}</Provider>
+        <Provider {...stores}>
+          {/* 服务函数组件 */}
+          <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
+        </Provider>
       </LocaleProvider>
     ),
     // 是否开启 ErrorBoundary，默认为 false

@@ -22,6 +22,10 @@ const asideMenuConfig = [
         name: '工作台',
         path: '/dashboard/workplace',
       },
+      {
+        name: '解决方案',
+        path: '/solution',
+      },
     ],
   },
   {

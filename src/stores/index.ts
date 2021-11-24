@@ -1,24 +1,33 @@
+import { createContext } from 'react';
 import { persistParam } from '@/utils/persistData'; // 数据持久化
 /* eslint-disable no-console */
 import { request } from '@/api';
 
-/**
- * 业务Stores整合
- */
+// == 通用Stores
 import UserStore from './UserStore';
 import UIStore from './UIStore';
 import MenuStore from './menuStore';
 
+// == 业务Stores整合
+// 示例代码
+import DemoStore from './demoStore';
+
 class RootStore {
+  commonRequestData: any;
   UIStore: UIStore;
   userStore: UserStore;
   menuStore: MenuStore;
-  commonRequestData: any;
+
+  // 示例代码
+  demoStore: DemoStore;
 
   constructor() {
     this.UIStore = new UIStore(this);
     this.userStore = new UserStore(this);
     this.menuStore = new MenuStore(this);
+
+    // 示例代码
+    this.demoStore = new DemoStore(this);
   }
 
   /**
@@ -26,9 +35,9 @@ class RootStore {
    * @param {string} service 请求service
    * @param {object} _params 参数
    * @param {object} opts 其他操作参数 如 {
-   *          noCommonData:false //不挂在公共参数
-   *          loading:false   //不展示loading图标
-   *          toast:false //不展示接口错误信息
+   *          noCommonData:false, //不挂在公共参数
+   *          loading:false,  //不展示loading图标
+   *          toast:false,  //不展示接口错误信息
    *      }
    * @returns Promise
    */
@@ -53,7 +62,7 @@ class RootStore {
           this.UIStore.handleRequestError(errCode);
         },
         handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.refreshToken(tUrl, tParams, tOpts);
+          return this.userStore.refreshToken(tUrl, tParams, tOpts);
         },
       });
     });
@@ -64,9 +73,9 @@ class RootStore {
    * @param {string} url 请求地址
    * @param {object} _params 参数
    * @param {object} opts 其他操作参数 如 {
-   *          noCommonData:false //不挂在公共参数
-   *          loading:false   //不展示loading图标
-   *          toast:false //不展示接口错误信息
+   *          noCommonData:false, //不挂在公共参数
+   *          loading:false,  //不展示loading图标
+   *          toast:false,  //不展示接口错误信息
    *      }
    * @returns Promise
    */
@@ -88,7 +97,7 @@ class RootStore {
           this.UIStore.handleRequestError(errCode);
         },
         handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.refreshToken(tUrl, tParams, tOpts);
+          return this.userStore.refreshToken(tUrl, tParams, tOpts);
         },
       });
     });
@@ -99,9 +108,9 @@ class RootStore {
    * @param {string} url 请求地址
    * @param {object} _params 参数
    * @param {object} opts 其他操作参数 如 {
-   *          noCommonData:false //不挂载公共参数，比如token
-   *          loading:false   //不展示loading图标
-   *          toast:false //不展示接口错误信息
+   *          noCommonData:false, //不挂在公共参数
+   *          loading:false,  //不展示loading图标
+   *          toast:false,  //不展示接口错误信息
    *      }
    * @returns Promise
    */
@@ -123,11 +132,12 @@ class RootStore {
           this.UIStore.handleRequestError(errCode);
         },
         handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.refreshToken(tUrl, tParams, tOpts);
+          return this.userStore.refreshToken(tUrl, tParams, tOpts);
         },
       });
     });
   };
+
   /**
    * @description 数据持久化(localStorage或sessionStorage)
    * @param {string|array} keyNames 键值项名称
@@ -137,10 +147,6 @@ class RootStore {
   persistParam = (keyNames: string | any[], inSessionStorage = false, global = false) => {
     persistParam(this, keyNames, inSessionStorage, global);
   };
-
-  refreshToken(url, params, opts) {
-    this.userStore.refreshToken(url, params, opts);
-  }
 
   /**
    * @description 处理获取的结果
@@ -183,5 +189,8 @@ class RootStore {
   };
 }
 
-export { UserStore, UIStore, MenuStore };
-export default new RootStore();
+const stores = new RootStore();
+const StoresContext = createContext(stores);
+
+export { StoresContext, UserStore, UIStore, MenuStore };
+export default stores;
