@@ -6,4 +6,4 @@ const Demo = lazy(() => import('./Demo'));
 
 export { Login, Demo };
 export * from '@/pages/Demo/pages';
-export * as subRouterConfig from './Demo/routes';
+export { default as subRouterConfig } from './Demo/routes';
