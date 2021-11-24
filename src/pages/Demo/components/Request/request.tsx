@@ -52,7 +52,7 @@ function DemoRequest(props) {
       <br />
       <button onClick={handleClickThrottle}>request请求节流(plugin)</button>
       <br />
-      DemoRequest: <span>{resList[0]?.resourceName}</span>
+      request: <span>{resList[0]?.resourceName}</span>
     </>
   );
 }
