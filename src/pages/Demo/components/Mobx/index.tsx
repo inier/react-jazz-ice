@@ -8,11 +8,11 @@ function Mobx() {
   const tabs = [
     { tab: 'class + mobx inject', key: 'ccm', content: <InjectInClassComponent /> },
     { tab: 'func + mobx inject', key: 'cfm', content: <InjectInFuncComponent /> },
-    // { tab: 'func + mobx hook', key: 'chm', content: <HookInFuncComponent /> },
+    { tab: 'func + mobx hook', key: 'chm', content: <HookInFuncComponent /> },
   ];
 
   return (
-    <Tab size="small">
+    <Tab>
       {tabs.map((item) => (
         <Tab.Item key={item.key} title={item.tab}>
           {item.content}

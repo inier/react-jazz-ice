@@ -1,12 +1,22 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
-import { withRouter } from 'react-router-dom';
+import { withRouter } from 'ice';
 import { Avatar, Button } from '@alifd/next';
+import { DemoStore, MenuStore } from '@/stores';
 
-@inject('demoStore', 'memuStore')
+interface IProps {
+  demoStore: DemoStore;
+  menuStore: MenuStore;
+}
+
+interface IStates {
+  userInfo: object;
+}
+
+@inject('demoStore', 'menuStore')
 @withRouter
 @observer
-class ClassComponent extends Component {
+class ClassComponent extends Component<IProps, IStates> {
   state = {
     userInfo: {},
   };
@@ -35,8 +45,11 @@ class ClassComponent extends Component {
 
     return (
       <>
-        <Avatar size="small" src={avatar} />
-        <span style={{ marginLeft: 10 }}>{name}</span>
+        <p>class component + mobx inject</p>
+        <div>
+          <Avatar size="small" src={avatar} />
+          <span style={{ marginLeft: 10 }}>{name}</span>
+        </div>
         <br />
         <Button onClick={this.handleClick}>点击获取信息</Button>
         <span>{resList[0]?.resourceName}</span>

@@ -4,13 +4,13 @@ import { Avatar, Button } from '@alifd/next';
 import { useMobxStore } from '@/hooks';
 
 function FuncComponent(props) {
-  const stores = useMobxStore();
-  const { menuStore, demoStore } = stores.stores;
+  console.log(useMobxStore());
+  const { menuStore, demoStore } = useMobxStore();
   const [userInfo, setUserInfo] = useState({});
   const data = { x: 101 };
 
   React.useEffect(() => {
-    demoStore.getUser().then((res) => {
+    demoStore.getUser().then((res: any) => {
       setUserInfo(res);
     });
   }, []);
@@ -25,8 +25,11 @@ function FuncComponent(props) {
 
   return (
     <>
-      <Avatar size="small" src={avatar} />
-      <span style={{ marginLeft: 10 }}>{name}</span>
+      <p>func component + mobx hook</p>
+      <div>
+        <Avatar size="small" src={avatar} />
+        <span style={{ marginLeft: 10 }}>{name}</span>
+      </div>
       <br />
       <Button onClick={handleClick}>点击获取信息</Button>
       <span>{resList[0]?.resourceName}</span>

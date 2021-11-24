@@ -12,7 +12,7 @@ const list = [
     content: <DemoRequest />,
   },
   {
-    title: 'Mobx状态示例',
+    title: 'mobx状态示例',
     content: <DemoMobx />,
   },
 ];

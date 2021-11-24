@@ -23,8 +23,11 @@ function FuncComponent(props) {
 
   return (
     <>
-      <Avatar size="small" src={avatar} />
-      <span style={{ marginLeft: 10 }}>{name}</span>
+      <p>func component + mobx inject</p>
+      <div>
+        <Avatar size="small" src={avatar} />
+        <span style={{ marginLeft: 10 }}>{name}</span>
+      </div>
       <br />
       <Button onClick={handleClick}>点击获取信息</Button>
       <span>{resList[0]?.resourceName}</span>

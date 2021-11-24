@@ -192,5 +192,5 @@ class RootStore {
 const stores = new RootStore();
 const StoresContext = createContext(stores);
 
-export { StoresContext, UserStore, UIStore, MenuStore };
+export { StoresContext, UserStore, UIStore, MenuStore, DemoStore };
 export default stores;

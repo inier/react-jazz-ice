@@ -26,7 +26,7 @@ const appConfig: IAppConfig = {
       <LocaleProvider locale={locale}>
         <Provider {...stores}>
           {/* 服务函数组件 */}
-          <StoresContext.Provider value={stores}>{children}</StoresContext.Provider>
+          <StoresContext.Provider value={{ ...stores }}>{children}</StoresContext.Provider>
         </Provider>
       </LocaleProvider>
     ),
