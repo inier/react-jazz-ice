@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Shell, ConfigProvider, Loading, Message } from '@alifd/next';
 import RouterTabs from '@/modules/RouterTabs';
@@ -40,19 +40,23 @@ const siteName = '长安商城门户端';
 interface IGetDevice {
   (width: number): 'phone' | 'tablet' | 'desktop';
 }
-function BasicLayout({ getDefaultMenuItemPath, location, toastMsg, loading, children }) {
-  const getDevice: IGetDevice = (width) => {
-    const isPhone = typeof navigator !== 'undefined' && navigator && navigator.userAgent.match(/phone/gi);
 
-    if (width < 680 || isPhone) {
-      return 'phone';
-    } else if (width < 1280 && width > 680) {
-      return 'tablet';
-    } else {
-      return 'desktop';
-    }
-  };
+const getDevice: IGetDevice = (width) => {
+  const isPhone = typeof navigator !== 'undefined' && navigator && navigator.userAgent.match(/phone/gi);
 
+  if (width < 680 || isPhone) {
+    return 'phone';
+  } else if (width < 1280 && width > 680) {
+    return 'tablet';
+  } else {
+    return 'desktop';
+  }
+};
+
+function BasicLayout({ location, UIStore, userStore, menuStore, children }) {
+  const { loading, toastMsg } = UIStore;
+  const { getUser, userInfo } = userStore;
+  const { getDefaultMenuItemPath } = menuStore;
   const [device, setDevice] = useState(getDevice(NaN));
 
   if (typeof window !== 'undefined') {
@@ -62,6 +66,10 @@ function BasicLayout({ getDefaultMenuItemPath, location, toastMsg, loading, chil
     });
   }
   const defaultRouteTab = getDefaultMenuItemPath(location);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   return (
     <ConfigProvider device={device}>
@@ -86,7 +94,7 @@ function BasicLayout({ getDefaultMenuItemPath, location, toastMsg, loading, chil
         <Shell.Action>
           <Notice />
           <SolutionLink />
-          <HeaderAvatar />
+          <HeaderAvatar {...userInfo} />
         </Shell.Action>
         <Shell.Navigation>
           <PageNav />
@@ -107,8 +115,4 @@ function BasicLayout({ getDefaultMenuItemPath, location, toastMsg, loading, chil
   );
 }
 
-export default inject((stores) => ({
-  loading: stores.UIStore.loading,
-  toastMsg: stores.UIStore.toastMsg,
-  getDefaultMenuItemPath: stores.menuStore.getDefaultMenuItemPath,
-}))(observer(BasicLayout));
+export default inject('UIStore', 'userStore', 'menuStore')(observer(BasicLayout));

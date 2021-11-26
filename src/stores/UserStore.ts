@@ -4,13 +4,13 @@
  */
 import { makeAutoObservable, observable, action } from 'mobx';
 import { getQueryString } from '@/utils';
-import { getLocationByIP } from '@/api/services/user';
 import { fakeAccountLogin } from '@/api/services/login';
 
 class UserStore {
+  rootStore: any;
   // 全局token
   @observable token = '';
-  rootStore: any;
+  @observable userInfo = {};
 
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false });
@@ -53,6 +53,15 @@ class UserStore {
    */
   loginOut = () => {
     this.setToken(undefined);
+  };
+
+  @action
+  getUser = async () => {
+    return fakeAccountLogin().then((res: any) => {
+      this.userInfo = res;
+
+      return res;
+    });
   };
 }
 

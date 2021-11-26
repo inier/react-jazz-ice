@@ -3,9 +3,8 @@ const ROOT = process.env.NODE_ENV === 'development' ? '/api' : '';
 const loc = '';
 const urls: any = {
   // GET_RESPONSE_CODE: `${loc}/resc/list`, // 获取统一返回码
-  CHECK_RES_CODE_AUTHORITY: '/resApiEdge/resAPI/check', // 资源验证
-  GET_ADMIN_RES_LIST: '/res/list',
-  GET_IP: `${loc}/json/`, // 获取ip信息
+  GET_ADMIN_RES_LIST: `${loc}/res/list`, // 获取权限列表
+  GET_USER_INFO: `${loc}/api/profile`, // 获取用户信息
 };
 
 Object.keys(urls).forEach((key) => {

@@ -10,7 +10,12 @@ interface IProps {
 }
 
 interface IStates {
-  userInfo: object;
+  userInfo: IUserInfo;
+}
+
+interface IUserInfo {
+  avatar: string;
+  name: string;
 }
 
 @inject('demoStore', 'menuStore')
@@ -18,12 +23,12 @@ interface IStates {
 @observer
 class ClassComponent extends Component<IProps, IStates> {
   state = {
-    userInfo: {},
+    userInfo: { avatar: '', name: '' },
   };
   componentDidMount() {
     const { demoStore } = this.props;
 
-    demoStore.getUser().then((res) => {
+    demoStore.getUser().then((res: IUserInfo) => {
       this.setState({
         userInfo: res,
       });
@@ -34,7 +39,7 @@ class ClassComponent extends Component<IProps, IStates> {
     const data = { x: 101 };
 
     // 正常请求
-    menuStore.getAdminResList(data, { loading: true });
+    menuStore.getAdminResList(data);
   };
 
   render() {

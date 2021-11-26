@@ -1,16 +1,19 @@
 import { createContext } from 'react';
 import { persistParam } from '@/utils/persistData'; // 数据持久化
 /* eslint-disable no-console */
-import { request } from '@/api';
+import { request, responseCode } from '@/api';
 
 // == 通用Stores
 import UserStore from './UserStore';
 import UIStore from './UIStore';
 import MenuStore from './menuStore';
 
-// == 业务Stores整合
+// == 业务域Stores整合
+// ...
+
+// == 页面UIStore整合
 // 示例代码
-import DemoStore from './demoStore';
+import DemoStore from '@/pages/Demo/stores/demoStore';
 
 class RootStore {
   commonRequestData: any;
@@ -46,7 +49,7 @@ class RootStore {
       return Promise.reject(Error('service的参数应该是一个promise.'));
     }
     // 是否开启loading图标
-    opts.loading && this.UIStore?.handleShowLoading(true);
+    opts.loading && this.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, this.commonRequestData);
 
@@ -55,15 +58,6 @@ class RootStore {
         url: json.url,
         params: _params,
         opts,
-        handleShowLoading: () => {
-          this.UIStore.handleShowLoading(false);
-        },
-        handleRequestError: (errCode) => {
-          this.UIStore.handleRequestError(errCode);
-        },
-        handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.userStore.refreshToken(tUrl, tParams, tOpts);
-        },
       });
     });
   };
@@ -79,28 +73,11 @@ class RootStore {
    *      }
    * @returns Promise
    */
-  sendGet = async (url = '', _params = {}, opts = { noCommonData: false, loading: false, toast: false }) => {
-    // 是否开启loading图标
-    opts.loading && this.UIStore?.handleShowLoading(true);
+  sendGet = (url = '', _params = {}, opts = { noCommonData: false, loading: false, toast: false }) => {
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, this.commonRequestData);
 
-    return request.get(url, _params, opts).then((json) => {
-      return this.handleResponse.call(this, json, {
-        url,
-        params: _params,
-        opts,
-        handleShowLoading: () => {
-          this.UIStore.handleShowLoading(false);
-        },
-        handleRequestError: (errCode) => {
-          this.UIStore.handleRequestError(errCode);
-        },
-        handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.userStore.refreshToken(tUrl, tParams, tOpts);
-        },
-      });
-    });
+    return request.get(url, _params, opts);
   };
 
   /**
@@ -114,28 +91,11 @@ class RootStore {
    *      }
    * @returns Promise
    */
-  sendPost = async (url = '', _params = {}, opts = { noCommonData: false, loading: false, toast: false }) => {
-    // 是否开启loading图标
-    opts.loading && this.UIStore?.handleShowLoading(true);
+  sendPost = (url = '', _params = {}, opts = { noCommonData: false, loading: false, toast: false }) => {
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, this.commonRequestData);
 
-    return request.post(url, _params, opts).then((json) => {
-      return this.handleResponse.call(this, json, {
-        url,
-        params: _params,
-        opts,
-        handleShowLoading: () => {
-          this.UIStore.handleShowLoading(false);
-        },
-        handleRequestError: (errCode) => {
-          this.UIStore.handleRequestError(errCode);
-        },
-        handleRequestExpire: (tUrl, tParams, tOpts) => {
-          return this.userStore.refreshToken(tUrl, tParams, tOpts);
-        },
-      });
-    });
+    return request.post(url, _params, opts);
   };
 
   /**
@@ -149,6 +109,34 @@ class RootStore {
   };
 
   /**
+   * @description loading图标的展示状态回调
+   * @param {*} boolean true：展示，false：不展示
+   */
+  handleShowLoading = (boolean: any) => {
+    this.UIStore.setLoading(boolean);
+  };
+
+  /**
+   * @description 请求发送错误码的回调
+   * @param {*} code 错误码
+   */
+  handleRequestError = (code: string | undefined) => {
+    this.UIStore.showToast(responseCode.codeMsg(code));
+  };
+
+  /**
+   * @description 请求token 过期处理
+   * @param {String} url 调用接口
+   * @param {Object} params 参数
+   * @param {object} opts 其他操作参数
+   * @param {String} type 请求类型
+   */
+  handleRequestExpire = (url, params, opts, type?) => {
+    // token 过期后自动刷新 token
+    return this.userStore.refreshToken(url, params, opts);
+  };
+
+  /**
    * @description 处理获取的结果
    * 1.实现token自动刷新功能
    * 2.实现自动根据api/ResponseCode中的错误信息显示
@@ -158,10 +146,7 @@ class RootStore {
    */
   handleResponse = (json: any, options: any) => {
     const { url, params, opts } = options;
-    const { loading, toast } = opts;
-
-    // 关闭该接口调用开启的loading
-    loading && options?.handleShowLoading(false);
+    const { toast } = opts;
 
     if (!json || typeof json.result === 'undefined' || json.result === null) {
       !toast && options?.handleRequestError(json.result);
@@ -170,18 +155,18 @@ class RootStore {
       return {};
     }
 
-    switch (json.result) {
+    switch (String(json.result)) {
       // 获取数据成功
       case '0':
         return json;
       // token过期
       case '-1': {
-        return options?.handleRequestExpire(url, params, opts);
+        return this.handleRequestExpire(url, params, opts);
       }
       // 显示错误信息
       default: {
         console.log(`Request is get Error,Code :${json.result}`);
-        !toast && options?.handleRequestError(json.result);
+        !toast && this.handleRequestError(json.result);
 
         return json;
       }

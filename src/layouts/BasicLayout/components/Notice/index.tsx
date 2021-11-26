@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Icon, Badge, Overlay, Avatar, Message, List } from '@alifd/next';
 import styles from './index.module.scss';
 
-export interface INotcieItem {
+export interface INoticeItem {
   id: number;
   name: string;
   message: string;
@@ -10,7 +10,7 @@ export interface INotcieItem {
 }
 
 const { Popup } = Overlay;
-const defaultNoticeList: INotcieItem[] = [
+const defaultNoticeList: INoticeItem[] = [
   {
     id: 1,
     name: 'Aric',
@@ -24,22 +24,24 @@ const defaultNoticeList: INotcieItem[] = [
     message: '如何查看新增页面？',
   },
 ];
+
 export interface NoticeProps {
-  noticeList?: INotcieItem[];
+  noticeList?: INoticeItem[];
 }
 
 const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
-  const [badgeCount, setBageCount] = useState(2);
+  const [badgeCount, setBadgeCount] = useState(2);
   const [readList, setReadList] = useState<number[]>([]);
 
   function markAsRead(id: number) {
     setReadList([...readList, id]);
-    setBageCount(badgeCount - 1);
+    setBadgeCount(badgeCount - 1);
   }
 
   function clearNotice() {
-    const noticeIds = (noticeList as INotcieItem[]).map((item) => item.id);
-    setBageCount(0);
+    const noticeIds = (noticeList as INoticeItem[]).map((item) => item.id);
+
+    setBadgeCount(0);
     setReadList(noticeIds);
   }
 
@@ -47,7 +49,7 @@ const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
     Message.success('点击了查看更多操作');
   }
 
-  const renderList = (noticeList as INotcieItem[]).filter((item) => readList.indexOf(item.id) === -1);
+  const renderList = (noticeList as INoticeItem[]).filter((item) => readList.indexOf(item.id) === -1);
   return (
     <Popup
       trigger={
@@ -77,7 +79,7 @@ const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
           </div>
         }
       >
-        {renderList.map((noticeItem: INotcieItem) => {
+        {renderList.map((noticeItem: INoticeItem) => {
           const { id, name, avatar, message } = noticeItem;
           return (
             <List.Item
@@ -104,4 +106,5 @@ const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
 Notice.defaultProps = {
   noticeList: defaultNoticeList,
 };
+
 export default Notice;

@@ -13,8 +13,8 @@ export default {
   },
 
   // 支持标准 HTTP
-  'GET /api/profile': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: '管理员' } },
-  'DELETE /api/users': { result: 0, data: { users: [1, 2] } },
+  'GET /api/profile': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: 'Admin' } },
+  'GET /api/user': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: 'User' } },
 
   // 支持参数
   'POST /api/users/:id': (req, res) => {

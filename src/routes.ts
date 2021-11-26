@@ -2,7 +2,7 @@ import { IRouterConfig } from 'ice';
 import UserLayout from '@/layouts/UserLayout';
 import BasicLayout from '@/layouts/BasicLayout';
 import { Demo, Login, Register, subRouterConfig } from '@/pages';
-console.log(subRouterConfig);
+
 const routerConfig: IRouterConfig[] = [
   {
     path: '/user',

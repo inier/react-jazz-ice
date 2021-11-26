@@ -59,8 +59,8 @@ const HeaderAvatar = (props: Props) => {
 };
 
 HeaderAvatar.defaultProps = {
-  name: 'MyName',
-  mail: 'name@gmail.com',
+  name: 'Admin',
+  mail: 'admin@gmail.com',
   avatar: 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png',
 };
 

@@ -2,8 +2,8 @@
 import { isJsonStr } from './commonFuncs';
 
 /**
- * @param {失败信息} err
- * @param {实例化的单例} axios
+ * @param {error} err 失败信息
+ * @param {*} axios 实例化的单例
  * @returns
  */
 export function againRequest(err, axios) {

@@ -2,7 +2,6 @@
 import { lazy } from 'ice';
 
 const Register = lazy(() => import('./Register'));
-const Solution = lazy(() => import('./Solution'));
 // const Analysis = lazy(()=>import('./Analysis'));
 // const Monitor = lazy(()=>import('./Monitor'));
 const Workplace = lazy(() => import('./Workplace'));
@@ -40,7 +39,6 @@ export {
   Register,
   // Analysis,
   // Monitor,
-  Solution,
   FormBasic,
   FormTwo,
   FormThree,

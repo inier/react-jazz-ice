@@ -5,7 +5,6 @@ import { Avatar, Button } from '@alifd/next';
 function FuncComponent(props) {
   const { menuStore, demoStore } = props;
   const [userInfo, setUserInfo] = useState({});
-  const data = { x: 101 };
 
   React.useEffect(() => {
     demoStore.getUser().then((res) => {
@@ -14,8 +13,9 @@ function FuncComponent(props) {
   }, []);
 
   const handleClick = () => {
+    const data = { x: 101 };
     // 正常请求
-    menuStore.getAdminResList(data, { loading: true });
+    menuStore.getAdminResList(data);
   };
 
   const { avatar, name } = userInfo;

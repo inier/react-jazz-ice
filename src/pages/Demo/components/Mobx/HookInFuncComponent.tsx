@@ -1,26 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useObserver, Observer, useLocalStore } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
 import { useMobxStore } from '@/hooks';
+import stores from '@/stores';
 
 function FuncComponent(props) {
-  console.log(useMobxStore());
   const { menuStore, demoStore } = useMobxStore();
-  const [userInfo, setUserInfo] = useState({});
-  const data = { x: 101 };
 
   React.useEffect(() => {
-    demoStore.getUser().then((res: any) => {
-      setUserInfo(res);
-    });
+    demoStore.getUser();
   }, []);
 
   const handleClick = () => {
+    const data = { x: 101 };
     // 正常请求
-    menuStore.getAdminResList(data, { loading: true });
+    menuStore.getAdminResList(data);
   };
 
-  const { avatar, name } = userInfo;
+  const { avatar, name } = demoStore.userInfo;
   const { resList = [] } = menuStore;
 
   return (
@@ -33,20 +30,32 @@ function FuncComponent(props) {
       <br />
       <Button onClick={handleClick}>点击获取信息</Button>
       <span>{resList[0]?.resourceName}</span>
+      <hr />
+      <Demo2 />
+      <hr />
+      <Demo3 />
     </>
   );
 }
 
 // 方法1
 function Demo2() {
-  const localStore = useLocalStore(() => store);
-  return useObserver(() => <div onClick={localStore.setCount}>{localStore.count}</div>);
+  const localStore = useLocalStore(() => stores.demoStore);
+  useEffect(() => {
+    localStore.getUser();
+  }, []);
+
+  return useObserver(() => <div>{localStore?.userInfo?.name}</div>);
 }
 
 // 方法2，更新Observer包裹的位置，注意这里包裹的必须是一个函数
 function Demo3() {
-  const localStore = useLocalStore(() => store);
-  return <Observer>{() => <span>{localStore.count}</span>}</Observer>;
+  const localStore = useLocalStore(() => stores.menuStore);
+
+  useEffect(() => {
+    localStore.getAdminResList({ x: 101 });
+  }, []);
+  return <Observer>{() => <span>{localStore?.resList[0]?.resourceName}</span>}</Observer>;
 }
 
 export default FuncComponent;

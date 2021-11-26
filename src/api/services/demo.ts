@@ -1,27 +1,25 @@
-import { request } from 'ice';
+import { request, apiUrls } from '@/api';
 
 export default {
   // 简单场景
   async getUser() {
-    return await request('/api/user');
+    const res = await request.get('/api/user');
+    return res.data;
   },
 
   // 参数场景
-  async getRepo(id) {
-    return await request(`/api/repo/${id}`);
+  getRepo(id) {
+    return request.get(`/api/repo/${id}`);
   },
 
   // 简单场景
-  async getResList() {
-    return await request('/api/res/list');
+  getResList() {
+    return request.get(apiUrls.GET_ADMIN_RES_LIST);
   },
 
   // 格式化返回值
   async getDetail(params) {
-    const data = await request({
-      url: '/api/detail',
-      params,
-    });
+    const data = await request.get('/api/detail', params);
 
     return data.map((item) => {
       return {

@@ -305,6 +305,7 @@ class MenuStore {
         return true;
       } else {
         showToast(responseCode.codeMsg('2'));
+
         return false;
       }
     });

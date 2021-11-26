@@ -1,10 +1,8 @@
 import { IRouterConfig } from 'ice';
 import {
-  Register,
   Workplace,
   // Analysis,
   // Monitor,
-  Solution,
   FormBasic,
   FormTwo,
   FormThree,
@@ -51,10 +49,6 @@ const subRouterConfig: IRouterConfig[] = [
     pageConfig: {
       title: '工作台',
     },
-  },
-  {
-    path: '/solution',
-    component: Solution,
   },
   {
     path: '/form/basic',

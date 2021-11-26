@@ -4,7 +4,8 @@ export async function fakeAccountLogin() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve({
-        name: 'admin',
+        name: '管理员',
+        mail: 'admin@gmail.com',
       });
     }, 2000);
   });

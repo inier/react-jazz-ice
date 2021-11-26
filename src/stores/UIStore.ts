@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
 import { makeAutoObservable, observable, action } from 'mobx';
-import { responseCode } from '@/api';
 import { isMobile } from '@/utils';
 
 /**
@@ -20,10 +19,6 @@ class UIStore {
     makeAutoObservable(this, { rootStore: false });
 
     this.rootStore = rootStore;
-    // 请求是否展示loading的回调
-    rootStore.handleShowLoading = this.handleShowLoading.bind(this);
-    // 监控错误的回调
-    rootStore.handleRequestError = this.handleRequestError.bind(this);
 
     // 浏览器UA判断，true：微信，false：h5等其他
     this.isMobile = isMobile;
@@ -56,22 +51,6 @@ class UIStore {
         this.setToastMsg('');
       }, duration);
     }
-  };
-
-  /**
-   * @description loading图标的展示状态回调
-   * @param {*} boolean true：展示，false：不展示
-   */
-  handleShowLoading = (boolean: any) => {
-    this.setLoading(boolean);
-  };
-
-  /**
-   * @description 请求发送错误码的回调
-   * @param {*} code 错误码
-   */
-  handleRequestError = (code: string | undefined) => {
-    this.showToast(responseCode.codeMsg(code));
   };
 }
 
