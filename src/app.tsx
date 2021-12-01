@@ -31,9 +31,7 @@ const appConfig: IAppConfig = {
     // 是否开启 ErrorBoundary，默认为 false
     errorBoundary: true,
     // 自定义错误边界的 fallback UI
-    ErrorBoundaryFallback: (err, componentStack) => (
-      <ErrorBoundaryFallback componentStack={componentStack} error={err} />
-    ),
+    ErrorBoundaryFallback,
   },
   router: {
     type: 'browser',

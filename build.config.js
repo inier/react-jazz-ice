@@ -1,3 +1,4 @@
+/* eslint-disable @iceworks/best-practices/no-js-in-ts-project */
 const proxyConfig = require('./src/setupProxy');
 
 module.exports = {
@@ -6,6 +7,7 @@ module.exports = {
     env: process.env.NODE_ENV,
     PUBLIC_URL: '/toxic',
   },
+  store: false,
   // vite: true,
   plugins: [
     [
@@ -30,13 +32,5 @@ module.exports = {
     ['build-plugin-keep-alive'],
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
-  proxy: {
-    '/api': {
-      target: 'http://ip-api.com/',
-      changeOrigin: true,
-      pathRewrite: {
-        '^/api': '',
-      },
-    },
-  },
+  proxy: proxyConfig,
 };
