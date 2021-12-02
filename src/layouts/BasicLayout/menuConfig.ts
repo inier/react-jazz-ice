@@ -1,6 +1,14 @@
-const headerMenuConfig = [];
+// 顶部菜单栏配置
+export const headerMenuConfig = [
+  {
+    name: 'Home', // 菜单名称
+    path: '/', // 菜单路径
+    icon: 'message', // 菜单图标
+  },
+];
 
-const asideMenuConfig = [
+// 侧边菜单栏配置
+export const asideMenuConfig = [
   {
     name: '数据页面',
     path: '/',
@@ -197,5 +205,3 @@ const asideMenuConfig = [
     ],
   },
 ];
-
-export { headerMenuConfig, asideMenuConfig };

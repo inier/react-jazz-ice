@@ -2,50 +2,25 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 function DemoRequest(props) {
-  const { menuStore } = props;
-  const data = { x: 101 };
-
-  const handleClick = () => {
-    // 正常请求
-    menuStore.getAdminResList(data, { loading: false });
-  };
-
-  const handleClickCancel = () => {
-    // 测试取消请求
-    menuStore.getAdminResList(data, { cancelRequest: true });
-  };
-
-  const handleClickRetry = () => {
-    // 测试请求重发，除了原请求外还会重发3次
-    menuStore.getAdminResList(data, { retry: 3, retryDelay: 1000 });
-  };
-
-  const handleClickCache = () => {
-    // 测试缓存请求带参数：setExpireTime 为缓存有效时间ms
-    menuStore.getAdminResList(data, { method: 'get', cache: true, setExpireTime: 30000 });
-  };
-
-  const handleClickCacheDefault = () => {
-    // 测试缓存请求参数值不一样
-    menuStore.getAdminResList(data, { cache: true });
-  };
-
+  const { menuStore, id, title, name, data = { x: 100 }, options = {} } = props;
   const { resList = [] } = menuStore;
+  const handleClick = () => {
+    menuStore.getAdminResList(data, options);
+  };
 
   return (
-    <>
-      <button onClick={handleClick}>request正常请求</button>
-      <br />
-      <button onClick={handleClickCancel}>request可取消重复请求</button>
-      <br />
-      <button onClick={handleClickRetry}>request请求重发</button>
-      <br />
-      <button onClick={handleClickCache}>request缓存请求带参数</button>
-      <br />
-      <button onClick={handleClickCacheDefault}>request缓存请求默认</button>
-      <br />
-      request: <span>{resList[0]?.resourceName}</span>
-    </>
+    <div>
+      <h6>{title}</h6>
+      <div>
+        <button onClick={handleClick}>{name}</button>
+        <span>
+          data: {JSON.stringify(data)}, options：{JSON.stringify(options)}
+        </span>
+        <span>
+          {id}-result: <span>{resList[0]?.resourceName}</span>
+        </span>
+      </div>
+    </div>
   );
 }
 
