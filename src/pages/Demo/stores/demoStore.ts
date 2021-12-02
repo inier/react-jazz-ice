@@ -7,7 +7,10 @@ import userService from '@/api/services/demo';
 
 class DemoStore {
   rootStore: any;
-  @observable userInfo = {};
+  @observable userInfo = {
+    avatar: '',
+    name: '',
+  };
 
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false });

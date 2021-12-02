@@ -48,18 +48,10 @@ class RootStore {
     if (!service) {
       return Promise.reject(Error('service的参数应该是一个promise.'));
     }
-    // 是否开启loading图标
-    opts.loading && this.handleShowLoading(true);
     // 是否挂上公共参数
     !opts.noCommonData && Object.assign(_params, this.commonRequestData);
 
-    return service.call(this, _params, opts).then((json) => {
-      return this.handleResponse.call(this, json, {
-        url: json.url,
-        params: _params,
-        opts,
-      });
-    });
+    return service.call(this, _params, opts);
   };
 
   /**

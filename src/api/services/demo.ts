@@ -4,6 +4,7 @@ export default {
   // 简单场景
   async getUser() {
     const res = await request.get('/api/user');
+
     return res.data;
   },
 
@@ -14,7 +15,7 @@ export default {
 
   // 简单场景
   getResList() {
-    return request.get(apiUrls.GET_ADMIN_RES_LIST);
+    return request.get(apiUrls.GET_ADMIN_RES_LIST, {});
   },
 
   // 格式化返回值

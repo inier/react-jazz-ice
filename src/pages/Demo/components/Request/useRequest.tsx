@@ -2,26 +2,24 @@ import React, { useCallback } from 'react';
 import { useRequest } from 'ice';
 import userService from '@/api/services/demo';
 
-export default function DemoUseRequest({ p }) {
-  const key = `getResList-${p}`;
+export default function DemoUseRequest({ id, options = {} }) {
   // 调用 service
   const { data, request } = useRequest(userService.getResList, {
-    cacheKey: key,
-    throttleInterval: 5000,
-    refreshOnWindowFocus: true,
+    ...options,
   });
 
   const handleClick = useCallback(() => {
     // 触发数据请求
     request();
-  }, [p]);
+  }, [id]);
 
   return (
-    <p>
-      <button onClick={handleClick}>useRequest加载</button>useRequest:
+    <div>
+      <button onClick={handleClick}>useRequest加载</button>
+      <span> options：{JSON.stringify(options)}</span>
       <span>
-        {data?.data[0]?.resourceName}-{p}
+        {id}-result: {data?.data[0]?.resourceName}
       </span>
-    </p>
+    </div>
   );
 }
