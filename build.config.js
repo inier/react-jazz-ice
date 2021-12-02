@@ -8,7 +8,7 @@ module.exports = {
     PUBLIC_URL: '/toxic',
   },
   store: false,
-  // vite: true,
+  vite: true,
   plugins: [
     [
       'build-plugin-fusion',

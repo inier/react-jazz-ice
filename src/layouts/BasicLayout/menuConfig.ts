@@ -15,17 +15,17 @@ export const asideMenuConfig = [
     icon: 'chart-pie',
     children: [
       {
-        name: '首页',
+        name: '示例',
         path: '/home',
       },
-      {
-        name: '分析页面',
-        path: '/dashboard/analysis',
-      },
-      {
-        name: '监控页面',
-        path: '/dashboard/monitor',
-      },
+      // {
+      //   name: '分析页面',
+      //   path: '/dashboard/analysis',
+      // },
+      // {
+      //   name: '监控页面',
+      //   path: '/dashboard/monitor',
+      // },
       {
         name: '工作台',
         path: '/dashboard/workplace',
