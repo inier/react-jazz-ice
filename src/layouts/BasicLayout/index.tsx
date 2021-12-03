@@ -11,7 +11,7 @@ import Logo from './components/Logo';
 import Footer from './components/Footer';
 
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
-const siteName = '长安商城门户端';
+const siteName = 'Site Name';
 
 (function () {
   const throttle = function (type: string, name: string, obj: Window = window) {

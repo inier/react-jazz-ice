@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tab } from '@alifd/next';
-import DemoUseRequest from './useRequest';
+import { DemoUseRequest1, DemoUseRequest2, DemoUseRequest3 } from './useRequest';
 import DemoRequest from './request';
 
 function Request() {
@@ -10,8 +10,10 @@ function Request() {
       key: 'ccm',
       content: (
         <div>
-          <DemoUseRequest id={1} options={{ throttleInterval: 5000, refreshOnWindowFocus: true }} />
-          <DemoUseRequest id={2} options={{ cacheKey: `getResList-1`, refreshOnWindowFocus: true }} />
+          <DemoUseRequest1 id={1} />
+          <DemoUseRequest2 id={2} />
+          <DemoUseRequest3 id={3} options={{ throttleInterval: 5000, refreshOnWindowFocus: true }} />
+          <DemoUseRequest3 id={4} options={{ cacheKey: `getResList-1`, refreshOnWindowFocus: true }} />
           更多用法：
           <a href="https://ahooks.js.org/zh-CN/hooks/async#%E9%BB%98%E8%AE%A4%E8%AF%B7%E6%B1%82" target="_blank">
             详情
