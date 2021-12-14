@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { action, makeAutoObservable, observable } from 'mobx';
-import userService from '@/api/services/demo';
+import userService from '@/pages/Demo/services/demo';
 
 class DemoStore {
   rootStore: any;

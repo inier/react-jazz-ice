@@ -1,12 +1,8 @@
 /* eslint-disable @iceworks/best-practices/recommend-polyfill */
 /* eslint-disable no-console */
-import { Agent, apiUrls } from '@/api';
+import { request, apiUrls } from '@/api';
 
-const APIAgent = new Agent();
-
-/**
- * 服务器返回的错误码，对于的提示信息
- */
+// 服务器响应错误码，对应的提示信息
 class ResponseCode {
   codes = {};
   newCodes: any;
@@ -45,18 +41,14 @@ class ResponseCode {
     }
   }
 
-  /**
-   * 获取在线错误码
-   *
-   * @memberof ResponseCode
-   */
+  // 获取在线错误码
   getNewCode() {
     // 用应用的第一级目录做不同应用的区分
     const appPath = window.location.pathname.split('/')[1];
     // 本地的版本号
     const oldVer = window.localStorage.getItem(`${appPath}_error_code_v`);
 
-    APIAgent.get(apiUrls.GET_RESPONSE_CODE, { version: oldVer || undefined }).then((json) => {
+    request.get(apiUrls.GET_RESPONSE_CODE, { version: oldVer || undefined }).then((json) => {
       if (json && Number(json.result) === 0 && json.data) {
         window.localStorage.setItem(`${appPath}_error_code_v`, json.version);
         try {

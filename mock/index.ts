@@ -7,8 +7,9 @@ export default {
   '/api/users/1': { result: 0, data: {} },
   '/api/foo/bar': { result: 0, data: {} },
   '/api/res/list': (req, res) => {
+    console.log(req);
     setTimeout(() => {
-      res.send(resList);
+      res.send(JSON.stringify(resList));
     }, 3000);
   },
 

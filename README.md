@@ -31,7 +31,7 @@ $ yarn start  # visit http://localhost:3333
 │   │   ├── utils                  # 自定义请求封装
 │   │   ├── api_urls.[j,t]s        # 请求接口地址集
 │   │   ├── index.[j,t]s           # 统一出口
-│   │   └── ResponseCode.[j,t]s    # 请求响应错误码集
+│   │   └── response_code.[j,t]s   # 请求响应错误码集
 │   ├── assets                     # 静态资源
 │   ├── components/                # 自定义业务组件
 │   │   └── Guide/

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { useRequest } from 'ice';
-import userService from '@/api/services/demo';
+import userService from '@/pages/Demo/services/demo';
 
 export function DemoUseRequest1({ id, options = {} }) {
   // 用法1：传入字符串

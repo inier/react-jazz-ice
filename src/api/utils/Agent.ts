@@ -25,7 +25,7 @@ export function checkContentType(headers: any = {}, type: any = 'application/jso
  * @description 网络请求的基础类，功能包含，发起请求、提示错误
  * @class Agent
  */
-export default class Agent {
+class Agent {
   headers: Headers;
   constructor() {
     this.headers = new Headers();
@@ -240,3 +240,5 @@ export default class Agent {
       .catch(this.handleCatch);
   }
 }
+
+export default Agent;
