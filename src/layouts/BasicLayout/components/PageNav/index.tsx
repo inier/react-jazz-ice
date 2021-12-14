@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
-import { Link, withRouter } from 'ice';
 import { Nav } from '@alifd/next';
+import { Link, withRouter } from 'ice';
+import PropTypes from 'prop-types';
 import { asideMenuConfig } from '../../menuConfig';
 
 const { SubNav } = Nav;

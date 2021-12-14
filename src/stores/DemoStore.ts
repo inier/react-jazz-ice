@@ -1,7 +1,4 @@
 /* eslint-disable no-param-reassign */
-/**
- * 保存用户信息与登录信息token等其他公共信息
- */
 import { action, makeAutoObservable, observable } from 'mobx';
 import userService from '@/api/services/demo';
 

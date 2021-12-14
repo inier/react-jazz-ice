@@ -3,8 +3,8 @@
  * 保存用户信息与登录信息token等其他公共信息
  */
 import { makeAutoObservable, observable, action } from 'mobx';
-import { getQueryString } from '@/utils';
 import { fakeAccountLogin } from '@/api/services/login';
+import { getQueryString } from '@/utils';
 
 class UserStore {
   rootStore: any;

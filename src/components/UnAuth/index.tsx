@@ -1,5 +1,5 @@
-import { useHistory } from 'ice';
 import { Button } from '@alifd/next';
+import { useHistory } from 'ice';
 import styles from './index.module.scss';
 
 const UnAuth = () => {

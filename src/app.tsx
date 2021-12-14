@@ -1,11 +1,11 @@
 import React from 'react';
 import { runApp, IAppConfig } from 'ice';
-import LocaleProvider from '@/components/LocaleProvider';
-import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
-import { getLocale } from '@/utils/locale';
 import { configure } from 'mobx';
 import { Provider } from 'mobx-react';
+import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
+import LocaleProvider from '@/components/LocaleProvider';
 import stores, { StoresContext } from '@/stores';
+import { getLocale } from '@/utils/locale';
 
 configure({
   enforceActions: 'observed',

@@ -1,19 +1,22 @@
-import { createContext } from 'react';
-import { persistParam } from '@/utils/persistData'; // 数据持久化
+/* eslint-disable import/order */
 /* eslint-disable no-console */
+import { createContext } from 'react';
+
+// 数据持久化
 import { request, responseCode } from '@/api';
+import { persistParam } from '@/utils/persistData';
 
 // == 通用Stores
-import UserStore from './UserStore';
+import MenuStore from './MenuStore';
 import UIStore from './UIStore';
-import MenuStore from './menuStore';
+import UserStore from './UserStore';
 
 // == 业务域Stores整合
 // ...
 
 // == 页面UIStore整合
 // 示例代码
-import DemoStore from '@/pages/Demo/stores/demoStore';
+import DemoStore from './DemoStore';
 
 class RootStore {
   commonRequestData: any;

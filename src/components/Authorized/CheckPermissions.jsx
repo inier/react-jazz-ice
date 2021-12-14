@@ -1,7 +1,6 @@
 import React from 'react';
-import { CURRENT } from './renderAuthorize'; // eslint-disable-next-line import/no-cycle
-
 import PromiseRender from './PromiseRender';
+import { CURRENT } from './renderAuthorize'; // eslint-disable-next-line import/no-cycle
 
 /**
  * 通用权限检查方法 Common check permissions method

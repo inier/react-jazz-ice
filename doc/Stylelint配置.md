@@ -227,7 +227,7 @@ module.exports = {
 ```json
 // package.json
 {
-    ...
+    //...
     "lint-staged": {
         "*.{vue,js,jsx}": [
             "eslint --fix",

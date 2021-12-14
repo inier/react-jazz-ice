@@ -1,6 +1,6 @@
 import React from 'react';
-import { inject, observer } from 'mobx-react';
 import { AppRouter, AppRoute } from '@ice/stark';
+import { inject, observer } from 'mobx-react';
 import NotFound from '@/components/NotFound';
 import PageLoading from '@/components/PageLoading';
 

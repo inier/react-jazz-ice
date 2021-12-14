@@ -1,6 +1,6 @@
 import React from 'react';
-import classNames from 'classnames';
 import { Tag, Dropdown, Icon, Balloon, Menu } from '@alifd/next';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 const { Tooltip } = Balloon;

@@ -1,6 +1,6 @@
 import { IRouterConfig } from 'ice';
-import UserLayout from '@/layouts/UserLayout';
 import BasicLayout from '@/layouts/BasicLayout';
+import UserLayout from '@/layouts/UserLayout';
 import { Demo, Login, Register, subRouterConfig } from '@/pages';
 
 const routerConfig: IRouterConfig[] = [

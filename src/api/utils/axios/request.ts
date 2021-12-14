@@ -2,9 +2,9 @@
  * axios二次封装
  */
 import { Method } from 'axios';
+import stores from '@/stores';
 import instance from './interceptor';
 import { IOptions } from './type';
-import stores from '@/stores';
 
 /**
  * 核心函数，可通过它处理一切请求数据，并做横向扩展

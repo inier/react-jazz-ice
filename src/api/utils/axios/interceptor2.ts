@@ -1,5 +1,5 @@
-import axios, { CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'; // 此处引入axios官方文件
 import { Message } from '@alifd/next';
+import axios, { CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios'; // 此处引入axios官方文件
 import { cacheAdapterEnhancer, throttleAdapterEnhancer, retryAdapterEnhancer } from 'axios-extensions';
 import LRUCache from 'lru-cache';
 

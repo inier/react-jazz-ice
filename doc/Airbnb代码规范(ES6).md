@@ -253,18 +253,15 @@ const name = 'Capt. Janeway';
 
 ```js
 // bad
-const errorMessage = 'This is a super long error that was thrown because of Batman. When you stop to think about how Batman had anything to do with this, you would get nowhere fast.';
+const errorMessage = 'This is a super long error that was thrown because of Batman.';
 
 // bad
 const errorMessage = 'This is a super long error that was thrown because \
-of Batman. When you stop to think about how Batman had anything to do \
-with this, you would get nowhere \
-fast.';
+of Batman. ';
 
 // good
 const errorMessage = 'This is a super long error that was thrown because ' +
-  'of Batman. When you stop to think about how Batman had anything to do ' +
-  'with this, you would get nowhere fast.';
+  'of Batman.';
 ```
 
 - 5.3 程序化生成字符串时，使用模板字符串代替字符串连接。

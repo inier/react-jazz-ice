@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { inject, observer } from 'mobx-react';
 import { Shell, ConfigProvider, Loading, Message } from '@alifd/next';
+import { inject, observer } from 'mobx-react';
 import RouterTabs from '@/modules/RouterTabs';
-import PageNav from './components/PageNav';
+import Footer from './components/Footer';
 import GlobalSearch from './components/GlobalSearch';
-import Notice from './components/Notice';
-import SolutionLink from './components/SolutionLink';
 import HeaderAvatar from './components/HeaderAvatar';
 import Logo from './components/Logo';
-import Footer from './components/Footer';
+import Notice from './components/Notice';
+import PageNav from './components/PageNav';
+import SolutionLink from './components/SolutionLink';
 
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';

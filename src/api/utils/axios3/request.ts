@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import axios, { CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
-import Storage from './storage-helper';
 import CryptoHelper from './cryptoJs-helper';
+import Storage from './storage-helper';
 
 const CANCEL_TYPE = {
   CACHE: 1,

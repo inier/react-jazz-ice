@@ -2,7 +2,7 @@
 
 #### Class Component
 
-```
+```ts
 import React, { Component } from 'react';
 
 interface Props {

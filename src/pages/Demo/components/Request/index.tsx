@@ -1,7 +1,7 @@
 import React from 'react';
 import { Tab } from '@alifd/next';
-import { DemoUseRequest1, DemoUseRequest2, DemoUseRequest3 } from './useRequest';
-import DemoRequest from './request';
+import { DemoUseRequest1, DemoUseRequest2, DemoUseRequest3 } from './DemoUseRequest';
+import DemoRequest from './DemoRequest';
 
 function Request() {
   const tabs = [
