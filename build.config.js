@@ -1,14 +1,16 @@
-/* eslint-disable @iceworks/best-practices/no-js-in-ts-project */
 const proxyConfig = require('./src/setupProxy');
 
 module.exports = {
-  publicPath: './',
-  define: {
-    env: process.env.NODE_ENV,
-    PUBLIC_URL: '/toxic',
-  },
   store: false,
   vite: true,
+  // tsChecker: true,
+  define: {
+    PUBLIC_URL: '/toxic',
+  },
+  // router: {
+  //   lazy: true,
+  //   configPath: 'src/routes/index.ts',
+  // },
   plugins: [
     [
       'build-plugin-fusion',
@@ -32,5 +34,12 @@ module.exports = {
     ['build-plugin-keep-alive'],
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
+  webpackPlugins: {
+    'webpack.ProvidePlugin': {
+      options: {
+        'window.store': 'store2',
+      },
+    },
+  },
   proxy: proxyConfig,
 };

@@ -1,18 +1,4 @@
-// 基础方法集
-
-/**
- * get value of name from cookie
- * @param {String} name cookie name
- * @returns {*} 指定name的cookie
- */
-export function getCookie(name) {
-  const reg = new RegExp(`(^| )${name}=([^;]*)(;|$)`);
-  const arr = document.cookie.match(reg);
-  if (arr) {
-    return unescape(arr[2]);
-  }
-  return null;
-}
+import pinyin from 'pinyin';
 
 /**
  * 过滤掉字符串中的emoji表情(如果数据库编码为utf8，最多能存储3个字节，需设置为utf8mb4，否则前端需过滤掉 ))
@@ -25,7 +11,6 @@ export function emoji2Str(str) {
 
 /**
  * @description  转义htm标签
- * @date 2018-10-10
  * @param {*} str 字符串
  * @returns 转以后的字符串
  */
@@ -42,7 +27,6 @@ export function escapeHTML(str) {
 
 /**
  * @description  反转义htm标签
- * @date 2018-10-10
  * @param {*} str 字符串
  * @returns 转以后的字符串
  */
@@ -56,3 +40,14 @@ export function unescapeHTML(str) {
     .replace(/&#39;/g, "'")
     .replace(/&quot;/g, '"');
 }
+
+/**
+ * 获取文本拼音的第一个字母并大写
+ * @param word
+ */
+export const getFirstCapitalizedLetter = (word) => {
+  if (word) {
+    return pinyin(word, { style: pinyin.STYLE_NORMAL, heteronym: false })?.[0][0].slice(0, 1).toLocaleUpperCase();
+  }
+  return null;
+};

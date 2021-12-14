@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es';
 
 /**
- * 组装数据
+ * 组装表单数据
  * @param {array} src 原始数据
  * @param {array} ext 扩展数据，默认值[]
  * @returns {array} 组装后的值

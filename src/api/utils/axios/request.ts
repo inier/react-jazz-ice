@@ -2,7 +2,9 @@
  * axios二次封装
  */
 import { Method } from 'axios';
+
 import stores from '@/stores';
+
 import instance from './interceptor';
 import { IOptions } from './type';
 

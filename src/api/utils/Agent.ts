@@ -8,7 +8,7 @@
  */
 export function checkContentType(headers: any = {}, type: any = 'application/json'): boolean {
   if (!Object.keys(headers).length) {
-    console.log('header配置有误，', headers);
+    console.log('header配置有误', headers);
     return false;
   }
 
