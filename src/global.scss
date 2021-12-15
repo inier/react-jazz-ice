@@ -1,9 +1,13 @@
 // 引入默认全局样式
 @import '~@alifd/next/reset.scss';
 
-$page-min-width: 1280px;
+$page-min-width: 768px;
 
 body {
   -webkit-font-smoothing: antialiased;
   min-width: $page-min-width;
+}
+
+.next-shell-brand .next-shell-aside.next-shell-navigation.next-shell-collapse {
+  overflow: hidden;
 }

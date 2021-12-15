@@ -38,7 +38,7 @@ const appConfig: IAppConfig = {
   router: {
     type: 'browser',
     basename: PUBLIC_URL, // 暂不支持，process.env.PUBLIC_URL
-    fallback: <Loading />, // 组件加载动画
+    fallback: <Loading style={{ display: 'block' }} />, // 组件加载动画
   },
 };
 

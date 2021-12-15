@@ -1,6 +1,20 @@
 import { useContext } from 'react';
-import { StoresContext } from '@/stores';
 
-const useStores = () => useContext(StoresContext);
+import { MobXProviderContext, useObserver } from 'mobx-react';
+
+const useStores = () => {
+  return useContext(MobXProviderContext);
+};
+
+export function inject(selector, baseComponent) {
+  const useComponent = (ownProps) => {
+    const store = useContext(MobXProviderContext);
+
+    return useObserver(() => baseComponent(selector({ store, ownProps })));
+  };
+  useComponent.displayName = baseComponent.name;
+
+  return useComponent;
+}
 
 export default useStores;
