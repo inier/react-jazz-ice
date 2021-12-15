@@ -1,9 +1,9 @@
 import { Message } from '@alifd/next';
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios'; // 此处引入axios官方文件
 
-import { addPendingRequest, removePendingRequest } from './cancel_repeat_request'; // 取消重复请求
-import { againRequest } from './request_again_send'; // 请求重发
-import { requestInterceptor as cacheReqInterceptor, responseInterceptor as cacheResInterceptor } from './request_cache';
+import { addPendingRequest, removePendingRequest } from './cancelRepeatRequest'; // 取消重复请求
+import { againRequest } from './requestAgainSend'; // 请求重发
+import { requestInterceptor as cacheReqInterceptor, responseInterceptor as cacheResInterceptor } from './requestCache';
 import { IOptions } from './type';
 
 // 返回结果处理

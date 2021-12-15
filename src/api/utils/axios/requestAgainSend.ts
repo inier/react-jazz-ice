@@ -1,5 +1,5 @@
 // 实现 请求错误时重新发送接口
-import { isJsonStr } from './common_funcs';
+import { isJsonStr } from './commonFuncs';
 
 /**
  * @param {error} err 失败信息

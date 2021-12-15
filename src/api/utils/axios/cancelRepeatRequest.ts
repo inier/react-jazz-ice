@@ -7,7 +7,8 @@
  只发第一个请求。在 A 请求还处于 pending 状态时，后发的所有与 A 重复的请求都取消，实际只发出 A 请求，直到 A 请求结束（成功/失败）才停止对这个请求的拦截。
 */
 import Axios from 'axios';
-import { generateReqKey } from './common_funcs';
+
+import { generateReqKey } from './commonFuncs';
 
 // addPendingRequest ：用于把当前请求信息添加到pendingRequest对象 中；
 const pendingRequest = new Map(); // Map对象保存键值对。任何值(对象或者原始值) 都可以作为一个键或一个值。

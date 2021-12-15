@@ -35,11 +35,11 @@ export * from './locale';
 export * from './user';
 // 加解密
 export * from './encrypt';
-// 本地存储
-export { default as storage } from './storage';
 // 设备信息相关
 export * from './checkDevice';
 // 表单处理
 export * from './form';
 // 鉴权相关
 export * from './authority';
+// 本地存储
+export { default as storage } from './storage';

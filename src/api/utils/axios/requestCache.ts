@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { generateReqKey } from './common_funcs';
+import { generateReqKey } from './commonFuncs';
 
 const options = {
   storage: true, // 是否开启localStorage缓存

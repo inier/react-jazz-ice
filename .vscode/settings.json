@@ -1,3 +1,4 @@
 {
-  "cSpell.ignoreWords": ["ahooks", "alifd", "icejs", "icejs start", "iceworks", "start", "stylelint"]
+  "cSpell.ignoreWords": ["ahooks", "alifd", "icejs", "icejs start", "iceworks", "start", "stylelint"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

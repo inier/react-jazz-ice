@@ -41,7 +41,7 @@ export const getUserTokenFromCookie = () => {
  * @param token
  */
 export const setUserTokenToCookie = (token: Record<string, string> | null) => {
-  cookie.set('Authorization', token ? JSON.stringify(token) : null, {
+  cookie.set('Authorization', token ? JSON.stringify(token) : 'null', {
     expires: 30,
   });
 };
