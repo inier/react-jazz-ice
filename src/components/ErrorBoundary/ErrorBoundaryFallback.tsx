@@ -1,4 +1,5 @@
 import React from 'react';
+
 import styles from './ErrorBoundary.module.scss';
 // 图片引入
 import BG_1 from './img/bc-1.png';
@@ -6,10 +7,10 @@ import BG_2 from './img/bc-2.png';
 
 interface IProps {
   componentStack: string;
-  error?: any;
+  error: Error;
 }
 
-const ErrorBoundaryFallback = ({ componentStack = '', error = null }: IProps) => {
+const ErrorBoundaryFallback = ({ componentStack, error }: IProps) => {
   return (
     <div className={styles.content}>
       <img className={styles.BG_1} src={BG_1} alt="err bg" />

@@ -1,4 +1,5 @@
 import { IRouterConfig } from 'ice';
+
 import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
 import { Demo, Login, Register, subRouterConfig } from '@/pages';

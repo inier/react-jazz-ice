@@ -40,7 +40,7 @@ class RootStore {
    * @description 发送GET请求
    * @param {string} service 请求service
    * @param {object} _params 参数
-   * @param {object} opts 其他操作参数 如 {
+   * @param {object} opts 其他操作参数，如 {
    *          noCommonData:false, //不挂在公共参数
    *          loading:false,  //不展示loading图标
    *          toast:false,  //不展示接口错误信息

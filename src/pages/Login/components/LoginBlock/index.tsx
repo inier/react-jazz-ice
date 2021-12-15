@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
+
 import { Input, Message, Form, Divider, Checkbox, Icon } from '@alifd/next';
+
+import { useInterval } from '@/hooks';
+
 import styles from './index.module.scss';
-import { useInterval } from './utils';
 
 const { Item } = Form;
 
@@ -43,7 +46,7 @@ const LoginBlock: React.FunctionComponent<LoginProps> = (props = { dataSource: D
         setSecond(59);
       }
     },
-    isRunning ? 1000 : null,
+    isRunning ? 1000 : undefined,
   );
 
   const formChange = (values: IDataSource) => {

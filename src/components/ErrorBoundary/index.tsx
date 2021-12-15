@@ -1,6 +1,6 @@
 // reference： https://github.com/bvaughn/react-error-boundary
+import React, { Component } from 'react';
 
-import { Component } from 'react';
 import ErrorBoundaryFallback from './ErrorBoundaryFallback';
 
 interface IProps {
@@ -11,6 +11,7 @@ interface IProps {
 
 interface IErrorInfo {
   componentStack: string;
+  error: Error;
 }
 
 interface IState {
@@ -33,6 +34,7 @@ class ErrorBoundary extends Component<IProps, IState> {
       error: undefined,
       info: {
         componentStack: '',
+        error: new Error(),
       },
     };
   }
