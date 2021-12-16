@@ -5,7 +5,7 @@ module.exports = {
   vite: true,
   // tsChecker: true,
   alias: {
-    '@/': './src/',
+    '@': './src/',
     '@theme': './src/_theme.scss',
   },
   define: {
