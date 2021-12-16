@@ -2,9 +2,9 @@
 
 // 基础布局
 import BasicLayout from './BasicLayout';
-// 用户布局
-import BlankLayout from './BlankLayout';
-import UserLayout from './UserLayout';
 // 空白布局
+import BlankLayout from './BlankLayout';
+// 用户布局
+import UserLayout from './UserLayout';
 
 export { BasicLayout, UserLayout, BlankLayout };

@@ -3,7 +3,9 @@ import React, { useEffect } from 'react';
 import { Shell, Loading, Message } from '@alifd/next';
 import { observer } from 'mobx-react';
 
+import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
 import { useMobxStore } from '@/hooks';
+import SecurityLayout from '@/layouts/SecurityLayout';
 import RouterTabs from '@/modules/RouterTabs';
 
 import Footer from './components/Footer';
@@ -21,54 +23,60 @@ function BasicLayout({ location, children }) {
   const { UIStore, userStore, menuStore } = useMobxStore();
   const { loading, toastMsg } = UIStore;
   const { getUser, userInfo } = userStore;
-  const { getDefaultMenuItemPath } = menuStore;
-  const defaultRouteTab = getDefaultMenuItemPath(location);
+
+  // const { getDefaultMenuItemPath } = menuStore;
+  // const defaultRouteTab = getDefaultMenuItemPath(location);
 
   useEffect(() => {
     getUser();
   }, [getUser]);
 
   return (
-    <Shell
-      style={{
-        height: '100vh',
-      }}
-      type="brand"
-    >
-      <Shell.Branding>
-        <Logo image={siteLogo} text={siteName} />
-      </Shell.Branding>
-      <Shell.Navigation
-        style={{
-          marginRight: 10,
-        }}
-        direction="hoz"
-      >
-        <GlobalSearch />
-      </Shell.Navigation>
-      <Shell.Action>
-        <Notice />
-        <SolutionLink />
-        <HeaderAvatar {...userInfo} />
-      </Shell.Action>
+    <SecurityLayout>
+      <RouteTabsProvider defaultTabs={['/']}>
+        <Shell
+          style={{
+            height: '100vh',
+          }}
+          type="brand"
+        >
+          <Shell.Branding>
+            <Logo image={siteLogo} text={siteName} />
+          </Shell.Branding>
+          <Shell.Navigation
+            style={{
+              marginRight: 10,
+            }}
+            direction="hoz"
+          >
+            <GlobalSearch />
+          </Shell.Navigation>
+          <Shell.Action>
+            <Notice />
+            <SolutionLink />
+            <HeaderAvatar {...userInfo} />
+          </Shell.Action>
 
-      <Shell.Navigation>
-        <PageNav />
-      </Shell.Navigation>
+          <Shell.Navigation>
+            <PageNav />
+          </Shell.Navigation>
 
-      <Shell.Content>
-        <Loading visible={!!loading} fullScreen />
-        <Message visible={!!toastMsg}>{toastMsg}</Message>
-        {/* 多标签路由 */}
-        <RouterTabs value={defaultRouteTab} />
-        {children}
-      </Shell.Content>
+          <Shell.Content>
+            <Loading visible={!!loading} fullScreen />
+            <Message visible={!!toastMsg}>{toastMsg}</Message>
+            {/* 多标签路由 */}
+            {/* <RouterTabs value={defaultRouteTab} /> */}
+            <RouteTabs>{children}</RouteTabs>
+          </Shell.Content>
 
-      <Shell.Footer>
-        <Footer />
-      </Shell.Footer>
-    </Shell>
+          <Shell.Footer>
+            <Footer />
+          </Shell.Footer>
+        </Shell>
+      </RouteTabsProvider>
+    </SecurityLayout>
   );
 }
+BasicLayout.displayName = 'BasicLayout';
 
 export default observer(BasicLayout);

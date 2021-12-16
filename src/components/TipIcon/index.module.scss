@@ -1,0 +1,13 @@
+@import '@theme';
+
+.iconWrapper {
+  display: inline-flex;
+}
+
+.disabled {
+  pointer-events: none;
+  cursor: default;
+  &:hover {
+    color: $disabled-color;
+  }
+}

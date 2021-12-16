@@ -4,9 +4,9 @@ import { Shell } from '@alifd/next';
 
 import styles from './index.module.scss';
 
-export default () => {
+const NotFound = ({ type, style }) => {
   return (
-    <div className={styles.basicnotfound}>
+    <div className={styles.basicnotfound} style={style}>
       <Shell
         style={{
           minHeight: '100vh',
@@ -33,3 +33,5 @@ export default () => {
     </div>
   );
 };
+
+export default NotFound;

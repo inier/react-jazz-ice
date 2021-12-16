@@ -2,7 +2,7 @@
 /* eslint-disable import/no-mutable-exports */
 import Authorized from './Authorized';
 import AuthorizedRoute from './AuthorizedRoute';
-import check from './CheckPermissions.js';
+import check from './CheckPermissions';
 import Secured from './Secured';
 
 // 每次引入组件之前调用函数传入 currentAuthorize

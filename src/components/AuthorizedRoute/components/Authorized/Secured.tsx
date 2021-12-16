@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
 import React from 'react';
+
 import { NotFound as Exception } from '@/components';
+
 import { checkPermissions } from './CheckPermissions';
 
 /**
@@ -8,7 +10,9 @@ import { checkPermissions } from './CheckPermissions';
  * default is "NULL"
  * @returns {Component}
  */
-const Exception403 = () => <Exception type="403" style={{ minHeight: 500, height: '80%' }} />;
+const Exception403 = () => {
+  return <Exception type={'403'} style={{ minHeight: 500, height: '80%' }} />;
+};
 
 // Determine whether the incoming component has been instantiated
 // AuthorizedRoute is already instantiated

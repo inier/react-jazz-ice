@@ -1,5 +1,8 @@
 // https://ahooks.js.org/
-export { useRequest, useFusionTable, useInterval } from 'ahooks';
+// useRequest, useFusionTable, useInterval...
+export * from 'ahooks';
+// useRequest
+export { useRequest } from 'ice';
 
 // == 存放自定义的React Hooks
 // mobx store hook

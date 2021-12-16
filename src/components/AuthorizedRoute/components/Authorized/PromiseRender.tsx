@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Loading } from '@alifd/next';
 
 export default class PromiseRender extends React.PureComponent {

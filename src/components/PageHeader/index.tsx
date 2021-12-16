@@ -1,5 +1,7 @@
-import React, { SFC } from 'react';
+import React from 'react';
+
 import { Breadcrumb, Box, Typography } from '@alifd/next';
+
 import styles from './index.module.scss';
 
 export interface PageHeaderProps {
@@ -8,17 +10,21 @@ export interface PageHeaderProps {
   description?: string;
 }
 
-const PageHeader: SFC<PageHeaderProps> = (props) => {
+const PageHeader = (props: PageHeaderProps) => {
   const { breadcrumbs, title, description, ...others } = props;
   return (
     <Box spacing={8} className={styles.PageHeader} {...others}>
       {breadcrumbs && breadcrumbs.length > 0 ? (
         <Breadcrumb className={styles.Breadcrumbs} separator=" / ">
-          {breadcrumbs.map((item, idx) => (
-            <Breadcrumb.Item key={idx} link={item.path}>
-              {item.name}
-            </Breadcrumb.Item>
-          ))}
+          {breadcrumbs.map((item, idx) => {
+            const key = `${idx}-${item.path}`;
+
+            return (
+              <Breadcrumb.Item key={key} link={item.path}>
+                {item.name}
+              </Breadcrumb.Item>
+            );
+          })}
         </Breadcrumb>
       ) : null}
 
@@ -28,5 +34,7 @@ const PageHeader: SFC<PageHeaderProps> = (props) => {
     </Box>
   );
 };
+
+PageHeader.displayName = 'PageHeader';
 
 export default PageHeader;

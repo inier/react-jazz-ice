@@ -4,13 +4,17 @@ module.exports = {
   store: false,
   vite: true,
   // tsChecker: true,
+  alias: {
+    '@/': './src/',
+    '@theme': './src/_theme.scss',
+  },
   define: {
     PUBLIC_URL: '/toxic',
   },
-  // router: {
-  //   lazy: true,
-  //   configPath: 'src/routes/index.ts',
-  // },
+  router: {
+    lazy: true,
+    configPath: './src/routes/index.ts',
+  },
   plugins: [
     [
       'build-plugin-fusion',

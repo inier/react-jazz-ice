@@ -17,7 +17,7 @@ module.exports = getESLintConfig('react-ts', {
         pathGroups: [
           {
             pattern: 'react',
-            group: 'builtin',
+            group: 'external',
             position: 'before',
           },
           {
