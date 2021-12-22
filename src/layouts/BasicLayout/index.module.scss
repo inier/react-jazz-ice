@@ -1,0 +1,11 @@
+.basic-layout {
+  height: 100vh;
+  :global {
+    .next-shell-main .next-shell-content {
+      padding: 0;
+    }
+    .next-shell-sub-main {
+      overflow: hidden;
+    }
+  }
+}

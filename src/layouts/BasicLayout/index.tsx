@@ -15,6 +15,7 @@ import Logo from './components/Logo';
 import Notice from './components/Notice';
 import PageNav from './components/PageNav';
 import SolutionLink from './components/SolutionLink';
+import styles from './index.module.scss';
 
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';
@@ -34,21 +35,11 @@ function BasicLayout({ location, children }) {
   return (
     <SecurityLayout>
       <RouteTabsProvider defaultTabs={['/']}>
-        <Shell
-          style={{
-            height: '100vh',
-          }}
-          type="brand"
-        >
+        <Shell className={styles['basic-layout']} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
           </Shell.Branding>
-          <Shell.Navigation
-            style={{
-              marginRight: 10,
-            }}
-            direction="hoz"
-          >
+          <Shell.Navigation direction="hoz">
             <GlobalSearch />
           </Shell.Navigation>
           <Shell.Action>

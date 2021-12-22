@@ -97,22 +97,37 @@ const subRouterConfig: IRouterConfig[] = [
   {
     path: '/list/basic',
     component: BasicListPage,
+    pageConfig: {
+      title: '基础列表',
+    },
   },
   {
     path: '/list/card',
     component: CardListPage,
+    pageConfig: {
+      title: '卡片列表',
+    },
   },
   {
     path: '/list/table/filter',
     component: FusionFilterTable,
+    pageConfig: {
+      title: '基础过滤',
+    },
   },
   {
     path: '/list/table/mutilcol',
     component: FusionMultiColTable,
+    pageConfig: {
+      title: '多列过滤',
+    },
   },
   {
     path: '/list/table/singlecol',
     component: FusionSingleColTable,
+    pageConfig: {
+      title: '单列过滤',
+    },
   },
   {
     path: '/list/table/expand',
@@ -137,6 +152,9 @@ const subRouterConfig: IRouterConfig[] = [
   {
     path: '/list/table',
     component: TableListPage,
+    pageConfig: {
+      title: '表格列表',
+    },
   },
   {
     path: '/feedback/fail',

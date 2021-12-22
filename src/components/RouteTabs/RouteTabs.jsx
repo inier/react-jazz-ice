@@ -18,7 +18,7 @@ const RightOutlined = () => {
   return <Icon type="arrow-right" title="向右滚动" />;
 };
 const CloseOutlined = () => {
-  return <Icon type="close" title="关闭" />;
+  return <Icon type="close" size="small" title="关闭" />;
 };
 const ReloadOutlined = () => {
   return <Icon type="refresh" title="刷新" />;
