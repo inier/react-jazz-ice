@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Nav } from '@alifd/next';
-import { Link, withRouter } from 'ice';
+
+import { Nav, Icon } from '@alifd/next';
+import { Link, withRouter, getInitialData } from 'ice';
 import PropTypes from 'prop-types';
-import { asideMenuConfig } from '../../menuConfig';
+
+import { mapTree } from '@/utils';
+
+// import { asideMenuConfig } from '../../menuConfig';
+import styles from './index.module.scss';
 
 const { SubNav } = Nav;
 const NavItem = Nav.Item;
@@ -65,9 +70,27 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
   return navItem;
 }
 
+const handleMenuDataRender = () => {
+  const { routes } = getInitialData();
+  return mapTree(routes, ({ path, pageConfig, children }) => {
+    const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
+    return {
+      path,
+      // @ts-ignore
+      icon: <Icon type={icon || 'icon-tag'} size="small" className={styles.sideMenuIcon} />,
+      name,
+      hideInMenu,
+      hideChildrenInMenu,
+      locale,
+      authority,
+      children,
+    };
+  });
+};
+
 const Navigation = (props, context) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-
+  const asideMenuConfig = handleMenuDataRender();
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
@@ -86,7 +109,7 @@ const Navigation = (props, context) => {
     if (curSubNav && !openKeys.includes(curSubNav.name)) {
       setOpenKeys([...openKeys, curSubNav.name]);
     }
-  }, [pathname]);
+  }, [asideMenuConfig, openKeys, pathname]);
 
   return (
     <Nav

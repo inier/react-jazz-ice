@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import { initialState } from '@/components/RouteTabs/reducer';
+import { initialState } from './reducer';
 
 export default createContext({
   state: initialState,

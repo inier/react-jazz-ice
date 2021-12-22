@@ -2,11 +2,10 @@ import { lazy } from 'react';
 
 import NotFound from '@/components/NotFound';
 import BasicLayout from '@/layouts/BasicLayout';
-import UserLayout from '@/layouts/UserLayout';
-import { Demo, Register, subRouterConfig } from '@/pages';
 
-import testRoutesConfig from './test';
+import demoRoutesConfig from './demo';
 import { ICustomRouterConfig } from './typing';
+import userRoutesConfig from './user';
 
 /**
  * 对 pageConfig 做了扩展, 使其兼容 proLayout menus 的配置和 RouteTabs 组件 . 侧边栏菜单的配置基于 mainRoutesConfig 生成
@@ -15,58 +14,28 @@ import { ICustomRouterConfig } from './typing';
 /** 主要的路由 */
 export const mainRoutesConfig: ICustomRouterConfig[] = [
   {
-    path: '/home',
+    path: '/',
     exact: true,
     component: lazy(() => import('@/pages/Home')),
     pageConfig: {
       title: '首页',
-      icon: 'icon-FunctionsIconForWork_Nav_Home',
+      // icon: 'dashboard',
       fixed: true,
     },
   },
-  {
-    path: '/demo',
-    component: Demo,
-    pageConfig: {
-      title: '示例',
-    },
-  },
-  ...subRouterConfig,
-  ...testRoutesConfig,
+  ...demoRoutesConfig,
 ];
 
 const routerConfig: ICustomRouterConfig[] = [
-  {
-    path: '/user',
-    component: UserLayout,
-    children: [
-      {
-        exact: true,
-        path: '/login',
-        component: lazy(() => import('@/pages/Login')),
-        pageConfig: {
-          title: '登录',
-        },
-      },
-      {
-        path: '/register',
-        component: Register,
-        pageConfig: {
-          title: '注册',
-        },
-      },
-      {
-        path: '/',
-        redirect: '/user/login',
-      },
-    ],
-  },
+  ...userRoutesConfig,
   {
     path: '/',
     component: BasicLayout,
     children: mainRoutesConfig,
   },
   {
+    path: '/404',
+    exact: true,
     component: NotFound,
     pageConfig: {
       title: '404',

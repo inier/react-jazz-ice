@@ -16,7 +16,7 @@ export const asideMenuConfig = [
     children: [
       {
         name: '示例',
-        path: '/home',
+        path: '/demo',
       },
       // {
       //   name: '分析页面',

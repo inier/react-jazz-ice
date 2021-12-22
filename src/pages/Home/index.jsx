@@ -1,6 +1,7 @@
 import { memo } from 'react';
 
 import { Avatar } from '@alifd/next';
+import { observer } from 'mobx-react';
 
 import { PageContainer } from '@/components';
 import { useMobxStore } from '@/hooks';
@@ -15,7 +16,7 @@ const getGreeting = () => {
   if ((times >= 18 && times < 24) || (times <= 24 && times < 6)) return '晚上好';
 };
 
-const HomePage = () => {
+const HomePage = observer(() => {
   const { userStore } = useMobxStore();
   const { userInfo } = userStore;
   return (
@@ -37,7 +38,7 @@ const HomePage = () => {
       </div>
     </PageContainer>
   );
-};
+});
 
 HomePage.displayName = 'HomePage';
 

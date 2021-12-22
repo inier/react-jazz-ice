@@ -4,7 +4,7 @@ import { Avatar, Button } from '@alifd/next';
 
 function FuncComponent(props) {
   const { menuStore, demoStore } = props;
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({ avatar: '', name: 'xxx' });
 
   React.useEffect(() => {
     demoStore.getUser().then((res) => {

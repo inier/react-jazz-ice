@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
 import { useMobxStore } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
-import RouterTabs from '@/modules/RouterTabs';
+// import RouterTabs from '@/modules/RouterTabs';
 
 import Footer from './components/Footer';
 import GlobalSearch from './components/GlobalSearch';

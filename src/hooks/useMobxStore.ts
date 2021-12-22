@@ -2,9 +2,7 @@ import { useContext } from 'react';
 
 import { MobXProviderContext, useObserver } from 'mobx-react';
 
-const useStores = () => {
-  return useContext(MobXProviderContext);
-};
+const useMobxStores = () => useContext(MobXProviderContext);
 
 export function inject(selector, baseComponent) {
   const useComponent = (ownProps) => {
@@ -17,4 +15,4 @@ export function inject(selector, baseComponent) {
   return useComponent;
 }
 
-export default useStores;
+export default useMobxStores;

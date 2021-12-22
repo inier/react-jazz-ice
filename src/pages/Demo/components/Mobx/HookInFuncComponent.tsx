@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useObserver, Observer, useLocalObservable } from 'mobx-react';
+import { useObserver, Observer, useLocalObservable, observer } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
 import { useMobxStore } from '@/hooks';
 import stores from '@/stores';
@@ -39,23 +39,23 @@ function FuncComponent(props) {
 }
 
 // 方法1
-function Demo2() {
+const Demo2 = observer(() => {
   const localStore = useLocalObservable(() => stores.demoStore);
   useEffect(() => {
     localStore.getUser();
   }, []);
 
   return useObserver(() => <div>{localStore?.userInfo?.name}</div>);
-}
+});
 
 // 方法2，更新Observer包裹的位置，注意这里包裹的必须是一个函数
-function Demo3() {
+const Demo3 = observer(() => {
   const localStore = useLocalObservable(() => stores.menuStore);
 
   useEffect(() => {
     localStore.getAdminResList({ x: 101 });
   }, []);
   return <Observer>{() => <span>{localStore?.resList[0]?.resourceName}</span>}</Observer>;
-}
+});
 
-export default FuncComponent;
+export default observer(FuncComponent);

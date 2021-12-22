@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 
-import { Redirect } from 'react-router-dom';
+import { observer } from 'mobx-react';
 import { stringify } from 'qs';
+import { Redirect } from 'react-router-dom';
 
 import PageLoading from '@/components/PageLoading';
 import { useMount, useMobxStore } from '@/hooks';
 
-const SecurityLayout = (props) => {
+const SecurityLayout = observer((props) => {
   const { userStore } = useMobxStore();
   const { getUser, userInfo } = userStore;
   const { children } = props;
   const [isReady, setIsReady] = useState(false);
 
   useMount(() => {
-    if (!userInfo) {
-      getUser().then(() => {
-        setIsReady(true);
-      });
+    if (!userInfo.name) {
+      getUser &&
+        getUser().then(() => {
+          setIsReady(true);
+        });
     } else {
       setIsReady(true);
     }
@@ -38,6 +40,6 @@ const SecurityLayout = (props) => {
   }
 
   return children;
-};
+});
 
 export default SecurityLayout;

@@ -1,7 +1,7 @@
 import { useLocation } from 'ice';
 import { KeepAlive } from 'react-activation';
 
-import { useRouteTabsContext } from '@/components/RouteTabs';
+import { useRouteTabsContext } from './hooks';
 
 const keepAliveWhenParam = [true, true];
 

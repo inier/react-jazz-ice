@@ -7,8 +7,8 @@ import { configure } from 'mobx';
 // import requestConfig from '@/api/request';
 import AppProvider from '@/components/AppProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
-import { mainRoutesConfig } from '@/routes/index';
 import { KeepAliveWrapper } from '@/components/RouteTabs';
+import { mainRoutesConfig } from '@/routes/index';
 import { getLocale, mapTree } from '@/utils';
 
 configure({
@@ -17,6 +17,7 @@ configure({
   reactionRequiresObservable: true,
   observableRequiresReaction: true,
   disableErrorBoundaries: false,
+  isolateGlobalState: true,
 });
 
 const locale = getLocale();
@@ -39,7 +40,7 @@ const appConfig: IAppConfig = {
   router: {
     type: 'browser',
     basename: PUBLIC_URL, // 暂不支持，process.env.PUBLIC_URL
-    fallback: <Loading style={{ display: 'block' }} />, // 组件加载动画
+    fallback: <Loading style={{ display: 'block', flex: 1 }} />, // 组件加载动画
     modifyRoutes: (routes) => {
       return mapTree(routes, (node) => {
         const newNode = { ...node };

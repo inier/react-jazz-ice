@@ -2,7 +2,6 @@ import React, { memo, useCallback, useEffect, useLayoutEffect, useState } from '
 
 import { Dropdown, Menu, Icon } from '@alifd/next';
 import classnames from 'classnames';
-import { logger } from 'ice';
 import { debounce } from 'lodash-es';
 
 import { useRouteTabsContext } from './hooks';
@@ -24,7 +23,6 @@ const ReloadOutlined = () => {
   return <Icon type="refresh" title="刷新" />;
 };
 
-// let initSwiper;
 const RouteTabs = (props) => {
   const { children } = props;
   const context = useRouteTabsContext();
@@ -32,29 +30,33 @@ const RouteTabs = (props) => {
 
   useEffect(() => {
     if (!context) {
-      logger.error('warning: The RouteTabs component must be under the RouteTabsContext component');
+      console.error('warning: The RouteTabs component must be under the RouteTabsContext component');
     }
   }, [context]);
 
   const [isShowNavControls, setIsShowNavControls] = useState(false);
   const [scrollX, setScrollX] = useState(0);
 
-  // 设置滚动条便宜量, 增加边缘值判断
+  // 设置滚动偏移量
   const handleSetScroll = (x) => {
     if (isShowNavControls) {
       const $nav = document.querySelector('.route-tabs-bar-nav');
       const $navInner = document.querySelector('.route-tabs-bar-nav-inner');
-      const maxScroll = -(
-        $navInner.getBoundingClientRect().width +
-        TABS_BAR_PADDING -
-        $nav.getBoundingClientRect().width
-      );
-      if (x >= 0) {
-        setScrollX(0);
-      } else if (x <= maxScroll) {
-        setScrollX(maxScroll);
-      } else {
-        setScrollX(x);
+
+      if ($nav && $navInner) {
+        const maxScroll = -(
+          $navInner.getBoundingClientRect().width +
+          TABS_BAR_PADDING -
+          $nav.getBoundingClientRect().width
+        );
+
+        if (x >= 0) {
+          setScrollX(0);
+        } else if (x <= maxScroll) {
+          setScrollX(maxScroll);
+        } else {
+          setScrollX(x);
+        }
       }
     } else {
       setScrollX(0);
@@ -65,41 +67,44 @@ const RouteTabs = (props) => {
     if (state.currentTab) {
       const $nav = document.querySelector('.route-tabs-bar-nav');
       const $activeTabItem = document.querySelector('.route-tabs .tab-item.active');
-      const navRect = $nav.getBoundingClientRect();
-      const activeTabItemRect = $activeTabItem.getBoundingClientRect();
-      if (navRect.left > activeTabItemRect.left - TABS_BAR_PADDING) {
-        // 高亮的部分在左侧隐藏部分
-        const x = activeTabItemRect.left - scrollX - TABS_BAR_PADDING * 2 - navRect.left;
-        handleSetScroll(-x);
-      } else if (activeTabItemRect.width + activeTabItemRect.left + TABS_BAR_PADDING > navRect.width + navRect.left) {
-        // 高亮的部分在右侧隐藏部分
-        const x =
-          activeTabItemRect.left +
-          activeTabItemRect.width -
-          scrollX +
-          TABS_BAR_PADDING * 2 -
-          (navRect.width + navRect.left);
-        handleSetScroll(-x);
-      } else {
-        // 在可视区域, 但有可能 tabs 的长度有变化, 要重新计算
-        handleSetScroll(scrollX);
+
+      if ($nav && $activeTabItem) {
+        const navRect = $nav?.getBoundingClientRect();
+        const { width, left } = $activeTabItem?.getBoundingClientRect();
+
+        if (navRect.left > left - TABS_BAR_PADDING) {
+          // 高亮部分在左侧隐藏部分
+          const x = left - scrollX - TABS_BAR_PADDING * 2 - navRect.left;
+          handleSetScroll(-x);
+        } else if (width + left + TABS_BAR_PADDING > navRect.width + navRect.left) {
+          // 高亮部分在右侧隐藏部分
+          const x = left + width - scrollX + TABS_BAR_PADDING * 2 - (navRect.width + navRect.left);
+          handleSetScroll(-x);
+        } else {
+          // 可视区域内, tabs 的长度有变化, 要重新计算
+          handleSetScroll(scrollX);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [scrollX, state.currentTab]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const autoAdjust = useCallback(
     debounce((checkCurrentTab = true) => {
       const $nav = document.querySelector('.route-tabs-bar-nav');
       const $navInner = document.querySelector('.route-tabs-bar-nav-inner');
-      if (
-        $navInner?.getBoundingClientRect().width >=
-        $nav?.getBoundingClientRect().width - (isShowNavControls ? TABS_BAR_PADDING : 0)
-      ) {
-        setIsShowNavControls(true);
-      } else {
-        setIsShowNavControls(false);
-        setScrollX(0);
+
+      if ($nav && $navInner) {
+        if (
+          $navInner?.getBoundingClientRect().width >=
+          $nav?.getBoundingClientRect().width - (isShowNavControls ? TABS_BAR_PADDING : 0)
+        ) {
+          setIsShowNavControls(true);
+        } else {
+          setIsShowNavControls(false);
+          setScrollX(0);
+        }
       }
       if (checkCurrentTab) {
         handleCurrentTabChange();
@@ -227,7 +232,7 @@ const RouteTabs = (props) => {
                   })}
                 >
                   <div className="tab-item-inner">
-                    <Icon type={tab.icon} className="tab-item-icon" />
+                    {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
                     <span className="tab-item-name" title={tab.name}>
                       {tab.name}
                     </span>

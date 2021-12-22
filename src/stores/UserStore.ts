@@ -3,6 +3,7 @@
  * 保存用户信息与登录信息token等其他公共信息
  */
 import { makeAutoObservable, observable, action } from 'mobx';
+
 import { fakeAccountLogin } from '@/api/services/login';
 import { getQueryString } from '@/utils';
 
@@ -47,6 +48,10 @@ class UserStore {
   setToken(token) {
     this.token = token;
   }
+  @action
+  setUserInfo(res) {
+    this.userInfo = res;
+  }
 
   /**
    * 退出登录
@@ -58,7 +63,7 @@ class UserStore {
   @action
   getUser = async () => {
     return fakeAccountLogin().then((res: any) => {
-      this.userInfo = res;
+      this.setUserInfo(res);
 
       return res;
     });

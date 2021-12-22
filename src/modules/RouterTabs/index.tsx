@@ -1,11 +1,14 @@
 /* eslint-disable @iceworks/best-practices/recommend-functional-component */
 import React, { Component } from 'react';
+
 import { appHistory } from '@ice/stark';
 import classNames from 'classnames';
 import { inject, observer } from 'mobx-react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+
 import { UIStore, MenuStore } from '@/stores';
 import { obj2search } from '@/utils';
+
 import Iframe from './components/Iframe';
 import Main from './components/Main';
 import TabTagArea from './components/TabTagArea';
