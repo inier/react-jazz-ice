@@ -51,14 +51,15 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/test',
-    redirect: 'index',
+    exact: true,
+    redirect: '/test/index',
     pageConfig: {
       icon: 'set',
       title: '测试RouteTabs',
     },
     children: [
       {
-        path: 'index',
+        path: '/test/index',
         exact: true,
         pageConfig: {
           title: '列表测试页面',
@@ -66,7 +67,7 @@ const routesConfig: ICustomRouterConfig[] = [
         component: lazy(() => import('@/pages/Demo/Test/index')),
       },
       {
-        path: 'detail',
+        path: '/test/detail',
         exact: true,
         component: lazy(() => import('@/pages/Demo/Test/detail')),
         pageConfig: {
@@ -74,7 +75,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: 'list',
+        path: '/test/list',
         exact: true,
         component: lazy(() => import('@/pages/Demo/Test/list')),
         pageConfig: {
@@ -82,7 +83,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: 'type/:type',
+        path: '/test/type/:type',
         exact: true,
         pageConfig: {
           title: '详情测试页面2',
