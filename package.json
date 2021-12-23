@@ -89,8 +89,8 @@
     "stylelint": "^14.1.0"
   },
   "scripts": {
-    "start:mock": "icejs start --config build.config.js --mode local",
-    "start": "icejs start --disable-mock --config build.config.js --mode local",
+    "start:mock": "icejs start --config build.config.js --mode local --port 8889",
+    "start": "icejs start --disable-mock --config build.config.js --mode local --port 8888",
     "build": "icejs build --config build.config.js --mode prod",
     "debug": "icejs build --config build.config.js --mode debug",
     "analyze": "icejs start --analyzer --config build.config.js",

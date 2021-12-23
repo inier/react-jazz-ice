@@ -1,4 +1,7 @@
 .sideMenuIcon {
-  margin-right: 6px;
-  vertical-align: -1px;
+  vertical-align: 2px;
+  + span,
+  + a {
+    margin-left: 6px;
+  }
 }

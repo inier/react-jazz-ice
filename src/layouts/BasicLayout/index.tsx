@@ -48,7 +48,7 @@ function BasicLayout({ location, children }) {
             <HeaderAvatar {...userInfo} />
           </Shell.Action>
 
-          <Shell.Navigation>
+          <Shell.Navigation className="scrollbar">
             <PageNav />
           </Shell.Navigation>
 

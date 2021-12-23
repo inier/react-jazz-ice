@@ -18,8 +18,8 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
     exact: true,
     component: lazy(() => import('@/pages/Home')),
     pageConfig: {
+      icon: 'favorites-filling',
       title: '首页',
-      // icon: 'dashboard',
       fixed: true,
     },
   },

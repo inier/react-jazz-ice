@@ -77,7 +77,7 @@ const handleMenuDataRender = () => {
     return {
       path,
       // @ts-ignore
-      icon: <Icon type={icon || 'icon-tag'} size="small" className={styles.sideMenuIcon} />,
+      icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
       name,
       hideInMenu,
       hideChildrenInMenu,

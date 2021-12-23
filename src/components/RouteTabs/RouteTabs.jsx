@@ -254,7 +254,7 @@ const RouteTabs = (props) => {
           </ul>
         </div>
       </div>
-      <div className="route-tabs-content">{children}</div>
+      <div className="route-tabs-content scrollbar">{children}</div>
     </div>
   );
 };

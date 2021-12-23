@@ -45,6 +45,7 @@ const routesConfig: ICustomRouterConfig[] = [
     exact: true,
     component: Demo,
     pageConfig: {
+      icon: 'attachment',
       title: '示例',
     },
   },
@@ -52,7 +53,7 @@ const routesConfig: ICustomRouterConfig[] = [
     path: '/test',
     redirect: 'index',
     pageConfig: {
-      icon: 'icon-tag',
+      icon: 'set',
       title: '测试RouteTabs',
     },
     children: [
@@ -412,6 +413,7 @@ const routesConfig: ICustomRouterConfig[] = [
     path: '/user',
     redirect: '/user/login',
     pageConfig: {
+      icon: 'set',
       title: '登录&注册',
     },
     children: [
