@@ -1,6 +1,6 @@
 import React, { memo, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import { Dropdown, Menu, Icon } from '@alifd/next';
+import { Menu, Icon } from '@alifd/next';
 import classnames from 'classnames';
 import { debounce } from 'lodash-es';
 
@@ -10,17 +10,17 @@ import './index.scss';
 
 const TABS_BAR_PADDING = 48;
 
-const LeftOutlined = ({ title = '返回' }) => {
-  return <Icon type="arrow-left" title={title} />;
+const LeftOutlined = ({ title = '返回', ...restProps }) => {
+  return <Icon type="arrow-left" title={title} {...restProps} />;
 };
-const RightOutlined = () => {
-  return <Icon type="arrow-right" title="向右滚动" />;
+const RightOutlined = ({ title = '向右滚动', ...restProps }) => {
+  return <Icon type="arrow-right" title={title} {...restProps} />;
 };
-const CloseOutlined = () => {
-  return <Icon type="close" size="small" title="关闭" />;
+const CloseOutlined = ({ title = '关闭', ...restProps }) => {
+  return <Icon type="close" size="small" title={title} {...restProps} />;
 };
-const ReloadOutlined = () => {
-  return <Icon type="refresh" title="刷新" />;
+const ReloadOutlined = ({ title = '刷新', ...restProps }) => {
+  return <Icon type="refresh" title={title} {...restProps} />;
 };
 
 const RouteTabs = (props) => {
@@ -140,8 +140,7 @@ const RouteTabs = (props) => {
     action.closeTab(tab);
   };
 
-  const handleTabItemMenuClick = (e, tab) => {
-    const { key } = e;
+  const handleTabItemMenuClick = (key, tab) => {
     switch (key) {
       case 'refresh': {
         action.refreshTab(tab);
@@ -168,29 +167,40 @@ const RouteTabs = (props) => {
     }
   };
 
-  const getTabItemMenu = (tab, index) => {
-    return (
-      <Menu onClick={(e) => handleTabItemMenuClick(e, tab)}>
-        <Menu.Item key="refresh">刷新</Menu.Item>
+  // 创建右键菜单
+  const createTabItemContextMenu = (e, tab, index) => {
+    e.preventDefault();
+
+    const { target } = e;
+    const { top, left } = target.getBoundingClientRect();
+
+    Menu.create({
+      target: e.target,
+      offset: [e.clientX - left, e.clientY - top],
+      className: 'tabs-item-context-menu',
+      popupClassName: 'tabs-item-context-menu',
+      onItemClick: (key) => handleTabItemMenuClick(key, tab),
+      children: [
+        <Menu.Item key="refresh">刷新</Menu.Item>,
         <Menu.Item disabled={index === 0} key="closeCurrent">
           关闭
-        </Menu.Item>
+        </Menu.Item>,
         <Menu.Item disabled={state.tabs.length === 1} key="closeOther">
           关闭其他
-        </Menu.Item>
-        <Menu.Item disabled={state.tabs.length === index + 1} key="closeRight">
+        </Menu.Item>,
+        <Menu.Item disabled={state.tabs.length === +index + 1} key="closeRight">
           关闭右侧
-        </Menu.Item>
+        </Menu.Item>,
         <Menu.Item disabled={index <= 1} key="closeLeft">
           关闭左侧
-        </Menu.Item>
-      </Menu>
-    );
+        </Menu.Item>,
+      ],
+    });
   };
 
   const handleBack = () => {
     if (state.currentTab?.prevTab) {
-      action.backPrevTab();
+      action.backPrevTab(state.currentTab);
     }
   };
 
@@ -231,21 +241,22 @@ const RouteTabs = (props) => {
                     active: tab.id === state.currentTab?.id,
                   })}
                 >
-                  <div className="tab-item-inner">
+                  <div
+                    className="tab-item-inner"
+                    onContextMenu={(e) => {
+                      if (tab.id === state.currentTab?.id) {
+                        createTabItemContextMenu(e, tab, index);
+                      }
+                    }}
+                  >
                     {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
                     <span className="tab-item-name" title={tab.name}>
                       {tab.name}
                     </span>
                     {!tab.fixed && (
-                      <Dropdown
-                        trigger={
-                          <span className="tab-item-close" onClick={(e) => handleClose(e, tab)}>
-                            <CloseOutlined />
-                          </span>
-                        }
-                      >
-                        {getTabItemMenu(tab, index)}
-                      </Dropdown>
+                      <span className="tab-item-close" onClick={(e) => handleClose(e, tab)}>
+                        <CloseOutlined />
+                      </span>
                     )}
                   </div>
                 </li>

@@ -8,8 +8,12 @@ import testRoutesConfig from './test';
 import { ICustomRouterConfig } from './typing';
 import userRoutesConfig from './user';
 
+// 格式化层级Routes
+export { formatRoutes } from './utils/formatRoutes';
+
 /**
- * 对 pageConfig 做了扩展, 使其兼容 proLayout menus 的配置和 RouteTabs 组件 . 侧边栏菜单的配置基于 mainRoutesConfig 生成
+ * 扩展 pageConfig, 使其兼容 menus 配置(@alifd/next menu组件、antd proLayout等 )和 RouteTabs 组件.
+ * 侧边栏菜单的配置基于 mainRoutesConfig 生成
  */
 
 /** 主要的路由 */
@@ -22,11 +26,11 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
       icon: 'favorites-filling',
       title: '首页',
       fixed: true,
+      hideInMenu: true,
     },
   },
-  // ...demoRoutesConfig,
+  ...demoRoutesConfig,
   ...testRoutesConfig,
-  ...userRoutesConfig,
 ];
 
 const routerConfig: ICustomRouterConfig[] = [
@@ -35,6 +39,7 @@ const routerConfig: ICustomRouterConfig[] = [
     component: BasicLayout,
     children: mainRoutesConfig,
   },
+  ...userRoutesConfig,
   {
     path: '/404',
     exact: true,

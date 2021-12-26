@@ -1,15 +1,13 @@
-import { memo, useMemo } from 'react';
-import { Box, Table, Tag } from '@alifd/next';
-import { useActivate } from 'react-activation';
-import { useRouteTabsContext } from '@/components/RouteTabs';
+import { memo, useMemo, useState } from 'react';
+import { Box, Table, Tag, Dialog } from '@alifd/next';
+import { useActivate, useRouteTabsContext } from '@/hooks';
 
 const Notice = () => {
   // console.log('================>NoticePage');
   useActivate(() => {
     // console.log('================>useActivate');
   });
-
-  useRouteTabsContext();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const tableData = useMemo(() => {
     const result = [];
@@ -75,15 +73,35 @@ const Notice = () => {
       },
     ];
 
-    return <Table columns={columns} dataSource={tableData} pagination={false} />;
+    return <Table columns={columns} dataSource={tableData} />;
   }, [tableData]);
 
   return (
     <div>
+      <button
+        onClick={() => {
+          setModalVisible(true);
+        }}
+      >
+        弹框测试按钮
+      </button>
       {tableRender}
       {tableData.map((item) => (
         <div key={item.key}>{JSON.stringify(item)}</div>
       ))}
+      <Dialog
+        v2
+        title="Welcome"
+        visible={modalVisible}
+        onOk={() => {
+          setModalVisible(false);
+        }}
+        onClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <p>Start your business here by searching a popular product</p>
+      </Dialog>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const HomePage = observer(() => {
             {111}
           </Avatar>
           <span>
-            {getGreeting()}，{userInfo?.username}，祝你开心每一天！
+            {getGreeting()}，{userInfo?.name}，祝你开心每一天！
           </span>
         </div>
         <div className={styles.content}>

@@ -1,10 +1,11 @@
 import { memo, useContext, useEffect, useState } from 'react';
+
 import { Link } from '@/components';
-import { RouteTabsContext, useRouteEventListen } from '@/components/RouteTabs';
+import { useRouteTabsContext, useRouteEventListen } from '@/hooks';
 import { Button, List } from '@alifd/next';
 
 const TestIndex = () => {
-  const { action } = useContext(RouteTabsContext);
+  const { action } = useRouteTabsContext();
   const [eventValue, setEventValue] = useState();
 
   useRouteEventListen();
@@ -24,7 +25,7 @@ const TestIndex = () => {
 
   return (
     <>
-      <List header={<strong>测试用例</strong>} bordered style={{ backgroundColor: '#fff' }}>
+      <List header={<strong>测试用例</strong>} divider style={{ backgroundColor: '#fff' }}>
         <List.Item>
           <Link
             to={{
@@ -129,11 +130,11 @@ const TestIndex = () => {
             onClick={() => {
               action?.openTab({
                 pathname: '/member/list',
-                state: { force: true, name: '不缓存的页面', keepAlive: false },
+                state: { force: true, name: '不存在的页面', keepAlive: false },
               });
             }}
           >
-            强制打开一个不缓存的页面
+            强制打开不存在的页面
           </a>
         </List.Item>
         <List.Item>

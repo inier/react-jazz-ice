@@ -24,7 +24,7 @@ export const useDeepCompareEffect = (effect, deps) => {
     ref.current = deps;
   }
 
-  useEffect(effect, [effect]);
+  useEffect(effect, ref.current);
 };
 
 /**

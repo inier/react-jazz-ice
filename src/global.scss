@@ -7,13 +7,15 @@ $page-min-width: 768px;
 body {
   -webkit-font-smoothing: antialiased;
   min-width: $page-min-width;
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 .scrollbar {
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: auto;
   &::-webkit-scrollbar {
     width: 6px;
+    height: 6px;
     background-color: #f5f5f5;
   }
   &::-webkit-scrollbar-thumb {

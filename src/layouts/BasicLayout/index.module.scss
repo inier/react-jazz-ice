@@ -1,11 +1,42 @@
+$basic-layout-aside-bgColor-light: #eaeaea;
+$basic-layout-aside-bgColor-dark: #26324a;
+
 .basic-layout {
   height: 100vh;
+
   :global {
+    .next-shell-header {
+      border-bottom: none;
+    }
     .next-shell-main .next-shell-content {
       padding: 0;
     }
+    .next-shell-main {
+      background-color: #fff;
+    }
+    .next-shell-aside.next-shell-navigation.navigation {
+      background-color: $basic-layout-aside-bgColor-light;
+    }
     .next-shell-sub-main {
       overflow: hidden;
+    }
+
+    .scrollbar {
+      overflow-x: hidden;
+    }
+  }
+
+  &.dark {
+    :global {
+      .next-shell-aside.next-shell-navigation.navigation {
+        background-color: $basic-layout-aside-bgColor-dark;
+      }
+      .next-nav-item.next-menu-item {
+        color: #fff;
+        &.next-opened {
+          color: #fff;
+        }
+      }
     }
   }
 }

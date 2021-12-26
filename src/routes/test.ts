@@ -43,7 +43,7 @@ const routesConfig: ICustomRouterConfig[] = [
           closeTips: true,
           hideInMenu: true,
         },
-        component: lazy(() => import('@/pages/Demo/Test/detail')),
+        component: lazy(() => import('@/pages/Demo/Test/type')),
       },
     ],
   },

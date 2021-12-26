@@ -27,7 +27,6 @@ const appConfig: IAppConfig = {
     rootId: 'ice-container',
     addProvider: ({ children }) => <AppProvider locale={locale}>{children}</AppProvider>,
     getInitialData: async () => {
-      console.log('getInitialData:', mainRoutesConfig);
       return {
         routes: mainRoutesConfig,
       };
@@ -41,7 +40,7 @@ const appConfig: IAppConfig = {
   router: {
     type: 'browser',
     basename: PUBLIC_URL, // 暂不支持，process.env.PUBLIC_URL
-    fallback: <Loading style={{ display: 'block', flex: 1 }} />, // 组件加载动画
+    fallback: <Loading fullScreen style={{ display: 'block', flex: 1 }} />, // 组件加载动画
     modifyRoutes: (routes) => {
       return mapTree(routes, (node) => {
         const newNode = { ...node };

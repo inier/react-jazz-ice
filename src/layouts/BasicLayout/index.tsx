@@ -35,20 +35,20 @@ function BasicLayout({ location, children }) {
   return (
     <SecurityLayout>
       <RouteTabsProvider defaultTabs={['/']}>
-        <Shell className={styles['basic-layout']} type="brand">
+        <Shell className={`${styles['basic-layout']} ${styles.dark}`} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
           </Shell.Branding>
-          <Shell.Navigation direction="hoz">
+          {/* <Shell.Navigation direction="hoz">
             <GlobalSearch />
-          </Shell.Navigation>
+          </Shell.Navigation> */}
           <Shell.Action>
             <Notice />
             <SolutionLink />
             <HeaderAvatar {...userInfo} />
           </Shell.Action>
 
-          <Shell.Navigation className="scrollbar">
+          <Shell.Navigation className="navigation scrollbar">
             <PageNav />
           </Shell.Navigation>
 

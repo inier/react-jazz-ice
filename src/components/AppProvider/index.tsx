@@ -9,7 +9,8 @@ import stores from '@/stores';
 import LocaleProvider from '../LocaleProvider';
 
 interface IProps {
-  locale: string;
+  keepAlive?: boolean;
+  locale?: string;
   children: ReactElement | ReactNode;
 }
 
@@ -53,7 +54,7 @@ const getDevice: IGetDevice = (width) => {
 };
 
 function AppProvider(props: IProps) {
-  const { locale, children } = props;
+  const { keepAlive = true, locale, children } = props;
   const [device, setDevice] = useState(getDevice(NaN));
 
   if (typeof window !== 'undefined') {
@@ -69,8 +70,7 @@ function AppProvider(props: IProps) {
       {/* 状态管理：服务类、函数组件 */}
       <Provider {...stores}>
         <ConfigProvider device={device}>
-          {/* keep-alive 必要组件 */}
-          <AliveScope>{Children.only(children)}</AliveScope>
+          {keepAlive ? <AliveScope>{Children.only(children)}</AliveScope> : Children.only(children)}
         </ConfigProvider>
       </Provider>
     </LocaleProvider>

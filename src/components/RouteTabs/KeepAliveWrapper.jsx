@@ -8,7 +8,7 @@ const keepAliveWhenParam = [true, true];
 const KeepAliveWrapper = (WrappedComponent) => {
   const { pageConfig = {} } = WrappedComponent;
   // set pageConfig.keepAlive false to disable KeepAlive provider
-  if (pageConfig.keepAlive === false) {
+  if (!pageConfig.keepAlive || pageConfig.keepAlive === false) {
     return WrappedComponent;
   }
 
@@ -17,7 +17,7 @@ const KeepAliveWrapper = (WrappedComponent) => {
     const location = useLocation();
 
     if (state.currentTab?.keepAlive === false) {
-      return WrappedComponent;
+      return <WrappedComponent {...props} />;
     }
 
     // 只有存在 currentTab, 且 currentTab 的 location.pathname 与当前的 location.pathname 相同 才允许创建页面

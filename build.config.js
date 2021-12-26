@@ -35,7 +35,7 @@ module.exports = {
         relativeCssPath: '../',
       },
     ],
-    // ['build-plugin-keep-alive'],
+    ['build-plugin-keep-alive'],
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
   webpackPlugins: {

@@ -1,7 +1,7 @@
 import { memo, useEffect, useState } from 'react';
 import { useParams, history } from 'ice';
-import { Button, List, Modal } from '@alifd/next';
-import { useRouteTabsContext } from '@/components/RouteTabs';
+import { Button, List, Dialog } from '@alifd/next';
+import { useRouteTabsContext } from '@/hooks';
 
 const Detail2Demo = () => {
   const params = useParams();
@@ -10,7 +10,7 @@ const Detail2Demo = () => {
   // console.log('================>type:location', location);
   // console.log('================>type:params', params);
   const { action } = useRouteTabsContext();
-  const [modal, contextHolder] = Modal.useModal();
+  let dialog = null;
 
   useEffect(() => {
     // console.log('================>mounted');
@@ -18,7 +18,7 @@ const Detail2Demo = () => {
 
   return (
     <>
-      <List header={<strong>测试用例</strong>} bordered style={{ backgroundColor: '#fff', margin: 20 }}>
+      <List header={<strong>测试用例</strong>} divider style={{ backgroundColor: '#fff', margin: 20 }}>
         <List.Item>param: type={params?.type}</List.Item>
         <List.Item>
           <Button
@@ -26,7 +26,7 @@ const Detail2Demo = () => {
               setCount(count + 1);
             }}
           >
-            Click me {count}
+            Click me：{count}
           </Button>
         </List.Item>
         <List.Item>
@@ -66,6 +66,34 @@ const Detail2Demo = () => {
           </Button>
         </List.Item>
         <List.Item>
+          <a
+            onClick={() => {
+              action.replaceTab({
+                pathname: '/test/detail',
+                query: {
+                  id: '888',
+                },
+              });
+            }}
+          >
+            api替换当前页面
+          </a>
+        </List.Item>
+        <List.Item>
+          <a
+            onClick={() => {
+              history.replace({
+                pathname: '/test/detail',
+                query: {
+                  id: '666',
+                },
+              });
+            }}
+          >
+            history.replace替换当前页面
+          </a>
+        </List.Item>
+        <List.Item>
           <Button
             onClick={() => {
               action?.triggerEvent('/test/list', 'test', count);
@@ -89,10 +117,11 @@ const Detail2Demo = () => {
             onClick={() => {
               action?.updateTabInstance(null, {
                 closeTips: (callback) => {
-                  modal.confirm({
+                  dialog = Dialog.show({
                     content: '确定要关闭当前页面?',
                     onOk: () => {
                       callback();
+                      dialog.hide();
                     },
                   });
                 },
@@ -101,7 +130,6 @@ const Detail2Demo = () => {
           >
             为当前页添加自定义关闭提示
           </Button>
-          {contextHolder}
         </List.Item>
       </List>
     </>

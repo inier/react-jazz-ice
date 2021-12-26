@@ -4,6 +4,7 @@ import { Nav, Icon } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
 import PropTypes from 'prop-types';
 
+import { formatRoutes } from '@/routes';
 import { mapTree } from '@/utils';
 
 // import { asideMenuConfig } from '../../menuConfig';
@@ -26,7 +27,7 @@ export interface IMenuItem {
   children?: IMenuItem[];
 }
 
-function getNavMenuItems(menusData: any[], initIndex?: number | string, auth?: any) {
+function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any) {
   if (!menusData) {
     return [];
   }
@@ -72,8 +73,8 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
 
 const getMenuData = () => {
   const { routes } = getInitialData();
-  console.log(routes);
-  return mapTree(routes, ({ path, pageConfig, children }) => {
+
+  return mapTree(formatRoutes(routes), ({ path, pageConfig, children }) => {
     const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
     return {
       path,
