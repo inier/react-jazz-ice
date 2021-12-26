@@ -5,11 +5,11 @@
  */
 import Authorized from './AuthorizedRoute';
 
-const { AuthorizedRoute } = Authorized;
-export { AuthorizedRoute };
+// const { AuthorizedRoute } = Authorized;
+// export { AuthorizedRoute };
 
 export { default as Link } from './Link';
-export { default as TextEdge } from './TextEdge';
+export { default as Text } from './Text';
 /*
  * layout 布局型组件，用于组织页面布局，例如网格系统、两侧留白、水平留白等。
  */

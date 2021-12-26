@@ -1,5 +1,6 @@
 // mock相关
 import resList from './resList';
+import { userInfo } from './userInfo';
 
 export default {
   // 示例代码
@@ -14,8 +15,8 @@ export default {
   },
 
   // 支持标准 HTTP
-  'GET /api/profile': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: 'Admin' } },
-  'GET /api/user': { result: 0, data: { avatar: 'https://ice.work/img/logo.png', name: 'User' } },
+  'GET /api/api/profile': { result: 0, data: { ...userInfo, name: 'Admin' } },
+  'GET /api/user': { result: 0, data: { ...userInfo, name: 'User' } },
 
   // 支持参数
   'POST /api/users/:id': (req, res) => {

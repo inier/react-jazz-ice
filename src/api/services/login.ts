@@ -1,12 +1,7 @@
-import { request } from 'ice';
+import { request, apiUrls } from '@/api';
 
 export async function fakeAccountLogin() {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        name: '管理员',
-        mail: 'admin@gmail.com',
-      });
-    }, 2000);
+  return request.get(apiUrls.GET_USER_INFO, {}, { loading: true }).then((res) => {
+    return res.data;
   });
 }

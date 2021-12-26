@@ -70,13 +70,13 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
   return navItem;
 }
 
-const handleMenuDataRender = () => {
+const getMenuData = () => {
   const { routes } = getInitialData();
+  console.log(routes);
   return mapTree(routes, ({ path, pageConfig, children }) => {
     const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
     return {
       path,
-      // @ts-ignore
       icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
       name,
       hideInMenu,
@@ -90,7 +90,7 @@ const handleMenuDataRender = () => {
 
 const Navigation = (props, context) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const asideMenuConfig = handleMenuDataRender();
+  const asideMenuConfig = getMenuData();
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;

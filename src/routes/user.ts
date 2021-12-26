@@ -8,31 +8,36 @@ import { ICustomRouterConfig } from './typing';
 const routesConfig: ICustomRouterConfig[] = [
   {
     path: '/user',
-    redirect: '/user/login',
+    redirect: 'login',
     pageConfig: {
       icon: 'account',
-      title: '登录&注册',
+      title: '用户',
     },
     component: UserLayout,
     children: [
       {
         exact: true,
-        path: '/login',
+        path: 'login',
         component: lazy(() => import('@/pages/Login')),
         pageConfig: {
           title: '登录',
         },
       },
       {
-        path: '/register',
+        path: 'register',
         component: Register,
         pageConfig: {
           title: '注册',
         },
       },
       {
-        path: '/',
-        redirect: '/user/login',
+        path: 'center',
+        exact: true,
+        component: lazy(() => import('@/pages/Demo/User/UserCenter')),
+        pageConfig: {
+          title: '个人中心',
+          keepAlive: false,
+        },
       },
     ],
   },

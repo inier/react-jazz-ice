@@ -50,51 +50,6 @@ const routesConfig: ICustomRouterConfig[] = [
     },
   },
   {
-    path: '/test',
-    exact: true,
-    redirect: '/test/index',
-    pageConfig: {
-      icon: 'set',
-      title: '测试RouteTabs',
-    },
-    children: [
-      {
-        path: '/test/index',
-        exact: true,
-        pageConfig: {
-          title: '列表测试页面',
-        },
-        component: lazy(() => import('@/pages/Demo/Test/index')),
-      },
-      {
-        path: '/test/detail',
-        exact: true,
-        component: lazy(() => import('@/pages/Demo/Test/detail')),
-        pageConfig: {
-          title: '详情测试页面',
-        },
-      },
-      {
-        path: '/test/list',
-        exact: true,
-        component: lazy(() => import('@/pages/Demo/Test/list')),
-        pageConfig: {
-          title: '长列表页',
-        },
-      },
-      {
-        path: '/test/type/:type',
-        exact: true,
-        pageConfig: {
-          title: '详情测试页面2',
-          closeTips: true,
-          hideInMenu: true,
-        },
-        component: lazy(() => import('@/pages/Demo/Test/detail')),
-      },
-    ],
-  },
-  {
     path: '/dashboard',
     redirect: '/dashboard/workplace',
     pageConfig: {

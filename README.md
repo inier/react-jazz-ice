@@ -51,6 +51,8 @@ $ yarn start  # visit http://localhost:3333
 │ │ ├── store.[j,t]sx # [可选] 页面级数据状态
 │ │ ├── index.[j,t]sx # 页面入口
 │ │ └── index.module.scss # 页面样式文件
+│ ├── routes/ # 路由配置
+│ └── index.[j,t]s # 统一出口
 │ ├── stores/ # 应用级数据状态
 │ │ ├── UIStore.[j,t]s # 应用级 UI 相关状态，toast、loading 等
 │ │ ├── UserStore.[j,t]s # 应用级 User 相关状态，token、userInfo 等
@@ -61,7 +63,6 @@ $ yarn start  # visit http://localhost:3333
 │ ├── utils/ # [可选] 工具库
 │ ├── config.[j,t]s # [可选] 环境变量配置文件
 │ ├── global.scss # 全局样式
-│ ├── routes.[j,t]s # 路由配置
 │ └── app.[j,t]s[x] # 应用入口脚本
 ├── build.json # 工程配置
 ├── README.md
@@ -105,16 +106,13 @@ type ICustomRouterConfig = IRouterConfig & {
 
 ### 样式方案
 
-基础方案参考 ice 的[路由配置](https://ice.work/docs/guide/basic/router).  
-在此基础上, 覆写了 antd 的配置文件, 实现自定义样式, 配置文件在 `src/styles/theme.less` 这个目录.
+项目样式使用 Fusion Design 主题包统一管理, 通过配置文件`src/_theme.scss`, 可自定义项目级通用的 design token. 主题包样式的[覆盖方案参考](https://ice.work/docs/plugin/list/fusion).
 
-> module css 方案要注意, 文件名称需要加 `.module.[c|sa|le]ss` 的后缀, 和 umijs 的样式方案不同.
-
-> 我目前的版本是 2.1.1, 样式有坑, theme.less 的文件开发下会失效, 打包又是正常的. 所以, 自定义样式要改两个地方, 一个是 build.config.js 文件, 一个是 theme.less 文件
+> css modules 方案要注意, 文件名称需要加 `.module.[c|sa|le]ss` 的后缀, 和 umijs 的样式方案不同.
 
 #### iconfont 图标
 
-项目要使用非 antd 库的图标, 提供了组件 `Icon` 组件来使用 `iconfont` 字体图标. 在 `public.html` 页面注入 `iconfont` 的文件, 页面通过组件可以直接使用.
+项目要使用 Fusion Design 主题包统一管理图标, 提供了组件 `Icon` 组件来使用 `iconfont` 字体图标. 也可以自定义图标，在 `public.html` 页面注入 `iconfont` 的文件, 页面通过组件可以直接使用.
 
 ### 数据请求
 
@@ -127,12 +125,11 @@ type ICustomRouterConfig = IRouterConfig & {
 
 ### 状态管理
 
-放弃使用 ice 自带的 store 方案.  
-本项目使用 `hox` 方案, 比较轻量一些, 使用方法参考[文档](https://github.com/umijs/hox/blob/master/README-cn.md).
+本项目使用 `Mobx` 方案, 使用方法参考[文档](https://zh.mobx.js.org/README.html).
 
 ### Hooks
 
-Hooks 基础引用 `ahooks@3.x`, 参考[文档](https://ahooks-next.surge.sh/zh-CN/hooks/).  
+Hooks 基础引用 `ahooks@3.x`, 参考[文档](https://ahooks.js.org/zh-CN).  
 使用的时候统一引用 `import { xxx } from '@/hooks'`.  
 提供的其他 hooks, 请参考对应 hooks 下的 README.md 文件, 或者文档注释.
 
@@ -143,7 +140,7 @@ Hooks 基础引用 `ahooks@3.x`, 参考[文档](https://ahooks-next.surge.sh/zh-
 
 ### 缓存管理
 
-缓存集成 `store2`.  
+缓存集成 `store2`.
 使用方式, `import { storage } from '@/utils'`.  
 具体使用方式参考 `src/utils/storage.ts` 的文档注释.
 

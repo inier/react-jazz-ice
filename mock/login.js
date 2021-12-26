@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   'POST /api/login': {
     result: '0',
     data: {
@@ -6,8 +6,8 @@ module.exports = {
       refreshToken: 'xxxxx',
       tokenType: 'Bearer',
       expiresIn: 7199,
-      userCode: '123',
-      loginName: 'zhangsan@xx.com',
+      userCode: '12345',
+      loginName: 'xxx@xx.com',
     },
     timeStamp: 1637198818935,
   },

@@ -8,7 +8,7 @@ import { configure } from 'mobx';
 import AppProvider from '@/components/AppProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { KeepAliveWrapper } from '@/components/RouteTabs';
-import { mainRoutesConfig } from '@/routes/index';
+import { mainRoutesConfig } from '@/routes';
 import { getLocale, mapTree } from '@/utils';
 
 configure({
@@ -27,6 +27,7 @@ const appConfig: IAppConfig = {
     rootId: 'ice-container',
     addProvider: ({ children }) => <AppProvider locale={locale}>{children}</AppProvider>,
     getInitialData: async () => {
+      console.log('getInitialData:', mainRoutesConfig);
       return {
         routes: mainRoutesConfig,
       };
