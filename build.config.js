@@ -28,13 +28,13 @@ module.exports = {
         locales: ['zh-cn'],
       },
     ],
-    [
-      'build-plugin-css-assets-local',
-      {
-        outputPath: 'assets',
-        relativeCssPath: '../',
-      },
-    ],
+    // [
+    //   'build-plugin-css-assets-local',
+    //   {
+    //     outputPath: 'assets',
+    //     relativeCssPath: '../',
+    //   },
+    // ],
     // ['build-plugin-keep-alive'],
     // ['build-plugin-dev-inspector'], // vite模式不支持
   ],
