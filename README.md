@@ -1,6 +1,8 @@
-## Fusion Design Pro - TS
+## [Fusion Design Pro - TS](https://fusion.design/mc/detail/728#/form/flow)
 
 > 使用 TypeScript，包含大量 UI 区块，比如图表、表单等。
+
+> [更多物料](https://fusion.design/mc)。
 
 ## 使用
 
@@ -78,6 +80,32 @@ $ yarn start  # visit http://localhost:3333
 ```
 
 > 以上结构为推荐结构。stores、services、hooks、components、utils 等目录，语义相同，可以按使用层级单独添加。如某个 store 仅当前页面或板块使用，可以在该 page 目录下创建 stores，用于存放 stores。
+
+## 框架用法
+
+本工程基于[ice 框架](https://ice.work/)，并进行了以下扩展：
+[x] 支持 [Webpack](https://webpack.docschina.org/) 5 和 [Vite](https://vitejs.cn/) 2
+[x] 支持 SPA、[MPA](https://ice.work/docs/guide/advanced/mpa)，同时支持[服务端渲染 SSR](https://ice.work/docs/guide/advanced/ssr) 以及[静态构建 SSG](https://ice.work/docs/guide/advanced/ssg)
+[x] 基于 [ES6+](https://es6.ruanyifeng.com/) 基础库，不兼容 IE11
+[x] 基于 [TypeScript](https://www.typescriptlang.org/zh/) 4.5+
+[x] 基于 React 17 [文档](https://zh-hans.reactjs.org/) | [Beta](https://beta.reactjs.org/)
+[x] 基于 [React Router](https://reactrouter.com/) 5
+[x] 采用状态管理方案[Mobx 6](https://zh.mobx.js.org/)
+[x] 采用数据请求方案[axios](http://www.axios-js.com/)
+[x] 支持页面级 keepAlive 的 [RouteTabs](./src/components/RouteTabs/README.md)
+[x] 支持 CSS 预处理器[SCSS](https://sass-lang.com/)
+[x] 默认采用 [Fusion Design](https://fusion.design/pc/?themeid=2) UI 库
+[x] 支持 Fusion Design 主题可视化配置
+[x] 统一菜单和路由配置
+[x] 完备的代码质量管理体系
+
+[x] 推荐 React Hooks 解决方案 [ahooks](https://ahooks.js.org/zh-CN)
+[x] 推荐 表单方案 [Formily](https://formilyjs.org/zh-CN)
+
+[ ] 待优化权限管理方案
+[ ] 待支持.env 环境变量配置方案
+[ ] 待支持 [Tailwind CSS](https://www.tailwindcss.cn/)
+[ ] ...
 
 ### 路由配置
 

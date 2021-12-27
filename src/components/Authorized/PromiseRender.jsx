@@ -1,6 +1,8 @@
 import React from 'react';
-import { Spin } from 'antd';
-import isEqual from 'lodash/isEqual';
+
+import { Loading } from '@alifd/next';
+import isEqual from 'lodash-es/isEqual';
+
 import { isComponentClass } from './Secured'; // eslint-disable-next-line import/no-cycle
 
 export default class PromiseRender extends React.Component {
@@ -71,7 +73,7 @@ export default class PromiseRender extends React.Component {
           textAlign: 'center',
         }}
       >
-        <Spin size="large" />
+        <Loading fullScreen />
       </div>
     );
   }
