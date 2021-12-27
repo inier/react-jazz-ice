@@ -8,11 +8,15 @@ $basic-layout-aside-bgColor-dark: #26324a;
     .next-shell-header {
       border-bottom: none;
     }
+
     .next-shell-main .next-shell-content {
       padding: 0;
     }
     .next-shell-main {
       background-color: #fff;
+    }
+    .next-shell-aside.next-shell-navigation.next-shell-collapse {
+      overflow: hidden;
     }
     .next-shell-aside.next-shell-navigation.navigation {
       background-color: $basic-layout-aside-bgColor-light;
@@ -35,6 +39,9 @@ $basic-layout-aside-bgColor-dark: #26324a;
         color: #fff;
         &.next-opened {
           color: #fff;
+          &.next-nav-popup {
+            color: #fff;
+          }
         }
       }
     }

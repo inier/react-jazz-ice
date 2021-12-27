@@ -208,6 +208,9 @@ $route-tabs-color-active: #2d8cf0;
 }
 
 .route-tabs-content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
   height: calc(100vh - 94px);
   padding: 12px;
   overflow: auto;

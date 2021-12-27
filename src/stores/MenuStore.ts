@@ -1,7 +1,8 @@
 /* eslint-disable no-param-reassign */
 import { makeAutoObservable, observable, action, computed } from 'mobx';
+
 import { responseCode } from '@/api';
-import { getResList } from '@/api/services/user';
+import { getResList } from '@/services/user';
 import { formatPath, isAbsolutePath, getUrl, jsonParse } from '@/utils';
 
 // 菜单项

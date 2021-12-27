@@ -73,8 +73,9 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
 
 const getMenuData = () => {
   const { routes } = getInitialData();
+  const tRoutes = formatRoutes(routes);
 
-  return mapTree(formatRoutes(routes), ({ path, pageConfig, children }) => {
+  return mapTree(tRoutes, ({ path, pageConfig, children }) => {
     const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
     return {
       path,
@@ -91,10 +92,10 @@ const getMenuData = () => {
 
 const Navigation = (props, context) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const asideMenuConfig = getMenuData();
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
+  const asideMenuConfig = getMenuData();
 
   useEffect(() => {
     const curSubNav = asideMenuConfig.find((menuConfig) => {
@@ -114,10 +115,12 @@ const Navigation = (props, context) => {
 
   return (
     <Nav
+      className="scrollbar"
       type="normal"
       openKeys={openKeys}
       selectedKeys={[pathname]}
       defaultSelectedKeys={[pathname]}
+      popupAlign="outside"
       embeddable
       activeDirection="right"
       iconOnly={isCollapse}

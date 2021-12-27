@@ -28,7 +28,7 @@
 .content {
   background-color: #fff;
   border-radius: 6px;
-  background-image: url(~@/assets/img/home/home_bg.png);
+  background-image: url(@/assets/img/home/home_bg.png);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: left bottom;
@@ -127,7 +127,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      // background-image: url('~@/assets/img/home/feature1.png');
+      // background-image: url('@/assets/img/home/feature1.png');
       background-size: cover;
       background-position: center bottom;
       filter: blur(2px);
@@ -142,7 +142,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      // background-image: url('~@/assets/img/home/feature2.png');
+      // background-image: url('@/assets/img/home/feature2.png');
       background-size: cover;
       background-position: center bottom;
       filter: blur(2px);
@@ -157,7 +157,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      // background-image: url('~@/assets/img/home/feature3.png');
+      // background-image: url('@/assets/img/home/feature3.png');
       background-size: cover;
       background-position: center bottom;
       filter: blur(2px);
@@ -172,7 +172,7 @@
       bottom: 0;
       left: 0;
       right: 0;
-      // background-image: url('~@/assets/img/home/feature4.png');
+      // background-image: url('@/assets/img/home/feature4.png');
       background-size: cover;
       background-position: center bottom;
       filter: blur(2px);

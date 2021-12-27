@@ -54,7 +54,7 @@ const getDevice: IGetDevice = (width) => {
 };
 
 function AppProvider(props: IProps) {
-  const { keepAlive = true, locale, children } = props;
+  const { keepAlive = true, locale = '', children } = props;
   const [device, setDevice] = useState(getDevice(NaN));
 
   if (typeof window !== 'undefined') {

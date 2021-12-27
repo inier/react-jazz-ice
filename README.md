@@ -24,12 +24,10 @@ $ yarn start  # visit http://localhost:3333
 │ ├── index.html # 应用入口 HTML
 │ └── favicon.png # Favicon
 ├── src/ # 源码路径
-│ ├── api # 请求服务相关
-│ │ ├── services # 应用级服务层
-│ │ │ └── xxx.[j,t]s
+│ ├── api # 请求相关配置
 │ │ ├── utils # 自定义请求封装
-│ │ ├── api_urls.[j,t]s # 请求接口地址集
 │ │ ├── index.[j,t]s # 统一出口
+│ │ ├── api_urls.[j,t]s # 请求接口地址集
 │ │ └── response_code.[j,t]s # 请求响应错误码集
 │ ├── assets # 静态资源
 │ ├── components/ # 自定义业务组件
@@ -53,6 +51,8 @@ $ yarn start  # visit http://localhost:3333
 │ │ └── index.module.scss # 页面样式文件
 │ ├── routes/ # 路由配置
 │ └── index.[j,t]s # 统一出口
+│ ├── services # 应用级服务层
+│ │ └── xxx.[j,t]s
 │ ├── stores/ # 应用级数据状态
 │ │ ├── UIStore.[j,t]s # 应用级 UI 相关状态，toast、loading 等
 │ │ ├── UserStore.[j,t]s # 应用级 User 相关状态，token、userInfo 等
@@ -76,6 +76,8 @@ $ yarn start  # visit http://localhost:3333
 ├── .gitignore
 └── [j,t]sconfig.json
 ```
+
+> 以上结构为推荐结构。stores、services、hooks、components、utils 等目录，语义相同，可以按使用层级单独添加。如某个 store 仅当前页面或板块使用，可以在该 page 目录下创建 stores，用于存放 stores。
 
 ### 路由配置
 

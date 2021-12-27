@@ -7,6 +7,7 @@ const keepAliveWhenParam = [true, true];
 
 const KeepAliveWrapper = (WrappedComponent) => {
   const { pageConfig = {} } = WrappedComponent;
+
   // set pageConfig.keepAlive false to disable KeepAlive provider
   if (!pageConfig.keepAlive || pageConfig.keepAlive === false) {
     return WrappedComponent;

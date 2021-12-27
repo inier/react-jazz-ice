@@ -27,6 +27,7 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
       title: '首页',
       fixed: true,
       hideInMenu: true,
+      keepAlive: true,
     },
   },
   ...demoRoutesConfig,

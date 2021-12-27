@@ -4,7 +4,7 @@
  */
 import { makeAutoObservable, observable, action } from 'mobx';
 
-import { fakeAccountLogin } from '@/api/services/login';
+import { fakeAccountLogin } from '@/services/login';
 import { getQueryString } from '@/utils';
 
 class UserStore {
