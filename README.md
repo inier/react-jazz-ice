@@ -14,7 +14,7 @@ $ yarn
 $ yarn start  # visit http://localhost:3333
 ```
 
-[More docs](https://ice.work/docs/guide/about).
+[More docs](https://ice.work/docs/guide/about)。
 
 ## 目录
 
@@ -109,8 +109,8 @@ $ yarn start  # visit http://localhost:3333
 
 ### 路由配置
 
-基础配置参考 ice 的[路由配置](https://ice.work/docs/guide/basic/router).  
-框架在这基础上做了扩展, 将侧边栏导航和选项卡的配置整合进 `pageConfig` 配置中.
+基础配置参考 ice 的[路由配置](https://ice.work/docs/guide/basic/router)。  
+框架在这基础上做了扩展, 将侧边栏导航和选项卡的配置整合进 `pageConfig` 配置中。
 
 ```ts
 type ICustomRouterConfig = IRouterConfig & {
@@ -119,10 +119,10 @@ type ICustomRouterConfig = IRouterConfig & {
     scrollToTop?: boolean; // 配置页面准入权限角色列表
     auth?: string[]; // 配置页面准入权限角色列表
     errorBoundary?: boolean; // 默认 false，进入页面时是否要滚动到顶部
-    icon?: string | ReactElement; // 图标. 侧边栏和选项卡都会用到
-    fixed?: boolean; // 是否固定选项卡. RouteTabs 组件配置参数
-    keepAlive?: boolean; // 是否缓存页面. RouteTabs 组件配置参数
-    closeTips?: boolean | ((callbackFn: () => boolean) => void); // 是否需要关闭提示. RouteTabs 组件配置参数
+    icon?: string | ReactElement; // 图标，侧边栏和选项卡都会用到
+    fixed?: boolean; // 是否固定选项卡，RouteTabs 组件配置参数
+    keepAlive?: boolean; // 是否缓存页面，RouteTabs 组件配置参数
+    closeTips?: boolean | ((callbackFn: () => boolean) => void); // 是否需要关闭提示， RouteTabs 组件配置参数
     locale?: string; // 自定义菜单的国际化 key
     hideInMenu?: boolean; // 在菜单中隐藏自己和子节点
     hideInBreadcrumb?: boolean; // 在面包屑中隐藏
@@ -136,18 +136,18 @@ type ICustomRouterConfig = IRouterConfig & {
 
 ### 样式方案
 
-项目样式使用 Fusion Design 主题包统一管理, 通过配置文件`src/_theme.scss`, 可自定义项目级通用的 design token. 主题包样式的[覆盖方案参考](https://ice.work/docs/plugin/list/fusion).
+项目样式使用 Fusion Design 主题包统一管理，通过配置文件`src/_theme.scss`，可自定义项目级通用的 design token。主题包样式的[覆盖方案参考](https://ice.work/docs/plugin/list/fusion)。
 
-> css modules 方案要注意, 文件名称需要加 `.module.[c|sa|le]ss` 的后缀, 和 umijs 的样式方案不同.
+> css modules 方案要注意，文件名称需要加 `.module.[c|sc|le]ss` 的后缀。
 
 #### iconfont 图标
 
-项目要使用 Fusion Design 主题包统一管理图标, 提供了组件 `Icon` 组件来使用 `iconfont` 字体图标. 也可以自定义图标，在 `public.html` 页面注入 `iconfont` 的文件, 页面通过组件可以直接使用.
+项目要使用 Fusion Design 主题包统一管理图标，提供了组件 `Icon` 组件来使用 `iconfont` 字体图标。也可以自定义图标，在 `public.html` 页面注入 `iconfont` 的文件，页面通过组件可以直接使用。
 
 ### 数据请求
 
-基础方案参考 ice 的[数据请求](https://ice.work/docs/guide/basic/request/).  
-在此基础上封装了 ice 提供的 `useRequest` 方法. (不使用 ahooks 的 useRequest, 引包的时候需要注意路径).
+基础方案参考 ice 的[数据请求](https://ice.work/docs/guide/basic/request/)。
+在此基础上封装了 ice 提供的 `useRequest` 方法。(不使用 ahooks 的 useRequest，引包的时候需要注意路径)。
 
 ### 数据 Mock
 
@@ -155,37 +155,37 @@ type ICustomRouterConfig = IRouterConfig & {
 
 ### 状态管理
 
-本项目使用 `Mobx` 方案, 使用方法参考[文档](https://zh.mobx.js.org/README.html).
+本项目使用 `Mobx` 方案，使用方法参考[文档](https://zh.mobx.js.org/README.html)。
 
 ### Hooks
 
-Hooks 基础引用 `ahooks@3.x`, 参考[文档](https://ahooks.js.org/zh-CN).  
-使用的时候统一引用 `import { xxx } from '@/hooks'`.  
-提供的其他 hooks, 请参考对应 hooks 下的 README.md 文件, 或者文档注释.
+Hooks 基础引用 `ahooks@3.x`，参考[文档](https://ahooks.js.org/zh-CN)。
+使用的时候统一引用 `import { xxx } from '@/hooks'`。
+提供的其他 hooks，请参考对应 hooks 下的 README.md 文件，或者文档注释。
 
 ### 工具库
 
-使用方式, `import { xxx } from '@/utils'`.  
-具体说明参考工具函数的 README.md 文件, 或者文档注释.
+使用方式，`import { xxx } from '@/utils'`。
+具体说明参考工具函数的 README.md 文件，或者文档注释。
 
 ### 缓存管理
 
-缓存集成 `store2`.
-使用方式, `import { storage } from '@/utils'`.  
-具体使用方式参考 `src/utils/storage.ts` 的文档注释.
+缓存集成 `store2`。
+使用方式，`import { storage } from '@/utils'`。
+具体使用方式参考 `src/utils/storage.ts` 的文档注释。
 
 ### 静态资源处理
 
-参考 ice 的[静态资源处理](https://ice.work/docs/guide/basic/assets).
+参考 ice 的[静态资源处理](https://ice.work/docs/guide/basic/assets)。
 
 ### 多语言
 
-基础方案使用 `react-intl`, 使用方法参考[文档](https://formatjs.io/docs/react-intl).  
-设置全局语言方案和读取全局语言方案使用 `import { getLocale, setLocale } from '@/utils'`.
+基础方案使用 `react-intl`，使用方法参考[文档](https://formatjs.io/docs/react-intl)。
+设置全局语言方案和读取全局语言方案使用 `import { getLocale, setLocale } from '@/utils'`。
 
 ### 多页签
 
-使用方法参考 `src/components/RouteTabs/README.md` 文档.
+使用方法参考 `src/components/RouteTabs/README.md` 文档。
 
 ### 环境配置
 
