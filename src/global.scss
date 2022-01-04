@@ -2,8 +2,6 @@
 @import '~@alifd/next/reset.scss';
 @import '@theme';
 
-$page-min-width: 768px;
-
 body {
   -webkit-font-smoothing: antialiased;
   min-width: $page-min-width;

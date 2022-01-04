@@ -18,10 +18,10 @@
     "@alifd/validate" "^1.2.0"
     prop-types "^15.5.8"
 
-"@alifd/next@^1.25.10":
-  version "1.25.10"
-  resolved "https://registry.npmmirror.com/@alifd/next/download/@alifd/next-1.25.10.tgz#f8c41845ab59eba27403535daa7271de432cb74a"
-  integrity sha512-cRe7O0Hcy6WcL3GirzaxugR3IlmpEpgXGsVLVRTjoZjWaSnPnZ+skiSqxk0RfYaAXO6Pw2jTA2lPnykdBDxhQQ==
+"@alifd/next@^1.25.11":
+  version "1.25.11"
+  resolved "https://registry.npmmirror.com/@alifd/next/download/@alifd/next-1.25.11.tgz#503e4fa2a6e1d13b68658f3265d4d4168a9da8d8"
+  integrity sha512-0ZqBAeT7g3DDINbAvWzpfNmmx23jkoaY7pIj9Nw4YjXMe0jHmekoyye4mjbbqkqrDvJaveC8bsO6qV9YxexfjQ==
   dependencies:
     "@alifd/field" "~1.5.5"
     "@alifd/overlay" "^0.2.2"
@@ -2077,10 +2077,10 @@ ahooks-v3-count@^1.0.0:
   resolved "https://registry.npmmirror.com/ahooks-v3-count/download/ahooks-v3-count-1.0.0.tgz#ddeb392e009ad6e748905b3cbf63a9fd8262ca80"
   integrity sha512-V7uUvAwnimu6eh/PED4mCDjE7tokeZQLKlxg9lCTMPhN+NjsSbtdacByVlR1oluXQzD3MOw55wylDmQo4+S9ZQ==
 
-ahooks@^3.1.1:
-  version "3.1.1"
-  resolved "https://registry.npmmirror.com/ahooks/download/ahooks-3.1.1.tgz#9450154a9b616d312e9574d5049ddba9c2f104f1"
-  integrity sha512-bj4B2lK8iHNUw8lwYwbrzy6/W+feRUbXlPQPHaVT4Mj65RAJz27bj9ErOHaxsVV2X3ZOf4Uw9fz9ac3S+kab4g==
+ahooks@^3.1.4:
+  version "3.1.4"
+  resolved "https://registry.npmmirror.com/ahooks/download/ahooks-3.1.4.tgz#5492c05ea6a0b12d03ea9217b313af6c8dc264f3"
+  integrity sha512-4d1ryu5Gw+fpMlGaZ9mE0KGRcjOoWItGRR8oGS7WvUx8n6oaTLiasHt+9BD/FU9r//cWxT/mL4JiP5CwT3ooag==
   dependencies:
     ahooks-v3-count "^1.0.0"
     dayjs "^1.9.1"
@@ -7368,10 +7368,10 @@ lint-md@^0.2.0:
     remark-parse "^6.0.2"
     unified "^7.0.1"
 
-lint-staged@^12.1.4:
-  version "12.1.4"
-  resolved "https://registry.npmmirror.com/lint-staged/download/lint-staged-12.1.4.tgz#a92ec8509f13018caaafade61d515c2d5873316e"
-  integrity sha512-RgDz9nsFsE0/5eL9Vat0AvCuk0+j5mEuzBIVfrRH5FRtt5wibYe8zTjZs2nuqLFrLAGQGYnj8+HJxolcj08i/A==
+lint-staged@^12.1.5:
+  version "12.1.5"
+  resolved "https://registry.npmmirror.com/lint-staged/download/lint-staged-12.1.5.tgz#e05582fc39aed5cb13b9dd1dfb8330407246d809"
+  integrity sha512-WyKb+0sNKDTd1LwwAfTBPp0XmdaKkAOEbg4oHE4Kq2+oQVchg/VAcjVQtSqZih1izNsTURjc2EkhG/syRQUXdA==
   dependencies:
     cli-truncate "^3.1.0"
     colorette "^2.0.16"
@@ -8831,6 +8831,15 @@ prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
     object-assign "^4.1.1"
     react-is "^16.8.1"
 
+prop-types@^15.8.0:
+  version "15.8.0"
+  resolved "https://registry.npmmirror.com/prop-types/download/prop-types-15.8.0.tgz#d237e624c45a9846e469f5f31117f970017ff588"
+  integrity sha512-fDGekdaHh65eI3lMi5OnErU6a8Ighg2KjcjQxO7m8VHyWjcPyj5kiOgV1LQDOOOgVy3+5FgjXvdSSX7B8/5/4g==
+  dependencies:
+    loose-envify "^1.4.0"
+    object-assign "^4.1.1"
+    react-is "^16.13.1"
+
 proxy-addr@~2.0.7:
   version "2.0.7"
   resolved "https://registry.npmmirror.com/proxy-addr/download/proxy-addr-2.0.7.tgz#f19fe69ceab311eeb94b42e70e8c2070f9ba1025"
@@ -9068,7 +9077,7 @@ react-intl@^5.24.0:
     intl-messageformat "9.11.0"
     tslib "^2.1.0"
 
-react-is@^16.12.0, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
+react-is@^16.12.0, react-is@^16.13.1, react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.npmmirror.com/react-is/download/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha1-eJcppNw23imZ3BVt1sHZwYzqVqQ=

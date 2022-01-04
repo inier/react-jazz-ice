@@ -4,7 +4,7 @@ import { Loading } from '@alifd/next';
 import { runApp, IAppConfig } from 'ice';
 import { configure } from 'mobx';
 
-// import requestConfig from '@/api/request';
+// import requestConfig from '@/api/requestConfig';
 import AppProvider from '@/components/AppProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { KeepAliveWrapper } from '@/components/RouteTabs';
@@ -24,7 +24,7 @@ const locale = getLocale();
 
 const appConfig: IAppConfig = {
   app: {
-    rootId: 'ice-container',
+    rootId: 'root',
     addProvider: ({ children }) => <AppProvider locale={locale}>{children}</AppProvider>,
     getInitialData: async () => {
       return {

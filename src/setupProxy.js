@@ -2,21 +2,21 @@
 // 开发环境代理配置
 
 module.exports = {
-  // '/api/mock': {
-  //   // mock api地址
-  //   target: 'http://localhost:3000/mock/12',
-  //   changeOrigin: true,
-  //   pathRewrite: {
-  //     '^/api/mock': '',
-  //   },
-  // },
-  // '/api': {
-  //   target: 'http://ip-api.com/',
-  //   changeOrigin: true,
-  //   pathRewrite: {
-  //     '^/api': '',
-  //   },
-  // },
+  '/api/mock': {
+    // mock api地址
+    target: 'http://localhost:3000/mock/12',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api/mock': '',
+    },
+  },
+  '/api': {
+    target: 'http://ip-api.com/',
+    changeOrigin: true,
+    pathRewrite: {
+      '^/api': '',
+    },
+  },
 };
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');
