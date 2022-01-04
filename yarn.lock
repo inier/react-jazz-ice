@@ -2749,10 +2749,10 @@ buffer-from@^1.0.0:
   resolved "https://registry.npmmirror.com/buffer-from/download/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha1-KxRqb9cugLT1XSVfNe1Zo6mkG9U=
 
-build-plugin-app-core@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmmirror.com/build-plugin-app-core/download/build-plugin-app-core-2.1.0.tgz#bb381f392e7af2b847f9afca69a3d50335f03b0d"
-  integrity sha512-xzjgFxwlZrrOvBTd/WTM1CTzWfKxs5bxJejqAahni0YIapqAQgONx6Ev731juECYLYUsBr0COHhFtLoS8SlZ8Q==
+build-plugin-app-core@2.1.1:
+  version "2.1.1"
+  resolved "https://registry.npmmirror.com/build-plugin-app-core/download/build-plugin-app-core-2.1.1.tgz#68472d7d39fa11ba9edf77b6293b694f04166205"
+  integrity sha512-Pliey+pvtDKLOltb4GGk/i1Tnagi7qNxUCc6jnQXxjkOz62Nh6HH+fjfw9DpbBQnxSEn3N8KSTYy50zKmM3FtA==
   dependencies:
     "@builder/app-helpers" "^2.4.1"
     "@builder/app-templates" "^1.1.0"
@@ -2811,10 +2811,10 @@ build-plugin-helmet@1.0.2:
   dependencies:
     react-helmet "^6.1.0"
 
-build-plugin-ice-auth@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmmirror.com/build-plugin-ice-auth/download/build-plugin-ice-auth-2.0.0.tgz#aa78536cff73017e6d9e3e1bfa5535f9d1dcb91e"
-  integrity sha1-qnhTbP9zAX5tnj4b+lU1+dHcuR4=
+build-plugin-ice-auth@2.0.1:
+  version "2.0.1"
+  resolved "https://registry.npmmirror.com/build-plugin-ice-auth/download/build-plugin-ice-auth-2.0.1.tgz#1aa48907eb8a032c5becf662332d7870c755acdf"
+  integrity sha512-AUyv/wmqTozfMAAZgkBChqk98uur6tt0eADyPo/UW1QkZkKdXLxYuHinbcvhC2bKu1xe+k7FpcfKHmHZRJTFkw==
 
 build-plugin-ice-config@2.0.2:
   version "2.0.2"
@@ -5994,15 +5994,15 @@ ice-skin-loader@^0.3.0:
     loader-utils "^2.0.0"
     tinycolor2 "^1.4.1"
 
-ice.js@^2.4.2:
-  version "2.4.2"
-  resolved "https://registry.npmmirror.com/ice.js/download/ice.js-2.4.2.tgz#86be45fadc7d3fc0ee0f7b1107c04a2ea99d1b01"
-  integrity sha512-+1kJ24aW4qEGp5LGf76d3sn2rm1ETnJpNRpgLGjAHQXokzh9NRDkEjHME1+yL2Px9gYMAtUKfaH/GrD/YRDohA==
+ice.js@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.npmmirror.com/ice.js/download/ice.js-2.4.3.tgz#6acefb09ce1bc86b32244d8512a795e9819b09fb"
+  integrity sha512-eRQ5k+Ag2kjsjUlxuoIonP03Ic/llO8aS0CV7bF9rx6Cr5Yr/jx8vdXHfzJR4TzA2VAx1Ld53fmnlDIw9FrQpQ==
   dependencies:
     "@builder/pack" "^0.5.0"
-    build-plugin-app-core "2.1.0"
+    build-plugin-app-core "2.1.1"
     build-plugin-helmet "1.0.2"
-    build-plugin-ice-auth "2.0.0"
+    build-plugin-ice-auth "2.0.1"
     build-plugin-ice-config "2.0.2"
     build-plugin-ice-logger "2.0.0"
     build-plugin-ice-mpa "2.0.4"

@@ -1,4 +1,4 @@
-$basic-layout-aside-bgColor-light: #eaeaea;
+$basic-layout-aside-bgColor-light: #fff;
 $basic-layout-aside-bgColor-dark: #26324a;
 
 .basic-layout {
@@ -19,6 +19,7 @@ $basic-layout-aside-bgColor-dark: #26324a;
       overflow: hidden;
     }
     .next-shell-aside.next-shell-navigation.navigation {
+      padding: 0;
       background-color: $basic-layout-aside-bgColor-light;
     }
     .next-shell-sub-main {

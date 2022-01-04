@@ -51,28 +51,28 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/dashboard',
-    redirect: '/dashboard/workplace',
+    redirect: 'workplace',
     pageConfig: {
       icon: 'chart-pie',
       title: '数据页面',
     },
     children: [
       // {
-      //   path: '/dashboard/analysis',
+      //   path: 'analysis',
       //   component: Analysis,
       //   pageConfig: {
       //     title: '分析页面',
       //   },
       // },
       // {
-      //   path: '/dashboard/monitor',
+      //   path: 'monitor',
       //   component: Monitor,
       //   pageConfig: {
       //     title: '监控页面',
       //   },
       // },
       {
-        path: '/dashboard/workplace',
+        path: 'workplace',
         component: Workplace,
         exact: true,
         pageConfig: {
@@ -83,14 +83,14 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/form',
-    redirect: '/form/basic',
+    redirect: 'basic',
     pageConfig: {
       icon: 'copy',
       title: '表单页面',
     },
     children: [
       {
-        path: '/form/basic',
+        path: 'basic',
         component: FormBasic,
         exact: true,
         pageConfig: {
@@ -98,7 +98,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/two',
+        path: 'two',
         component: FormTwo,
         exact: true,
         pageConfig: {
@@ -106,7 +106,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/three',
+        path: 'three',
         component: FormThree,
         exact: true,
         pageConfig: {
@@ -114,7 +114,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/four',
+        path: 'four',
         component: FormFour,
         exact: true,
         pageConfig: {
@@ -122,7 +122,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/step',
+        path: 'step',
         component: FormStep,
         exact: true,
         pageConfig: {
@@ -130,7 +130,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/classified',
+        path: 'classified',
         component: FormClassified,
         exact: true,
         pageConfig: {
@@ -138,7 +138,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/group',
+        path: 'group',
         component: FormGroup,
         exact: true,
         pageConfig: {
@@ -146,7 +146,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/flow',
+        path: 'flow',
         component: FlowGroup,
         exact: true,
         pageConfig: {
@@ -154,7 +154,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/form/hierarchical',
+        path: 'hierarchical',
         component: FormHierarchical,
         exact: true,
         pageConfig: {
@@ -165,14 +165,14 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/list',
-    redirect: '/list/basic',
+    redirect: 'basic',
     pageConfig: {
       icon: 'chart-bar',
       title: '列表页面',
     },
     children: [
       {
-        path: '/list/basic',
+        path: 'basic',
         component: BasicListPage,
         exact: true,
         pageConfig: {
@@ -180,7 +180,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/list/card',
+        path: 'card',
         component: CardListPage,
         exact: true,
         pageConfig: {
@@ -188,15 +188,14 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/list/table',
-        component: TableListPage,
-        exact: true,
+        path: 'table',
+        redirect: 'filter',
         pageConfig: {
           title: '表格列表',
         },
         children: [
           {
-            path: '/list/table/filter',
+            path: 'filter',
             component: FusionFilterTable,
             exact: true,
             pageConfig: {
@@ -204,7 +203,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/singlecol',
+            path: 'singlecol',
             component: FusionSingleColTable,
             exact: true,
             pageConfig: {
@@ -212,7 +211,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/mutilcol',
+            path: 'mutilcol',
             component: FusionMultiColTable,
             exact: true,
             pageConfig: {
@@ -220,7 +219,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/action',
+            path: 'action',
             component: FusionActionTable,
             exact: true,
             pageConfig: {
@@ -228,7 +227,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/expand',
+            path: 'expand',
             component: FusionExpandTable,
             exact: true,
             pageConfig: {
@@ -236,7 +235,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/singletree',
+            path: 'singletree',
             component: FusionSingleTreeTable,
             exact: true,
             pageConfig: {
@@ -244,7 +243,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/dialog',
+            path: 'dialog',
             component: FusionDialogTable,
             exact: true,
             pageConfig: {
@@ -252,7 +251,7 @@ const routesConfig: ICustomRouterConfig[] = [
             },
           },
           {
-            path: '/list/table/mergecell',
+            path: 'mergecell',
             component: FusionMergeCellTable,
             exact: true,
             pageConfig: {
@@ -265,14 +264,14 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/detail',
-    redirect: '/detail/basic',
+    redirect: 'basic',
     pageConfig: {
       icon: 'calendar',
       title: '详情页面',
     },
     children: [
       {
-        path: '/detail/basic',
+        path: 'basic',
         component: BasicDetailPage,
         exact: true,
         pageConfig: {
@@ -280,7 +279,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/detail/advanced',
+        path: 'advanced',
         component: Advanced,
         exact: true,
         pageConfig: {
@@ -291,14 +290,14 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/feedback',
-    redirect: '/feedback/success',
+    redirect: 'success',
     pageConfig: {
       icon: 'warning',
       title: '结果&缺省',
     },
     children: [
       {
-        path: '/feedback/success',
+        path: 'success',
         component: FeedbackSuccess,
         exact: true,
         pageConfig: {
@@ -306,7 +305,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/feedback/fail',
+        path: 'fail',
         component: FeedbackFail,
         exact: true,
         pageConfig: {
@@ -314,7 +313,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/feedback/403',
+        path: '403',
         component: FeedbackForbidden,
         exact: true,
         pageConfig: {
@@ -322,7 +321,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/feedback/404',
+        path: '404',
         component: FeedbackNotFound,
         exact: true,
         pageConfig: {
@@ -330,7 +329,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/feedback/500',
+        path: '500',
         component: FeedbackServerError,
         exact: true,
         pageConfig: {
@@ -367,14 +366,14 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   {
     path: '/user',
-    redirect: '/user/login',
+    redirect: 'login',
     pageConfig: {
       icon: 'set',
       title: '登录&注册',
     },
     children: [
       {
-        path: '/user/login',
+        path: 'login',
         component: lazy(() => import('@/pages/Login')),
         exact: true,
         pageConfig: {
@@ -382,7 +381,7 @@ const routesConfig: ICustomRouterConfig[] = [
         },
       },
       {
-        path: '/user/register',
+        path: 'register',
         component: Register,
         exact: true,
         pageConfig: {

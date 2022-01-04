@@ -35,7 +35,7 @@ function BasicLayout({ location, children }) {
   return (
     <SecurityLayout>
       <RouteTabsProvider defaultTabs={['/']}>
-        <Shell className={`${styles['basic-layout']} ${styles.dark}`} type="brand">
+        <Shell className={`${styles['basic-layout']}`} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
           </Shell.Branding>

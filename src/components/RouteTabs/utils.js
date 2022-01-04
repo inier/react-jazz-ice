@@ -5,7 +5,7 @@ export const getTabId = () => {
   return Math.floor(Math.random() * 10000000);
 };
 
-/** 深度便利扁平化所有路由 */
+/** 扁平化所有路由 */
 export const deepFlattenRoutes = (routes, parentPath = '/') => {
   return [].concat(
     ...routes.map((r) => {

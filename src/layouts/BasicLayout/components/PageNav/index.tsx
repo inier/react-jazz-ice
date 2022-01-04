@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 
 import { Nav, Icon } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
@@ -75,8 +75,13 @@ const getMenuData = () => {
   const { routes } = getInitialData();
   const tRoutes = formatRoutes(routes);
 
-  return mapTree(tRoutes, ({ path, pageConfig, children }) => {
+  if (!tRoutes) {
+    return null;
+  }
+
+  const result = mapTree(tRoutes, ({ path, pageConfig, children }) => {
     const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
+
     return {
       path,
       icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
@@ -88,14 +93,17 @@ const getMenuData = () => {
       children,
     };
   });
+
+  console.log('formatRoutes: ', result);
+  return result;
 };
 
-const Navigation = (props, context) => {
+const Navigation = memo((props, context) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
-  const asideMenuConfig = getMenuData();
+  const asideMenuConfig: any = getMenuData();
 
   useEffect(() => {
     const curSubNav = asideMenuConfig.find((menuConfig) => {
@@ -134,7 +142,7 @@ const Navigation = (props, context) => {
       {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
     </Nav>
   );
-};
+});
 
 Navigation.contextTypes = {
   isCollapse: PropTypes.bool,
