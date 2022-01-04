@@ -144,7 +144,7 @@ class RootStore {
     const { toast } = opts;
 
     if (!json || typeof json.result === 'undefined' || json.result === null) {
-      !toast && options?.handleRequestError(json.result);
+      !toast && this.handleRequestError(json.result);
       console.log('数据格式不正确！');
 
       return {};

@@ -2,7 +2,7 @@
  * axios二次封装
  */
 import { Method } from 'axios';
-
+import qs from 'qs';
 import stores from '@/stores';
 
 import instance from './interceptor';
@@ -35,11 +35,11 @@ function request(url: string, params: object, options: IOptions, method: Method)
 
     // get请求使用params字段
     if (method === 'get') {
-      data = { params: defaultParams };
+      data = { params: qs.stringify(defaultParams) };
     }
     // post请求使用data字段
     if (method === 'post') {
-      data = { data: defaultParams };
+      data = { data: qs.stringify(defaultParams) };
     }
 
     instance({ url, method, ...defaultOptions, ...data })
