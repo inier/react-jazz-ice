@@ -6,27 +6,23 @@ import { observer } from 'mobx-react';
 import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
 import { useMobxStore } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
-// import RouterTabs from '@/modules/RouterTabs';
 
 import Footer from './components/Footer';
-import GlobalSearch from './components/GlobalSearch';
 import HeaderAvatar from './components/HeaderAvatar';
 import Logo from './components/Logo';
 import Notice from './components/Notice';
 import PageNav from './components/PageNav';
 import SolutionLink from './components/SolutionLink';
+import TopNav from './components/TopNav';
 import styles from './index.module.scss';
 
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';
 
-function BasicLayout({ location, children }) {
-  const { UIStore, userStore, menuStore } = useMobxStore();
+function BasicLayout({ children }) {
+  const { UIStore, userStore } = useMobxStore();
   const { loading, toastMsg } = UIStore;
   const { getUser, userInfo } = userStore;
-
-  // const { getDefaultMenuItemPath } = menuStore;
-  // const defaultRouteTab = getDefaultMenuItemPath(location);
 
   useEffect(() => {
     getUser();
@@ -40,7 +36,7 @@ function BasicLayout({ location, children }) {
             <Logo image={siteLogo} text={siteName} />
           </Shell.Branding>
           {/* <Shell.Navigation direction="hoz">
-            <GlobalSearch />
+            <TopNav />
           </Shell.Navigation> */}
           <Shell.Action>
             <Notice />
@@ -56,7 +52,6 @@ function BasicLayout({ location, children }) {
             <Loading visible={!!loading} fullScreen />
             <Message visible={!!toastMsg}>{toastMsg}</Message>
             {/* 多标签路由 */}
-            {/* <RouterTabs value={defaultRouteTab} /> */}
             <RouteTabs>{children}</RouteTabs>
           </Shell.Content>
 
