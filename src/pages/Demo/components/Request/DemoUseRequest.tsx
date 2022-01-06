@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useRequest } from '@/hooks';
+import { useRequest } from 'ice';
 import userService from '@/pages/Demo/services/demo';
 
 export function DemoUseRequest1({ id, options = {} }) {

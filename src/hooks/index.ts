@@ -1,8 +1,10 @@
+import { useRequest } from 'ice';
+
 // https://ahooks.js.org/
 // useRequest, useFusionTable, useInterval...
 export * from 'ahooks';
 // useRequest
-export { useRequest } from 'ice';
+export { useRequest };
 
 // == 存放自定义的React Hooks
 // export { default as useRequest } from './useRequest';
