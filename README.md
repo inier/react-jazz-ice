@@ -258,6 +258,8 @@ type ICustomRouterConfig = IRouterConfig & {
 };
 ```
 
+> 设置层级路由时，仅第一级路由的 path 需要添加"/"。即所有包含在 children 中的 path 都不要添加'/'，否则会应先 title 的读取。
+
 ### 字体图标
 
 项目要使用 Fusion Design 主题包统一管理图标，提供了组件 `Icon` 组件来使用 `iconfont` 字体图标。增加新图标：先使用[阿里巴巴 iconfont](http://www.iconfont.cn)库来管理项目图标。然后在 Fusion Design 主题管理站点中导入对应的图标即可，不需要单独引入 iconfont.css。

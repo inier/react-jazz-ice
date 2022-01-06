@@ -37,18 +37,20 @@ import {
   Register,
 } from '@/pages';
 
+import testRoutesConfig from './routeTabsTest';
 import { ICustomRouterConfig } from './typing';
 
 const routesConfig: ICustomRouterConfig[] = [
   {
-    path: '/demo',
+    path: 'demos',
     exact: true,
     component: Demo,
     pageConfig: {
       icon: 'attachment',
-      title: '示例',
+      title: '综合示例',
     },
   },
+  ...testRoutesConfig,
   {
     path: '/dashboard',
     redirect: 'workplace',
@@ -189,11 +191,19 @@ const routesConfig: ICustomRouterConfig[] = [
       },
       {
         path: 'table',
-        redirect: 'filter',
+        redirect: 'basic',
         pageConfig: {
           title: '表格列表',
         },
         children: [
+          {
+            path: 'basic',
+            component: TableListPage,
+            exact: true,
+            pageConfig: {
+              title: '基础表格列表',
+            },
+          },
           {
             path: 'filter',
             component: FusionFilterTable,

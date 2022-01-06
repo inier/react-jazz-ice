@@ -4,7 +4,6 @@ import NotFound from '@/components/NotFound';
 import BasicLayout from '@/layouts/BasicLayout';
 
 import demoRoutesConfig from './demo';
-import testRoutesConfig from './test';
 import { ICustomRouterConfig } from './typing';
 import userRoutesConfig from './user';
 
@@ -30,8 +29,14 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
       keepAlive: true,
     },
   },
-  ...demoRoutesConfig,
-  ...testRoutesConfig,
+  {
+    path: '/demo',
+    pageConfig: {
+      icon: 'attachment',
+      title: '示例',
+    },
+    children: [...demoRoutesConfig],
+  },
 ];
 
 const routerConfig: ICustomRouterConfig[] = [

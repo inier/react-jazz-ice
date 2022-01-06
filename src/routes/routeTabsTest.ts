@@ -4,7 +4,7 @@ import { ICustomRouterConfig } from './typing';
 
 const routesConfig: ICustomRouterConfig[] = [
   {
-    path: '/test',
+    path: 'test',
     redirect: 'index',
     pageConfig: {
       icon: 'icon-tag',
