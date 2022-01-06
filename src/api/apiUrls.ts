@@ -4,7 +4,7 @@ const loc = '';
 const urls: any = {
   // GET_RESPONSE_CODE: `${loc}/resc/list`, // 获取统一返回码
   GET_ADMIN_RES_LIST: `${loc}/res/list`, // 获取权限列表
-  GET_USER_INFO: `${loc}/api/profile`, // 获取用户信息
+  GET_USER_INFO: `${loc}/profile`, // 获取用户信息
 };
 
 Object.keys(urls).forEach((key) => {

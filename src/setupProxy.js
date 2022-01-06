@@ -10,13 +10,13 @@ module.exports = {
       '^/api/mock': '',
     },
   },
-  '/api': {
-    target: 'http://ip-api.com/',
-    changeOrigin: true,
-    pathRewrite: {
-      '^/api': '',
-    },
-  },
+  // '/api': {
+  //   target: 'http://ip-api.com/',
+  //   changeOrigin: true,
+  //   pathRewrite: {
+  //     '^/api': '',
+  //   },
+  // },
 };
 
 // const { createProxyMiddleware } = require('http-proxy-middleware');

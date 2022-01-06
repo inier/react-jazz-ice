@@ -22,11 +22,7 @@ const siteName = 'Site Name';
 function BasicLayout({ children }) {
   const { UIStore, userStore } = useMobxStore();
   const { loading, toastMsg } = UIStore;
-  const { getUser, userInfo } = userStore;
-
-  useEffect(() => {
-    getUser();
-  }, [getUser]);
+  const { userInfo } = userStore;
 
   return (
     <SecurityLayout>

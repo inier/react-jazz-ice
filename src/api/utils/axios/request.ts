@@ -26,7 +26,7 @@ function request(url: string, params: object, options: IOptions, method: Method)
 
   // 请求前loading
   if (defaultOptions.loading) {
-    console.log('1.loading...');
+    console.log(`${url}, loading...`);
     stores.UIStore.setLoading(true);
   }
 
@@ -53,7 +53,7 @@ function request(url: string, params: object, options: IOptions, method: Method)
       .finally(() => {
         // 请求完关闭loading
         if (defaultOptions.loading) {
-          console.log('1.loaded');
+          console.log(`${url}, loaded`);
           stores.UIStore.setLoading(false);
         }
       });

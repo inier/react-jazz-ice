@@ -7,15 +7,10 @@ export default {
   // 同时支持 GET 和 POST
   '/api/users/1': { result: 0, data: {} },
   '/api/foo/bar': { result: 0, data: {} },
-  '/api/res/list': (req, res) => {
-    console.log(req);
-    setTimeout(() => {
-      res.send(JSON.stringify(resList));
-    }, 3000);
-  },
+  '/api/res/list': resList,
 
   // 支持标准 HTTP
-  'GET /api/api/profile': { result: 0, data: { ...userInfo, name: 'Admin' } },
+  'GET /api/profile': { result: 0, data: { ...userInfo, name: 'Admin' } },
   'GET /api/user': { result: 0, data: { ...userInfo, name: 'User' } },
 
   // 支持参数
