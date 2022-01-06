@@ -52,7 +52,7 @@ const routesConfig: ICustomRouterConfig[] = [
   },
   ...testRoutesConfig,
   {
-    path: '/dashboard',
+    path: 'dashboard',
     redirect: 'workplace',
     pageConfig: {
       icon: 'chart-pie',
@@ -84,7 +84,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/form',
+    path: 'form',
     redirect: 'basic',
     pageConfig: {
       icon: 'copy',
@@ -166,7 +166,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/list',
+    path: 'list',
     redirect: 'basic',
     pageConfig: {
       icon: 'chart-bar',
@@ -273,7 +273,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/detail',
+    path: 'detail',
     redirect: 'basic',
     pageConfig: {
       icon: 'calendar',
@@ -299,7 +299,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/feedback',
+    path: 'feedback',
     redirect: 'success',
     pageConfig: {
       icon: 'warning',
@@ -349,7 +349,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/set',
+    path: 'set',
     redirect: 'settings',
     pageConfig: {
       icon: 'set',
@@ -375,7 +375,7 @@ const routesConfig: ICustomRouterConfig[] = [
     ],
   },
   {
-    path: '/user',
+    path: 'user',
     redirect: 'login',
     pageConfig: {
       icon: 'set',
