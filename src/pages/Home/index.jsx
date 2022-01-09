@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 import { Avatar } from '@alifd/next';
 import { observer } from 'mobx-react';
@@ -19,13 +19,15 @@ const getGreeting = () => {
 const HomePage = observer(() => {
   const { userStore } = useMobxStore();
   const { userInfo } = userStore;
+  const time = useMemo(getGreeting, [userInfo]);
+
   return (
     <PageContainer showFooter bgColor={false}>
       <div className={styles.container}>
         <div className={styles.greet}>
           <Avatar size={40} className={styles.avatar} src={userInfo?.avatar} />
           <span>
-            {getGreeting()}，{userInfo?.name}，开心每一天！
+            {time}，{userInfo?.name}，开心每一天！
           </span>
         </div>
         <div className={styles.content}>

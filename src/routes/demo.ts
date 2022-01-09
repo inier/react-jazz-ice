@@ -48,6 +48,7 @@ const routesConfig: ICustomRouterConfig[] = [
     pageConfig: {
       icon: 'attachment',
       title: '综合示例',
+      keepAlive: true,
     },
   },
   ...testRoutesConfig,

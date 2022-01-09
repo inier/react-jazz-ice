@@ -150,4 +150,6 @@ Navigation.contextTypes = {
 
 const PageNav = withRouter(Navigation);
 
+PageNav.displayName = 'SideNav';
+
 export default PageNav;

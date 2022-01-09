@@ -11,17 +11,20 @@ interface IProps {
 
 interface IErrorInfo {
   componentStack: string;
-  error: Error;
 }
 
 interface IState {
   hasError: boolean;
-  error?: any;
+  error?: Error | null;
   info?: IErrorInfo;
 }
 
 // eslint-disable-next-line @iceworks/best-practices/recommend-functional-component
 class ErrorBoundary extends Component<IProps, IState> {
+  static defaultProps: IProps = {
+    Fallback: ErrorBoundaryFallback,
+  };
+
   static getDerivedStateFromError(error) {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
@@ -31,20 +34,20 @@ class ErrorBoundary extends Component<IProps, IState> {
     super(props);
     this.state = {
       hasError: false,
-      error: undefined,
+      error: null,
       info: {
         componentStack: '',
-        error: new Error(),
       },
     };
   }
 
   componentDidCatch(error, info) {
     const { onError } = this.props;
+
     if (typeof onError === 'function') {
       try {
         // istanbul ignore next: Ignoring ternary; can’t reproduce missing info in test environment.
-        onError && onError.call(this, error, info ? info.componentStack : '');
+        onError && onError.call(this, error, info.componentStack);
       } catch (ignoredError) {
         // ignored error
       }
@@ -62,20 +65,12 @@ class ErrorBoundary extends Component<IProps, IState> {
   };
 
   render() {
+    const { children, Fallback } = this.props;
     const { hasError, error, info } = this.state;
-    const { children, Fallback = ErrorBoundaryFallback } = this.props;
 
     // render fallback UI if there is error
-    if (hasError || error !== null) {
-      return (
-        <Fallback
-          componentStack={
-            // istanbul ignore next: Ignoring ternary; can’t reproduce missing info in test environment.
-            info ? info.componentStack : ''
-          }
-          error={error}
-        />
-      );
+    if (hasError && error !== null && typeof Fallback === 'function') {
+      return <Fallback componentStack={info?.componentStack} error={error} />;
     }
 
     return children || null;

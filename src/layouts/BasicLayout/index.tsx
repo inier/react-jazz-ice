@@ -13,7 +13,7 @@ import Logo from './components/Logo';
 import Notice from './components/Notice';
 import PageNav from './components/PageNav';
 import SolutionLink from './components/SolutionLink';
-import TopNav from './components/TopNav';
+// import TopNav from './components/TopNav';
 import styles from './index.module.scss';
 
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';

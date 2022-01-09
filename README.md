@@ -355,17 +355,19 @@ manifest.json 中的信息也需一并修改。
 
 ### 使用全局别名
 
-已定义以下全局别名：`@`代表 src 目录、`@theme`代表当前项目配置的主题（在 package.json 中配置）;
+已定义以下全局别名：`@`代表 src 目录、`@theme`代表当前项目的主题配置文件`_theme.scss`。主题包在 build.config.js 中配置;
 
 ```js
-// package.json
-{
-  "buildConfig": {
-    "theme": {
-      "alifd": "@alifd/theme-xxx"
-    }
-  },
-}
+// build.config.js
+plugins: [
+  [
+    'build-plugin-fusion',
+    {
+      themePackage: '@alifd/theme-design-pro',
+    },
+  ],
+  ...
+]
 ```
 
 > 使用别名，scss 名称@import 时需要写完整，文件名中的\_ 和 .scss 后缀名不能少。

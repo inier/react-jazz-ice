@@ -44,10 +44,12 @@ const appConfig: IAppConfig = {
     modifyRoutes: (routes) => {
       return mapTree(routes, (node) => {
         const newNode = { ...node };
+
         newNode.pageConfig = newNode.pageConfig || {};
         if (node.pageConfig?.title && node.path && node.component) {
           newNode.wrappers = [KeepAliveWrapper];
         }
+
         return newNode;
       });
     },
