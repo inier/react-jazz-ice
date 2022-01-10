@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Nav, Icon } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
@@ -98,7 +98,7 @@ const getMenuData = () => {
   return result;
 };
 
-const Navigation = memo((props, context) => {
+const Navigation = (props, context) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
   const { location } = props;
   const { pathname } = location;
@@ -142,7 +142,7 @@ const Navigation = memo((props, context) => {
       {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
     </Nav>
   );
-});
+};
 
 Navigation.contextTypes = {
   isCollapse: PropTypes.bool,
