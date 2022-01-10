@@ -59,10 +59,10 @@
 # 安装依赖
 $ yarn
 
-# 启动服务，禁用mock
+# 启动服务，开启mock
 $ yarn start  # visit http://localhost:8888
-# 开启mock
-$ yarn start:mock  # visit http://localhost:8889
+# 禁用mock
+$ yarn dev  # visit http://localhost:8889
 
 # 生产环境打包
 $ yarn build

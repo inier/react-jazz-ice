@@ -2,6 +2,7 @@ import { lazy } from 'react';
 
 import NotFound from '@/components/NotFound';
 import BasicLayout from '@/layouts/BasicLayout';
+import UserLayout from '@/layouts/UserLayout';
 
 import demoRoutesConfig from './demo';
 import { ICustomRouterConfig } from './typing';
@@ -41,18 +42,23 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
 
 const routerConfig: ICustomRouterConfig[] = [
   {
-    path: '/',
-    component: BasicLayout,
-    children: mainRoutesConfig,
-  },
-  ...userRoutesConfig,
-  {
     path: '/404',
     exact: true,
     component: NotFound,
     pageConfig: {
       title: '404',
     },
+  },
+  {
+    path: '/user',
+    component: UserLayout,
+    children: userRoutesConfig,
+  },
+  // '/'放在最后
+  {
+    path: '/',
+    component: BasicLayout,
+    children: mainRoutesConfig,
   },
 ];
 
