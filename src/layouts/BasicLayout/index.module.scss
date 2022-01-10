@@ -1,5 +1,7 @@
+@import '@theme';
+
 $basic-layout-aside-bgColor-light: #fff;
-$basic-layout-aside-bgColor-dark: #26324a;
+$basic-layout-aside-bgColor-dark: $color-brand1-6;
 
 .basic-layout {
   height: 100vh;

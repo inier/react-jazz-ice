@@ -124,7 +124,7 @@ const Navigation = (props, context) => {
   return (
     <Nav
       className="scrollbar"
-      type="line"
+      type="normal"
       openKeys={openKeys}
       selectedKeys={[pathname]}
       defaultSelectedKeys={[pathname]}

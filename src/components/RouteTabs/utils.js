@@ -1,8 +1,10 @@
+import { nanoid } from 'nanoid';
+
 /**
  * 获取uuid
  */
 export const getTabId = () => {
-  return Math.floor(Math.random() * 10000000);
+  return nanoid(10);
 };
 
 /** 扁平化所有路由 */
