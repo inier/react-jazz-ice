@@ -124,11 +124,11 @@ const Navigation = memo((props, context) => {
   return (
     <Nav
       className="scrollbar"
-      type="normal"
+      type="line"
       openKeys={openKeys}
       selectedKeys={[pathname]}
       defaultSelectedKeys={[pathname]}
-      popupAlign="outside"
+      // popupAlign="outside"
       embeddable
       activeDirection="right"
       iconOnly={isCollapse}

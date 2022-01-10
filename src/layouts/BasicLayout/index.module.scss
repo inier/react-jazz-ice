@@ -21,6 +21,9 @@ $basic-layout-aside-bgColor-dark: #26324a;
     .next-shell-aside.next-shell-navigation.navigation {
       padding: 0;
       background-color: $basic-layout-aside-bgColor-light;
+      .next-menu {
+        right: 0;
+      }
     }
     .next-shell-sub-main {
       overflow: hidden;

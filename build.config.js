@@ -2,10 +2,10 @@ const proxyConfig = require('./src/setupProxy');
 
 module.exports = {
   store: false,
-  auth: false,
+  // auth: false,
   minify: false,
   // tsChecker: true,
-  vite: false,
+  vite: true,
   alias: {
     '@': './src/',
     '@theme': './src/_theme.scss',
