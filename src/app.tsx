@@ -3,6 +3,9 @@ import React from 'react';
 import { Loading } from '@alifd/next';
 import { runApp, IAppConfig } from 'ice';
 import { configure } from 'mobx';
+import { autoFixContext } from 'react-activation';
+import JSXDevRunTime from 'react/jsx-dev-runtime';
+import JSXRunTime from 'react/jsx-runtime';
 
 // import requestConfig from '@/api/requestConfig';
 import AppProvider from '@/components/AppProvider';
@@ -55,5 +58,13 @@ const appConfig: IAppConfig = {
     },
   },
 };
+
+autoFixContext(
+  // eslint-disable-next-line global-require
+  [JSXRunTime, 'jsx', 'jsxs', 'jsxDEV'],
+  // eslint-disable-next-line global-require
+  // @ts-ignore
+  [JSXDevRunTime, 'jsx', 'jsxs', 'jsxDEV'],
+);
 
 runApp(appConfig);
