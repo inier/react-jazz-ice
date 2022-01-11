@@ -23,7 +23,8 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
     .next-shell-aside.next-shell-navigation.navigation {
       padding: 0;
       background-color: $basic-layout-aside-bgColor-light;
-      .next-menu {
+      .next-menu,
+      .next-menu-item.next-nav-item.next-selected:before {
         right: 0;
       }
     }
