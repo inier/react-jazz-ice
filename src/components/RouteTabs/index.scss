@@ -27,7 +27,7 @@ $route-tabs-color-active: #2d8cf0;
         height: 26px;
         color: $route-tabs-color;
         font-size: 14px;
-        // line-height: 26px;
+        line-height: 26px;
         text-align: center;
         &:first-child:after {
           position: absolute;
@@ -39,7 +39,7 @@ $route-tabs-color-active: #2d8cf0;
           background-color: #f0f2f5;
         }
         &:hover {
-          color: #000;
+          color: $route-tabs-color-active;
           cursor: pointer;
         }
         &.disabled,

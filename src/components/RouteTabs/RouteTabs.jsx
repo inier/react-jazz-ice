@@ -20,7 +20,7 @@ const CloseOutlined = ({ title = '关闭', ...restProps }) => {
   return <Icon type="close" size="small" title={title} {...restProps} />;
 };
 const ReloadOutlined = ({ title = '刷新', ...restProps }) => {
-  return <Icon type="refresh" title={title} {...restProps} />;
+  return <Icon type="refresh" size="small" title={title} {...restProps} />;
 };
 
 const RouteTabs = (props) => {
