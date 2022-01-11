@@ -24,6 +24,7 @@ export const useDeepCompareEffect = (effect, deps) => {
     ref.current = deps;
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(effect, ref.current);
 };
 
@@ -33,8 +34,8 @@ export const useDeepCompareEffect = (effect, deps) => {
  * @param wait 等待时间（毫秒，默认值 500）
  * @returns 是否渲染
  */
-export function useDebounceRerender(dependency, wait = 500) {
-  const [, forcedToRender] = useReducer((x) => x + 1, 0);
+export function useDebounceReRender(dependency, wait = 500) {
+  const [, forcedToRender] = useReducer((x) => +x + 1, 0);
   const dependencyRef = useRef(dependency);
 
   let triggered = false;

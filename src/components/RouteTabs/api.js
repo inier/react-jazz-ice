@@ -23,6 +23,7 @@ const getRouteConfig = (location) => {
     flattenedRoutes = deepFlattenRoutes(routes, '/');
   }
   const matchList = [];
+
   for (let i = 0; i < flattenedRoutes.length; i += 1) {
     const routeConfig = flattenedRoutes[i];
     const match = matchPath(location.pathname, {
@@ -34,6 +35,7 @@ const getRouteConfig = (location) => {
       matchList.push(flattenedRoutes[i]);
     }
   }
+
   return matchList.length ? matchList[matchList.length - 1] : undefined;
 };
 
@@ -64,16 +66,19 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // eslint-disable-next-line no-alert
         if (window.confirm(tabInstance.closeTips)) {
           callback();
+
           return;
         }
       } else if (typeof tabInstance.closeTips === 'boolean') {
         // eslint-disable-next-line no-alert
         if (window.confirm('确定要关闭这个页面吗?')) {
           callback();
+
           return;
         }
       } else if (tabInstance.closeTips instanceof Function) {
         tabInstance.closeTips(callback);
+
         return;
       }
     }
@@ -85,8 +90,10 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     if (!id) {
       return;
     }
+
     // eslint-disable-next-line no-nested-ternary
     const target = id instanceof Array ? id : id ? [id] : [];
+
     // 同步状态
     routeTabsDispatch({
       type: 'TAB_DELETE',
@@ -117,6 +124,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const getTabInstance = (target) => {
     let targetObj = target;
+
     if (!target) {
       console.log('getTabInstance: ', routeTabsState.currentTab);
       return routeTabsState.currentTab;
@@ -136,8 +144,10 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 如果传进来的本来就是实例对象, 判断是否真实存在, 存在就返回
         return _isExistTabInstance(targetObj) ? targetObj : null;
       }
+
       let i;
       let tab;
+
       // 先 全匹配 的查找
       // 倒叙遍历
       for (i = routeTabsState.tabs.length - 1; i >= 0; i -= 1) {
@@ -200,9 +210,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const updateTabInstance = (target, payload, safeUpdate = true) => {
     const instance = target ? getTabInstance(target) : routeTabsState.currentTab;
+
     if (instance) {
       // 更改信息
       let result;
+
       // 替换允许的字段
       if (safeUpdate) {
         result = { ...instance };
@@ -224,10 +236,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const refreshTab = (target) => {
     const instance = target ? getTabInstance(target) : routeTabsState.currentTab;
+
     if (instance) {
       refreshScope(instance.keepaliveId);
     }
-    // TODO 非缓存页面的刷新有问题
+    // 非缓存页面的刷新有问题，不支持刷新
   };
 
   /**
@@ -241,9 +254,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     const { force = false, refresh = false } = options || {};
     const isForce = !target?.$isTab ? target?.state?.force || force || false : false;
     let targetPath;
+
     if (isForce !== true) {
       // 判断是否强制打开页面
       const tabInstance = getTabInstance(target);
+
       // 切换选项卡: 选项卡存在, 且不是当前选项卡
       if (tabInstance) {
         if (routeTabsState.currentTab.id !== tabInstance.id) {
@@ -281,6 +296,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
             });
           }
         }
+
         return;
       }
     }
@@ -313,6 +329,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         state: {},
       };
       const routeConfig = getRouteConfig(customLocation);
+
       if (routeConfig) {
         const tabInstance = createNewTab(customLocation, routeConfig);
         routeTabsDispatch({
@@ -436,6 +453,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       } else {
         const currentIndex = _getTabIndexById(routeTabsState.currentTab.id);
         const targetIndex = _getTabIndexById(willClosedTabInstance.id);
+
         // 判断关闭的是否是当前高亮的标签
         if (currentIndex === targetIndex) {
           // 如果没有 nextTab 参数, 或者对应的实例, 就按规则查找右侧或者末尾的
@@ -482,6 +500,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     if (isContainerCurrentTab) {
       // 如果有固定页就跳转到最后一个固定页, 没有就跳首页
       const nextTabInstance = routeTabsState.tabs.reverse().filter((tab) => tab.fixed)?.[0];
+
       if (nextTabInstance) {
         openTab(nextTabInstance);
       } else {
@@ -523,9 +542,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const registerEvent = (target, eventName, fn) => {
     const tabInstance = getTabInstance(target);
+
     if (!tabInstance || typeof eventName !== 'string' || !(fn instanceof Function)) {
       return;
     }
+
     routeTabsDispatch({
       type: 'EVENTS_ADD',
       payload: {
@@ -544,9 +565,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const unregisterEvent = (target, eventName, fn) => {
     const tabInstance = getTabInstance(target);
+
     if (tabInstance || !eventName || typeof eventName !== 'string' || !fn || !(fn instanceof Function)) {
       return;
     }
+
     routeTabsDispatch({
       type: 'EVENT_DELETE',
       payload: {
@@ -566,9 +589,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const triggerEvent = (target, eventName, ...params) => {
     const tabInstance = getTabInstance(target);
+
     if (!tabInstance || typeof eventName !== 'string') {
       return;
     }
+
     routeTabsDispatch({
       type: 'EVENT_TRIGGER_LIST_ADD',
       payload: {
@@ -637,6 +662,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     ) {
       // 如果没有找到就去获取路由配置
       const routeConfig = getRouteConfig(location);
+
       // 如果连路由实例也找不到, 要弹出提示框
       if (!routeConfig) {
         Message.error('没有这个路由!');
@@ -678,6 +704,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // TODO 缺少索引, 当连续后退的时候会有问题
         // 如果选项卡的 routePath 有被修改过, 后退操作的时候, 应该从历史记录里面找选项卡实例
         const historyTabInstance = routeTabsState.historyList.reverse().find((item) => item.routePath === routePath);
+
         // 有历史记录
         if (historyTabInstance) {
           // 但没有选项卡 (表示这个选项卡被关闭了)

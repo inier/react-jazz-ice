@@ -1,24 +1,27 @@
-$route-tabs-bar-nav-border-color: #eaeaea;
-$route-tabs-color: #333;
-$route-tabs-color-active: #2d8cf0;
+$route-tabs-bgColor: #f7f9fa;
+$route-tabs-bar-nav-border-color: #f1f1f1;
+$route-tabs-color: #666;
+$route-tabs-color-active: #333;
+$route-tabs-shadow: 2px 3px 10px 0px rgba(0, 0, 0, 0.12);
 
 .route-tabs {
-  height: 42px;
-  background-color: #f5f5f5;
+  height: 40px;
+  background-color: $route-tabs-bgColor;
   .route-tabs-bar {
     position: relative;
-    height: 42px;
+    height: 40px;
+    overflow: hidden;
+    box-shadow: inset 0 0 15px #eee;
     .route-tabs-bar-controls {
       display: flex;
       float: left;
       align-items: center;
-      box-sizing: border-box;
       user-select: none;
-      height: 28px;
-      margin: 7px 20px;
+      height: 27px;
+      margin: 9px 20px;
       background-color: #fff;
-      border-radius: 4px;
-      box-shadow: inset 0 0px 5px #f5f5f5;
+      border-radius: 40px;
+      box-shadow: $route-tabs-shadow;
       a {
         position: relative;
         display: block;
@@ -27,7 +30,7 @@ $route-tabs-color-active: #2d8cf0;
         height: 26px;
         color: $route-tabs-color;
         font-size: 14px;
-        line-height: 26px;
+        line-height: 25px;
         text-align: center;
         &:first-child:after {
           position: absolute;
@@ -50,29 +53,27 @@ $route-tabs-color-active: #2d8cf0;
       }
     }
     .route-tabs-bar-nav {
-      position: absolute;
-      top: 0;
-      left: 115px;
-      right: 12px;
+      position: relative;
       white-space: nowrap;
       overflow: hidden;
       transition: all 0.2s;
       &.show-controls {
-        padding: 0 24px;
+        padding: 0 40px;
       }
       .route-tabs-bar-nav-left,
       .route-tabs-bar-nav-right {
         position: absolute;
-        z-index: 10;
+        z-index: 3;
         overflow: hidden;
         top: 0;
         left: 0;
-        width: 24px;
-        height: 42px;
+        width: 40px;
+        height: 40px;
+        padding-top: 2px;
         line-height: 40px;
         text-align: center;
         transition: all 3s;
-        background-color: #f5f5f5;
+        background-color: $route-tabs-bgColor;
         box-shadow: 0 5px 15px #d0d0d0;
         color: #333;
         cursor: pointer;
@@ -85,7 +86,8 @@ $route-tabs-color-active: #2d8cf0;
         right: 0;
       }
       .route-tabs-bar-nav-inner {
-        margin-top: 8px;
+        margin-top: 6px;
+        margin-left: 5px;
         padding: 0 8px;
         list-style: none;
         display: inline-flex;
@@ -93,49 +95,29 @@ $route-tabs-color-active: #2d8cf0;
         .tab-item {
           position: relative;
           display: inline-block;
-          box-sizing: border-box;
           height: 34px;
           line-height: 1;
+          font-size: 15px;
           color: lighten($route-tabs-color, 20%);
           background-color: $route-tabs-bar-nav-border-color;
-          filter: drop-shadow(0px 0px 1px #ccc);
-          border-radius: 4px 4px 0 0;
-          padding: 0 8px;
-          margin: 0 3px;
+          box-shadow: $route-tabs-shadow;
+          border-radius: 10px 10px 0 0;
+          padding: 0 16px;
+          margin-left: -8px;
           cursor: default;
           user-select: none;
 
-          &:before,
-          &:after {
-            content: '';
-            position: absolute;
-            top: 0;
-            border-top: 39px solid transparent !important;
-            pointer-events: none;
-          }
-          &:before {
-            border-right: 8px solid $route-tabs-bar-nav-border-color;
-            left: -8px;
-            z-index: 2;
-            width: 0;
-            border-radius: 4px 4px 0 0;
-            pointer-events: none;
-          }
-          &:after {
-            border-left: 8px solid $route-tabs-bar-nav-border-color;
-            right: -8px;
-            z-index: 0;
-          }
           .tab-item-inner {
             position: relative;
             display: flex;
             align-items: center;
             height: 100%;
-            min-width: 4em;
+            min-width: 3em;
             max-width: 8em;
             padding-left: 2px;
             padding-right: 2px;
             .tab-item-icon {
+              display: flex;
               position: relative;
               margin-right: 6px;
             }
@@ -143,8 +125,7 @@ $route-tabs-color-active: #2d8cf0;
               flex: 1;
               text-align: center;
 
-              margin-top: 2px;
-              // max-width: 120px;
+              margin-top: 3px;
               text-overflow: ellipsis;
               white-space: nowrap;
               overflow: hidden;
@@ -154,9 +135,9 @@ $route-tabs-color-active: #2d8cf0;
               display: block;
               width: 14px;
               height: 14px;
-              margin-right: -5px;
+              margin-right: -8px;
               margin-left: 8px;
-              color: #333;
+              color: #999;
               font-size: 12px;
               transition: all 0.2s;
               line-height: 1;
@@ -169,7 +150,7 @@ $route-tabs-color-active: #2d8cf0;
                 position: absolute;
                 left: -3px;
                 top: -3px;
-                background-color: #ccc;
+                background-color: #eee;
                 border-radius: 50%;
                 z-index: -1;
                 width: 19px;
@@ -183,22 +164,69 @@ $route-tabs-color-active: #2d8cf0;
           &.active {
             background-color: #fff;
             z-index: 4;
+            cursor: pointer;
             .tab-item-close {
-              display: block !important;
-            }
-            &:before,
-            &:after {
-              border-color: #fff;
+              color: #333;
             }
             .tab-item-inner {
               color: $route-tabs-color-active;
-              &:before {
-                border-color: #fff;
-                border-top-width: 40px !important;
-              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.classic {
+    .route-tabs-bar {
+      .route-tabs-bar-controls {
+        border-radius: 4px;
+      }
+      .route-tabs-bar-nav {
+        .route-tabs-bar-nav-inner {
+          .tab-item {
+            border-radius: 4px 4px 0 0;
+            box-shadow: none;
+            margin-left: 3px;
+            padding: 0 8px;
+            filter: drop-shadow(0px 0px 1px rgba(0, 0, 0, 0.1));
+            &:before,
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              border-top: 39px solid transparent !important;
+              pointer-events: none;
+            }
+            &:before {
+              border-right: 8px solid $route-tabs-bar-nav-border-color;
+              left: -8px;
+              z-index: 2;
+              width: 0;
+              border-radius: 4px 4px 0 0;
+              pointer-events: none;
+            }
+            &:after {
+              border-left: 8px solid $route-tabs-bar-nav-border-color;
+              right: -8px;
+              z-index: 0;
+            }
+
+            // 激活状态
+            &.active {
+              &:before,
               &:after {
-                border-left-color: #fff;
-                border-top-width: 40px !important;
+                border-color: #fff;
+              }
+              .tab-item-inner {
+                &:before {
+                  border-color: #fff;
+                  border-top-width: 40px !important;
+                }
+                &:after {
+                  border-left-color: #fff;
+                  border-top-width: 40px !important;
+                }
               }
             }
           }
@@ -224,7 +252,7 @@ $route-tabs-color-active: #2d8cf0;
 
 // 右键菜单
 .tabs-item-context-menu {
-  max-width: 120px;
+  max-width: 150px;
   .next-menu-item:not(.next-disabled):hover {
     color: $route-tabs-color-active !important;
   }

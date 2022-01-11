@@ -1,23 +1,22 @@
 import React, { memo, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import { Menu, Icon } from '@alifd/next';
+import { Icon } from '@alifd/next';
 import classnames from 'classnames';
 import { debounce } from 'lodash-es';
+import PropTypes from 'prop-types';
 
 import { useRouteTabsContext } from './hooks';
+import Tab from './Tab';
 
 import './index.scss';
 
-const TABS_BAR_PADDING = 48;
+const TABS_BAR_PADDING = 80;
 
 const LeftOutlined = ({ title = '返回', ...restProps }) => {
   return <Icon type="arrow-left" title={title} {...restProps} />;
 };
 const RightOutlined = ({ title = '向右滚动', ...restProps }) => {
   return <Icon type="arrow-right" title={title} {...restProps} />;
-};
-const CloseOutlined = ({ title = '关闭', ...restProps }) => {
-  return <Icon type="close" size="small" title={title} {...restProps} />;
 };
 const ReloadOutlined = ({ title = '刷新', ...restProps }) => {
   return <Icon type="refresh" size="small" title={title} {...restProps} />;
@@ -130,74 +129,6 @@ const RouteTabs = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.currentTab]);
 
-  const handleClick = (tab) => {
-    action.openTab(tab);
-  };
-
-  const handleClose = (e, tab) => {
-    e.stopPropagation();
-    e.preventDefault();
-    action.closeTab(tab);
-  };
-
-  const handleTabItemMenuClick = (key, tab) => {
-    switch (key) {
-      case 'refresh': {
-        action.refreshTab(tab);
-        break;
-      }
-      case 'closeCurrent': {
-        action.closeTab(tab);
-        break;
-      }
-      case 'closeOther': {
-        action.closeOtherTab();
-        break;
-      }
-      case 'closeRight': {
-        action.closeRightTab();
-        break;
-      }
-      case 'closeLeft': {
-        action.closeLeftTab();
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
-  // 创建右键菜单
-  const createTabItemContextMenu = (e, tab, index) => {
-    e.preventDefault();
-
-    const { target } = e;
-    const { top, left } = target.getBoundingClientRect();
-
-    Menu.create({
-      target: e.target,
-      offset: [e.clientX - left, e.clientY - top],
-      className: 'tabs-item-context-menu',
-      popupClassName: 'tabs-item-context-menu',
-      onItemClick: (key) => handleTabItemMenuClick(key, tab),
-      children: [
-        <Menu.Item key="refresh">刷新</Menu.Item>,
-        <Menu.Item disabled={index === 0} key="closeCurrent">
-          关闭
-        </Menu.Item>,
-        <Menu.Item disabled={state.tabs.length === 1} key="closeOther">
-          关闭其他
-        </Menu.Item>,
-        <Menu.Item disabled={state.tabs.length === +index + 1} key="closeRight">
-          关闭右侧
-        </Menu.Item>,
-        <Menu.Item disabled={index <= 1} key="closeLeft">
-          关闭左侧
-        </Menu.Item>,
-      ],
-    });
-  };
-
   const handleBack = () => {
     if (state.currentTab?.prevTab) {
       action.backPrevTab(state.currentTab);
@@ -209,57 +140,33 @@ const RouteTabs = (props) => {
   };
 
   return (
-    <div className="route-tabs">
+    <div className={classnames('route-tabs', props.type === 'classic' && 'classic')}>
       <div className="route-tabs-bar">
-        <div className="route-tabs-bar-controls">
-          <a className={classnames(!state?.currentTab?.prevTab && 'disabled')}>
-            <LeftOutlined disabled={!state?.currentTab?.prevTab} onClick={handleBack} />
-          </a>
-          <a>
-            <ReloadOutlined onClick={handleRefresh} />
-          </a>
-        </div>
+        {props.controls && (
+          <div className="route-tabs-bar-controls">
+            <a className={classnames(!state?.currentTab?.prevTab && 'disabled')}>
+              <LeftOutlined disabled={!state?.currentTab?.prevTab} onClick={handleBack} />
+            </a>
+            <a>
+              <ReloadOutlined onClick={handleRefresh} />
+            </a>
+          </div>
+        )}
         <div className={classnames('route-tabs-bar-nav', isShowNavControls && 'show-controls')}>
           {isShowNavControls && (
-            <a className="route-tabs-bar-nav-left" onClick={() => handleSetScroll(scrollX + 200)}>
+            <a className="route-tabs-bar-nav-left" onClick={() => handleSetScroll(scrollX + 300)}>
               <LeftOutlined />
             </a>
           )}
           {isShowNavControls && (
-            <a className="route-tabs-bar-nav-right" onClick={() => handleSetScroll(scrollX - 200)}>
+            <a className="route-tabs-bar-nav-right" onClick={() => handleSetScroll(scrollX - 300)}>
               <RightOutlined />
             </a>
           )}
           <ul className="route-tabs-bar-nav-inner" style={{ transform: `translateX(${scrollX}px)` }}>
             {state.tabs.map((tab, index) => {
               return (
-                <li
-                  key={tab.id}
-                  onClick={() => handleClick(tab)}
-                  onContextMenu={(e) => e.preventDefault()}
-                  className={classnames('tab-item', {
-                    active: tab.id === state.currentTab?.id,
-                  })}
-                >
-                  <div
-                    className="tab-item-inner"
-                    onContextMenu={(e) => {
-                      if (tab.id === state.currentTab?.id) {
-                        createTabItemContextMenu(e, tab, index);
-                      }
-                    }}
-                  >
-                    {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
-                    <span className="tab-item-name" title={tab.name}>
-                      {tab.name}
-                    </span>
-                    {!tab.fixed && (
-                      <span className="tab-item-close" onClick={(e) => handleClose(e, tab)}>
-                        <CloseOutlined />
-                      </span>
-                    )}
-                  </div>
-                </li>
+                <Tab key={tab.id} tab={tab} currentTab={state.currentTab} index={index} length={state.tabs.length} />
               );
             })}
           </ul>
@@ -270,9 +177,15 @@ const RouteTabs = (props) => {
   );
 };
 
-RouteTabs.propTypes = {};
+RouteTabs.propTypes = {
+  type: PropTypes.oneOf(['classic', 'fusion']),
+  controls: PropTypes.bool,
+};
 
-RouteTabs.defaultProps = {};
+RouteTabs.defaultProps = {
+  type: 'fusion',
+  controls: false,
+};
 
 RouteTabs.displayName = 'RouteTabs';
 
