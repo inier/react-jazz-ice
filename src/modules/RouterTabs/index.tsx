@@ -318,7 +318,7 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
     }
 
     const { currentPageName, searchMap, isRefreshCurrentPage } = this.state;
-    const { routeType, menuStore } = this.props;
+    const { routeType, menuStore, children } = this.props;
 
     /* eslint-disable */
     return (
@@ -333,7 +333,9 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
         />
         <div className={styles['router-tabs-content']}>
           {/* 方式：多页tab */}
-          {routeType === 'iframe' ? (
+          {routeType === 'route' ? (
+            children
+          ) : routeType === 'iframe' ? (
             <>
               <TabContent
                 panes={refsTag}

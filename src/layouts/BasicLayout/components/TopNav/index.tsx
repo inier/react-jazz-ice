@@ -11,13 +11,7 @@ import styles from './index.module.scss';
 
 const NavItem = Nav.Item;
 
-export interface IMenuItemProps {
-  item: IMenuItem;
-  token?: string;
-}
-
-const SubNavItem: React.FC<IMenuItemProps> = (props: IMenuItemProps) => {
-  const { item, token } = props;
+const getSubNavItem = (item, token) => {
   const linkProps = {
     to: '',
     target: '',
@@ -25,10 +19,10 @@ const SubNavItem: React.FC<IMenuItemProps> = (props: IMenuItemProps) => {
   };
 
   if (item.newWindow) {
-    linkProps.to = item.path;
+    linkProps.to = item.path || '';
     linkProps.target = '_blank';
   } else if (item.external) {
-    linkProps.href = item.path;
+    linkProps.href = item.path || '';
     linkProps.target = '_blank';
   } else {
     linkProps.to = item.path;
@@ -39,7 +33,7 @@ const SubNavItem: React.FC<IMenuItemProps> = (props: IMenuItemProps) => {
     const tUrl = `${item.path}${tStr}`;
 
     return (
-      <NavItem key={`${tUrl}external=true`} icon={item.icon}>
+      <NavItem key={`${tUrl}?external=true`}>
         <a href={`${tUrl}token=${token}`} target={linkProps.target} rel="noopener noreferrer">
           {item.name}
         </a>
@@ -48,8 +42,8 @@ const SubNavItem: React.FC<IMenuItemProps> = (props: IMenuItemProps) => {
   }
 
   const navItem = (
-    <NavItem key={item.path} icon={item.icon}>
-      <Link to={item.path}>{item.name}</Link>
+    <NavItem key={item.path.split('?')[0]}>
+      <Link {...linkProps}>{item.name}</Link>
     </NavItem>
   );
 
@@ -73,7 +67,7 @@ function getNavMenuItems(menusData: any, auth?: any) {
       return item.name && !item.hideInMenu && roleAuth;
     })
     .map((item) => {
-      return <SubNavItem key={item.path} item={item} />;
+      return getSubNavItem(item, 123);
     });
 }
 

@@ -13,7 +13,6 @@ import styles from './index.module.scss';
 const { SubNav, Item: NavItem } = Nav;
 
 function getNavMenuItems(menusData = [], initIndex?: number | string, auth?: any) {
-  console.log(menusData);
   if (!menusData) {
     return [];
   }

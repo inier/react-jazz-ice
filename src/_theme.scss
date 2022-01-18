@@ -8,3 +8,17 @@
 //
 $page-min-width: 768px;
 $disabled-color: #ddd;
+
+//== Logo
+$logo-width: 350px;
+$logo-img-width: 68px;
+$logo-img-height: 32px;
+
+//== Header
+$header-height: 52px;
+$header-bg-color: #142234;
+$header-nav-size: $font-size-body-2;
+$header-nav-color: #fff;
+$header-nav-bg-color: transparent;
+$header-nav-color-active: $color-brand1-9;
+$header-nav-bg-color-active: rgba($color-brand1-6, 0.1);

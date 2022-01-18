@@ -5,10 +5,11 @@ import { getInitialData } from 'ice';
 import { observer } from 'mobx-react';
 
 import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
-import { useMobxStore } from '@/hooks';
+import { useMobxStore, useRouteTabsContext } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
 import { formatRoutes } from '@/routes';
 import { mapTree } from '@/utils';
+// import RouteTabs from '@/modules/RouterTabs';
 
 import Footer from './components/Footer';
 import HeaderAvatar from './components/HeaderAvatar';
@@ -48,7 +49,9 @@ const getMenuData = () => {
   console.log('formatRoutes: ', result);
   return result;
 };
-function BasicLayout({ location, children }) {
+
+const BasicLayout = ({ location, children }) => {
+  const { state } = useRouteTabsContext();
   const { UIStore, userStore, menuStore } = useMobxStore();
   const { loading, toastMsg } = UIStore;
   const { userInfo } = userStore;
@@ -76,6 +79,18 @@ function BasicLayout({ location, children }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // 按当前菜单项反选顶部菜单
+    const targetPath = menuStore.menuPaths.filter((item) => {
+      return item.path === state?.currentTab?.path;
+    });
+    if (targetPath[0] && menuStore.headerMenuCurrent !== targetPath[0].topPath) {
+      menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
+    }
+  }, [state?.currentTab?.path]);
+
+  // const defaultRouteTab = menuStore.getDefaultMenuItemPath(location);
+
   return (
     <SecurityLayout>
       <RouteTabsProvider defaultTabs={['/']}>
@@ -101,6 +116,7 @@ function BasicLayout({ location, children }) {
             <Message visible={!!toastMsg}>{toastMsg}</Message>
             {/* 多标签路由 */}
             <RouteTabs>{children}</RouteTabs>
+            {/* <RouterTabs value={defaultRouteTab} routeType="route">{children}</RouterTabs> */}
           </Shell.Content>
 
           <Shell.Footer>
@@ -110,7 +126,8 @@ function BasicLayout({ location, children }) {
       </RouteTabsProvider>
     </SecurityLayout>
   );
-}
+};
+
 BasicLayout.displayName = 'BasicLayout';
 
 export default observer(BasicLayout);

@@ -1,4 +1,6 @@
 const proxyConfig = require('./src/setupProxy');
+// 主题名称，根据当前项目使用的主题而定
+const theme = '@alifd/theme-design-pro';
 
 module.exports = {
   store: false,
@@ -8,7 +10,8 @@ module.exports = {
   vite: true,
   alias: {
     '@': './src/',
-    '@theme': './src/_theme.scss',
+    '@settings': './src/_theme.scss',
+    '@theme': theme,
   },
   define: {
     PUBLIC_URL: '/toxic',
@@ -21,7 +24,7 @@ module.exports = {
     [
       'build-plugin-fusion',
       {
-        themePackage: '@alifd/theme-design-pro',
+        themePackage: theme,
       },
     ],
     [

@@ -666,7 +666,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       // 如果连路由实例也找不到, 要弹出提示框
       if (!routeConfig) {
         Message.error('没有这个路由!');
-      } else {
+      } else if (routeConfig.component) {
         tabInstance = {
           ...createNewTab(location, routeConfig),
           prevTab: routeTabsState.currentTab,
@@ -733,7 +733,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 如果连路由实例也找不到, 要弹出提示框
         if (!routeConfig) {
           Message.error('没有这个路由!');
-        } else {
+        } else if (routeConfig.component) {
           // 打开新的选项卡, 并设置高亮
           // 添加新记录
           tabInstance = createNewTab(location, routeConfig);

@@ -7,7 +7,7 @@ const resList = {
       resourceName: '商品',
       extras: {
         icon: 'cry',
-        routePath: '/appList',
+        routePath: '/demo',
       },
       resourceList: [
         {
@@ -15,7 +15,7 @@ const resList = {
           resourceName: '商品管理',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo/dashboard',
           },
           resourceList: [
             {
@@ -23,7 +23,7 @@ const resList = {
               resourceName: '商品管理',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/dashboard/workplace',
               },
             },
           ],
@@ -33,7 +33,7 @@ const resList = {
           resourceName: '商品分类',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo/form',
           },
           resourceList: [
             {
@@ -41,7 +41,7 @@ const resList = {
               resourceName: '前台分类',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/form/basic',
               },
             },
           ],
@@ -53,7 +53,7 @@ const resList = {
       resourceName: '订单',
       extras: {
         icon: 'cry',
-        routePath: '/demo/demos',
+        routePath: '/demo1',
       },
       resourceList: [
         {
@@ -61,7 +61,7 @@ const resList = {
           resourceName: '订单管理',
           extras: {
             icon: 'cry',
-            routePath: '/order/orderCenter',
+            routePath: '/demo/list',
           },
           resourceList: [
             {
@@ -69,7 +69,7 @@ const resList = {
               resourceName: '订单总览',
               extras: {
                 icon: 'cry',
-                routePath: '/order/orderCenter',
+                routePath: '/demo/list/basic',
               },
             },
           ],
@@ -81,7 +81,7 @@ const resList = {
       resourceName: '营销',
       extras: {
         icon: 'cry',
-        routePath: '/demo/demos',
+        routePath: '/demo2',
       },
       resourceList: [
         {
@@ -89,7 +89,7 @@ const resList = {
           resourceName: '促销推广',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo21',
           },
           resourceList: [
             {
@@ -97,7 +97,7 @@ const resList = {
               resourceName: '页面管理',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/list/card',
               },
             },
           ],
@@ -107,7 +107,7 @@ const resList = {
           resourceName: '会员管理',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo21',
           },
           resourceList: [
             {
@@ -115,7 +115,7 @@ const resList = {
               resourceName: '会员类型管理',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/detail/basic',
               },
             },
             {
@@ -123,7 +123,7 @@ const resList = {
               resourceName: '会员折扣管理',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/detail/advanced',
               },
             },
           ],
@@ -135,7 +135,7 @@ const resList = {
       resourceName: '商家',
       extras: {
         icon: 'cry',
-        routePath: '/demo/demos',
+        routePath: '/demo4',
       },
       resourceList: [
         {
@@ -143,7 +143,7 @@ const resList = {
           resourceName: '店铺管理',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo/list',
           },
           resourceList: [
             {
@@ -151,7 +151,7 @@ const resList = {
               resourceName: '店铺列表',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/list/table/basic',
               },
             },
           ],
@@ -161,7 +161,7 @@ const resList = {
           resourceName: '门店管理',
           extras: {
             icon: 'cry',
-            routePath: '/demo/demos',
+            routePath: '/demo/list',
           },
           resourceList: [
             {
@@ -169,7 +169,7 @@ const resList = {
               resourceName: '门店列表',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/demos',
+                routePath: '/demo/list/table/basic',
               },
             },
           ],

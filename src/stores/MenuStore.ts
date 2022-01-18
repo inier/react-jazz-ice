@@ -80,7 +80,7 @@ class MenuStore {
         if (tExtras) {
           tResult.push({
             name: resourceName,
-            key: resourceCode,
+            key: Number(resourceCode),
             icon: tExtras.icon || '',
             path: `${formatPath(tExtras.routePath)}?type=top`,
             external: isAbsolutePath(tExtras.routePath),
@@ -296,7 +296,7 @@ class MenuStore {
         const tResourceList: IResItem[] = data.filter((item: IResItem) => {
           const tExtras = jsonParse(item.extras);
 
-          if (tExtras && tExtras[this.filterKey]) {
+          if (tExtras) {
             item.extras = tExtras;
             return true;
           }
