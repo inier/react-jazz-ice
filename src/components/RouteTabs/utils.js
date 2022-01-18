@@ -78,12 +78,12 @@ export const createNewTab = (location, routeConfig) => {
   const { icon, title, fixed } = routeConfig?.pageConfig || {};
   const state = location?.state || {};
   const routePath = generateRoutePath(location);
-  const id = createTabId(location);
+  const tabId = createTabId(location);
 
   return {
     $isTab: true, // 用来判断是否是选项卡对象
-    id,
-    keepaliveId: `${id}-${getTabId()}`,
+    tabId,
+    keepaliveId: `${tabId}-${getTabId()}`,
     location,
     icon: state?.icon || icon || '',
     name: title,

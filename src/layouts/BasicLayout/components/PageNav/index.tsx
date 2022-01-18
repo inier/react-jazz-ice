@@ -1,33 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 
 import { Nav, Icon } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
+import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
 
-import { formatRoutes } from '@/routes';
-import { mapTree } from '@/utils';
+import { useMobxStore } from '@/hooks';
+import { IMenuItem } from '@/stores/MenuStore';
 
-// import { asideMenuConfig } from '../../menuConfig';
 import styles from './index.module.scss';
 
-const { SubNav } = Nav;
-const NavItem = Nav.Item;
+const { SubNav, Item: NavItem } = Nav;
 
-// mock the auth object
-// Ref: https://ice.work/docs/guide/advance/auth#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9D%83%E9%99%90%E6%95%B0%E6%8D%AE
-const AUTH_CONFIG = {
-  admin: true,
-  guest: false,
-};
-
-export interface IMenuItem {
-  name: string;
-  path: string;
-  icon?: string;
-  children?: IMenuItem[];
-}
-
-function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any) {
+function getNavMenuItems(menusData = [], initIndex?: number | string, auth?: any) {
+  console.log(menusData);
   if (!menusData) {
     return [];
   }
@@ -36,9 +22,9 @@ function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any
     .filter((item) => {
       let roleAuth = true;
       // if item.roles is [] or undefined, roleAuth is true
-      if (auth && item.auth && item.auth instanceof Array) {
-        if (item.auth.length) {
-          roleAuth = item.auth.some((key) => auth[key]);
+      if (auth && item?.auth && item?.auth instanceof Array) {
+        if (item?.auth.length) {
+          roleAuth = item?.auth.some((key) => auth[key]);
         }
       }
       return item.name && !item.hideInMenu && roleAuth;
@@ -49,11 +35,13 @@ function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any
 }
 
 function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) {
-  if (item.children && item.children.some((child) => child.name)) {
-    const childrenItems = getNavMenuItems(item.children, index, auth);
+  const { key, name, path, icon, newWindow, external, children } = item;
+
+  if (children && children.some((child) => child.key)) {
+    const childrenItems = getNavMenuItems(children, index, auth);
     if (childrenItems && childrenItems.length > 0) {
       const subNav = (
-        <SubNav key={item.name} icon={item.icon} label={item.name}>
+        <SubNav key={key} data-key={key} icon={icon} label={name}>
           {childrenItems}
         </SubNav>
       );
@@ -62,82 +50,60 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
     }
     return null;
   }
+
+  const linkProps = {
+    to: '',
+    target: '',
+    href: '',
+  };
+  if (newWindow) {
+    linkProps.href = path;
+    linkProps.target = '_blank';
+  } else if (external) {
+    linkProps.href = path;
+  } else {
+    linkProps.to = path;
+  }
+
   const navItem = (
-    <NavItem key={item.path} icon={item.icon}>
-      <Link to={item.path}>{item.name}</Link>
+    <NavItem key={path} icon={icon}>
+      <Link {...linkProps}>{item.name}</Link>
     </NavItem>
   );
 
   return navItem;
 }
 
-const getMenuData = () => {
-  const { routes } = getInitialData();
-  const tRoutes = formatRoutes(routes);
-
-  if (!tRoutes) {
-    return null;
-  }
-
-  const result = mapTree(tRoutes, ({ path, pageConfig, children }) => {
-    const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
-
-    return {
-      path,
-      icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
-      name,
-      hideInMenu,
-      hideChildrenInMenu,
-      locale,
-      authority,
-      children,
-    };
-  });
-
-  console.log('formatRoutes: ', result);
-  return result;
-};
-
 const Navigation = (props, context) => {
-  const [openKeys, setOpenKeys] = useState<string[]>([]);
+  const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
-  const asideMenuConfig: any = getMenuData();
+  const { menuStore } = useMobxStore();
+  const { asideMenuConfig, asideMenuCurrent, setAsideMenuCurrent } = menuStore;
 
-  useEffect(() => {
-    const curSubNav = asideMenuConfig.find((menuConfig) => {
-      return menuConfig.children && checkChildPathExists(menuConfig);
-    });
+  const onSelectMemo = useCallback(
+    (selectedKeys) => {
+      setAsideMenuCurrent(selectedKeys[0]);
+    },
+    [setAsideMenuCurrent],
+  );
 
-    function checkChildPathExists(menuConfig) {
-      return menuConfig.children.some((child) => {
-        return child.children ? checkChildPathExists(child) : child.path === pathname;
-      });
-    }
-
-    if (curSubNav && !openKeys.includes(curSubNav.name)) {
-      setOpenKeys([...openKeys, curSubNav.name]);
-    }
-  }, [asideMenuConfig, openKeys, pathname]);
+  const tSelectedKey = asideMenuCurrent || pathname || '';
 
   return (
     <Nav
       className="scrollbar"
       type="normal"
-      openKeys={openKeys}
-      selectedKeys={[pathname]}
-      defaultSelectedKeys={[pathname]}
-      // popupAlign="outside"
+      defaultOpenAll
+      defaultSelectedKeys={[tSelectedKey]}
+      selectedKeys={[tSelectedKey]}
+      onSelect={onSelectMemo}
       embeddable
       activeDirection="right"
       iconOnly={isCollapse}
       hasArrow={false}
       mode={isCollapse ? 'popup' : 'inline'}
-      onOpen={(keys) => {
-        // @ts-ignore
-        setOpenKeys(keys);
-      }}
     >
       {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
     </Nav>
@@ -148,7 +114,7 @@ Navigation.contextTypes = {
   isCollapse: PropTypes.bool,
 };
 
-const PageNav = withRouter(Navigation);
+const PageNav = withRouter(observer(Navigation));
 
 PageNav.displayName = 'SideNav';
 

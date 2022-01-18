@@ -1,18 +1,19 @@
 /* eslint-disable no-param-reassign */
-import { makeAutoObservable, observable, action, computed } from 'mobx';
+import { makeAutoObservable, observable, action, computed, toJS } from 'mobx';
 
 import { responseCode } from '@/api';
 import { getResList } from '@/services/user';
 import { formatPath, isAbsolutePath, getUrl, jsonParse } from '@/utils';
 
 // 菜单项
-interface IMenuItem {
+export interface IMenuItem {
   name?: string;
   key?: string;
   icon?: string;
   path?: string;
   external?: boolean;
   url?: string;
+  auth?: string;
   loadUrl?: string[];
   loadResUrl?: string[];
   topKey?: string;
@@ -20,6 +21,7 @@ interface IMenuItem {
   topPath?: string;
   parentKey?: string;
   parentPath?: string;
+  hideInMenu?: boolean;
   children?: object[] | undefined;
 }
 
@@ -256,7 +258,7 @@ class MenuStore {
     if (value && value.length) {
       this.resList = [].concat(value.slice());
     }
-    // console.log('resList:', this.resList);
+    console.log('resList:', toJS(this.resList));
   }
 
   @action

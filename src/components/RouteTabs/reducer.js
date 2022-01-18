@@ -16,7 +16,7 @@ export const reducer = (state, action) => {
     }
     case 'TAB_UPDATE': {
       const newTabs = [...state.tabs];
-      const targetTabIndex = state.tabs.findIndex((item) => item.id === action.payload.id);
+      const targetTabIndex = state.tabs.findIndex((item) => item.tabId === action.payload.tabId);
       if (targetTabIndex > -1) {
         newTabs.splice(targetTabIndex, 1, action.payload);
         return {
@@ -28,7 +28,7 @@ export const reducer = (state, action) => {
     }
     case 'TAB_DELETE': {
       const willDeleteIds = action.payload instanceof Array ? action.payload : [action.payload];
-      const newTabs = [...state.tabs].filter((item) => !willDeleteIds.includes(item.id));
+      const newTabs = [...state.tabs].filter((item) => !willDeleteIds.includes(item.tabId));
       return {
         ...state,
         tabs: newTabs,
@@ -47,9 +47,7 @@ export const reducer = (state, action) => {
       };
     }
     case 'EVENTS_ADD': {
-      const tabId = action.payload.id;
-      const { eventName } = action.payload;
-      const { fn } = action.payload;
+      const { tabId, eventName, fn } = action.payload;
       const events = { ...state.events };
 
       if (!tabId || !eventName || !fn) {
@@ -70,9 +68,7 @@ export const reducer = (state, action) => {
       };
     }
     case 'EVENT_DELETE': {
-      const tabId = action.payload.id;
-      const { eventName } = action.payload;
-      const { fn } = action.payload;
+      const { tabId, eventName, fn } = action.payload;
       let events = { ...state.events };
 
       if (!tabId) {
@@ -91,9 +87,7 @@ export const reducer = (state, action) => {
       };
     }
     case 'EVENT_TRIGGER_LIST_ADD': {
-      const tabId = action.payload.id;
-      const { eventName } = action.payload;
-      const { params } = action.payload;
+      const { tabId, eventName, params } = action.payload;
       const eventTriggerList = { ...state.eventTriggerList };
       const newItem = { eventName, params };
 
@@ -114,8 +108,7 @@ export const reducer = (state, action) => {
       };
     }
     case 'EVENT_TRIGGER_LIST_DELETE': {
-      const tabId = action.payload.id;
-      const { eventName } = action.payload;
+      const { tabId, eventName } = action.payload;
       let eventTriggerList = { ...state.eventTriggerList };
 
       if (!tabId) {

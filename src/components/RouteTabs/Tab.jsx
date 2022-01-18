@@ -17,6 +17,9 @@ const Tab = (props) => {
 
   const handleClick = useCallback(
     (cTab) => {
+      if (cTab.path === currentTab.path) {
+        return;
+      }
       action.openTab(cTab);
     },
     [action],
@@ -102,7 +105,7 @@ const Tab = (props) => {
       onClick={() => handleClick(tab)}
       onContextMenu={(e) => e.preventDefault()}
       className={classnames('tab-item', {
-        active: tab.id === currentTab?.id,
+        active: tab.tabId === currentTab?.tabId,
       })}
     >
       <div
@@ -112,7 +115,7 @@ const Tab = (props) => {
           if (!contextMenu) {
             return;
           }
-          if (tab.id === currentTab?.id) {
+          if (tab.tabId === currentTab?.tabId) {
             createTabItemContextMenu(e, tab, index);
           }
         }}

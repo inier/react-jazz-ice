@@ -1,33 +1,62 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useCallback } from 'react';
 
-import { Nav, Icon } from '@alifd/next';
-import { Link, withRouter, getInitialData } from 'ice';
-import PropTypes from 'prop-types';
+import { Nav } from '@alifd/next';
+import { Link, getInitialData } from 'ice';
+import { observer } from 'mobx-react';
 
-import { formatRoutes } from '@/routes';
-import { mapTree } from '@/utils';
+import { useMobxStore } from '@/hooks';
+import { IMenuItem } from '@/stores/MenuStore';
 
-// import { asideMenuConfig } from '../../menuConfig';
 import styles from './index.module.scss';
 
-const { SubNav } = Nav;
 const NavItem = Nav.Item;
 
-// mock the auth object
-// Ref: https://ice.work/docs/guide/advance/auth#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%9D%83%E9%99%90%E6%95%B0%E6%8D%AE
-const AUTH_CONFIG = {
-  admin: true,
-  guest: false,
-};
-
-export interface IMenuItem {
-  name: string;
-  path: string;
-  icon?: string;
-  children?: IMenuItem[];
+export interface IMenuItemProps {
+  item: IMenuItem;
+  token?: string;
 }
 
-function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any) {
+const SubNavItem: React.FC<IMenuItemProps> = (props: IMenuItemProps) => {
+  const { item, token } = props;
+  const linkProps = {
+    to: '',
+    target: '',
+    href: '',
+  };
+
+  if (item.newWindow) {
+    linkProps.to = item.path;
+    linkProps.target = '_blank';
+  } else if (item.external) {
+    linkProps.href = item.path;
+    linkProps.target = '_blank';
+  } else {
+    linkProps.to = item.path;
+  }
+
+  if (item.external && linkProps.href) {
+    const tStr = item.path.includes('?') ? '&' : '?';
+    const tUrl = `${item.path}${tStr}`;
+
+    return (
+      <NavItem key={`${tUrl}external=true`} icon={item.icon}>
+        <a href={`${tUrl}token=${token}`} target={linkProps.target} rel="noopener noreferrer">
+          {item.name}
+        </a>
+      </NavItem>
+    );
+  }
+
+  const navItem = (
+    <NavItem key={item.path} icon={item.icon}>
+      <Link to={item.path}>{item.name}</Link>
+    </NavItem>
+  );
+
+  return navItem;
+};
+
+function getNavMenuItems(menusData: any, auth?: any) {
   if (!menusData) {
     return [];
   }
@@ -43,112 +72,45 @@ function getNavMenuItems(menusData: any, initIndex?: number | string, auth?: any
       }
       return item.name && !item.hideInMenu && roleAuth;
     })
-    .map((item, index) => {
-      return getSubMenuOrItem(item, `${initIndex}-${index}`, auth);
+    .map((item) => {
+      return <SubNavItem key={item.path} item={item} />;
     });
 }
 
-function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) {
-  if (item.children && item.children.some((child) => child.name)) {
-    const childrenItems = getNavMenuItems(item.children, index, auth);
-    if (childrenItems && childrenItems.length > 0) {
-      const subNav = (
-        <SubNav key={item.name} icon={item.icon} label={item.name}>
-          {childrenItems}
-        </SubNav>
-      );
+const TopNav = observer(() => {
+  const { auth: AUTH_CONFIG = {} } = getInitialData();
+  const { menuStore } = useMobxStore();
+  const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent } = menuStore;
 
-      return subNav;
-    }
-    return null;
-  }
-  const navItem = (
-    <NavItem key={item.path} icon={item.icon}>
-      <Link to={item.path}>{item.name}</Link>
-    </NavItem>
+  const handleNavClick = useCallback(
+    (key = []) => {
+      // 非外部链接可更改当前顶部菜单选项
+      if (key.length && key[0].indexOf('external=true') === -1) {
+        setHeaderMenuCurrent(key[0]);
+      }
+    },
+    [setHeaderMenuCurrent],
   );
 
-  return navItem;
-}
-
-const getMenuData = () => {
-  const { routes } = getInitialData();
-  const tRoutes = formatRoutes(routes);
-
-  if (!tRoutes) {
+  if (!headerMenuConfig.length) {
     return null;
   }
-
-  const result = mapTree(tRoutes, ({ path, pageConfig, children }) => {
-    const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
-
-    return {
-      path,
-      icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
-      name,
-      hideInMenu,
-      hideChildrenInMenu,
-      locale,
-      authority,
-      children,
-    };
-  });
-
-  console.log('formatRoutes: ', result);
-  return result;
-};
-
-const Navigation = memo((props, context) => {
-  const [openKeys, setOpenKeys] = useState<string[]>([]);
-  const { location } = props;
-  const { pathname } = location;
-  const { isCollapse } = context;
-  const asideMenuConfig: any = getMenuData();
-
-  useEffect(() => {
-    const curSubNav = asideMenuConfig.find((menuConfig) => {
-      return menuConfig.children && checkChildPathExists(menuConfig);
-    });
-
-    function checkChildPathExists(menuConfig) {
-      return menuConfig.children.some((child) => {
-        return child.children ? checkChildPathExists(child) : child.path === pathname;
-      });
-    }
-
-    if (curSubNav && !openKeys.includes(curSubNav.name)) {
-      setOpenKeys([...openKeys, curSubNav.name]);
-    }
-  }, [asideMenuConfig, openKeys, pathname]);
 
   return (
-    <Nav
-      className="scrollbar"
-      type="normal"
-      openKeys={openKeys}
-      selectedKeys={[pathname]}
-      defaultSelectedKeys={[pathname]}
-      defaultOpenAll
-      popupAlign="outside"
-      embeddable
-      activeDirection="right"
-      iconOnly={isCollapse}
-      hasArrow={false}
-      mode={isCollapse ? 'popup' : 'inline'}
-      onOpen={(keys) => {
-        // @ts-ignore
-        setOpenKeys(keys);
-      }}
-    >
-      {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
-    </Nav>
+    <div className={styles.headerNavbar}>
+      <Nav
+        className={styles.headerNavbarMenu}
+        type="normal"
+        direction="hoz"
+        activeDirection="bottom"
+        defaultSelectedKeys={[headerMenuCurrent]}
+        selectedKeys={[headerMenuCurrent]}
+        onSelect={handleNavClick}
+      >
+        {getNavMenuItems(headerMenuConfig, AUTH_CONFIG)}
+      </Nav>
+    </div>
   );
 });
-
-Navigation.contextTypes = {
-  isCollapse: PropTypes.bool,
-};
-
-const TopNav = withRouter(Navigation);
 
 export default TopNav;

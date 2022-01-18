@@ -166,7 +166,7 @@ const RouteTabs = (props) => {
           <ul className="route-tabs-bar-nav-inner" style={{ transform: `translateX(${scrollX}px)` }}>
             {state.tabs.map((tab, index) => {
               return (
-                <Tab key={tab.id} tab={tab} currentTab={state.currentTab} index={index} length={state.tabs.length} />
+                <Tab key={tab.tabId} tab={tab} currentTab={state.currentTab} index={index} length={state.tabs.length} />
               );
             })}
           </ul>

@@ -53,4 +53,12 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
       }
     }
   }
+
+  .sideMenuIcon {
+    vertical-align: 2px;
+    + span,
+    + a {
+      margin-left: 6px;
+    }
+  }
 }

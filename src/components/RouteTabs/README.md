@@ -5,7 +5,7 @@ React 中后台项目的多选项卡页面的解决方案
 ## 功能支持
 
 [x] 支持缓存页面
-[x] 根据不同规则(路径字符串/history.push 对象/id/选项卡对象)等方式打开标签页
+[x] 根据不同规则(路径字符串/history.push 对象/tabId/选项卡对象)等方式打开标签页
 [x] 符合**匹配规则**的标签页会自动跳转, 而不是新开标签页
 [x] 强制打开选项卡
 [x] 支持打开/切换同路径的选项卡
@@ -46,7 +46,7 @@ const { action } = useRouteTabsContext();
 
 参数可以是:
 
-- id
+- tabId
   action.getTabInstance("tab-/test/list-2231437-92523418")
 - history.push 的对应参数
   action.getTabInstance({ pathname: '/test/list', query: { keyword: 1 } })
@@ -90,7 +90,7 @@ action.openTab({ $isTab: true, ... }, { force: true }) // 如果是选项卡对�
 ### `replaceTab` 替换选项卡
 
 只能替换当前高亮的选项卡.  
-参数不能是 选项卡 id, 和选项卡对象.
+参数不能是 选项卡 tabId, 和选项卡对象.
 
 通过 api 的方式替换当前页, 浏览器是会生成记录的, 可以使用后退来回到上个页面.  
 如果使用了 `history.replace` 来替换页面, 选项卡内容页会替换, 但是不会生成历史记录, 是回退不了的.

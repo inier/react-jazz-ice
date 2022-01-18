@@ -18,7 +18,7 @@ const KeepAliveWrapper = (PageComponent) => {
     const location = useLocation();
 
     if (state.currentTab?.keepAlive === false) {
-      return <PageComponent key={state.currentTab?.id} {...props} />;
+      return <PageComponent key={state.currentTab?.tabId} {...props} />;
     }
 
     // 只有存在 currentTab, 且 currentTab 的 location.pathname 与当前的 location.pathname 相同 才允许创建页面

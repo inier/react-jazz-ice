@@ -50,13 +50,13 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   // console.log('================>tabs()', routeTabsState);
 
   /** 获取实例的 index 值 */
-  const _getTabIndexById = (id) => {
-    return routeTabsState.tabs.findIndex((item) => item.id === id);
+  const _getTabIndexById = (tabId) => {
+    return routeTabsState.tabs.findIndex((item) => item.tabId === tabId);
   };
 
   /** 判断是否存在实例 */
   const _isExistTabInstance = (obj) => {
-    return obj?.$isTab && obj?.id ? !!routeTabsState.tabs.find((item) => item.id === obj.id) : false;
+    return obj?.$isTab && obj?.tabId ? !!routeTabsState.tabs.find((item) => item.tabId === obj.tabId) : false;
   };
 
   /** 处理关闭的提示 */
@@ -86,30 +86,30 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   };
 
   /** 销毁实例及事件 */
-  const _destroyTab = (id) => {
-    if (!id) {
+  const _destroyTab = (tabId) => {
+    if (!tabId) {
       return;
     }
 
     // eslint-disable-next-line no-nested-ternary
-    const target = id instanceof Array ? id : id ? [id] : [];
+    const target = tabId instanceof Array ? tabId : tabId ? [tabId] : [];
 
     // 同步状态
     routeTabsDispatch({
       type: 'TAB_DELETE',
-      payload: target, // id is array
+      payload: target, // tabId is array
     });
     target.forEach((item) => {
       routeTabsDispatch({
         type: 'EVENT_DELETE',
         payload: {
-          id: item,
+          tabId: item,
         },
       });
       routeTabsDispatch({
         type: 'EVENT_TRIGGER_LIST_DELETE',
         payload: {
-          id: item,
+          tabId: item,
         },
       });
     });
@@ -119,7 +119,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
   /**
    * 获取选项卡实例
-   * @param target 可以是 id | history.push 的对应参数 | 选项卡实例 | 路径字符串 | 为空表示当前选项卡
+   * @param target 可以是 tabId | history.push 的对应参数 | 选项卡实例 | 路径字符串 | 为空表示当前选项卡
    * @returns {{$isTab}|{search: string, query: {}, pathname: string}|null|*|T}
    */
   const getTabInstance = (target) => {
@@ -135,8 +135,8 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 解析 URL
         targetObj = parsePath(target);
       } else {
-        // 传进来的是 id
-        return routeTabsState.tabs.find((item) => item.id === target);
+        // 传进来的是 tabId
+        return routeTabsState.tabs.find((item) => item.tabId === target);
       }
     }
     if (isObject(targetObj)) {
@@ -261,7 +261,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
       // 切换选项卡: 选项卡存在, 且不是当前选项卡
       if (tabInstance) {
-        if (routeTabsState.currentTab.id !== tabInstance.id) {
+        if (routeTabsState.currentTab.tabId !== tabInstance.tabId) {
           targetPath = tabInstance.routePath;
           // 同路径选项卡切换的场景
           // 同路径页面是无法跳转的, 要强制设置当前选项卡
@@ -451,8 +451,8 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       if (nextTab) {
         nextTabInstance = nextTab ? getTabInstance(nextTab) : null;
       } else {
-        const currentIndex = _getTabIndexById(routeTabsState.currentTab.id);
-        const targetIndex = _getTabIndexById(willClosedTabInstance.id);
+        const currentIndex = _getTabIndexById(routeTabsState.currentTab.tabId);
+        const targetIndex = _getTabIndexById(willClosedTabInstance.tabId);
 
         // 判断关闭的是否是当前高亮的标签
         if (currentIndex === targetIndex) {
@@ -465,7 +465,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       }
 
       // 同步状态, 删除实例
-      _destroyTab(willClosedTabInstance.id);
+      _destroyTab(willClosedTabInstance.tabId);
       // 处理下一个高亮页
       if (nextTabInstance?.routePath) {
         openTab(nextTabInstance, { refresh });
@@ -489,11 +489,11 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   const closeTabs = (tabs, force = false) => {
     const needCloseTabs = tabs.filter((tab) => tab.fixed !== true);
     const needShowCloseTip = needCloseTabs.some((tab) => !!tab.closeTips);
-    const isContainerCurrentTab = tabs.some((tab) => tab.id === routeTabsState.currentTab.id);
+    const isContainerCurrentTab = tabs.some((tab) => tab.tabId === routeTabsState.currentTab.tabId);
 
     // eslint-disable-next-line no-alert
     if (force || !needShowCloseTip || window.confirm('是否强制关闭其他标签页?')) {
-      _destroyTab(needCloseTabs.map((tab) => tab.id));
+      _destroyTab(needCloseTabs.map((tab) => tab.tabId));
     }
 
     // 如果要删除的标签页包含了当前页面, 那就要处理下一个高亮页
@@ -511,20 +511,20 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
   /** 关闭其他标签页 */
   const closeOtherTab = (force = false) => {
-    const needCloseTabs = routeTabsState.tabs.filter((tab) => tab.id !== routeTabsState.currentTab.id);
+    const needCloseTabs = routeTabsState.tabs.filter((tab) => tab.tabId !== routeTabsState.currentTab.tabId);
     closeTabs(needCloseTabs, force);
   };
 
   /** 关闭左侧标签页 */
   const closeLeftTab = (force = false) => {
-    const currentTabIndex = _getTabIndexById(routeTabsState.currentTab.id);
+    const currentTabIndex = _getTabIndexById(routeTabsState.currentTab.tabId);
     const needCloseTabs = routeTabsState.tabs.slice(0, currentTabIndex);
     closeTabs(needCloseTabs, force);
   };
 
   /** 关闭右侧标签页 */
   const closeRightTab = (force = false) => {
-    const currentTabIndex = _getTabIndexById(routeTabsState.currentTab.id);
+    const currentTabIndex = _getTabIndexById(routeTabsState.currentTab.tabId);
     const needCloseTabs = routeTabsState.tabs.slice(+currentTabIndex + 1, routeTabsState.tabs.length);
     closeTabs(needCloseTabs, force);
   };
@@ -550,7 +550,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     routeTabsDispatch({
       type: 'EVENTS_ADD',
       payload: {
-        id: tabInstance.id,
+        tabId: tabInstance.tabId,
         eventName,
         fn,
       },
@@ -573,7 +573,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     routeTabsDispatch({
       type: 'EVENT_DELETE',
       payload: {
-        id: tabInstance.id,
+        tabId: tabInstance.tabId,
         eventName,
         fn,
       },
@@ -597,7 +597,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     routeTabsDispatch({
       type: 'EVENT_TRIGGER_LIST_ADD',
       payload: {
-        id: tabInstance.id,
+        tabId: tabInstance.tabId,
         eventName,
         params,
       },
@@ -611,16 +611,16 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    */
   const execEvent = async (target) => {
     const tabInstance = getTabInstance(target);
-    let eventNameQueue = tabInstance ? routeTabsState.eventTriggerList[tabInstance.id] || [] : [];
+    let eventNameQueue = tabInstance ? routeTabsState.eventTriggerList[tabInstance.tabId] || [] : [];
     eventNameQueue = Array.from(eventNameQueue);
 
-    if (routeTabsState.events[tabInstance.id] && eventNameQueue.length) {
+    if (routeTabsState.events[tabInstance.tabId] && eventNameQueue.length) {
       for (let i = 0, eventName, params; i < eventNameQueue.length; i += 1) {
         eventName = eventNameQueue[i].eventName;
         params = eventNameQueue[i].params;
-        if (routeTabsState.events[tabInstance.id][eventName]?.length) {
-          for (let m = 0, fn; m < routeTabsState.events[tabInstance.id][eventName].length; m += 1) {
-            fn = routeTabsState.events[tabInstance.id][eventName][m];
+        if (routeTabsState.events[tabInstance.tabId][eventName]?.length) {
+          for (let m = 0, fn; m < routeTabsState.events[tabInstance.tabId][eventName].length; m += 1) {
+            fn = routeTabsState.events[tabInstance.tabId][eventName][m];
             // eslint-disable-next-line no-await-in-loop
             await fn?.apply(tabInstance, params instanceof Array ? params : [params]);
           }
@@ -630,7 +630,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       routeTabsDispatch({
         type: 'EVENT_TRIGGER_LIST_DELETE',
         payload: {
-          id: tabInstance.id,
+          tabId: tabInstance.tabId,
         },
       });
     }
@@ -666,12 +666,12 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       // 如果连路由实例也找不到, 要弹出提示框
       if (!routeConfig) {
         Message.error('没有这个路由!');
-      } else if (routeConfig.component) {
+      } else {
         tabInstance = {
           ...createNewTab(location, routeConfig),
           prevTab: routeTabsState.currentTab,
-          keepaliveId: `${routeTabsState.currentTab.id}-${getTabId()}`,
-          id: routeTabsState.currentTab.id,
+          keepaliveId: `${routeTabsState.currentTab.tabId}-${getTabId()}`,
+          tabId: routeTabsState.currentTab.tabId,
         };
         routeTabsDispatch({
           type: 'TAB_UPDATE',
@@ -708,7 +708,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 有历史记录
         if (historyTabInstance) {
           // 但没有选项卡 (表示这个选项卡被关闭了)
-          const targetTab = routeTabsState.tabs.find((item) => item.id === historyTabInstance.id);
+          const targetTab = routeTabsState.tabs.find((item) => item.tabId === historyTabInstance.tabId);
           if (!targetTab) {
             routeTabsDispatch({
               type: 'TAB_ADD',
@@ -733,7 +733,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 如果连路由实例也找不到, 要弹出提示框
         if (!routeConfig) {
           Message.error('没有这个路由!');
-        } else if (routeConfig.component) {
+        } else {
           // 打开新的选项卡, 并设置高亮
           // 添加新记录
           tabInstance = createNewTab(location, routeConfig);
