@@ -51,7 +51,6 @@ const getMenuData = () => {
 };
 
 const BasicLayout = ({ location, children }) => {
-  const { state } = useRouteTabsContext();
   const { UIStore, userStore, menuStore } = useMobxStore();
   const { loading, toastMsg } = UIStore;
   const { userInfo } = userStore;
@@ -79,27 +78,32 @@ const BasicLayout = ({ location, children }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  useEffect(() => {
+  const handleTabChange = (tab) => {
     // 按当前菜单项反选顶部菜单
     const targetPath = menuStore.menuPaths.filter((item) => {
-      return item.path === state?.currentTab?.path;
+      return item.path === tab?.path;
     });
-    if (targetPath[0] && menuStore.headerMenuCurrent !== targetPath[0].topPath) {
-      menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
-    }
-  }, [state?.currentTab?.path]);
 
+    if (targetPath[0]) {
+      if (menuStore.headerMenuCurrent !== targetPath[0].topPath) {
+        menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
+      }
+      if (menuStore.asideMenuCurrent !== targetPath[0].path) {
+        menuStore.setAsideMenuCurrent(targetPath[0].path);
+      }
+    }
+  };
   // const defaultRouteTab = menuStore.getDefaultMenuItemPath(location);
 
   return (
     <SecurityLayout>
-      <RouteTabsProvider defaultTabs={['/']}>
+      <RouteTabsProvider defaultTabs={[]}>
         <Shell className={`${styles['basic-layout']}`} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
           </Shell.Branding>
           <Shell.Navigation direction="hoz">
-            <TopNav />
+            <TopNav token={UIStore.token} />
           </Shell.Navigation>
           <Shell.Action>
             <Notice />
@@ -107,15 +111,17 @@ const BasicLayout = ({ location, children }) => {
             <HeaderAvatar {...userInfo} />
           </Shell.Action>
 
-          <Shell.Navigation className="navigation scrollbar">
-            <PageNav />
-          </Shell.Navigation>
+          {menuStore.asideMenuConfig.length && (
+            <Shell.Navigation className="navigation scrollbar">
+              <PageNav />
+            </Shell.Navigation>
+          )}
 
           <Shell.Content>
             <Loading visible={!!loading} fullScreen />
             <Message visible={!!toastMsg}>{toastMsg}</Message>
             {/* 多标签路由 */}
-            <RouteTabs>{children}</RouteTabs>
+            <RouteTabs onTabChange={handleTabChange}>{children}</RouteTabs>
             {/* <RouterTabs value={defaultRouteTab} routeType="route">{children}</RouterTabs> */}
           </Shell.Content>
 

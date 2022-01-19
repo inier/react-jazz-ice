@@ -23,7 +23,7 @@ const ReloadOutlined = ({ title = '刷新', ...restProps }) => {
 };
 
 const RouteTabs = (props) => {
-  const { children } = props;
+  const { onTabChange, children } = props;
   const context = useRouteTabsContext();
   const { state, action } = context || {};
 
@@ -64,6 +64,7 @@ const RouteTabs = (props) => {
 
   const handleCurrentTabChange = useCallback(() => {
     if (state.currentTab) {
+      onTabChange && onTabChange(state.currentTab);
       const $nav = document.querySelector('.route-tabs-bar-nav');
       const $activeTabItem = document.querySelector('.route-tabs .tab-item.active');
 
@@ -138,6 +139,10 @@ const RouteTabs = (props) => {
   const handleRefresh = () => {
     action.refreshTab();
   };
+
+  if (!state.tabs.length) {
+    return null;
+  }
 
   return (
     <div className={classnames('route-tabs', props.type === 'classic' && 'classic')}>

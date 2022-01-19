@@ -50,7 +50,7 @@ const getSubNavItem = (item, token) => {
   return navItem;
 };
 
-function getNavMenuItems(menusData: any, auth?: any) {
+function getNavMenuItems(menusData: any, token: any, auth?: any) {
   if (!menusData) {
     return [];
   }
@@ -67,11 +67,11 @@ function getNavMenuItems(menusData: any, auth?: any) {
       return item.name && !item.hideInMenu && roleAuth;
     })
     .map((item) => {
-      return getSubNavItem(item, 123);
+      return getSubNavItem(item, token);
     });
 }
 
-const TopNav = observer(() => {
+const TopNav = observer((props) => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { menuStore } = useMobxStore();
   const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent } = menuStore;
@@ -101,7 +101,7 @@ const TopNav = observer(() => {
         selectedKeys={[headerMenuCurrent]}
         onSelect={handleNavClick}
       >
-        {getNavMenuItems(headerMenuConfig, AUTH_CONFIG)}
+        {getNavMenuItems(headerMenuConfig, props.token, AUTH_CONFIG)}
       </Nav>
     </div>
   );

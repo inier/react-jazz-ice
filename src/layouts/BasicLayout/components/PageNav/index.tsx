@@ -90,6 +90,10 @@ const Navigation = (props, context) => {
 
   const tSelectedKey = asideMenuCurrent || pathname || '';
 
+  if (!asideMenuConfig.length || !tSelectedKey) {
+    return null;
+  }
+
   return (
     <Nav
       className="scrollbar"

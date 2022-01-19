@@ -612,6 +612,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   const execEvent = async (target) => {
     const tabInstance = getTabInstance(target);
     let eventNameQueue = tabInstance ? routeTabsState.eventTriggerList[tabInstance.tabId] || [] : [];
+
     eventNameQueue = Array.from(eventNameQueue);
 
     if (routeTabsState.events[tabInstance.tabId] && eventNameQueue.length) {
@@ -665,7 +666,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
       // 如果连路由实例也找不到, 要弹出提示框
       if (!routeConfig) {
-        Message.error('没有这个路由!');
+        // Message.error('没有这个路由!');
       } else if (routeConfig.component) {
         tabInstance = {
           ...createNewTab(location, routeConfig),
@@ -697,6 +698,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     } else {
       // TODO 跳转新链接的时候, 之前后退导致的缓存内容需要销毁
       const routePath = generateRoutePath(location);
+
       // 拿 location 去已打开的选项卡中查找实例
       if (action !== 'POP') {
         tabInstance = getTabInstance(location);
@@ -709,6 +711,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         if (historyTabInstance) {
           // 但没有选项卡 (表示这个选项卡被关闭了)
           const targetTab = routeTabsState.tabs.find((item) => item.tabId === historyTabInstance.tabId);
+
           if (!targetTab) {
             routeTabsDispatch({
               type: 'TAB_ADD',
@@ -730,9 +733,10 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       if (!tabInstance || (action !== 'POP' && location.state?.force === true)) {
         // 如果没有找到就去获取路由配置
         const routeConfig = getRouteConfig(location);
+
         // 如果连路由实例也找不到, 要弹出提示框
         if (!routeConfig) {
-          Message.error('没有这个路由!');
+          // Message.error('没有这个路由!');
         } else if (routeConfig.component) {
           // 打开新的选项卡, 并设置高亮
           // 添加新记录

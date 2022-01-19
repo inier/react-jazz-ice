@@ -7,7 +7,7 @@ const resList = {
       resourceName: '商品',
       extras: {
         icon: 'cry',
-        routePath: '/demo',
+        routePath: '/goods',
       },
       resourceList: [
         {
@@ -53,7 +53,7 @@ const resList = {
       resourceName: '订单',
       extras: {
         icon: 'cry',
-        routePath: '/demo1',
+        routePath: '/order',
       },
       resourceList: [
         {
@@ -81,7 +81,7 @@ const resList = {
       resourceName: '营销',
       extras: {
         icon: 'cry',
-        routePath: '/demo2',
+        routePath: '/marketing',
       },
       resourceList: [
         {
@@ -135,7 +135,7 @@ const resList = {
       resourceName: '商家',
       extras: {
         icon: 'cry',
-        routePath: '/demo4',
+        routePath: '/merchant',
       },
       resourceList: [
         {
@@ -169,7 +169,7 @@ const resList = {
               resourceName: '门店列表',
               extras: {
                 icon: 'cry',
-                routePath: '/demo/list/table/basic',
+                routePath: '/demo/list/table/filter',
               },
             },
           ],
