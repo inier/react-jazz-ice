@@ -7,9 +7,10 @@ import UserLayout from '@/layouts/UserLayout';
 import demoRoutesConfig from './demo';
 import { ICustomRouterConfig } from './typing';
 import userRoutesConfig from './user';
+import { formatRoutes, deepFlattenRoutes } from './utils/formatRoutes';
 
 // 格式化层级Routes
-export { formatRoutes } from './utils/formatRoutes';
+export { formatRoutes, deepFlattenRoutes };
 
 /**
  * 扩展 pageConfig, 使其兼容 menus 配置(@alifd/next menu组件、antd proLayout等 )和 RouteTabs 组件.
@@ -62,4 +63,9 @@ const routerConfig: ICustomRouterConfig[] = [
   },
 ];
 
+export const flatRoutes: ICustomRouterConfig[] = deepFlattenRoutes(mainRoutesConfig, '/').filter(
+  (route: ICustomRouterConfig) => {
+    return !!route.component;
+  },
+);
 export default routerConfig;

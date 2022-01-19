@@ -71,10 +71,9 @@ function getNavMenuItems(menusData: any, token: any, auth?: any) {
     });
 }
 
-const TopNav = observer((props) => {
+const TopNav = (props) => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
-  const { menuStore } = useMobxStore();
-  const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent } = menuStore;
+  const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent } = useMobxStore('menuStore');
 
   const handleNavClick = useCallback(
     (key = []) => {
@@ -105,6 +104,6 @@ const TopNav = observer((props) => {
       </Nav>
     </div>
   );
-});
+};
 
-export default TopNav;
+export default observer(TopNav);

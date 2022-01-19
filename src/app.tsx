@@ -11,7 +11,7 @@ import JSXRunTime from 'react/jsx-runtime';
 import AppProvider from '@/components/AppProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { KeepAliveWrapper } from '@/components/RouteTabs';
-import { mainRoutesConfig } from '@/routes';
+import { mainRoutesConfig, flatRoutes } from '@/routes';
 import { getLocale, mapTree } from '@/utils';
 
 configure({
@@ -24,7 +24,6 @@ configure({
 });
 
 const locale = getLocale();
-
 const appConfig: IAppConfig = {
   app: {
     rootId: 'root',
@@ -32,6 +31,7 @@ const appConfig: IAppConfig = {
     getInitialData: async () => {
       return {
         routes: mainRoutesConfig,
+        flatRoutes,
       };
     },
     // 是否开启 ErrorBoundary，默认为 false

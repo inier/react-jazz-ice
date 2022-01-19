@@ -17,8 +17,7 @@ const getGreeting = () => {
 };
 
 const HomePage = observer(() => {
-  const { userStore } = useMobxStore();
-  const { userInfo } = userStore;
+  const { userInfo } = useMobxStore('userStore');
   const time = useMemo(getGreeting, [userInfo]);
 
   return (

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useObserver, Observer, useLocalObservable, observer } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
-import { useMobxStore } from '@/hooks';
+import { useMobxStores } from '@/hooks';
 import stores from '@/stores';
 
 function FuncComponent(props) {
-  const { menuStore, demoStore } = useMobxStore();
+  const { menuStore, demoStore } = useMobxStores();
 
   React.useEffect(() => {
     demoStore.getUser();

@@ -1,25 +1,25 @@
 import { useMemo, useEffect } from 'react';
-import { PageContainer, Text } from '@/components';
-import { useMobxStore } from '@/hooks';
 import { Avatar, Form, Tab } from '@alifd/next';
 import { observer } from 'mobx-react';
+
+import { PageContainer, Text } from '@/components';
+import { useMobxStore } from '@/hooks';
 import { getFirstCapitalizedLetter } from '@/utils';
 
 const { Item: TabPane } = Tab;
 
-const UserCenterPage = observer(() => {
-  const { userStore } = useMobxStore();
+const UserCenterPage = () => {
+  const { userInfo, getUser } = useMobxStore('userStore');
   useEffect(() => {
-    userStore.getUser();
+    getUser();
   }, []);
-  const currentUser = userStore.userInfo;
 
   const userNameInitials = useMemo(() => {
-    if (currentUser?.name) {
-      return getFirstCapitalizedLetter(currentUser.name);
+    if (userInfo?.name) {
+      return getFirstCapitalizedLetter(userInfo.name);
     }
     return '';
-  }, [currentUser?.name]);
+  }, [userInfo?.name]);
 
   return (
     <PageContainer>
@@ -32,34 +32,34 @@ const UserCenterPage = observer(() => {
               </Avatar>
             </Form.Item>
             <Form.Item label="姓名">
-              <Text>{currentUser?.name}</Text>
+              <Text>{userInfo?.name}</Text>
             </Form.Item>
             <Form.Item label="邮箱">
-              <Text>{currentUser?.email}</Text>
+              <Text>{userInfo?.email}</Text>
             </Form.Item>
           </Form>
         </TabPane>
         <TabPane title="其他信息" key="2">
           <Form layout="vertical" style={{ margin: '20px 0' }} className="form-vertical--preview">
             <Form.Item label="注册时间">
-              <Text>{currentUser?.createTime}</Text>
+              <Text>{userInfo?.createTime}</Text>
             </Form.Item>
             <Form.Item label="状态">
-              <Text>{['正常', '冻结'][Number(currentUser?.status || -1)]}</Text>
+              <Text>{['正常', '冻结'][Number(userInfo?.status || -1)]}</Text>
             </Form.Item>
             <Form.Item label="绑定手机">
-              <Text>{currentUser?.mobile}</Text>
+              <Text>{userInfo?.mobile}</Text>
             </Form.Item>
             <Form.Item label="绑定邮箱">
-              <Text>{currentUser?.email}</Text>
+              <Text>{userInfo?.email}</Text>
             </Form.Item>
           </Form>
         </TabPane>
       </Tab>
     </PageContainer>
   );
-});
+};
 
 UserCenterPage.displayName = 'UserCenterPage';
 
-export default UserCenterPage;
+export default observer(UserCenterPage);

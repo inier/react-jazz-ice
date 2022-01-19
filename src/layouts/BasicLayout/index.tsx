@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
 
 import { Shell, Loading, Message, Icon } from '@alifd/next';
-import { getInitialData } from 'ice';
 import { observer } from 'mobx-react';
 
 import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
-import { useMobxStore, useRouteTabsContext } from '@/hooks';
+import { useMobxStores } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
-import { formatRoutes } from '@/routes';
-import { mapTree } from '@/utils';
+
 // import RouteTabs from '@/modules/RouterTabs';
 
+import AsideNav from './components/AsideNav';
 import Footer from './components/Footer';
 import HeaderAvatar from './components/HeaderAvatar';
 import Logo from './components/Logo';
 import Notice from './components/Notice';
-import PageNav from './components/PageNav';
 import SolutionLink from './components/SolutionLink';
 import TopNav from './components/TopNav';
 import styles from './index.module.scss';
@@ -23,35 +21,8 @@ import styles from './index.module.scss';
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';
 
-const getMenuData = () => {
-  const { routes } = getInitialData();
-  const tRoutes = formatRoutes(routes);
-
-  if (!tRoutes) {
-    return null;
-  }
-
-  const result = mapTree(tRoutes, ({ path, pageConfig, children }) => {
-    const { title: name, hideInMenu = false, locale, authority, icon, hideChildrenInMenu } = pageConfig || {};
-
-    return {
-      path,
-      icon: <Icon type={icon || 'icon-tag'} className={styles.sideMenuIcon} />,
-      name,
-      hideInMenu,
-      hideChildrenInMenu,
-      locale,
-      authority,
-      children,
-    };
-  });
-
-  console.log('formatRoutes: ', result);
-  return result;
-};
-
 const BasicLayout = ({ location, children }) => {
-  const { UIStore, userStore, menuStore } = useMobxStore();
+  const { UIStore, userStore, menuStore } = useMobxStores();
   const { loading, toastMsg } = UIStore;
   const { userInfo } = userStore;
 
@@ -97,7 +68,7 @@ const BasicLayout = ({ location, children }) => {
 
   return (
     <SecurityLayout>
-      <RouteTabsProvider defaultTabs={[]}>
+      <RouteTabsProvider>
         <Shell className={`${styles['basic-layout']}`} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
@@ -113,7 +84,7 @@ const BasicLayout = ({ location, children }) => {
 
           {menuStore.asideMenuConfig.length && (
             <Shell.Navigation className="navigation scrollbar">
-              <PageNav />
+              <AsideNav />
             </Shell.Navigation>
           )}
 
@@ -133,7 +104,5 @@ const BasicLayout = ({ location, children }) => {
     </SecurityLayout>
   );
 };
-
-BasicLayout.displayName = 'BasicLayout';
 
 export default observer(BasicLayout);

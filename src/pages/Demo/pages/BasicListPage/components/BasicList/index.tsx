@@ -40,9 +40,13 @@ const BasicList: React.FunctionComponent<BasicListProps> = (props: BasicListProp
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
+
+    return () => {
+      clearTimeout(timer);
+    };
   });
 
   const onTagAValueChange = (v: string) => {

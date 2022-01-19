@@ -7,9 +7,8 @@ import { Redirect } from 'react-router-dom';
 import PageLoading from '@/components/PageLoading';
 import { useMount, useMobxStore } from '@/hooks';
 
-const SecurityLayout = observer((props) => {
-  const { userStore } = useMobxStore();
-  const { getUser, userInfo } = userStore;
+const SecurityLayout = (props) => {
+  const { getUser, userInfo } = useMobxStore('userStore');
   const { children } = props;
   const [isReady, setIsReady] = useState(false);
 
@@ -40,6 +39,6 @@ const SecurityLayout = observer((props) => {
   }
 
   return children;
-});
+};
 
-export default SecurityLayout;
+export default observer(SecurityLayout);

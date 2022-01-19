@@ -63,8 +63,8 @@ const RouteTabs = (props) => {
   };
 
   const handleCurrentTabChange = useCallback(() => {
+    onTabChange && onTabChange(state.currentTab);
     if (state.currentTab) {
-      onTabChange && onTabChange(state.currentTab);
       const $nav = document.querySelector('.route-tabs-bar-nav');
       const $activeTabItem = document.querySelector('.route-tabs .tab-item.active');
 
@@ -185,11 +185,14 @@ const RouteTabs = (props) => {
 RouteTabs.propTypes = {
   type: PropTypes.oneOf(['classic', 'fusion']),
   controls: PropTypes.bool,
+  onTabChange: PropTypes.func,
+  children: PropTypes.node,
 };
 
 RouteTabs.defaultProps = {
   type: 'fusion',
   controls: false,
+  onTabChange: null,
 };
 
 RouteTabs.displayName = 'RouteTabs';

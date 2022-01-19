@@ -13,7 +13,7 @@ export interface IMenuItem {
   path?: string;
   external?: boolean;
   url?: string;
-  auth?: string;
+  auth?: string[];
   loadUrl?: string[];
   loadResUrl?: string[];
   topKey?: string;
@@ -22,6 +22,7 @@ export interface IMenuItem {
   parentKey?: string;
   parentPath?: string;
   hideInMenu?: boolean;
+  newWindow?: boolean;
   children?: object[] | undefined;
 }
 
@@ -254,12 +255,12 @@ class MenuStore {
   }
 
   @action
-  setResList(value: any = []) {
+  setResList = (value: any = []) => {
     if (value && value.length) {
       this.resList = [].concat(value.slice());
     }
     console.log('resList:', toJS(this.resList));
-  }
+  };
 
   @action
   setHeaderMenuCurrent = (value = '') => {

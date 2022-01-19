@@ -123,9 +123,11 @@ const Tab = (props) => {
         {children || (
           <>
             {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
-            <span className="tab-item-name" title={tab.name}>
-              {tab.name}
-            </span>
+            {tab.name && (
+              <span className="tab-item-name" title={tab.name}>
+                {tab.name}
+              </span>
+            )}
             {!tab.fixed && (
               <span className="tab-item-close" onClick={(e) => handleClose(e, tab)}>
                 <CloseOutlined />

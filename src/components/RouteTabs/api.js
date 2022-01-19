@@ -5,7 +5,6 @@ import { useAliveController } from 'react-activation';
 
 import {
   createNewTab,
-  deepFlattenRoutes,
   generateRoutePath,
   getTabId,
   isEqualLocation,
@@ -14,25 +13,20 @@ import {
   parsePath,
 } from './utils';
 
-let flattenedRoutes = [];
-
 /** 获取路由配置 */
 const getRouteConfig = (location) => {
-  const { routes = [] } = getInitialData();
-  if (!flattenedRoutes.length) {
-    flattenedRoutes = deepFlattenRoutes(routes, '/');
-  }
+  const { flatRoutes = [] } = getInitialData();
   const matchList = [];
 
-  for (let i = 0; i < flattenedRoutes.length; i += 1) {
-    const routeConfig = flattenedRoutes[i];
+  for (let i = 0; i < flatRoutes.length; i += 1) {
+    const routeConfig = flatRoutes[i];
     const match = matchPath(location.pathname, {
       path: routeConfig.path,
       exact: routeConfig.exact,
       strict: routeConfig.strict,
     });
     if (match) {
-      matchList.push(flattenedRoutes[i]);
+      matchList.push(flatRoutes[i]);
     }
   }
 
@@ -113,6 +107,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         },
       });
     });
+
     // 删除实例
     dropScope(new RegExp(target.join('|')));
   };
@@ -147,11 +142,12 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
       let i;
       let tab;
+      const { tabs } = routeTabsState;
 
       // 先 全匹配 的查找
-      // 倒叙遍历
-      for (i = routeTabsState.tabs.length - 1; i >= 0; i -= 1) {
-        tab = routeTabsState.tabs[i];
+      // 倒序遍历
+      for (i = tabs.length - 1; i >= 0; i -= 1) {
+        tab = tabs[i];
         // 先判断 location.pathname 部分
         if (isEqualLocation(tab.location, targetObj)) {
           break;
@@ -159,20 +155,26 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       }
       // 再按规则模糊匹配查找
       if (i === -1) {
-        // 倒叙遍历
-        for (i = routeTabsState.tabs.length - 1; i >= 0; i -= 1) {
-          tab = routeTabsState.tabs[i];
+        // 倒序遍历
+        for (i = tabs.length - 1; i >= 0; i -= 1) {
+          tab = tabs[i];
+
           // 先判断 location.pathname 部分
           if (tab.location.pathname === targetObj.pathname) {
+            const tabQueryLen = Object.keys(tab?.location.query || {}).length;
+
             // 相同再比对 query 参数
             // 如果 tab 没有 query 参数, 直接匹配
-            if (Object.keys(tab?.location.query || {}).length === 0) {
+            if (tabQueryLen === 0) {
               break;
             }
-            // 如果 targetObj 参数更多, 那就是新页面
-            if (Object.keys(targetObj?.query || {}).length !== 0) {
-              // 否则判断 targetObj 的参数是否再 tab 里面都存在
-              if (Object.keys(tab?.location.query).length >= Object.keys(targetObj?.query || {}).length) {
+
+            const targetQueryLen = Object.keys(targetObj?.query || {});
+
+            if (targetQueryLen !== 0) {
+              // 如果 targetObj 参数更多, 那就是新页面
+              if (tabQueryLen >= targetQueryLen) {
+                // 否则判断 targetObj 的参数是否再 tab 里面都存在
                 if (
                   Object.keys(targetObj.query).every(
                     // eslint-disable-next-line
@@ -187,9 +189,10 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         }
       }
       if (i > -1) {
-        return routeTabsState.tabs[i];
+        return tabs[i];
       }
     }
+
     return null;
   };
 
@@ -504,7 +507,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       if (nextTabInstance) {
         openTab(nextTabInstance);
       } else {
-        openTab('/');
+        // openTab('/');
       }
     }
   };
@@ -667,7 +670,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       // 如果连路由实例也找不到, 要弹出提示框
       if (!routeConfig) {
         // Message.error('没有这个路由!');
-      } else if (routeConfig.component) {
+      } else {
         tabInstance = {
           ...createNewTab(location, routeConfig),
           prevTab: routeTabsState.currentTab,
@@ -737,7 +740,10 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         // 如果连路由实例也找不到, 要弹出提示框
         if (!routeConfig) {
           // Message.error('没有这个路由!');
-        } else if (routeConfig.component) {
+        } else {
+          if (!routeTabsState.currentTab) {
+            routeConfig.pageConfig.fixed = true;
+          }
           // 打开新的选项卡, 并设置高亮
           // 添加新记录
           tabInstance = createNewTab(location, routeConfig);

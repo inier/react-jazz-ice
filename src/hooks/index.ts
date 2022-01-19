@@ -18,4 +18,4 @@ export { useActivate } from 'react-activation';
 // RouteTabs
 export { useRouteTabsContext, useRouteEventListen } from '@/components/RouteTabs';
 // mobx store hook
-export { default as useMobxStore, inject } from './useMobxStore';
+export { useMobxStore, useMobxStores, inject } from './useMobxStore';

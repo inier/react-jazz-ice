@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import { Nav, Icon } from '@alifd/next';
+import { Nav } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
 import { observer } from 'mobx-react';
 import PropTypes from 'prop-types';
@@ -8,17 +8,17 @@ import PropTypes from 'prop-types';
 import { useMobxStore } from '@/hooks';
 import { IMenuItem } from '@/stores/MenuStore';
 
-import styles from './index.module.scss';
+// import styles from './index.module.scss';
 
 const { SubNav, Item: NavItem } = Nav;
 
-function getNavMenuItems(menusData = [], initIndex?: number | string, auth?: any) {
+function getNavMenuItems(menusData: IMenuItem[] = [], initIndex?: number | string, auth?: any) {
   if (!menusData) {
     return [];
   }
 
   return menusData
-    .filter((item) => {
+    .filter((item: IMenuItem) => {
       let roleAuth = true;
       // if item.roles is [] or undefined, roleAuth is true
       if (auth && item?.auth && item?.auth instanceof Array) {
@@ -36,7 +36,7 @@ function getNavMenuItems(menusData = [], initIndex?: number | string, auth?: any
 function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) {
   const { key, name, path, icon, newWindow, external, children } = item;
 
-  if (children && children.some((child) => child.key)) {
+  if (children && children.some((child: IMenuItem) => child?.key)) {
     const childrenItems = getNavMenuItems(children, index, auth);
     if (childrenItems && childrenItems.length > 0) {
       const subNav = (
@@ -56,12 +56,12 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
     href: '',
   };
   if (newWindow) {
-    linkProps.href = path;
+    linkProps.href = path || '';
     linkProps.target = '_blank';
   } else if (external) {
-    linkProps.href = path;
+    linkProps.href = path || '';
   } else {
-    linkProps.to = path;
+    linkProps.to = path || '';
   }
 
   const navItem = (
@@ -78,8 +78,7 @@ const Navigation = (props, context) => {
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
-  const { menuStore } = useMobxStore();
-  const { asideMenuConfig, asideMenuCurrent, setAsideMenuCurrent } = menuStore;
+  const { asideMenuConfig, asideMenuCurrent, setAsideMenuCurrent } = useMobxStore('menuStore');
 
   const onSelectMemo = useCallback(
     (selectedKeys) => {
@@ -117,8 +116,8 @@ Navigation.contextTypes = {
   isCollapse: PropTypes.bool,
 };
 
-const PageNav = withRouter(observer(Navigation));
+const AsideNav = withRouter(observer(Navigation));
 
-PageNav.displayName = 'SideNav';
+AsideNav.displayName = 'AsideNav';
 
-export default PageNav;
+export default AsideNav;
