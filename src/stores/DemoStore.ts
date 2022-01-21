@@ -4,7 +4,7 @@ import userService from '@/pages/Demo/services/demo';
 
 class DemoStore {
   rootStore: any;
-  @observable userInfo = {
+  userInfo = {
     avatar: '',
     name: '',
   };
@@ -18,7 +18,6 @@ class DemoStore {
     // rootStore.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
   }
 
-  @action
   getUser = async () => {
     const res = await userService.getUser();
 

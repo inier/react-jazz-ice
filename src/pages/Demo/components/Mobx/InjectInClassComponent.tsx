@@ -22,42 +22,28 @@ interface IUserInfo {
 @withRouter
 @observer
 class ClassComponent extends Component<IProps, IStates> {
-  state = {
-    userInfo: { avatar: '', name: '' },
-  };
-  componentDidMount() {
+  handleClick = () => {
     const { demoStore } = this.props;
-
     demoStore.getUser().then((res: IUserInfo) => {
       this.setState({
         userInfo: res,
       });
     });
-  }
-  handleClick = () => {
-    const { menuStore } = this.props;
-    const data = { x: 101 };
-
-    // 正常请求
-    menuStore.getAdminResList(data);
   };
 
   render() {
-    const { userInfo } = this.state;
-    const { menuStore } = this.props;
-    const { avatar, name } = userInfo;
-    const { resList = [] } = menuStore;
+    const { demoStore } = this.props;
+    const { avatar, name } = demoStore.userInfo;
 
     return (
       <>
         <p>class component + mobx inject</p>
+        <br />
+        <Button onClick={this.handleClick}>点击获取信息</Button>
         <div>
           <Avatar size="small" src={avatar} />
           <span style={{ marginLeft: 10 }}>{name}</span>
         </div>
-        <br />
-        <Button onClick={this.handleClick}>点击获取信息</Button>
-        <span>{resList[0]?.resourceName}</span>
       </>
     );
   }
