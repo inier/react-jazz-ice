@@ -1,4 +1,4 @@
-@import '~@alifd/next/variables.scss';
+@import '@settings';
 
 //== RouterTabs
 $routerTabs-height: 40px;
@@ -21,44 +21,45 @@ $routerTabs-item-box-shadow-2: rgba(0, 0, 0, 0.12) 4px -4px 10px 0;
   // box-shadow: $routerTabs-box-shadow;
   transition: all 0.3s;
   user-select: none;
+}
 
-  .tag {
-    height: $routerTabs-height - 4px;
-    margin-top: 4px;
-    padding: 0 3px;
-    color: #666 !important;
-    font-size: $routerTabs-text-size;
-    line-height: $routerTabs-height - 4px;
-    border: 0 none !important;
-    border-radius: $routerTabs-border-radius;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
-    box-shadow: $routerTabs-item-box-shadow-2;
+.tag {
+  height: $routerTabs-height - 4px;
+  margin-top: 4px;
+  padding: 0 3px;
+  color: #666 !important;
+  font-size: $routerTabs-text-size;
+  line-height: $routerTabs-height - 4px;
+  border: 0 none !important;
+  border-radius: $routerTabs-border-radius;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  box-shadow: $routerTabs-item-box-shadow-2;
+  .icon {
+    position: relative;
+    top: -1px;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    margin-right: 8px;
+    background: #e9eaec;
+    border-radius: 50%;
+  }
+  &.active {
+    color: inherit !important;
+    background: #fff !important;
+    box-shadow: $routerTabs-item-box-shadow;
     .icon {
-      position: relative;
-      top: -1px;
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      margin-right: 8px;
-      background: #e9eaec;
-      border-radius: 50%;
+      background: #2d8cf0;
     }
-    &.active {
-      color: inherit !important;
-      background: #fff !important;
-      box-shadow: $routerTabs-item-box-shadow;
-      .icon {
-        background: #2d8cf0;
-      }
-    }
-    :global {
-      .next-tag-close-btn {
-        margin-top: -4px;
-      }
+  }
+  :global {
+    .next-tag-close-btn {
+      margin-top: -4px;
     }
   }
 }
+
 .router-tabs-tags-box {
   position: relative;
   flex: 1;

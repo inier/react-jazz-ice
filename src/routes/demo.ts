@@ -80,6 +80,7 @@ const routesConfig: ICustomRouterConfig[] = [
         exact: true,
         pageConfig: {
           title: '工作台',
+          keepAlive: true,
         },
       },
     ],

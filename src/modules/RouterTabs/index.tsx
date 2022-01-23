@@ -11,18 +11,19 @@ import { obj2search } from '@/utils';
 
 import Iframe from './components/Iframe';
 import Main from './components/Main';
-import TabTagArea from './components/TabTagArea';
+import { TabTagArea, Tag } from './components/TabTagArea';
 import styles from './index.module.scss';
 
-interface IRouterTabsProps extends RouteComponentProps {
-  value: string;
-  routeType: string;
-  initTitle: string;
-  handleChange: (params?) => void;
+interface IProps extends RouteComponentProps {
   menuStore: MenuStore;
   UIStore: UIStore;
+  value?: string;
+  routeType?: string;
+  initTitle?: string;
+  handleChange?: (params?) => void;
+  // [propName: string]: any;
 }
-interface IRouterTabsStates {
+interface IStates {
   currentPageName: string; // 当前路由对应的pathname
   refsTag: string[]; // 所有tab标签列表
   searchMap: object; // 每个tab标签对应的search参数
@@ -32,7 +33,7 @@ interface IRouterTabsStates {
 @inject('UIStore', 'menuStore')
 @withRouter
 @observer
-class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
+class RouterTabs extends Component<IProps, IStates> {
   static defaultProps = {
     value: '',
     routeType: 'iframe',
@@ -63,10 +64,10 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
     const { value } = props;
 
     this.state = {
-      currentPageName: value, // 当前路由对应的pathname
-      refsTag: value ? [value] : [], // 所有tab标签列表
-      searchMap: {}, // 每个tab标签对应的search参数
-      isRefreshCurrentPage: false, // 当前iframe是否刷新
+      currentPageName: value,
+      refsTag: value ? [value] : [],
+      searchMap: {},
+      isRefreshCurrentPage: false,
     };
     this.unListen = null;
 
@@ -250,7 +251,7 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
     switch (eKey) {
       case '1': {
         // 功能：关闭所有标签
-        newRefsTag = ['/'];
+        newRefsTag = [];
         currentPathname = '/'; // 首页
         break;
       }
@@ -316,7 +317,7 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
     if (!refsTag.length) {
       return null;
     }
-
+    console.log('refsTag:', refsTag);
     const { currentPageName, searchMap, isRefreshCurrentPage } = this.state;
     const { routeType, menuStore, children } = this.props;
 
@@ -325,19 +326,33 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
       <div className={styles['router-tabs']} ref={this.ref}>
         <TabTagArea
           panes={refsTag}
-          activeKey={currentPageName}
-          handleClick={this.handleClickTag}
-          handleClose={this.handleClose}
           handleMenuClick={this.handleMenuClick}
-          getTitleByPathname={menuStore.getTitleByPathname}
+          itemRender={({ value, index, isEllipsis }) => {
+            // 通过pathname获取到指定的页面名称
+            const routeInfo: any = menuStore.getTitleByPathname(value);
+            const title = routeInfo?.name;
+
+            return (
+              <Tag
+                key={value}
+                title={title}
+                value={value}
+                isEllipsis={isEllipsis}
+                isClose={index !== 0}
+                isActive={value === currentPageName}
+                onClick={this.handleClickTag}
+                onClose={this.handleClose}
+              />
+            );
+          }}
         />
-        <div className={styles['router-tabs-content']}>
-          {/* 方式：多页tab */}
-          {routeType === 'route' ? (
+        <div className={`${styles['router-tabs-content']} scrollbar`}>
+          {/* 路由方式：多页tab */}
+          {routeType === 'route' ? ( // 本地路由方式
             children
-          ) : routeType === 'iframe' ? (
+          ) : routeType === 'iframe' ? ( // iframe方式
             <>
-              <TabContent
+              <TabContentIframe
                 panes={refsTag}
                 activeKey={currentPageName}
                 isRefreshCurrentPage={isRefreshCurrentPage}
@@ -347,7 +362,7 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
               />
             </>
           ) : (
-            <Main /> // 方式：路由驱动
+            <Main appRoutes={menuStore.appRoutes} /> // 微前端方式
           )}
         </div>
       </div>
@@ -355,21 +370,25 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
   }
 }
 
-function getSearchByResCode(url, token, resCode) {
-  let prefix = '';
-
-  if (url.indexOf('?') > -1) {
-    prefix = '&';
-  } else if (url.indexOf('?') == -1) {
-    prefix = '?';
-  }
-
-  return `${prefix}token=${token}&resCode=${resCode}&ver=${+new Date()}`;
+interface ITabContentIframeProps {
+  panes: string[];
+  activeKey: string;
+  isRefreshCurrentPage?: boolean;
+  handleRefreshChange?: (boolean) => void;
+  searchMap: object;
+  restProps: any;
 }
 
 // Tab内容区
-const TabContent = ({ panes = [], activeKey, isRefreshCurrentPage, handleRefreshChange, searchMap, restProps }) => {
-  const { menuStore } = restProps;
+const TabContentIframe = ({
+  panes = [],
+  activeKey,
+  isRefreshCurrentPage,
+  handleRefreshChange,
+  searchMap,
+  restProps,
+}: ITabContentIframeProps) => {
+  const { menuStore, UIStore } = restProps;
   const tContent = panes.map((pathname) => {
     let { url: tUrl, key: resCode } = menuStore.pathValidate(pathname);
 
@@ -389,23 +408,21 @@ const TabContent = ({ panes = [], activeKey, isRefreshCurrentPage, handleRefresh
     let tToken = '';
 
     try {
-      tToken = obj2search({ token: UIStore.token, resCode, ver: +new Date() }, url);
+      tToken = obj2search({ token: UIStore.token, resCode, ver: +new Date() });
     } catch (err) {
-      console.log('iframe打开的url错误：', err);
+      console.log('iframe打开的url错误: ', err);
     }
 
     url = `${url}${tToken}`;
+    const isActive = pathname === activeKey;
 
     return (
-      <div
-        key={pathname}
-        className={classNames(styles['router-tabs-item'], { [styles.active]: pathname === activeKey })}
-      >
+      <div key={pathname} className={classNames(styles['router-tabs-item'], { [styles.active]: isActive })}>
         <Iframe
           id={resCode}
           url={url}
-          isRefresh={isRefreshCurrentPage && pathname === activeKey ? true : false}
-          handleRefreshChange={handleRefreshChange}
+          // isRefresh={isRefreshCurrentPage && isActive ? true : false}
+          // handleRefreshChange={handleRefreshChange}
         />
       </div>
     );
