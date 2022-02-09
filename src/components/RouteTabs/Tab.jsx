@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 import { useRouteTabsContext } from '@/hooks';
 
-import Tag from '@/modules/RouterTabs/components/TabTagArea/Tag';
+import Tag from './Tag';
 
 import './index.scss';
 
@@ -30,8 +30,8 @@ const Tab = (props) => {
 
   const handleClose = useCallback(
     (cTab, e) => {
-      e.stopPropagation();
-      e.preventDefault();
+      e?.stopPropagation();
+      e?.preventDefault();
       action.closeTab(cTab);
     },
     [action],
@@ -103,32 +103,9 @@ const Tab = (props) => {
     });
   };
 
-  const TabTag = (
-    <>
-      {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
-      {tab.name && (
-        <span className="tab-item-name" title={tab.name}>
-          {tab.name}
-        </span>
-      )}
-      {!tab.fixed && (
-        <span className="tab-item-close" onClick={(e) => handleClose(tab, e)}>
-          <CloseOutlined />
-        </span>
-      )}
-    </>
-  );
-
   return (
-    <div
-      onClick={() => handleClick(tab)}
-      onContextMenu={(e) => e.preventDefault()}
-      // className={classnames('tab-item', {
-      //   active: tab.tabId === currentTab?.tabId,
-      // })}
-    >
+    <div onClick={() => handleClick(tab)} onContextMenu={(e) => e.preventDefault()}>
       <div
-        // className="tab-item-inner"
         onContextMenu={(e) => {
           // 禁用右键菜单时
           if (!contextMenu) {
@@ -144,9 +121,8 @@ const Tab = (props) => {
             title={tab.name}
             value={tab}
             isEllipsis={isShowNavControls}
-            isClose={index !== 0}
+            isClose={index !== 0 && tab.path === currentTab.path}
             isActive={tab.path === currentTab.path}
-            // onClick={this.handleClickTag}
             onClose={handleClose}
           />
         )}

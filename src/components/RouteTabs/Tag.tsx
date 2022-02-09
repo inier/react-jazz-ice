@@ -3,7 +3,7 @@ import React from 'react';
 import { Tag, Balloon } from '@alifd/next';
 import classNames from 'classnames';
 
-import styles from './index.module.scss';
+import styles from './Tag.module.scss';
 
 const { Tooltip } = Balloon;
 const { Closeable: CloseableTag } = Tag;

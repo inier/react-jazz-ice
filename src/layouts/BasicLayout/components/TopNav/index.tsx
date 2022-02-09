@@ -78,20 +78,16 @@ const TopNav = (props) => {
   const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent, setAsideMenuCurrent, getDefaultMenuItemPath } =
     useMobxStore('menuStore');
 
-  const handleNavClick = useCallback(
-    (key = []) => {
-      // 非外部链接可更改当前顶部菜单选项
-      if (key.length && key[0].indexOf('external=true') === -1) {
-        const defaultTab = getDefaultMenuItemPath({ pathname: key[0].split('?')[0], search: key[0].split('?')[1] });
+  const handleNavClick = (key = []) => {
+    // 非外部链接可更改当前顶部菜单选项
+    if (key.length && key[0]?.indexOf('external=true') === -1) {
+      const defaultTab = getDefaultMenuItemPath({ pathname: key[0].split('?')[0], search: key[0].split('?')[1] });
 
-        setHeaderMenuCurrent(key[0]);
-        setAsideMenuCurrent(defaultTab);
-        props.history.push(defaultTab);
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [setHeaderMenuCurrent, setAsideMenuCurrent],
-  );
+      setHeaderMenuCurrent(key[0]);
+      setAsideMenuCurrent(defaultTab);
+      props.history.push(defaultTab);
+    }
+  };
 
   if (!headerMenuConfig.length) {
     return null;

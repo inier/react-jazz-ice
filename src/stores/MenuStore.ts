@@ -52,7 +52,7 @@ class MenuStore {
   recentActiveMenuMap = new Map();
 
   constructor(rootStore) {
-    makeAutoObservable(this, { rootStore: false }, { autoBind: true });
+    makeAutoObservable(this, { rootStore: false, setResList: action }, { autoBind: true });
     this.rootStore = rootStore;
   }
 

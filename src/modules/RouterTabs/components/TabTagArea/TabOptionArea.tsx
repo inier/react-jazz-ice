@@ -12,8 +12,8 @@ const TabOptionArea = ({ tags, onClick }) => {
     <div className={`${styles['router-tabs-options']}`}>
       <Dropdown
         trigger={
-          <Tag size={'small'} color="#2d8cf0" style={{ margin: '0 12px' }}>
-            标签选项 <Icon size="xxs" type="arrow-down" />
+          <Tag size="large">
+            <Icon type="arrow-down" />
           </Tag>
         }
         triggerType="click"
@@ -21,7 +21,7 @@ const TabOptionArea = ({ tags, onClick }) => {
         <Menu onItemClick={onClick}>
           <Menu.Item key="1">关闭所有标签</Menu.Item>
           <Menu.Item key="2">关闭其他标签</Menu.Item>
-          <Menu.Item key="3">刷新当前标签</Menu.Item>
+          {/* <Menu.Item key="3">刷新当前标签</Menu.Item> */}
           <SubMenu key="tag-sub-menu" label="切换到标签" mode="popup">
             {tags.map((item) => (
               <Menu.Item key={item.key}>{item.props.title}</Menu.Item>

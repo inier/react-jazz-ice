@@ -11,7 +11,7 @@ import { obj2search } from '@/utils';
 
 import Iframe from './components/Iframe';
 import Main from './components/Main';
-import { TabTagArea, Tag } from './components/TabTagArea';
+import { TabTagArea, ContextMenu, Tag } from './components/TabTagArea';
 import styles from './index.module.scss';
 
 interface IProps extends RouteComponentProps {
@@ -244,7 +244,7 @@ class RouterTabs extends Component<IProps, IStates> {
   handleMenuClick = (e) => {
     const eKey = e;
     const { menuStore, location } = this.props;
-    const { currentPageName, searchMap } = this.state;
+    const { currentPageName, searchMap, refsTag } = this.state;
     let currentPathname = location.pathname;
     let newRefsTag;
 
@@ -268,6 +268,24 @@ class RouterTabs extends Component<IProps, IStates> {
         this.setState({ isRefreshCurrentPage: true });
         return;
       }
+      case '4': {
+        // 功能：关闭左侧标签
+        const index = refsTag.findIndex((tag) => {
+          return tag === currentPageName;
+        });
+        newRefsTag = refsTag.slice(index);
+
+        break;
+      }
+      case '5': {
+        // 功能：关闭右侧标签
+        const index = refsTag.findIndex((tag) => {
+          return tag === currentPageName;
+        });
+        newRefsTag = refsTag.slice(0, index + 1);
+
+        break;
+      }
       default: {
         // 功能：切换标签
         this.handleClickTag(eKey);
@@ -286,10 +304,12 @@ class RouterTabs extends Component<IProps, IStates> {
       refsTag: newRefsTag,
     });
 
-    // 取消顶部菜单选中
-    menuStore.setHeaderMenuCurrent();
-    // 取消侧边菜单选中
-    menuStore.setAsideMenuCurrent();
+    if (!newRefsTag.length) {
+      // 取消顶部菜单选中
+      menuStore.setHeaderMenuCurrent();
+      // 取消侧边菜单选中
+      menuStore.setAsideMenuCurrent();
+    }
   };
 
   handleRefreshChange = (value = false) => {
@@ -320,6 +340,7 @@ class RouterTabs extends Component<IProps, IStates> {
     console.log('refsTag:', refsTag);
     const { currentPageName, searchMap, isRefreshCurrentPage } = this.state;
     const { routeType, menuStore, children } = this.props;
+    const tagTextMinLen = document.documentElement.clientWidth / refsTag.length / 14;
 
     /* eslint-disable */
     return (
@@ -333,16 +354,24 @@ class RouterTabs extends Component<IProps, IStates> {
             const title = routeInfo?.name;
 
             return (
-              <Tag
-                key={value}
-                title={title}
-                value={value}
-                isEllipsis={isEllipsis}
-                isClose={index !== 0}
+              <ContextMenu
+                index={index}
+                length={refsTag.length}
                 isActive={value === currentPageName}
-                onClick={this.handleClickTag}
-                onClose={this.handleClose}
-              />
+                handleTabItemMenuClick={this.handleMenuClick}
+              >
+                <Tag
+                  key={value}
+                  title={title}
+                  value={value}
+                  isEllipsis={isEllipsis}
+                  isClose={index !== 0 && value === currentPageName}
+                  isActive={value === currentPageName}
+                  tagTextMinLen={tagTextMinLen}
+                  onClick={this.handleClickTag}
+                  onClose={this.handleClose}
+                />
+              </ContextMenu>
             );
           }}
         />

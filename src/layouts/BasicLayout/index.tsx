@@ -7,7 +7,7 @@ import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
 import { useMobxStores } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
 import { getPageTitle } from '@/utils';
-import RouterTabs from '@/modules/RouterTabs';
+// import RouterTabs from '@/modules/RouterTabs';
 
 import AsideNav from './components/AsideNav';
 import Footer from './components/Footer';
@@ -64,7 +64,7 @@ const BasicLayout = ({ location, children }) => {
       }
     }
   };
-  const defaultRouteTab = menuStore.getDefaultMenuItemPath(location);
+  // const defaultRouteTab = menuStore.getDefaultMenuItemPath(location);
 
   // 所有路由页面的路径信息，包括来自routerConfig、menuPaths、asideMenuConfig等；
   const tAllMenuPathData: any = [...menuStore.menuPaths, ...menuStore.headerMenuConfig];
@@ -75,7 +75,7 @@ const BasicLayout = ({ location, children }) => {
 
   return (
     <SecurityLayout>
-      <RouteTabsProvider defaultTabs={defaultRouteTab ? [defaultRouteTab] : []}>
+      <RouteTabsProvider>
         <Shell className={`${styles['basic-layout']}`} type="brand">
           <Shell.Branding>
             <Logo image={siteLogo} text={siteName} />
@@ -99,11 +99,13 @@ const BasicLayout = ({ location, children }) => {
             <Loading visible={!!loading} fullScreen />
             <Message visible={!!toastMsg}>{toastMsg}</Message>
             {/* 多标签路由 */}
-            {menuStore.asideMenuConfig.length && menuStore.menuPaths.length && (
-              /* <RouteTabs onTabChange={handleTabChange}>{children}</RouteTabs> */
-              <RouterTabs value={defaultRouteTab} routeType="route">
-                {children}
-              </RouterTabs>
+            {!!(menuStore.asideMenuConfig.length && menuStore.menuPaths.length) && (
+              <>
+                <RouteTabs onTabChange={handleTabChange}>{children}</RouteTabs>
+                {/* <RouterTabs value={defaultRouteTab} routeType="route">
+                  {children}
+                </RouterTabs> */}
+              </>
             )}
           </Shell.Content>
 
