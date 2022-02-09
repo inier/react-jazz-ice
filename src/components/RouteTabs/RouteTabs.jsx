@@ -168,13 +168,20 @@ const RouteTabs = (props) => {
               <RightOutlined />
             </a>
           )}
-          <ul className="route-tabs-bar-nav-inner" style={{ transform: `translateX(${scrollX}px)` }}>
+          <div className="route-tabs-bar-nav-inner" style={{ transform: `translateX(${scrollX}px)` }}>
             {state.tabs.map((tab, index) => {
               return (
-                <Tab key={tab.tabId} tab={tab} currentTab={state.currentTab} index={index} length={state.tabs.length} />
+                <Tab
+                  key={tab.tabId}
+                  tab={tab}
+                  isShowNavControls={isShowNavControls}
+                  currentTab={state.currentTab}
+                  index={index}
+                  length={state.tabs.length}
+                />
               );
             })}
-          </ul>
+          </div>
         </div>
       </div>
       <div className="route-tabs-content scrollbar">{children}</div>

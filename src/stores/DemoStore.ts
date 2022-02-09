@@ -10,7 +10,7 @@ class DemoStore {
   };
 
   constructor(rootStore) {
-    makeAutoObservable(this, { rootStore: false });
+    makeAutoObservable(this, { rootStore: false }, { autoBind: true });
     this.rootStore = rootStore;
 
     // 数据持久化
@@ -18,14 +18,14 @@ class DemoStore {
     // rootStore.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
   }
 
-  getUser = async () => {
+  async getUser() {
     const res = await userService.getUser();
 
     console.log('getUser:', res);
     this.userInfo = res;
 
     return res;
-  };
+  }
 }
 
 export default DemoStore;

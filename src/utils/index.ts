@@ -43,3 +43,24 @@ export * from './form';
 export * from './authority';
 // 本地存储
 export { default as storage } from './storage';
+
+/**
+ * 获取页面title
+ * @param {string} pathname {pathname} 从路由获取的location对象中提取pathname
+ * @param {array} routerData routerConfig集合
+ * @returns {string} 页面title
+ */
+export function getPageTitle({ pathname }, routerData = []) {
+  const tItem: any = routerData.find((item: any) => {
+    if (item.path.indexOf('?') > -1) {
+      return item.path.split('?')[0] === pathname;
+    }
+    return item.path === pathname;
+  });
+
+  if (tItem) {
+    return tItem.title || tItem.name;
+  }
+
+  return '';
+}

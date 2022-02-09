@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { makeAutoObservable, observable, action, computed, toJS } from 'mobx';
+import { makeAutoObservable, toJS, runInAction, action } from 'mobx';
 
 import { responseCode } from '@/api';
 import { getResList } from '@/services/user';
@@ -43,19 +43,21 @@ class MenuStore {
   // 用于从resList中筛选指定的资源列表
   filterKey = 'isTopMenu';
   // 资源列表
-  @observable resList: IResItem[] = [];
+  resList: IResItem[] = [];
   // 顶部菜单当前选择项
-  @observable headerMenuCurrent = '';
+  headerMenuCurrent = '';
   // 侧边菜单当前选择项
-  @observable asideMenuCurrent = '';
+  asideMenuCurrent = '';
+  // 一级分类下的最近选中菜单项集合
+  recentActiveMenuMap = new Map();
 
   constructor(rootStore) {
-    makeAutoObservable(this, { rootStore: false });
+    makeAutoObservable(this, { rootStore: false }, { autoBind: true });
     this.rootStore = rootStore;
   }
 
   // 顶部菜单
-  @computed get headerMenuConfig() {
+  get headerMenuConfig() {
     const tResult: IMenuItem[] = [];
 
     if (this.resList.length) {
@@ -97,7 +99,7 @@ class MenuStore {
   }
 
   // 侧边菜单
-  @computed get asideMenuConfig() {
+  get asideMenuConfig() {
     const tResult: IMenuItem[] = [];
 
     if (this.headerMenuCurrent && this.resList.length) {
@@ -170,8 +172,9 @@ class MenuStore {
     console.log('asideMenuConfig:', tResult);
     return tResult;
   }
+
   // AppRouter的路由表
-  @computed get appRoutes() {
+  get appRoutes() {
     const tResult: IMenuItem[] = [];
 
     this.resList.forEach((res: IResItem) => {
@@ -208,7 +211,7 @@ class MenuStore {
   }
 
   // 可添加到标签页的菜单路径信息列表，[{name: xxx, path:yyy, url: zzz, ...}] path:本地路由path， url：iframe跳转地址
-  @computed get menuPaths() {
+  get menuPaths() {
     const tResult: IMenuItem[] = [];
 
     this.resList.forEach((res: IResItem) => {
@@ -254,41 +257,44 @@ class MenuStore {
     return tResult;
   }
 
-  @action
-  setResList = (value: any = []) => {
+  setResList(value: any = []) {
     if (value && value.length) {
       this.resList = [].concat(value.slice());
     }
     console.log('resList:', toJS(this.resList));
-  };
+  }
 
-  @action
-  setHeaderMenuCurrent = (value = '') => {
+  setHeaderMenuCurrent(value = '') {
     this.headerMenuCurrent = value;
     console.log('headerMenuCurrent:', this.headerMenuCurrent);
-  };
-  @action
-  setAsideMenuCurrent = (value = '') => {
-    this.asideMenuCurrent = value;
-    console.log('asideMenuCurrent:', this.asideMenuCurrent);
-  };
+  }
+
+  setAsideMenuCurrent(value = '') {
+    runInAction(() => {
+      if (this.headerMenuCurrent) {
+        this.asideMenuCurrent = value;
+        this.recentActiveMenuMap.set(this.headerMenuCurrent, value);
+      }
+    });
+    console.log('asideMenuCurrent:', this.asideMenuCurrent, toJS(this.recentActiveMenuMap));
+  }
 
   // 采用jsonParse处理数据的错误处理回调
-  jsonParseErrorCatch = (e, resPath) => {
+  jsonParseErrorCatch(e, resPath) {
     // if (this.toastMsg[0]) {
     //     return;
     // }
     // this.toastMsg.push(e.message);
     // resPath && this.rootStore.showToast(`请检查菜单 [ ${e.message || resPath} ] 是否配置正确。`);
     console.log(e);
-  };
+  }
 
   /**
    * 获取资源列表
    * @param {object} params 参数
    * @returns {promise}
    */
-  getAdminResList = (params = {}, options = { loading: true, toast: true }) => {
+  getAdminResList(params = {}, options = { loading: true, toast: true }) {
     const { request } = this.rootStore;
     const { showToast } = this.rootStore.UIStore;
 
@@ -313,10 +319,10 @@ class MenuStore {
         return false;
       }
     });
-  };
+  }
 
   // 通过 pathname 获取 pathname 对应到路由描述信息对象
-  getTitleByPathname = (pathname) => {
+  getTitleByPathname(pathname): any {
     // 模拟全局路由配置对象
     const routerConfig = this.pathValidate(pathname);
     if (typeof routerConfig === 'object' && Object.keys(routerConfig).length) {
@@ -324,10 +330,10 @@ class MenuStore {
     }
 
     return null;
-  };
+  }
 
   // 可添加到标签页的菜单路径有效性检测，在menuPaths中视为有效
-  pathValidate = (path) => {
+  pathValidate(path) {
     if (path) {
       return this.menuPaths.find((item) => {
         return item.path === path;
@@ -335,17 +341,25 @@ class MenuStore {
     }
 
     return {};
-  };
+  }
 
-  // 获取默认菜单项: location
-  getDefaultMenuItemPath = ({ pathname, search }) => {
+  // 获取默认菜单项
+  getDefaultMenuItemPath(path?: any) {
+    const { pathname = '', search = '' } = path || {};
+
     if (!this.menuPaths.length) {
       return undefined;
     }
 
+    const asideMenuCurrent = this.recentActiveMenuMap.get(pathname);
+    if (asideMenuCurrent) {
+      return asideMenuCurrent;
+    }
+
+    const tPathname = pathname || this.headerMenuCurrent;
     // 根据当前一级菜单项判断默认tab的path
     let tIndex = this.menuPaths.findIndex((item) => {
-      return item.topPath === pathname || item.path === pathname;
+      return item.topPath === tPathname || item.path === tPathname;
     });
 
     if (tIndex === -1) {
@@ -355,17 +369,17 @@ class MenuStore {
     const tMenuPathItem = this.menuPaths[tIndex];
     let tMenuPath = tMenuPathItem.path;
 
-    if (search.indexOf('type=top') === -1) {
-      tMenuPath = pathname;
+    if (search && search.indexOf('type=top') === -1) {
+      tMenuPath = tPathname;
     }
 
     this.setAsideMenuCurrent(tMenuPath);
 
     return tMenuPath;
-  };
+  }
 
   // 获取侧边栏默认展开keys
-  getDefaultOpenKeys = (pathname) => {
+  getDefaultOpenKeys(pathname) {
     const result = this.menuPaths.find((item) => {
       return pathname === item.path;
     });
@@ -374,7 +388,7 @@ class MenuStore {
     }
 
     return '';
-  };
+  }
 }
 
 export default MenuStore;

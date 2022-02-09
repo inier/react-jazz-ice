@@ -9,14 +9,14 @@ class UIStore {
   rootStore: any;
 
   // 是否展示loading图标
-  @observable loading = false;
+  loading = false;
 
   // 需要展示的错误信息
-  @observable toastMsg: any;
+  toastMsg: any;
   isMobile: boolean | RegExpMatchArray | null;
 
   constructor(rootStore) {
-    makeAutoObservable(this, { rootStore: false });
+    makeAutoObservable(this, { rootStore: false }, { autoBind: true });
 
     this.rootStore = rootStore;
 
@@ -26,12 +26,10 @@ class UIStore {
     rootStore.persistParam('isMobile', undefined, true);
   }
 
-  @action
   setLoading(boolean: boolean) {
     this.loading = boolean;
   }
 
-  @action
   setToastMsg(msg: string) {
     this.toastMsg = msg;
   }
@@ -42,7 +40,7 @@ class UIStore {
    * @param {*} autoClose 是否自动关闭
    * @param {*} duration toast显示的持续时间，默认3秒
    */
-  showToast = (msg: any, autoClose = true, duration = 3000) => {
+  showToast(msg: any, autoClose = true, duration = 3000) {
     this.setToastMsg(msg);
 
     // 指定时间后自动关闭toast，默认3秒
@@ -51,7 +49,7 @@ class UIStore {
         this.setToastMsg('');
       }, duration);
     }
-  };
+  }
 }
 
 export default UIStore;

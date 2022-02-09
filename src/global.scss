@@ -31,3 +31,30 @@ body {
     background-color: #f9f9f9;
   }
 }
+
+//== 超过几行显示省略号
+
+// 单行文字截断
+.nowrap {
+  width: auto !important;
+  max-width: 100%;
+  @include ellipsis;
+}
+.nowrap-flex {
+  display: -webkit-box;
+  height: inherit;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-flex: 1;
+
+  /* autoprefixer: off */
+  -webkit-box-orient: vertical;
+}
+// 两行文字截断
+.nowrap-multi {
+  @include ellipsis(2);
+}
+// 三行文字截断
+.nowrap-multi-3 {
+  @include ellipsis(3);
+}

@@ -5,6 +5,9 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { useRouteTabsContext } from '@/hooks';
+
+import Tag from '@/modules/RouterTabs/components/TabTagArea/Tag';
+
 import './index.scss';
 
 const CloseOutlined = ({ title = '关闭', ...restProps }) => {
@@ -12,7 +15,7 @@ const CloseOutlined = ({ title = '关闭', ...restProps }) => {
 };
 
 const Tab = (props) => {
-  const { tab, currentTab, index, contextMenu, children } = props;
+  const { tab, currentTab, index, contextMenu, isShowNavControls, children } = props;
   const { action } = useRouteTabsContext();
 
   const handleClick = useCallback(
@@ -26,7 +29,7 @@ const Tab = (props) => {
   );
 
   const handleClose = useCallback(
-    (e, cTab) => {
+    (cTab, e) => {
       e.stopPropagation();
       e.preventDefault();
       action.closeTab(cTab);
@@ -100,16 +103,32 @@ const Tab = (props) => {
     });
   };
 
+  const TabTag = (
+    <>
+      {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
+      {tab.name && (
+        <span className="tab-item-name" title={tab.name}>
+          {tab.name}
+        </span>
+      )}
+      {!tab.fixed && (
+        <span className="tab-item-close" onClick={(e) => handleClose(tab, e)}>
+          <CloseOutlined />
+        </span>
+      )}
+    </>
+  );
+
   return (
-    <li
+    <div
       onClick={() => handleClick(tab)}
       onContextMenu={(e) => e.preventDefault()}
-      className={classnames('tab-item', {
-        active: tab.tabId === currentTab?.tabId,
-      })}
+      // className={classnames('tab-item', {
+      //   active: tab.tabId === currentTab?.tabId,
+      // })}
     >
       <div
-        className="tab-item-inner"
+        // className="tab-item-inner"
         onContextMenu={(e) => {
           // 禁用右键菜单时
           if (!contextMenu) {
@@ -121,22 +140,18 @@ const Tab = (props) => {
         }}
       >
         {children || (
-          <>
-            {tab.icon && <Icon type={tab.icon} size="small" className="tab-item-icon" />}
-            {tab.name && (
-              <span className="tab-item-name" title={tab.name}>
-                {tab.name}
-              </span>
-            )}
-            {!tab.fixed && (
-              <span className="tab-item-close" onClick={(e) => handleClose(e, tab)}>
-                <CloseOutlined />
-              </span>
-            )}
-          </>
+          <Tag
+            title={tab.name}
+            value={tab}
+            isEllipsis={isShowNavControls}
+            isClose={index !== 0}
+            isActive={tab.path === currentTab.path}
+            // onClick={this.handleClickTag}
+            onClose={handleClose}
+          />
         )}
       </div>
-    </li>
+    </div>
   );
 };
 

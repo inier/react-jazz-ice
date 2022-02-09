@@ -10,11 +10,11 @@ import { getQueryString } from '@/utils';
 class UserStore {
   rootStore: any;
   // 全局token
-  @observable token = '';
-  @observable userInfo = {};
+  token = '';
+  userInfo = {};
 
   constructor(rootStore) {
-    makeAutoObservable(this, { rootStore: false });
+    makeAutoObservable(this, { rootStore: false }, { autoBind: true });
     this.rootStore = rootStore;
 
     // 数据持久化
@@ -38,17 +38,16 @@ class UserStore {
    * @param {object} opts 其他操作参数
    * @param {String} type 请求类型
    */
-  refreshToken = (url, params, opts, type?) => {
+  refreshToken(url, params, opts, type?) {
     this.setToken(undefined);
     // 刷新token的逻辑
     // ...
-  };
+  }
 
-  @action
   setToken(token) {
     this.token = token;
   }
-  @action
+
   setUserInfo(res) {
     this.userInfo = res;
   }
@@ -56,18 +55,17 @@ class UserStore {
   /**
    * 退出登录
    */
-  loginOut = () => {
+  loginOut() {
     this.setToken(undefined);
-  };
+  }
 
-  @action
-  getUser = async () => {
+  async getUser() {
     return fakeAccountLogin().then((res: any) => {
       this.setUserInfo(res);
 
       return res;
     });
-  };
+  }
 }
 
 export default UserStore;
