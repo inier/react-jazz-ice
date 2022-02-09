@@ -26,17 +26,19 @@ $routerTabs-item-box-shadow-2: rgba(0, 0, 0, 0.12) 4px -4px 10px 0;
     display: inline-block;
     width: 0;
     height: 8px;
-    background: #e9eaec;
+    background-color: #e9eaec;
     border-radius: 50%;
+    transition: width 0.3s;
   }
   &.active {
     color: inherit !important;
-    background: #fff !important;
+    background-color: #fff !important;
     box-shadow: $routerTabs-item-box-shadow;
     .icon {
       width: 8px;
       margin-right: 8px;
-      background: #2d8cf0;
+      background-color: #2d8cf0;
+      transition: width 0.3s;
     }
   }
   :global {

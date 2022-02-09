@@ -1,26 +1,16 @@
 import React, { memo, useCallback, useEffect, useLayoutEffect, useState } from 'react';
 
-import { Icon } from '@alifd/next';
 import classnames from 'classnames';
 import { debounce } from 'lodash-es';
 import PropTypes from 'prop-types';
 
 import { useRouteTabsContext } from './hooks';
-import Tab from './Tab';
+import { LeftOutlined, RightOutlined, ReloadOutlined } from './Icon';
+import TagContextMenu from './TagContextMenu';
 
 import './index.scss';
 
 const TABS_BAR_PADDING = 80;
-
-const LeftOutlined = ({ title = '返回', ...restProps }) => {
-  return <Icon type="arrow-left" title={title} {...restProps} />;
-};
-const RightOutlined = ({ title = '向右滚动', ...restProps }) => {
-  return <Icon type="arrow-right" title={title} {...restProps} />;
-};
-const ReloadOutlined = ({ title = '刷新', ...restProps }) => {
-  return <Icon type="refresh" size="small" title={title} {...restProps} />;
-};
 
 const RouteTabs = (props) => {
   const { onTabChange, children } = props;
@@ -171,12 +161,12 @@ const RouteTabs = (props) => {
           <div className="route-tabs-bar-nav-inner" style={{ transform: `translateX(${scrollX}px)` }}>
             {state.tabs.map((tab, index) => {
               return (
-                <Tab
+                <TagContextMenu
                   key={tab.tabId}
-                  tab={tab}
-                  isShowNavControls={isShowNavControls}
-                  currentTab={state.currentTab}
                   index={index}
+                  tab={tab}
+                  currentTab={state.currentTab}
+                  isShowNavControls={isShowNavControls}
                   length={state.tabs.length}
                 />
               );

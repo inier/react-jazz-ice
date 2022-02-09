@@ -10,7 +10,7 @@ import { initialState, reducer } from './reducer';
 const RouteTabsProvider = ({ defaultTabs = [], children }) => {
   const history = useHistory();
   const location = useLocation();
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch]: any = useReducer(reducer, initialState);
   const api = useRouteTabsApi(state, dispatch);
   const firstLoadFlag = useRef(false);
 

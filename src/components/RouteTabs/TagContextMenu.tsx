@@ -1,7 +1,6 @@
 import React, { memo, useCallback } from 'react';
 
-import { Menu, Icon } from '@alifd/next';
-import classnames from 'classnames';
+import { Menu } from '@alifd/next';
 import PropTypes from 'prop-types';
 
 import { useRouteTabsContext } from '@/hooks';
@@ -10,12 +9,20 @@ import Tag from './Tag';
 
 import './index.scss';
 
-const CloseOutlined = ({ title = '关闭', ...restProps }) => {
-  return <Icon type="close" size="small" title={title} {...restProps} />;
-};
+interface IProps {
+  /**
+   * 禁用右键菜单
+   */
+  contextMenu: boolean;
+  index: number;
+  length: number;
+  isShowNavControls: boolean;
+  tab: any;
+  currentTab: any;
+}
 
-const Tab = (props) => {
-  const { tab, currentTab, index, contextMenu, isShowNavControls, children } = props;
+const TagContextMenu = (props: IProps) => {
+  const { length, tab, currentTab, index, contextMenu, isShowNavControls, children } = props;
   const { action } = useRouteTabsContext();
 
   const handleClick = useCallback(
@@ -74,7 +81,6 @@ const Tab = (props) => {
 
     const { target } = e;
     const { top, left } = target.getBoundingClientRect();
-    const { length } = props;
 
     Menu.create({
       target: e.target,
@@ -104,7 +110,7 @@ const Tab = (props) => {
   };
 
   return (
-    <div onClick={() => handleClick(tab)} onContextMenu={(e) => e.preventDefault()}>
+    <div data-key={tab.tabId} onClick={() => handleClick(tab)} onContextMenu={(e) => e.preventDefault()}>
       <div
         onContextMenu={(e) => {
           // 禁用右键菜单时
@@ -121,7 +127,7 @@ const Tab = (props) => {
             title={tab.name}
             value={tab}
             isEllipsis={isShowNavControls}
-            isClose={index !== 0 && tab.path === currentTab.path}
+            isClose={length > 1 && tab.path === currentTab.path}
             isActive={tab.path === currentTab.path}
             onClose={handleClose}
           />
@@ -131,13 +137,18 @@ const Tab = (props) => {
   );
 };
 
-Tab.propTypes = {
+TagContextMenu.propTypes = {
   /**
    * 禁用右键菜单
    */
   contextMenu: PropTypes.bool,
+  index: PropTypes.number,
+  length: PropTypes.number,
+  isShowNavControls: PropTypes.bool,
 };
-Tab.defaultProps = { contextMenu: true };
-Tab.displayName = 'TabItem';
 
-export default memo(Tab);
+TagContextMenu.defaultProps = { contextMenu: true };
+
+TagContextMenu.displayName = 'TagContextMenu';
+
+export default memo(TagContextMenu);

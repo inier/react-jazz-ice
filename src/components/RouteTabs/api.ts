@@ -16,7 +16,7 @@ import {
 /** 获取路由配置 */
 const getRouteConfig = (location) => {
   const { flatRoutes = [] } = getInitialData();
-  const matchList = [];
+  const matchList: any = [];
 
   for (let i = 0; i < flatRoutes.length; i += 1) {
     const routeConfig = flatRoutes[i];
@@ -25,8 +25,9 @@ const getRouteConfig = (location) => {
       exact: routeConfig.exact,
       strict: routeConfig.strict,
     });
+
     if (match) {
-      matchList.push(flatRoutes[i]);
+      matchList.push(routeConfig);
     }
   }
 
@@ -93,6 +94,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
       type: 'TAB_DELETE',
       payload: target, // tabId is array
     });
+
     target.forEach((item) => {
       routeTabsDispatch({
         type: 'EVENT_DELETE',
@@ -117,7 +119,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * @param target 可以是 tabId | history.push 的对应参数 | 选项卡实例 | 路径字符串 | 为空表示当前选项卡
    * @returns {{$isTab}|{search: string, query: {}, pathname: string}|null|*|T}
    */
-  const getTabInstance = (target) => {
+  const getTabInstance = (target?) => {
     let targetObj = target;
 
     if (!target) {
@@ -153,6 +155,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
           break;
         }
       }
+
       // 再按规则模糊匹配查找
       if (i === -1) {
         // 倒序遍历
@@ -169,7 +172,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
               break;
             }
 
-            const targetQueryLen = Object.keys(targetObj?.query || {});
+            const targetQueryLen = Object.keys(targetObj?.query || {}).length;
 
             if (targetQueryLen !== 0) {
               // 如果 targetObj 参数更多, 那就是新页面
@@ -188,6 +191,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
           }
         }
       }
+
       if (i > -1) {
         return tabs[i];
       }
@@ -237,7 +241,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * 刷新页面
    * @param target 要刷新的页面
    */
-  const refreshTab = (target) => {
+  const refreshTab = (target?) => {
     const instance = target ? getTabInstance(target) : routeTabsState.currentTab;
 
     if (instance) {
@@ -253,7 +257,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * @param options.force 是否强制打开标签页, 会被参数的 target.state.force 参数覆盖
    * @param options.refresh 如果页面已存在是否要刷新
    */
-  const openTab = (target, options) => {
+  const openTab = (target, options?) => {
     const { force = false, refresh = false } = options || {};
     const isForce = !target?.$isTab ? target?.state?.force || force || false : false;
     let targetPath;
@@ -294,8 +298,9 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
             window.ROUTE_TABS_NEXT_HIGHLIGHT_TAB = { ...tabInstance, ...(target?.state || {}) };
             window.ROUTE_TABS_CHANGE_COMPLETE = false;
             window.ROUTE_TABS_NEED_REFRESH_TAB = refresh;
+
             setTimeout(() => {
-              history.push(targetPath);
+              history?.push(targetPath);
             });
           }
         }
@@ -306,17 +311,18 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
     setTimeout(() => {
       if (typeof target === 'string') {
-        history.push(target);
+        history?.push(target);
         return;
       }
 
       // 新开页面的情况
-      const pushParam = target?.$isTab ? target.location : target;
-      history.push({
+      const pushParam = target?.$isTab ? target.location || {} : target;
+
+      history?.push({
         pathname: pushParam.pathname,
         query: pushParam.query,
         state: pushParam.state,
-      });
+      } as any);
     });
   };
 
@@ -324,7 +330,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * 添加选项卡, 但是不跳转
    * @param pathnameArr 路径数组
    */
-  const addTab = (pathnameArr) => {
+  const addTab = (pathnameArr: string[]) => {
     pathnameArr?.forEach((pathname) => {
       const customLocation = {
         pathname,
@@ -349,7 +355,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * @param target 要替换的路径
    * @param force 是否强制替换
    */
-  const replaceTab = (target, force) => {
+  const replaceTab = (target, force = false) => {
     const fromTabInstance = getTabInstance(); // 获取当前实例
     const isForce = fromTabInstance.location?.state || force || false;
     let historyPushParam = target;
@@ -368,7 +374,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
         ...(historyPushParam.state || {}),
         routeType: 'replace',
       };
-      history.push(historyPushParam);
+      history?.push(historyPushParam);
     };
 
     if (isForce === false) {
@@ -383,7 +389,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
    * @param title 要替换的标题名称
    * @param target 要替换的选项卡, 为空表示当前选项卡
    */
-  const replaceTabTitle = (title, target) => {
+  const replaceTabTitle = (title = '', target) => {
     updateTabInstance(target, {
       name: title,
     });
@@ -409,7 +415,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
 
     const callback = () => {
       window.ROUTE_TABS_NEXT_HIGHLIGHT_TAB = prevTabInstance;
-      history.push(prevTabInstance.routePath);
+      history?.push(prevTabInstance.routePath);
     };
 
     if (force === false) {
@@ -641,7 +647,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   };
 
   /** 监听路由变化前的动作 */
-  const beforeRouterChange = (location, action) => {
+  const beforeRouterChange = (location, action?) => {
     // 通过往全局控制 ROUTE_TABS_CHANGE_COMPLETE 属性来防止选项卡不必要的更新
     if (action !== 'POP') {
       window.ROUTE_TABS_CHANGE_COMPLETE = false;

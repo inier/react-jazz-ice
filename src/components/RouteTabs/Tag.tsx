@@ -16,8 +16,8 @@ interface IProps {
   isActive?: boolean;
   tagTextMaxLen?: number; // 标签文字最大字数, 单位em
   tagTextMinLen?: number; // 标签文字最小字数, 单位em
-  onClick: (value, e) => void;
-  onClose?: (value) => void;
+  onClick?: (value, e) => void;
+  onClose?: (value, e?) => void;
   className?: string;
   style?: object;
 }
@@ -39,7 +39,6 @@ const TabTag: React.FC<IProps> = ({
   /* title省略时的处理 */
   const maxLength = isEllipsis ? tagTextMinLen : tagTextMaxLen;
   const props = {
-    'data-key': value,
     style: isActive ? style : { maxWidth: `${+maxLength + 3}em`, ...style },
     className: classNames(styles.tag, { [styles.active]: isActive }, className),
     onClick: (e) => {

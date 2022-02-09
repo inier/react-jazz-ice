@@ -31,7 +31,7 @@ export function formatRoutes(routes: ICustomRouterConfig[], parentPath?: string)
 /** 扁平化所有路由 */
 export const deepFlattenRoutes = (routes, parentPath = '/') => {
   return [].concat(
-    ...routes.map((r) => {
+    ...routes.map((r: any) => {
       const absolutePathRegex = /^\//;
       const isAbsolutePath = absolutePathRegex.exec(r.path);
       const path = isAbsolutePath ? r.path : `${parentPath}/${r.path}`;

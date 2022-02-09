@@ -1,4 +1,10 @@
-export const initialState = {
+interface ITab {
+  keepAlive?: boolean;
+  tabId?: string;
+  [propName: string]: any;
+}
+
+export const initialState: ITab = {
   tabs: [],
   currentTab: null,
   historyList: [],
