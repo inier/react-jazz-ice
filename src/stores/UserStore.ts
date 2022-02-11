@@ -11,7 +11,10 @@ class UserStore {
   rootStore: any;
   // 全局token
   token = '123456';
-  userInfo = {};
+  userInfo = {
+    avatar: '',
+    name: '',
+  };
 
   constructor(rootStore) {
     makeAutoObservable(this, { rootStore: false }, { autoBind: true });

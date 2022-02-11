@@ -32,7 +32,7 @@ import {
   FeedbackServerError,
   Settings,
   Person,
-} from './Base';
+} from '@/pages/Demo/Base';
 
 const subRouterConfig: IRouterConfig[] = [
   {
