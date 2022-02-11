@@ -3,6 +3,66 @@ const resList = {
   total: null,
   data: [
     {
+      resourceCode: 3000,
+      resourceName: '示例',
+      extras: {
+        icon: 'cry',
+        routePath: '/demo',
+      },
+      resourceList: [
+        {
+          resourceCode: 30001,
+          resourceName: '综合示例',
+          extras: {
+            icon: 'cry',
+            routePath: '/demo/demos',
+          },
+        },
+        {
+          resourceCode: 30002,
+          resourceName: 'RouteTabs示例',
+          extras: {
+            icon: 'cry',
+            routePath: '/demo/testRouteTabs',
+          },
+          resourceList: [
+            {
+              resourceCode: 300021,
+              resourceName: '列表测试页面',
+              extras: {
+                icon: 'cry',
+                routePath: '/demo/testRouteTabs/index',
+              },
+            },
+            {
+              resourceCode: 300022,
+              resourceName: '详情测试页面',
+              extras: {
+                icon: 'cry',
+                routePath: '/demo/testRouteTabs/detail',
+              },
+            },
+            {
+              resourceCode: 300023,
+              resourceName: '长列表页',
+              extras: {
+                icon: 'cry',
+                routePath: '/demo/testRouteTabs/list',
+              },
+            },
+            {
+              resourceCode: 300024,
+              resourceName: '详情测试页面2',
+              extras: {
+                icon: 'cry',
+                routePath: '/demo/testRouteTabs/type/:type',
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
       resourceCode: 5000,
       resourceName: '商品',
       extras: {

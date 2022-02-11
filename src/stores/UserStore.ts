@@ -10,7 +10,7 @@ import { getQueryString } from '@/utils';
 class UserStore {
   rootStore: any;
   // 全局token
-  token = '';
+  token = '123456';
   userInfo = {};
 
   constructor(rootStore) {

@@ -3,8 +3,8 @@ import { lazy } from 'react';
 import NotFound from '@/components/NotFound';
 import BasicLayout from '@/layouts/BasicLayout';
 import UserLayout from '@/layouts/UserLayout';
+import demoRoutesConfig from '@/pages/Demo/routes';
 
-import demoRoutesConfig from './demo';
 import { ICustomRouterConfig } from './typing';
 import userRoutesConfig from './user';
 import { formatRoutes, deepFlattenRoutes } from './utils/formatRoutes';

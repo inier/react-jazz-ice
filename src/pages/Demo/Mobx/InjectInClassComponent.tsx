@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'ice';
 import { Avatar, Button } from '@alifd/next';
-import { DemoStore, MenuStore } from '@/stores';
+import { UserStore, MenuStore } from '@/stores';
 
 interface IProps {
-  demoStore: DemoStore;
+  userStore: UserStore;
   menuStore: MenuStore;
 }
 
@@ -18,13 +18,13 @@ interface IUserInfo {
   name: string;
 }
 
-@inject('demoStore', 'menuStore')
+@inject('userStore', 'menuStore')
 @withRouter
 @observer
 class ClassComponent extends Component<IProps, IStates> {
   handleClick = () => {
-    const { demoStore } = this.props;
-    demoStore.getUser().then((res: IUserInfo) => {
+    const { userStore } = this.props;
+    userStore.getUser().then((res: IUserInfo) => {
       this.setState({
         userInfo: res,
       });
@@ -32,8 +32,8 @@ class ClassComponent extends Component<IProps, IStates> {
   };
 
   render() {
-    const { demoStore } = this.props;
-    const { avatar, name } = demoStore.userInfo;
+    const { userStore } = this.props;
+    const { avatar, name } = userStore.userInfo;
 
     return (
       <>

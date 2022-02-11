@@ -1,14 +1,14 @@
 import { lazy } from 'react';
 
-import { ICustomRouterConfig } from './typing';
+import { ICustomRouterConfig } from '@/routes/typing';
 
 const routesConfig: ICustomRouterConfig[] = [
   {
-    path: 'test',
+    path: 'testRouteTabs',
     redirect: 'index',
     pageConfig: {
       icon: 'icon-tag',
-      title: '测试选项卡使用',
+      title: 'RouteTabs示例',
     },
     children: [
       {
