@@ -7,7 +7,7 @@ module.exports = {
   // auth: false,
   minify: false,
   // tsChecker: true,
-  vite: true,
+  // vite: true,
   alias: {
     '@': './src/',
     '@settings': './src/_theme.scss',

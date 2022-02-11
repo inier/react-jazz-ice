@@ -1,20 +1,20 @@
 //== 全局变量
-@import '~@alifd/next/variables.scss';
+// @import '~@alifd/next/variables.scss';
 // @import '~@theme/variables.scss';
 //== mixins
 @import '@ozo/mixins-sass/src/mixins.scss';
 
-//** 项目相关重置或定义
+//== 项目相关重置或定义
 //
 $page-min-width: 768px;
 $disabled-color: #ddd;
 
-//== Logo
+//= Logo
 $logo-width: 350px;
 $logo-img-width: 68px;
 $logo-img-height: 32px;
 
-//== Header
+//= Header
 $header-height: 52px;
 $header-bg-color: #142234;
 $header-nav-size: $font-size-body-2;
