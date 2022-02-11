@@ -8,7 +8,7 @@ const routesConfig: ICustomRouterConfig[] = [
   {
     path: 'demos',
     exact: true,
-    component: lazy(() => import('./index')),
+    component: lazy(() => import('@/pages/Demo')),
     pageConfig: {
       icon: 'attachment',
       title: '综合示例',
