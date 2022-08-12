@@ -7,7 +7,6 @@ import { requestInterceptor as cacheReqInterceptor, responseInterceptor as cache
 import { IOptions } from './type';
 
 // 返回结果处理
-// 自定义约定接口返回{result: xxx, data: xxx, total:"", msg:'err message'}
 const responseHandle = {
   200: (response) => {
     return response.data;
@@ -32,12 +31,14 @@ const responseHandle = {
   },
 };
 
+// 创建axios的实例
 const service = axios.create({
   timeout: 50000,
 });
 
 // 设置post请求头
-service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+// service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+service.defaults.headers.post['Content-Type'] = 'application/json';
 
 // 请求拦截器
 service.interceptors.request.use(

@@ -3,10 +3,11 @@
  */
 import { Method } from 'axios';
 import qs from 'qs';
+
 import stores from '@/stores';
 
 import instance from './interceptor';
-import { IOptions } from './type';
+import { IRequest, IOptions } from './type';
 
 /**
  * 核心函数，可通过它处理一切请求数据，并做横向扩展
@@ -15,9 +16,11 @@ import { IOptions } from './type';
  * @param {object} options 请求配置，针对当前本次请求
  * @param {string} method 请求配置，针对当前本次请求
  */
-function request(url: string, params: object, options: IOptions, method: Method) {
+function request<T>(url: string, params: object, options: IOptions, method: Method): Promise<T> {
   const defaultOptions: IOptions = { loading: true, mock: false, error: true, ...options };
-  const defaultParams = { params };
+  const defaultParams = { ...params };
+
+  // url = `http://10.10.123.3:8000${url}`
 
   // 是否挂上公共参数
   if (!defaultOptions.noCommonData) {
@@ -33,11 +36,11 @@ function request(url: string, params: object, options: IOptions, method: Method)
   return new Promise((resolve, reject) => {
     let data = {};
 
-    // get请求使用params字段
+    // get请求：使用params字段
     if (method === 'get') {
       data = { params: defaultParams };
     }
-    // post请求使用data字段
+    // post请求：使用data字段
     if (method === 'post') {
       data = { data: defaultParams };
     }
@@ -61,13 +64,12 @@ function request(url: string, params: object, options: IOptions, method: Method)
 }
 
 // 封装GET请求
-function get(url: string, params = {}, options?: IOptions): Promise<any> {
-  return request(url, params, options || {}, 'get');
-}
-
+const get: IRequest = async (url, params, options) => {
+  return request(url, params || {}, options || {}, 'get');
+};
 // 封装POST请求
-function post(url: string, params = {}, options?: IOptions): Promise<any> {
-  return request(url, params, options || {}, 'post');
-}
+const post: IRequest = async (url, params, options) => {
+  return request(url, params || {}, options || {}, 'post');
+};
 
 export default { get, post };

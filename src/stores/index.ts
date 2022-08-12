@@ -15,8 +15,7 @@ import UserStore from './UserStore';
 // ...
 
 // == 页面UIStore整合
-// 示例代码
-import DemoStore from './DemoStore';
+// ...
 
 class RootStore {
   commonRequestData: any;
@@ -24,16 +23,13 @@ class RootStore {
   userStore: UserStore;
   menuStore: MenuStore;
 
-  // 示例代码
-  demoStore: DemoStore;
-
   constructor() {
     this.UIStore = new UIStore(this);
     this.userStore = new UserStore(this);
     this.menuStore = new MenuStore(this);
 
-    // 示例代码
-    this.demoStore = new DemoStore(this);
+    // 初始化其他Store
+    // ...
   }
 
   /**
@@ -172,5 +168,5 @@ class RootStore {
 const stores = new RootStore();
 const StoresContext = createContext(stores);
 
-export { StoresContext, UserStore, UIStore, MenuStore, DemoStore };
+export { StoresContext, UserStore, UIStore, MenuStore };
 export default stores;

@@ -1,5 +1,4 @@
-import { lazy } from 'react';
-
+import { IRouterConfig } from 'ice';
 import {
   Workplace,
   // Analysis,
@@ -33,25 +32,9 @@ import {
   FeedbackServerError,
   Settings,
   Person,
-  Demo,
-  Register,
-} from '@/pages';
+} from '@/pages/Demo/Base';
 
-import testRoutesConfig from './routeTabsTest';
-import { ICustomRouterConfig } from './typing';
-
-const routesConfig: ICustomRouterConfig[] = [
-  {
-    path: 'demos',
-    exact: true,
-    component: Demo,
-    pageConfig: {
-      icon: 'attachment',
-      title: '综合示例',
-      keepAlive: true,
-    },
-  },
-  ...testRoutesConfig,
+const subRouterConfig: IRouterConfig[] = [
   {
     path: 'dashboard',
     redirect: 'workplace',
@@ -376,32 +359,6 @@ const routesConfig: ICustomRouterConfig[] = [
       },
     ],
   },
-  {
-    path: 'user',
-    redirect: 'login',
-    pageConfig: {
-      icon: 'set',
-      title: '登录&注册',
-    },
-    children: [
-      {
-        path: 'login',
-        component: lazy(() => import('@/pages/Login')),
-        exact: true,
-        pageConfig: {
-          title: '登录',
-        },
-      },
-      {
-        path: 'register',
-        component: Register,
-        exact: true,
-        pageConfig: {
-          title: '注册',
-        },
-      },
-    ],
-  },
 ];
 
-export default routesConfig;
+export default subRouterConfig;

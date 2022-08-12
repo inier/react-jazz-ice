@@ -4,11 +4,11 @@ import { inject, observer } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
 
 function FuncComponent(props) {
-  const { demoStore } = props;
-  const { avatar, name } = demoStore.userInfo;
+  const { userStore } = props;
+  const { avatar, name } = userStore.userInfo;
 
   const handleClick = () => {
-    demoStore.getUser();
+    userStore.getUser();
   };
 
   return (
@@ -24,4 +24,4 @@ function FuncComponent(props) {
   );
 }
 
-export default inject('demoStore')(observer(FuncComponent));
+export default inject('userStore')(observer(FuncComponent));

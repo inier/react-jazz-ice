@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { useObserver, Observer, useLocalObservable, observer } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
+
 import { useMobxStores } from '@/hooks';
-import stores from '@/stores';
+
+import demoStore from '../stores/DemoStore';
 
 function FuncComponent(props) {
   return (
@@ -22,12 +25,12 @@ function FuncComponent(props) {
 
 // 方法1：useMobxStores
 const Demo1 = observer(() => {
-  const { demoStore } = useMobxStores();
+  const { userStore } = useMobxStores();
   const handleClick = () => {
     // 正常请求
-    demoStore.getUser();
+    userStore.getUser();
   };
-  const { avatar, name } = demoStore.userInfo;
+  const { avatar, name } = userStore.userInfo;
 
   return (
     <>
@@ -42,7 +45,7 @@ const Demo1 = observer(() => {
 
 // 方法2：observer包裹组件
 const Demo2 = observer(() => {
-  const localStore = useLocalObservable(() => stores.demoStore);
+  const localStore = useLocalObservable(() => demoStore);
   const { avatar, name } = localStore.userInfo;
   const handleClick = () => {
     // 正常请求
@@ -62,7 +65,7 @@ const Demo2 = observer(() => {
 
 // 方法3：命令式，useObserver，传入函数
 const Demo3 = observer(() => {
-  const localStore = useLocalObservable(() => stores.demoStore);
+  const localStore = useLocalObservable(() => demoStore);
   const { avatar, name } = localStore.userInfo;
   const handleClick = () => {
     // 正常请求
@@ -82,7 +85,7 @@ const Demo3 = observer(() => {
 
 // 方法4：标签式，Observer包裹返回值，包裹的必须是一个函数
 const Demo4 = observer(() => {
-  const localStore = useLocalObservable(() => stores.demoStore);
+  const localStore = useLocalObservable(() => demoStore);
   const { avatar, name } = localStore.userInfo;
   const handleClick = () => {
     // 正常请求

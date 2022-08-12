@@ -24,4 +24,4 @@ function DemoRequest(props) {
   );
 }
 
-export default inject('demoStore', 'menuStore')(observer(DemoRequest));
+export default inject('menuStore')(observer(DemoRequest));
