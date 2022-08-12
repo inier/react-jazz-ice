@@ -2,8 +2,9 @@ import React from 'react';
 
 import { ResponsiveGrid, Card } from '@alifd/next';
 import PageHeader from '@/components/PageHeader';
-import DemoRequest from './components/Request';
-import DemoMobx from './components/Mobx';
+import DemoRequest from './Request';
+import DemoMobx from './Mobx';
+import DemoUI from './UI';
 
 const { Cell } = ResponsiveGrid;
 
