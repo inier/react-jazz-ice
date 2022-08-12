@@ -35,11 +35,11 @@ function request(url: string, params: object, options: IOptions, method: Method)
 
     // get请求使用params字段
     if (method === 'get') {
-      data = { params: qs.stringify(defaultParams) };
+      data = { params: defaultParams };
     }
     // post请求使用data字段
     if (method === 'post') {
-      data = { data: qs.stringify(defaultParams) };
+      data = { data: defaultParams };
     }
 
     instance({ url, method, ...defaultOptions, ...data })

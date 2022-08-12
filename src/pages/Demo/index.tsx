@@ -3,10 +3,15 @@ import { ResponsiveGrid, Card } from '@alifd/next';
 import PageHeader from '@/components/PageHeader';
 import DemoRequest from './components/Request';
 import DemoMobx from './components/Mobx';
+import DemoUI from './UI';
 
 const { Cell } = ResponsiveGrid;
 
 const list = [
+  {
+    title: 'UI示例',
+    content: <DemoUI />,
+  },
   {
     title: '请求示例',
     content: <DemoRequest />,

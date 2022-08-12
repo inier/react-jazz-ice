@@ -39,6 +39,22 @@ app.use('/', (req, res, next) => {
   next();
 });
 
+app.use('/res/list', async (req, res, next) => {
+  res.send(require('./mock/resList.js'));
+  next();
+});
+
+app.use('/profile', (req, res, next) => {
+  res.send({
+    result: '0',
+    data: {
+      avatar: 'https://ice.work/img/logo.png',
+      name: 'JazzKK',
+    },
+  });
+  next();
+});
+
 /**
  * 测试服务器代理配置
  */
