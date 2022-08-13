@@ -239,5 +239,4 @@ const resList = {
   ],
 };
 
-module.exports = resList;
 export default resList;
