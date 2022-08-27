@@ -72,6 +72,7 @@
     "conventional-changelog": "^3.1.25",
     "env-cmd": "^10.1.0",
     "eslint": "^7.30.0",
+    "eslint-plugin-mobx": "^0.0.8",
     "express": "^4.18.1",
     "express-useragent": "^1.0.15",
     "gh-pages": "^3.2.3",
@@ -89,9 +90,9 @@
     "stylelint": "^14.10.0"
   },
   "scripts": {
-    "dev": "icejs start --config build.config.js --mode local --port 8889 --disable-mock",
-    "start": "icejs start --config build.config.js --mode local --port 8888",
-    "build": "icejs build --config build.config.js --mode prod --analyzer",
+    "dev": "icejs start --force --config build.config.js --mode local --port 8889 --disable-mock",
+    "start": "icejs start --force --config build.config.js --mode local --port 8888",
+    "build": "icejs build --config build.config.js --mode prod",
     "debug": "icejs build --config build.config.js --mode debug",
     "analyze": "source-map-explorer build/js/main*.*",
     "test": "icejs test --config build.config.js",

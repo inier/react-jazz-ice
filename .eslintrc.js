@@ -2,10 +2,13 @@
 // https://www.npmjs.com/package/eslint-config-ali
 // https://github.com/alibaba/f2e-spec/blob/main/packages/eslint-config-ali/rules/
 // https://cloud.tencent.com/developer/doc/1078
+// https://github.com/mobxjs/mobx/tree/main/packages/eslint-plugin-mobx
 
 const { getESLintConfig } = require('@iceworks/spec');
 
 module.exports = getESLintConfig('react-ts', {
+  extends: ['plugin:mobx/recommended'],
+  plugins: ['mobx'],
   rules: {
     // import 语句的排序
     'import/order': [
@@ -37,5 +40,11 @@ module.exports = getESLintConfig('react-ts', {
     '@iceworks/best-practices/no-js-in-ts-project': 0,
     '@iceworks/best-practices/no-secret-info': 0,
     '@iceworks/best-practices/no-http-url': 0,
+    // mobx rules recommended
+    'mobx/exhaustive-make-observable': 'warn',
+    'mobx/unconditional-make-observable': 'error',
+    'mobx/missing-make-observable': 'error',
+    'mobx/missing-observer': 'warn',
+    'mobx/no-anonymous-observer': 'warn',
   },
 });

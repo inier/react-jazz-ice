@@ -1,9 +1,14 @@
 # 忽略目录
+node_modules/
 build/
+dist/
 tests/
 demo/
 .ice/
 .history/
-
-# node 覆盖率文件
 coverage/
+es/
+lib/
+**/*.min.css
+**/*-min.css
+**/*.bundle.css

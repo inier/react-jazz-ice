@@ -4629,6 +4629,11 @@ eslint-plugin-jsx-plus@^0.1.0:
     jsx-ast-utils "^2.2.1"
     requireindex "^1.1.0"
 
+eslint-plugin-mobx@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.npmmirror.com/eslint-plugin-mobx/-/eslint-plugin-mobx-0.0.8.tgz#7fe4093ddf0dd51098a6f283b7e756650119f080"
+  integrity sha512-cOy9lo4E2uiQ3GmHOELJLCV0VYxO9WGIiGep1tyXQ6jSf5iIWjNTdO6qQgPvXrKbUCGOW/zeAOeh3Xa/nQB0LA==
+
 eslint-plugin-rax-compile-time-miniapp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmmirror.com/eslint-plugin-rax-compile-time-miniapp/-/eslint-plugin-rax-compile-time-miniapp-1.0.0.tgz#f309e58d103c33ec5f05039c8452040f9a1dfba1"

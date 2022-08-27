@@ -10,17 +10,6 @@ const app = express();
 // 添加useragent
 app.use(useragent.express());
 
-// 处理IE浏览器兼容
-app.get('/*', (req, res, next) => {
-  // console.log(req.useragent);
-  const { browser, version } = req.useragent;
-  if (browser === 'IE' && Number(version) <= 11) {
-    res.sendFile(path.join(__dirname, 'build', 'ie.html'));
-  } else {
-    next();
-  }
-});
-
 // 正式服务器代理配置
 const { createProxyMiddleware } = require('http-proxy-middleware');
 
@@ -52,7 +41,13 @@ app.use(
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/*', (req, res) => {
+app.get('/*', (req, res, next) => {
+  // console.log(req.useragent);
+  // 处理IE浏览器兼容
+  const { browser, version } = req.useragent;
+  if (browser === 'IE' && Number(version) <= 11) {
+    res.sendFile(path.join(__dirname, 'build', 'ie.html'));
+  }
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
