@@ -63,9 +63,10 @@ const routerConfig: ICustomRouterConfig[] = [
   },
 ];
 
-export const flatRoutes: ICustomRouterConfig[] = deepFlattenRoutes(mainRoutesConfig, '/').filter(
-  (route: ICustomRouterConfig) => {
+export const getFlatRoutes = (routesConfig: ICustomRouterConfig[]) => {
+  return deepFlattenRoutes(routesConfig, '/').filter((route: ICustomRouterConfig) => {
     return !!route.component;
-  },
-);
+  });
+};
+
 export default routerConfig;

@@ -11,7 +11,7 @@ import JSXRunTime from 'react/jsx-runtime';
 import AppProvider from '@/components/AppProvider';
 import ErrorBoundaryFallback from '@/components/ErrorBoundary/ErrorBoundaryFallback';
 import { KeepAliveWrapper } from '@/components/RouteTabs';
-import { mainRoutesConfig, flatRoutes } from '@/routes';
+import { mainRoutesConfig, getFlatRoutes } from '@/routes';
 import { getLocale, mapTree } from '@/utils';
 
 configure({
@@ -29,9 +29,10 @@ const appConfig: IAppConfig = {
     rootId: 'root',
     addProvider: ({ children }) => <AppProvider locale={locale}>{children}</AppProvider>,
     getInitialData: async () => {
+      // todo: 权限限制逻辑
       return {
         routes: mainRoutesConfig,
-        flatRoutes,
+        flatRoutes: getFlatRoutes(mainRoutesConfig),
       };
     },
     // 是否开启 ErrorBoundary，默认为 false
@@ -47,9 +48,10 @@ const appConfig: IAppConfig = {
     modifyRoutes: (routes) => {
       return mapTree(routes, (node) => {
         const newNode = { ...node };
-
         newNode.pageConfig = newNode.pageConfig || {};
-        if (node.pageConfig?.title && node.path && node.component) {
+
+        const { keepAlive, title } = newNode.pageConfig;
+        if (keepAlive === true && title && node.path && node.component) {
           newNode.wrappers = [KeepAliveWrapper];
         }
 
