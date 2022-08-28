@@ -32,7 +32,7 @@ const requestConfig: any = {
         if (response.status !== 200) {
           // eslint-disable-next-line prefer-promise-reject-errors
           return Promise.reject({
-            code: response.status,
+            result: response.status,
             msg: responseCode[response.status] || response.statusText,
             data: null,
           });
@@ -53,7 +53,7 @@ const requestConfig: any = {
           });
           if (status === 401) {
             // clearUserTokenToCookie();
-            history?.replace('/login', {
+            history?.replace('/user/login', {
               redirect: window.location.href,
             });
           }

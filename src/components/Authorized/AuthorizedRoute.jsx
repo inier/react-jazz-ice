@@ -1,9 +1,11 @@
 import React from 'react';
+
 import { Redirect, Route } from 'umi';
+
 import Authorized from './Authorized';
 
-const AuthorizedRoute = ({ component: Component, render, authority, redirectPath, ...rest }) => (
-  <Authorized
+const AuthorizedRoute = observer(function AuthorizedRoute({ component: Component, render, authority, redirectPath, ...rest }) => 
+  { return <Authorized
     authority={authority}
     noMatch={
       <Route
@@ -19,7 +21,7 @@ const AuthorizedRoute = ({ component: Component, render, authority, redirectPath
     }
   >
     <Route {...rest} render={(props) => (Component ? <Component {...props} /> : render(props))} />
-  </Authorized>
-);
+  </Authorized> }
+));
 
 export default AuthorizedRoute;

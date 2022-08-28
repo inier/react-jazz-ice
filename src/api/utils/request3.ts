@@ -146,8 +146,8 @@ export default class Http {
         return config.transformRequest
           ? Array.isArray(config.transformRequest)
             ? config.transformRequest.reduce((p, c) => {
-                return c(p, config.headers);
-              }, config.data)
+              return c(p, config.headers);
+            }, config.data)
             : config.transformRequest(config.data, config.headers)
           : config.data;
       },

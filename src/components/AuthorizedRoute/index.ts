@@ -1,4 +1,5 @@
 import { getAuthority } from '@/utils';
+
 import renderAuthorized from './components/Authorized';
 
 let Authorized = renderAuthorized(getAuthority()); // eslint-disable-line

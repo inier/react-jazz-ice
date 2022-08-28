@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Exception from './components/Exception';
 
-export default function ServerError() {
+export default const ServerError = function ServerError() {
   return (
     <Exception
       statusCode="500"
@@ -9,4 +10,4 @@ export default function ServerError() {
       description="服务器好像挂了你要等会了"
     />
   );
-}
+})

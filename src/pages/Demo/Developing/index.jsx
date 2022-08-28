@@ -1,5 +1,5 @@
-import { PageContainer } from '@/components';
 import developing from '@/assets/images/developing.png';
+import { PageContainer } from '@/components';
 
 const Developing = () => {
   return (

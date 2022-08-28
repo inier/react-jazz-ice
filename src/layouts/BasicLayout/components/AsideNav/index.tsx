@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import { Nav } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
@@ -40,7 +40,7 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
     const childrenItems = getNavMenuItems(children, index, auth);
     if (childrenItems && childrenItems.length > 0) {
       const subNav = (
-        <SubNav key={key} data-key={key} icon={icon} label={name}>
+        <SubNav key={key} label={name}>
           {childrenItems}
         </SubNav>
       );
@@ -65,7 +65,7 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
   }
 
   const navItem = (
-    <NavItem key={path} icon={icon}>
+    <NavItem key={path} title={item.name}>
       <Link {...linkProps}>{item.name}</Link>
     </NavItem>
   );
@@ -73,21 +73,19 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
   return navItem;
 }
 
-const Navigation = (props, context) => {
+const Navigation = (props, context)                     => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { location } = props;
   const { pathname } = location;
   const { isCollapse } = context;
-  const { asideMenuConfig, asideMenuCurrent, setAsideMenuCurrent } = useMobxStore('menuStore');
+  const { asideMenuConfig, setAsideMenuCurrent, getTitleByPathname } = useMobxStore('menuStore');
+  const { topPath, path } = getTitleByPathname(pathname);
 
-  const onSelectMemo = useCallback(
-    (selectedKeys) => {
-      setAsideMenuCurrent(selectedKeys[0]);
-    },
-    [setAsideMenuCurrent],
-  );
+  const onSelectMemo = (selectedKeys) => {
+    setAsideMenuCurrent(selectedKeys[0]);
+  };
 
-  const tSelectedKey = asideMenuCurrent || pathname || '';
+  const tSelectedKey = path || pathname || '';
 
   if (!asideMenuConfig.length || !tSelectedKey) {
     return null;
@@ -95,17 +93,17 @@ const Navigation = (props, context) => {
 
   return (
     <Nav
-      className="scrollbar"
+      key={`${topPath}-${+new Date()}`}
       type="normal"
       defaultOpenAll
+      embeddable
+      activeDirection="right"
+      hasArrow={false}
+      mode={'inline'}
+      iconOnly={false}
       defaultSelectedKeys={[tSelectedKey]}
       selectedKeys={[tSelectedKey]}
       onSelect={onSelectMemo}
-      embeddable
-      activeDirection="right"
-      iconOnly={isCollapse}
-      hasArrow={false}
-      mode={isCollapse ? 'popup' : 'inline'}
     >
       {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
     </Nav>

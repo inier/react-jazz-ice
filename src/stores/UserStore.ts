@@ -2,18 +2,21 @@
 /**
  * 保存用户信息与登录信息token等其他公共信息
  */
-import { makeAutoObservable, observable, action } from 'mobx';
+import { makeAutoObservable } from 'mobx';
 
-import { fakeAccountLogin } from '@/services/login';
+import avatar from '@/assets/img/avatar.png';
+import { login, loginOut as loginOutService } from '@/services/user';
 import { getQueryString } from '@/utils';
 
 class UserStore {
   rootStore: any;
+
   // 全局token
   token = '123456';
   userInfo = {
-    avatar: '',
-    name: '',
+    name: 'Admin',
+    avatar,
+    desc: '',
   };
 
   constructor(rootStore) {
@@ -21,8 +24,9 @@ class UserStore {
     this.rootStore = rootStore;
 
     // 数据持久化
-    rootStore.persistParam('token', true, true); // 单个key
+    rootStore.persistParam(this, 'token', true, true); // 单个key
     // rootStore.persistParam(['mobile', 'nickName', 'imgUrl']); // 多个key，示例
+    rootStore.persistParam(this, 'userInfo');
 
     // 从Url获得token参数
     const tToken = getQueryString('token');
@@ -32,6 +36,14 @@ class UserStore {
 
     // 请求中挂全局参数，比如token
     rootStore.commonRequestData = { token: this.token };
+  }
+
+  setToken(token) {
+    this.token = token;
+  }
+
+  setUserInfo(res) {
+    this.userInfo = res;
   }
 
   /**
@@ -47,26 +59,38 @@ class UserStore {
     // ...
   }
 
-  setToken(token) {
-    this.token = token;
-  }
+  loginIn(values) {
+    return login(values)
+      .then((res) => {
+        const { data } = res;
 
-  setUserInfo(res) {
-    this.userInfo = res;
+        if (data && data.token) {
+          this.setToken(data.token);
+          this.setUserInfo({
+            name: data.userName,
+            avatar: data.avatar || avatar,
+            desc: data.portalName,
+          });
+
+          return res;
+        }
+
+        return res;
+      })
+      .catch((err) => {
+        console.log('loginIn:', err);
+        return false;
+      });
   }
 
   /**
    * 退出登录
    */
   loginOut() {
-    this.setToken(undefined);
-  }
-
-  async getUser() {
-    return fakeAccountLogin().then((res: any) => {
-      this.setUserInfo(res);
-
-      return res;
+    loginOutService(this.token).then((res) => {
+      if (res) {
+        this.setToken(undefined);
+      }
     });
   }
 }

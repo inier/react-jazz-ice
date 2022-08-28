@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { Button } from '@alifd/next';
 
 interface IProps {
   onRefresh: () => void;
 }
 
-const ExceptionBlock: React.FC<IProps> = ({ onRefresh }) => {
+const ExceptionBlock: React.FC<IProps> = ({ onRefresh })                     => {
   return (
     <div className="table-empty-block">
       <div className="result-image">

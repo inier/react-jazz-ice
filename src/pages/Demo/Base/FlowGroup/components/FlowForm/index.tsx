@@ -1,5 +1,5 @@
 import React, { SFC, useEffect, useState, useRef } from 'react';
-import { findDOMNode } from 'react-dom';
+
 import {
   Box,
   Card,
@@ -16,6 +16,8 @@ import {
   Typography,
   ResponsiveGrid,
 } from '@alifd/next';
+import { findDOMNode } from 'react-dom';
+
 import styles from './index.module.scss';
 
 export interface Experience {
@@ -103,7 +105,7 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const FlowForm: SFC<FlowFormProps> = (props) => {
+const FlowForm: SFC<FlowFormProps> = (props)                     => {
   const {
     dataSource = DEFAULT_DATA,
     onAgree = () => {},

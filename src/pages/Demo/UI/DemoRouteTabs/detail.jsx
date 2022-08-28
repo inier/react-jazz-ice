@@ -1,5 +1,7 @@
 import { memo } from 'react';
+
 import { Button } from '@alifd/next';
+
 import { PageContainer } from '@/components';
 
 const DetailDemo = ({ location }) => {

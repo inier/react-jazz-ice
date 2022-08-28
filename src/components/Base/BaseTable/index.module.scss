@@ -1,0 +1,26 @@
+@import '@settings';
+.Main {
+  flex: 1;
+  :global {
+    .next-table-sort {
+      display: unset;
+    }
+  }
+  .Table {
+    .opt {
+      button {
+        margin-right: 5px;
+      }
+    }
+  }
+  th {
+    font-weight: bold;
+    background-color: $table-header-bgColor;
+  }
+  .total {
+    span {
+      padding: 0 3px;
+      color: $color-brand1-6;
+    }
+  }
+}

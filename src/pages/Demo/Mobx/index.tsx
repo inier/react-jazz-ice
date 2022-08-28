@@ -1,11 +1,12 @@
 import React from 'react';
 
 import { Tab } from '@alifd/next';
+
+import HookInFuncComponent from './HookInFuncComponent';
 import InjectInClassComponent from './InjectInClassComponent';
 import InjectInFuncComponent from './InjectInFuncComponent';
-import HookInFuncComponent from './HookInFuncComponent';
 
-function Mobx() {
+const Mobx = () => {
   const tabs = [
     { tab: 'func + mobx hook', key: 'chm', content: <HookInFuncComponent /> },
     { tab: 'func + mobx inject', key: 'cfm', content: <InjectInFuncComponent /> },
@@ -21,6 +22,6 @@ function Mobx() {
       ))}
     </Tab>
   );
-}
+};
 
 export default Mobx;

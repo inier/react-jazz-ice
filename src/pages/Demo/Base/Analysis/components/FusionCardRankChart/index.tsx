@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Card, ResponsiveGrid, Box, Divider } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -32,7 +33,7 @@ const DEFAULT_DATA: CardConfig = {
 
 const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (
   props: FusionCardRankChartProps,
-): JSX.Element => {
+): JSX.Element                     => {
   const { cardConfig = DEFAULT_DATA } = props;
   const { title, dataSource } = cardConfig;
   return (

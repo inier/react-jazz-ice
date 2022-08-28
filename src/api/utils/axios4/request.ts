@@ -2,7 +2,9 @@
  * 通过promise对axios做二次封装，针对用户端参数，做灵活配置
  */
 import { Message } from '@alifd/next';
+
 import { responseCode } from '@/api';
+
 import instance from './interceptor';
 
 /**

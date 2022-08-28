@@ -1,9 +1,26 @@
-import type { CombineService, BaseOptions, BaseResult } from '@ahooksjs/use-request/es/types';
+/* eslint-disable no-redeclare */
+/* eslint @typescript-eslint/no-empty-interface: 0 */
+import useRequestHook from '@ahooksjs/use-request';
+import type {
+  BaseOptions,
+  BasePaginatedOptions,
+  BaseResult,
+  CombineService,
+  LoadMoreFormatReturn,
+  LoadMoreOptions,
+  LoadMoreOptionsWithFormat,
+  LoadMoreParams,
+  OptionsWithFormat,
+  PaginatedFormatReturn,
+  PaginatedOptionsWithFormat,
+  PaginatedParams,
+} from '@ahooksjs/use-request/es/types';
 import { Message } from '@alifd/next';
-import { useRequest as useRequestHook } from 'ice';
+
+import { request } from '@/api';
 
 interface IResponse {
-  code: number;
+  result: number;
   data: any;
   msg: string;
 }
@@ -20,27 +37,54 @@ interface IceBaseResult<R, P extends any[]> extends OmitBaseResult<R, P> {
   request: (...args: P) => Promise<R>;
 }
 
-/**
- * useRequest
- * 扩展 ahooks 中的 useRequest，集中处理后端返回的解析
- *   设置 captureError = true 可统一展示错误信息
- *   设置 withFullResult = true 可返回全部的 data 数据
- * @param {Function}service
- * @param {Object} options
- */
+interface IceLoadMoreResult<R> extends OmitBaseResult<R, LoadMoreParams<R>> {}
+
+interface IcePaginatedResult<Item> extends OmitBaseResult<PaginatedFormatReturn<Item>, PaginatedParams> {}
+
+function useRequest<R = any, P extends any[] = any, U = any, UU extends U = any>(
+  service: CombineService<R, P>,
+  options: OptionsWithFormat<R, P, U, UU>,
+): IceBaseResult<U, P>;
+function useRequest<R = any, P extends any[] = any>(
+  service: CombineService<R, P>,
+  options?: BaseOptions<R, P>,
+): IceBaseResult<R, P>;
+function useRequest<R extends LoadMoreFormatReturn, RR>(
+  service: CombineService<RR, LoadMoreParams<R>>,
+  options: LoadMoreOptionsWithFormat<R, RR>,
+): IceLoadMoreResult<R>;
+function useRequest<R extends LoadMoreFormatReturn, RR extends R>(
+  service: CombineService<R, LoadMoreParams<R>>,
+  options: LoadMoreOptions<RR>,
+): IceLoadMoreResult<R>;
+function useRequest<R = any, Item = any, U extends Item = any>(
+  service: CombineService<R, PaginatedParams>,
+  options: PaginatedOptionsWithFormat<R, Item, U>,
+): IcePaginatedResult<Item>;
+function useRequest<Item = any, U extends Item = any>(
+  service: CombineService<PaginatedFormatReturn<Item>, PaginatedParams>,
+  options: BasePaginatedOptions<U>,
+): IcePaginatedResult<Item>;
 function useRequest<DataType = any, ParamsType extends any[] = any>(
   service: CombineService<DataType, ParamsType>,
   options?: BaseOptions<DataType, ParamsType> & IExpandOptions,
 ): IceBaseResult<DataType, ParamsType> {
   const originFormatResult = options?.formatResult;
-  return useRequestHook(service, {
+  const { run, ...rest } = useRequestHook(service, {
+    // Note：
+    // ahooks/useRequest manual 默认为 false 即自动请求
+    // icejs/useRequest 默认为手动请求
+    // 避免发生 breakchange 这里将 manual 默认改为 true
+    manual: true,
+    // 默认使用 request 作为请求方法
+    requestMethod: request,
     throwOnError: true,
     ...options,
     formatResult: (res: IResponse) => {
-      const { code, data, msg } = res;
+      const { result, data, msg } = res;
       if (options?.withFullResult) {
         return originFormatResult ? originFormatResult(res) : res;
-      } else if (code === 10000) {
+      } else if (result === 10000) {
         return originFormatResult ? originFormatResult(data) : data;
       } else {
         if (options?.captureError) {
@@ -54,6 +98,12 @@ function useRequest<DataType = any, ParamsType extends any[] = any>(
       }
     },
   } as any);
+
+  return {
+    // 修改 ahooks/useRequest 的返回值 run 为 request
+    request: run,
+    ...rest,
+  };
 }
 
 export default useRequest;

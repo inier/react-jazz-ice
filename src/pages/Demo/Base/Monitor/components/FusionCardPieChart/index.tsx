@@ -1,11 +1,12 @@
 import React from 'react';
+
 import { ResponsiveGrid } from '@alifd/next';
+
 import FusionCardAreaChart from './components/CardAreaChart';
 import FusionCardPieChart from './components/CardPieChart';
-
-import WebInfoBlock from './components/WebInfoBlock';
-import VisitBlock from './components/VisitBlock';
 import TrendChart from './components/TrendChart';
+import VisitBlock from './components/VisitBlock';
+import WebInfoBlock from './components/WebInfoBlock';
 import mock from './mock.js';
 
 const { Cell } = ResponsiveGrid;

@@ -1,0 +1,23 @@
+@import '@settings';
+
+.BaseUpload {
+  position: relative;
+  display: inline-block;
+  :global {
+    .next-upload-list-item-name {
+      display: none;
+    }
+  }
+  .loading {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: 4px;
+    left: 0;
+    z-index: -1;
+    &.active {
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.15);
+    }
+  }
+}

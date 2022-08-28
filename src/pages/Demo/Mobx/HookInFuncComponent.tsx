@@ -1,13 +1,13 @@
 import React from 'react';
 
-import { useObserver, Observer, useLocalObservable, observer } from 'mobx-react';
 import { Avatar, Button } from '@alifd/next';
+import { useObserver, Observer, useLocalObservable, observer } from 'mobx-react';
 
 import { useMobxStores } from '@/hooks';
 
 import demoStore from '../stores/DemoStore';
 
-function FuncComponent(props) {
+const FuncComponent = observer((props) => {
   return (
     <>
       <p>func component + mobx hook</p>
@@ -21,25 +21,18 @@ function FuncComponent(props) {
       <Demo4 />
     </>
   );
-}
+});
 
 // 方法1：useMobxStores
 const Demo1 = observer(() => {
   const { userStore } = useMobxStores();
-  const handleClick = () => {
-    // 正常请求
-    userStore.getUser();
-  };
   const { avatar, name } = userStore.userInfo;
 
   return (
-    <>
-      <Button onClick={handleClick}>点击获取信息</Button>
-      <div>
-        <Avatar size="small" src={avatar} />
-        <span style={{ marginLeft: 10 }}>{name}</span>
-      </div>
-    </>
+    <div>
+      <Avatar size="small" src={avatar} />
+      <span style={{ marginLeft: 10 }}>{name}</span>
+    </div>
   );
 });
 

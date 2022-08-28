@@ -64,15 +64,15 @@ const resList = {
     },
     {
       resourceCode: 5000,
-      resourceName: '商品',
+      resourceName: '菜单项1',
       extras: {
         icon: 'cry',
-        routePath: '/goods',
+        routePath: '/menu1',
       },
       resourceList: [
         {
           resourceCode: 50001,
-          resourceName: '商品管理',
+          resourceName: '子菜单项11',
           extras: {
             icon: 'cry',
             routePath: '/demo/dashboard',
@@ -80,7 +80,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500011,
-              resourceName: '商品管理',
+              resourceName: '子菜单项111',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/dashboard/workplace',
@@ -90,7 +90,7 @@ const resList = {
         },
         {
           resourceCode: 50002,
-          resourceName: '商品分类',
+          resourceName: '子菜单项12',
           extras: {
             icon: 'cry',
             routePath: '/demo/form',
@@ -98,7 +98,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500021,
-              resourceName: '前台分类',
+              resourceName: '子菜单项121',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/form/basic',
@@ -110,15 +110,15 @@ const resList = {
     },
     {
       resourceCode: 5001,
-      resourceName: '订单',
+      resourceName: '菜单项2',
       extras: {
         icon: 'cry',
-        routePath: '/order',
+        routePath: '/menu2',
       },
       resourceList: [
         {
           resourceCode: 50011,
-          resourceName: '订单管理',
+          resourceName: '子菜单项21',
           extras: {
             icon: 'cry',
             routePath: '/demo/list',
@@ -126,7 +126,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500111,
-              resourceName: '订单总览',
+              resourceName: '子菜单项212',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/list/basic',
@@ -138,15 +138,15 @@ const resList = {
     },
     {
       resourceCode: 5003,
-      resourceName: '营销',
+      resourceName: '菜单项3',
       extras: {
         icon: 'cry',
-        routePath: '/marketing',
+        routePath: '/menu3',
       },
       resourceList: [
         {
           resourceCode: 50031,
-          resourceName: '促销推广',
+          resourceName: '子菜单项31',
           extras: {
             icon: 'cry',
             routePath: '/demo21',
@@ -154,7 +154,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500311,
-              resourceName: '页面管理',
+              resourceName: '子菜单项311',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/list/card',
@@ -164,7 +164,7 @@ const resList = {
         },
         {
           resourceCode: 50032,
-          resourceName: '会员管理',
+          resourceName: '子菜单项32',
           extras: {
             icon: 'cry',
             routePath: '/demo21',
@@ -172,7 +172,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500321,
-              resourceName: '会员类型管理',
+              resourceName: '子菜单项321',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/detail/basic',
@@ -180,7 +180,7 @@ const resList = {
             },
             {
               resourceCode: 500322,
-              resourceName: '会员折扣管理',
+              resourceName: '子菜单项322',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/detail/advanced',
@@ -192,15 +192,15 @@ const resList = {
     },
     {
       resourceCode: 5004,
-      resourceName: '商家',
+      resourceName: '菜单项4',
       extras: {
         icon: 'cry',
-        routePath: '/merchant',
+        routePath: '/menu4',
       },
       resourceList: [
         {
           resourceCode: 50041,
-          resourceName: '店铺管理',
+          resourceName: '子菜单项41',
           extras: {
             icon: 'cry',
             routePath: '/demo/list',
@@ -208,7 +208,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500411,
-              resourceName: '店铺列表',
+              resourceName: '子菜单项411',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/list/table/basic',
@@ -218,7 +218,7 @@ const resList = {
         },
         {
           resourceCode: 50042,
-          resourceName: '门店管理',
+          resourceName: '子菜单项42',
           extras: {
             icon: 'cry',
             routePath: '/demo/list',
@@ -226,7 +226,7 @@ const resList = {
           resourceList: [
             {
               resourceCode: 500421,
-              resourceName: '门店列表',
+              resourceName: '子菜单项421',
               extras: {
                 icon: 'cry',
                 routePath: '/demo/list/table/filter',

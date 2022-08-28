@@ -1,13 +1,16 @@
 import React from 'react';
+
 import { ResponsiveGrid } from '@alifd/next';
+
 import PageHeader from '@/components/PageHeader';
-import FusionCardBarChart from './components/FusionCardBarChart';
+
 import FusionCardAreaChart from './components/FusionCardAreaChart';
-import FusionCardTypebarChart from './components/FusionCardTypebarChart';
-import FusionCardLineChart from './components/FusionCardLineChart';
-import FusionCardRankChart from './components/FusionCardRankChart';
-import FusionCardPieChart from './components/FusionCardPieChart';
+import FusionCardBarChart from './components/FusionCardBarChart';
 import FusionCardGroupBarChart from './components/FusionCardGroupBarChart';
+import FusionCardLineChart from './components/FusionCardLineChart';
+import FusionCardPieChart from './components/FusionCardPieChart';
+import FusionCardRankChart from './components/FusionCardRankChart';
+import FusionCardTypebarChart from './components/FusionCardTypebarChart';
 
 const { Cell } = ResponsiveGrid;
 

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+
 import { Icon, Badge, Overlay, Avatar, Message, List } from '@alifd/next';
+
 import styles from './index.module.scss';
 
 export interface INoticeItem {
@@ -29,7 +31,7 @@ export interface NoticeProps {
   noticeList?: INoticeItem[];
 }
 
-const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
+const Notice: React.FC<NoticeProps> = ({ noticeList })                     => {
   const [badgeCount, setBadgeCount] = useState(2);
   const [readList, setReadList] = useState<number[]>([]);
 

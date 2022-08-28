@@ -10,14 +10,16 @@ import Authorized from './AuthorizedRoute';
 
 export { default as Link } from './Link';
 export { default as Text } from './Text';
+
 /*
  * layout 布局型组件，用于组织页面布局，例如网格系统、两侧留白、水平留白等。
  */
 // 错误边界
 export { default as ErrorBoundary } from './ErrorBoundary';
-export { default as NotAuthority } from './NotAuthority';
+export { default as UnAuth } from './UnAuth';
 export { default as NotFound } from './NotFound';
 export { default as PageContainer } from './PageContainer';
+
 /*
  * block 区块/模块型组件，具有独立的功能，低于页面级的组件，例如支持筛选和分页的表格，可以嵌套。
  */

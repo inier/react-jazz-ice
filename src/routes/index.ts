@@ -19,6 +19,7 @@ export { formatRoutes, deepFlattenRoutes };
 
 /** 主要的路由 */
 export const mainRoutesConfig: ICustomRouterConfig[] = [
+  ...demoRoutesConfig,
   {
     path: '/',
     exact: true,
@@ -30,14 +31,6 @@ export const mainRoutesConfig: ICustomRouterConfig[] = [
       hideInMenu: true,
       keepAlive: true,
     },
-  },
-  {
-    path: '/demo',
-    pageConfig: {
-      icon: 'attachment',
-      title: '示例',
-    },
-    children: [...demoRoutesConfig],
   },
 ];
 

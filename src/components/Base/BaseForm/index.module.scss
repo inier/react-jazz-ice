@@ -1,0 +1,10 @@
+.BaseForm {
+  :global {
+    .next-form-item-control > .next-input {
+      width: 200px;
+    }
+    .next-form-item-label {
+      padding-right: 0;
+    }
+  }
+}

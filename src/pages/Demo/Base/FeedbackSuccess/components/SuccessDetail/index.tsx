@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Button, Message, Card } from '@alifd/next';
 
 import { useInterval } from '@/hooks';
+
 import styles from './index.module.scss';
 
 interface DetailProcessFunc {
@@ -20,7 +21,7 @@ export interface SuccessDetailProps {
   onButtonContinue: DetailProcessFunc;
 }
 
-export default function SuccessDetail(props: SuccessDetailProps) {
+export default const SuccessDetail = function SuccessDetail(props: SuccessDetailProps) {
   const {
     statusCode = '提交成功',
     description = 's 后自动跳转至工单页',
@@ -75,4 +76,4 @@ export default function SuccessDetail(props: SuccessDetailProps) {
       </div>
     </Card>
   );
-}
+})

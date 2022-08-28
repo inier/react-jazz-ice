@@ -1,8 +1,11 @@
 import React from 'react';
+
 import { ResponsiveGrid } from '@alifd/next';
+
 import PageHeader from '@/components/PageHeader';
-import WorkTable from './components/WorkTable';
 import Demo from '@/pages/Demo';
+
+import WorkTable from './components/WorkTable';
 
 const { Cell } = ResponsiveGrid;
 

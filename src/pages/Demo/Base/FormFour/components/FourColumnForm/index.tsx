@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Input, Box, Button, Select, Form, Card, DatePicker, Message, Radio } from '@alifd/next';
 
+import { Input, Box, Button, Select, Form, Card, DatePicker, Message, Radio } from '@alifd/next';
 import { Moment } from 'moment';
 
 import styles from './index.module.scss';
@@ -32,16 +32,16 @@ const DEFAULT_DATA: DataSource = {
   type: 'private',
 };
 
-const DEFAULT_ON_SUBMIT = (values: FourColumnFormProps, errors: []): void => {
+const DEFAULT_ON_SUBMIT = (values: FourColumnFormProps, errors: []): void                     => {
   if (errors) {
     console.log('errors', errors);
     return;
   }
   console.log('values:', values);
   Message.success('提交成功');
-};
+});
 
-const FourColumnForm: React.SFC<FourColumnFormProps> = (props): JSX.Element => {
+const FourColumnForm: React.SFC<FourColumnFormProps> = (props): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT, onCancel = () => {} } = props;
 
   const [postData, setValue] = useState<FourColumnFormProps>(dataSource);
@@ -152,6 +152,6 @@ const FourColumnForm: React.SFC<FourColumnFormProps> = (props): JSX.Element => {
       </Card.Content>
     </Card>
   );
-};
+}
 
 export default FourColumnForm;

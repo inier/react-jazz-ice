@@ -1,28 +1,34 @@
 import React from 'react';
-import { Tab } from '@alifd/next';
-import { DemoUseRequest1, DemoUseRequest2, DemoUseRequest3 } from './DemoUseRequest';
-import DemoRequest from './DemoRequest';
 
-function Request() {
+import { Tab } from '@alifd/next';
+
+import DemoRequest from './DemoRequest';
+import { DemoUseRequest1, DemoUseRequest2, DemoUseRequest3 } from './DemoUseRequest';
+
+const Request = () => {
   const tabs = [
     {
-      tab: 'useRequest用法',
+      tab: 'useRequest',
       key: 'ccm',
       content: (
         <div>
           <DemoUseRequest1 id={1} />
           <DemoUseRequest2 id={2} />
           <DemoUseRequest3 id={3} options={{ throttleInterval: 5000, refreshOnWindowFocus: true }} />
-          <DemoUseRequest3 id={4} options={{ cacheKey: `getResList-1`, refreshOnWindowFocus: true }} />
+          <DemoUseRequest3 id={4} options={{ cacheKey: 'getResList-1', refreshOnWindowFocus: true }} />
           更多用法：
-          <a href="https://ahooks.js.org/zh-CN/hooks/async#%E9%BB%98%E8%AE%A4%E8%AF%B7%E6%B1%82" target="_blank">
+          <a
+            href="https://ahooks.js.org/zh-CN/hooks/async#%E9%BB%98%E8%AE%A4%E8%AF%B7%E6%B1%82"
+            target="_blank"
+            rel="noreferrer"
+          >
             详情
           </a>
         </div>
       ),
     },
     {
-      tab: 'request用法',
+      tab: 'request',
       key: 'cfm',
       content: (
         <div>
@@ -72,6 +78,6 @@ function Request() {
       ))}
     </Tab>
   );
-}
+};
 
 export default Request;

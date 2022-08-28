@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
-import { Shell, Loading, Message, Icon } from '@alifd/next';
+import { Shell } from '@alifd/next';
 import { observer } from 'mobx-react';
 
+// import RouteTabs from '@/modules/RouterTabs';
 import { RouteTabs, RouteTabsProvider } from '@/components/RouteTabs';
 import { useMobxStores } from '@/hooks';
 import SecurityLayout from '@/layouts/SecurityLayout';
-import { getPageTitle } from '@/utils';
-// import RouterTabs from '@/modules/RouterTabs';
 
 import AsideNav from './components/AsideNav';
 import Footer from './components/Footer';
@@ -21,31 +20,15 @@ import styles from './index.module.scss';
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';
 
-const BasicLayout = ({ location, children }) => {
-  const { UIStore, userStore, menuStore } = useMobxStores();
-  const { loading, toastMsg } = UIStore;
-  const { userInfo } = userStore;
+const BasicLayout = ({ children })                     => {
+  const { userStore, menuStore } = useMobxStores();
+  const { token } = userStore;
 
   useEffect(() => {
-    const { pathname, search } = location;
-
-    menuStore
-      .getAdminResList()
-      .then((res) => {
-        if (res) {
-          if (search.indexOf('type=top') > -1) {
-            menuStore.setHeaderMenuCurrent(pathname);
-          } else if (pathname !== '/') {
-            const tPathInfo = menuStore.pathValidate(pathname);
-            if (tPathInfo.topPath) {
-              menuStore.setHeaderMenuCurrent(tPathInfo.topPath);
-            }
-          }
-        }
-      })
-      .catch(() => {
-        menuStore.getAdminResList();
-      });
+    if (token) {
+      // 拉去权限菜单
+      menuStore.getAdminResList();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -55,58 +38,47 @@ const BasicLayout = ({ location, children }) => {
       return item.path === tab?.path;
     });
 
-    if (targetPath[0]) {
-      if (menuStore.headerMenuCurrent !== targetPath[0].topPath) {
-        menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
-      }
-      if (menuStore.asideMenuCurrent !== targetPath[0].path) {
-        menuStore.setAsideMenuCurrent(targetPath[0].path);
-      }
+    if (targetPath.length && menuStore.headerMenuCurrent !== targetPath[0].topPath) {
+      menuStore.setHeaderMenuCurrent(targetPath[0].topPath);
     }
   };
-  // const defaultRouteTab = menuStore.getDefaultMenuItemPath(location);
-
-  // 所有路由页面的路径信息，包括来自routerConfig、menuPaths、asideMenuConfig等；
-  const tAllMenuPathData: any = [...menuStore.menuPaths, ...menuStore.headerMenuConfig];
-  const tTitle = getPageTitle(location, tAllMenuPathData);
-  if (tTitle && document.title !== tTitle) {
-    document.title = tTitle;
-  }
 
   return (
     <SecurityLayout>
       <RouteTabsProvider>
         <Shell className={`${styles['basic-layout']}`} type="brand">
           <Shell.Branding>
-            <Logo image={siteLogo} text={siteName} />
+            <Logo
+              image={siteLogo}
+              text={siteName}
+              onClick={() => {
+                menuStore.setHeaderMenuCurrent();
+              }}
+            />
           </Shell.Branding>
           <Shell.Navigation direction="hoz">
-            <TopNav token={UIStore.token} />
+            {/* 顶部菜单 */}
+            <TopNav token={token} />
           </Shell.Navigation>
           <Shell.Action>
             <Notice />
             <SolutionLink />
-            <HeaderAvatar {...userInfo} />
+            <HeaderAvatar />
           </Shell.Action>
 
-          {menuStore.asideMenuConfig.length && (
-            <Shell.Navigation className="navigation scrollbar">
+          {menuStore.headerMenuCurrent && (
+            <Shell.LocalNavigation className="navigation">
+              {/* 配合顶部菜单的侧边栏菜单 */}
               <AsideNav />
-            </Shell.Navigation>
+              {/* 完整的侧边栏菜单 */}
+              {/* <PageNav /> */}
+            </Shell.LocalNavigation>
           )}
 
-          <Shell.Content>
-            <Loading visible={!!loading} fullScreen />
-            <Message visible={!!toastMsg}>{toastMsg}</Message>
+          <Shell.Content className={styles.content}>
             {/* 多标签路由 */}
-            {!!(menuStore.asideMenuConfig.length && menuStore.menuPaths.length) && (
-              <>
-                <RouteTabs onTabChange={handleTabChange}>{children}</RouteTabs>
-                {/* <RouterTabs value={defaultRouteTab} routeType="route">
-                  {children}
-                </RouterTabs> */}
-              </>
-            )}
+            <RouteTabs onTabChange={handleTabChange}>{children}</RouteTabs>
+            {/* <RouterTabs value={defaultRouteTab} routeType="route">{children}</RouterTabs> */}
           </Shell.Content>
 
           <Shell.Footer>

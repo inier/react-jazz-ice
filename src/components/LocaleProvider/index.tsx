@@ -28,7 +28,7 @@ interface Props {
   children: React.ReactElement | React.ReactNode;
 }
 
-function LocaleProvider(props: Props) {
+const LocaleProvider = (props: Props) => {
   const { locale, children } = props;
 
   const myLocale = localeInfo[locale] ? localeInfo[locale] : localeInfo['en-US'];
@@ -39,6 +39,6 @@ function LocaleProvider(props: Props) {
       <ConfigProvider locale={myLocale.nextLocale}>{React.Children.only(children)}</ConfigProvider>
     </IntlProvider>
   );
-}
+};
 
 export default LocaleProvider;

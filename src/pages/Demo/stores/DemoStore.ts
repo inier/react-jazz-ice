@@ -1,9 +1,9 @@
 /* eslint-disable no-param-reassign */
-import { action, makeAutoObservable, observable } from 'mobx';
+import { makeAutoObservable } from 'mobx';
+
 import userService from '../services/demo';
 
 class DemoStore {
-  rootStore: any;
   userInfo = {
     avatar: '',
     name: '',
@@ -18,12 +18,12 @@ class DemoStore {
   }
 
   async getUser() {
-    const res = await userService.getUser();
+    return userService.fakeAccountLogin().then((res: any) => {
+      this.setUserInfo(res);
+      console.log('getUser:', res);
 
-    console.log('getUser:', res);
-    this.setUserInfo(res);
-
-    return res;
+      return res;
+    });
   }
 }
 

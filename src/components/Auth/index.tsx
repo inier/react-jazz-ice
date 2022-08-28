@@ -1,6 +1,6 @@
 import { useAuth } from 'ice';
 
-function Auth({ children, authKey, fallback }) {
+const Auth = ({ children, authKey, fallback }) => {
   const [auth] = useAuth();
   // 判断是否有权限
   const hasAuth = auth[authKey];
@@ -12,6 +12,6 @@ function Auth({ children, authKey, fallback }) {
     // 无权限时显示指定 UI
     return fallback;
   }
-}
+};
 
 export default Auth;

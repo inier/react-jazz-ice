@@ -5,8 +5,28 @@
   background-image: url('https://img.alicdn.com/tfs/TB1L.owp1H2gK0jSZJnXXaT1FXa-2880-1770.png');
   background-repeat: no-repeat;
   background-size: cover;
+  justify-content: center;
 }
 
 .content {
   width: 100%;
+}
+
+.block {
+  width: 570px;
+  flex-shrink: 0;
+  margin-right: 120px;
+}
+
+.logo {
+  height: 46px;
+}
+.line {
+  height: 45px;
+  margin: 0 30px;
+  background-color: #ccc;
+  top: 0.06em;
+}
+.content p {
+  font-size: 24px;
 }

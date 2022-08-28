@@ -1,4 +1,5 @@
 import React, { useEffect, useImperativeHandle } from 'react';
+
 import { Select, Form, Field, Input } from '@alifd/next';
 
 const FormItem = Form.Item;
@@ -26,7 +27,10 @@ export interface OperationRef {
   getValues: (callback: (vals: Record<string, unknown>) => void) => void;
 }
 
-const Operation: React.ForwardRefRenderFunction<OperationRef, OperaitionProps> = (props, ref) => {
+const Operation: React.ForwardRefRenderFunction<OperationRef, OperaitionProps> = (
+  props,
+  ref,
+) => {
   const { actionType } = props;
   const dataSource = props.dataSource || {};
   const field = Field.useField([]);

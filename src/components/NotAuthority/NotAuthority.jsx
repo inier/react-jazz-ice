@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Shell } from '@alifd/next';
 import './NotAuthority.scss';
 
@@ -20,7 +21,7 @@ const styles = {
   },
 };
 
-export default class NotAuthority extends Component {
+export default const NotAuthority = observer(class NotAuthority extends Component {
   static displayName = 'NotAuthority';
 
   render() {
@@ -48,4 +49,4 @@ export default class NotAuthority extends Component {
       </div>
     );
   }
-}
+})

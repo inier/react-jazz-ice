@@ -7,15 +7,16 @@
   width: 100%;
   height: $header-height;
   overflow: hidden;
-  .next-menu {
-    .next-menu-item {
-      i {
-        margin-right: 1em;
-      }
-    }
-  }
 
   :global {
+    .next-menu {
+      border: none;
+      .next-menu-item {
+        i {
+          margin-right: 1em;
+        }
+      }
+    }
     .next-nav.next-normal {
       background-color: transparent;
     }
@@ -42,7 +43,7 @@
       line-height: $header-height;
     }
     .next-nav.next-hoz .next-selected.next-nav-item::before {
-      height: 4px;
+      display: none;
     }
   }
 }

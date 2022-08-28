@@ -14,6 +14,11 @@ export const initialState: ITab = {
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    case 'TAB_RESET': {
+      return {
+        ...initialState,
+      };
+    }
     case 'TAB_ADD': {
       return {
         ...state,

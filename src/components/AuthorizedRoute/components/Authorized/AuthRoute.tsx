@@ -1,4 +1,5 @@
 import { Route, Redirect } from 'react-router-dom';
+
 import { getAuthority } from '@/utils';
 /**
  * @description 判断是否登录认证，未登录则跳转到登录页面
@@ -25,4 +26,5 @@ const AuthRoute = ({ component: Component, authority, path, ...rest }) => {
     />
   );
 };
+
 export default AuthRoute;

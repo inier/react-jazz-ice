@@ -1,0 +1,25 @@
+.img-list {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  .img-box {
+    position: relative;
+    margin-right: 20px;
+  }
+  .img-close {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .img {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+.box {
+  min-height: 500px;
+  min-width: 800px;
+}

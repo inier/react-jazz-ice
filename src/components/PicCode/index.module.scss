@@ -1,0 +1,40 @@
+.picCodeWrap {
+  position: relative;
+  display: flex;
+  padding-right: 100px;
+  align-items: center;
+  .input {
+    width: 200px;
+  }
+  .img {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    width: 70px;
+    height: 35px;
+    line-height: 35px;
+    cursor: pointer;
+    background-color: #ddd;
+    text-align: center;
+    &.lg {
+      top: 3px;
+      width: 130px;
+      height: 50px;
+      line-height: 50px;
+    }
+    &:before {
+      position: absolute;
+      content: '刷新';
+      font-size: 18px;
+      width: 100%;
+      z-index: 1;
+      left: 0;
+    }
+    img {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+  }
+}

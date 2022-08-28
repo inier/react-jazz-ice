@@ -5,6 +5,7 @@ import { createContext } from 'react';
 // 数据持久化
 import { request, responseCode } from '@/api';
 import { persistParam } from '@/utils/persistData';
+import { goToLoginWithRedirect } from '@/utils';
 
 // == 通用Stores
 import MenuStore from './MenuStore';
@@ -28,7 +29,7 @@ class RootStore {
     this.userStore = new UserStore(this);
     this.menuStore = new MenuStore(this);
 
-    // 初始化其他Store
+    // 实例化其他Store
     // ...
   }
 
@@ -91,13 +92,14 @@ class RootStore {
 
   /**
    * @description 数据持久化(localStorage或sessionStorage)
+   * @param {object} currStore store对象
    * @param {string|array} keyNames 键值项名称
    * @param {boolean} inSessionStorage 是否添加到sessionStorage，默认为false，添加到localStorage
    * @param {boolean} global 是否用于全局，默认为false，keyName前会增加前缀（所属store的名称），true则不添加前缀
    */
-  persistParam = (keyNames: string | any[], inSessionStorage = false, global = false) => {
-    persistParam(this, keyNames, inSessionStorage, global);
-  };
+  persistParam(currStore, keyNames: string | any[], inSessionStorage = false, global = false) {
+    persistParam(currStore, keyNames, inSessionStorage, global);
+  }
 
   /**
    * @description loading图标的展示状态回调
@@ -109,10 +111,13 @@ class RootStore {
 
   /**
    * @description 请求发送错误码的回调
-   * @param {*} code 错误码
+   * @param {string} code 错误码
+   * @param {string} message 错误码
    */
-  handleRequestError = (code: string | undefined) => {
-    this.UIStore.showToast(responseCode.codeMsg(code));
+  handleRequestError = (code: string | undefined, message?) => {
+    const msg = responseCode.codeMsg(code) || message;
+
+    this.UIStore.showToast(msg);
   };
 
   /**
@@ -123,8 +128,9 @@ class RootStore {
    * @param {String} type 请求类型
    */
   handleRequestExpire = (url, params, opts, type?) => {
-    // token 过期后自动刷新 token
-    return this.userStore.refreshToken(url, params, opts);
+    goToLoginWithRedirect();
+    // // token 过期后自动刷新 token
+    // return this.userStore.refreshToken(url, params, opts);
   };
 
   /**
@@ -140,8 +146,7 @@ class RootStore {
     const { toast } = opts;
 
     if (!json || typeof json.result === 'undefined' || json.result === null) {
-      !toast && this.handleRequestError(json.result);
-      console.log('数据格式不正确！');
+      !toast && this.handleRequestError(json.result, json.message || '数据返回错误！');
 
       return {};
     }
@@ -157,7 +162,7 @@ class RootStore {
       // 显示错误信息
       default: {
         console.log(`Request is get Error,Code :${json.result}`);
-        !toast && this.handleRequestError(json.result);
+        !toast && this.handleRequestError(json.result, json.message);
 
         return json;
       }

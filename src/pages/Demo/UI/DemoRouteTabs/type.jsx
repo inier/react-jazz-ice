@@ -1,6 +1,8 @@
 import { memo, useEffect, useState } from 'react';
-import { useParams, history } from 'ice';
+
 import { Button, List, Dialog } from '@alifd/next';
+import { useParams, history } from 'ice';
+
 import { useRouteTabsContext } from '@/hooks';
 
 const Detail2Demo = () => {
@@ -34,7 +36,7 @@ const Detail2Demo = () => {
             <Button
               onClick={() => {
                 action?.replaceTab({
-                  pathname: '/test/type/2',
+                  pathname: '/demo/testRouteTabs/type/2',
                   state: { name: 'replace 打开的页面' },
                 });
               }}
@@ -44,7 +46,7 @@ const Detail2Demo = () => {
             <Button
               onClick={() => {
                 action?.replaceTab({
-                  pathname: '/test/type/3',
+                  pathname: '/demo/testRouteTabs/type/3',
                   state: { name: 'replace 打开的页面' },
                 });
               }}
@@ -57,7 +59,7 @@ const Detail2Demo = () => {
           <Button
             onClick={() => {
               history.replace({
-                pathname: '/test/type/2',
+                pathname: '/demo/testRouteTabs/type/2',
                 state: { name: 'replace 打开的页面' },
               });
             }}
@@ -69,7 +71,7 @@ const Detail2Demo = () => {
           <a
             onClick={() => {
               action.replaceTab({
-                pathname: '/test/detail',
+                pathname: '/demo/testRouteTabs/detail',
                 query: {
                   id: '888',
                 },
@@ -83,7 +85,7 @@ const Detail2Demo = () => {
           <a
             onClick={() => {
               history.replace({
-                pathname: '/test/detail',
+                pathname: '/demo/testRouteTabs/detail',
                 query: {
                   id: '666',
                 },
@@ -96,7 +98,7 @@ const Detail2Demo = () => {
         <List.Item>
           <Button
             onClick={() => {
-              action?.triggerEvent('/test/list', 'test', count);
+              action?.triggerEvent('/demo/testRouteTabs/list', 'test', count);
             }}
           >
             往列表页注册事件
@@ -118,6 +120,7 @@ const Detail2Demo = () => {
               action?.updateTabInstance(null, {
                 closeTips: (callback) => {
                   dialog = Dialog.show({
+                    title: '提示',
                     content: '确定要关闭当前页面?',
                     onOk: () => {
                       callback();

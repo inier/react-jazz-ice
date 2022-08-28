@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import {
   Card,
   Table,
@@ -52,7 +53,9 @@ interface ITableListProps {
   dataSource: IDataSource;
 }
 
-const TableList: React.FunctionComponent<ITableListProps> = (props: ITableListProps): JSX.Element => {
+const TableList: React.FunctionComponent<ITableListProps> = (
+  props: ITableListProps,
+): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA } = props;
 
   const [loading, setLoading] = useState(true);

@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { inject, observer } from 'mobx-react';
 
-function DemoRequest(props) {
+const DemoRequest = (props) => {
   const { menuStore, id, title, name, data = { x: 100 }, options = {} } = props;
   const { resList = [] } = menuStore;
   const handleClick = () => {
@@ -22,6 +23,6 @@ function DemoRequest(props) {
       </div>
     </div>
   );
-}
+};
 
 export default inject('menuStore')(observer(DemoRequest));

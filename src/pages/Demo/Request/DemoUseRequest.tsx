@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
+
 import { useRequest } from '@/hooks';
 import userService from '@/pages/Demo/services/demo';
 
-export function DemoUseRequest1({ id, options = {} }) {
+export const DemoUseRequest1 = ({ id, options = {} }) => {
   // 用法1：传入字符串
   const { data, request } = useRequest('/api/user');
   const handleClick1 = useCallback(() => {
@@ -21,9 +22,9 @@ export function DemoUseRequest1({ id, options = {} }) {
       </div>
     </div>
   );
-}
+};
 
-export function DemoUseRequest2({ id, options = {} }) {
+export const DemoUseRequest2 = ({ id, options = {} }) => {
   // 用法2：传入配置对象
   const { data, request } = useRequest({
     url: '/api/user',
@@ -45,9 +46,9 @@ export function DemoUseRequest2({ id, options = {} }) {
       </div>
     </div>
   );
-}
+};
 
-export function DemoUseRequest3({ id, options = {} }) {
+export const DemoUseRequest3 = ({ id, options = {} }) => {
   // 用法3：传入 service 函数
   const { data, request } = useRequest(userService.getResList, {
     ...options,
@@ -69,4 +70,4 @@ export function DemoUseRequest3({ id, options = {} }) {
       </div>
     </div>
   );
-}
+};

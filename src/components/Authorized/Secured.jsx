@@ -1,8 +1,11 @@
 import React from 'react';
+
 import CheckPermissions from './CheckPermissions';
 /** 默认不能访问任何页面 default is "NULL" */
 
-const Exception403 = () => 403;
+const Exception403 = () => {
+  return 403;
+});
 
 export const isComponentClass = (component) => {
   if (!component) return false;

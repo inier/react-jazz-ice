@@ -1,0 +1,17 @@
+@import '@settings';
+.Main {
+  :global {
+    .next-btn-text.next-large > .next-btn-icon.next-icon-alone:before {
+      font-size: 22px;
+      width: 40px;
+      padding: 5px;
+      margin-top: -4px;
+      margin-left: -5px;
+    }
+    .next-search-simple.next-normal.next-medium .next-search-icon:before {
+      font-size: 22px;
+      width: 23px;
+      color: #999;
+    }
+  }
+}

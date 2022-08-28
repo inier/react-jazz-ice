@@ -35,7 +35,7 @@ const TabTag: React.FC<IProps> = ({
   onClose,
   className = '',
   style = {},
-}) => {
+})                     => {
   /* title省略时的处理 */
   const maxLength = isEllipsis ? tagTextMinLen : tagTextMaxLen;
   const props = {

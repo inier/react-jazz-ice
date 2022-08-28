@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { Card } from '@alifd/next';
 import { Chart, Geom } from 'bizcharts';
-import mock from './mock.js';
 
 import styles from './index.module.scss';
+import mock from './mock.js';
 
 interface ChartItem {
   date?: string | number;
@@ -30,7 +31,9 @@ const DEFAULT_DATA: FusionCardAreaChartProps = {
   chartHeight: 100,
 };
 
-const FusionCardAreaChart: React.FunctionComponent<FusionCardAreaChartProps> = (props = DEFAULT_DATA): JSX.Element => {
+const FusionCardAreaChart: React.FunctionComponent<FusionCardAreaChartProps> = (
+  props = DEFAULT_DATA,
+): JSX.Element                     => {
   const { title, subTitle, value, chartData, des, rate, chartHeight } = { ...DEFAULT_DATA, ...props };
 
   return (

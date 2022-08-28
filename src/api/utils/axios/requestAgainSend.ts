@@ -10,7 +10,9 @@ export function againRequest(err, axios) {
   const { config } = err;
 
   // config.retry 具体接口配置的重发次数
-  if (!config || !config.retry) return Promise.reject(err);
+  if (!config || !config.retry) {
+    return Promise.reject(err);
+  }
 
   // 设置用于记录重试计数的变量 默认为0
   config.__retryCount = config.__retryCount || 0;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import {
   Avatar,
   Box,
@@ -13,10 +14,11 @@ import {
   Timeline,
   List,
 } from '@alifd/next';
-import mock from './mock';
+
+import Demo from '../Demo';
 
 import styles from './index.module.scss';
-import Demo from '../Demo';
+import mock from './mock';
 
 const { Cell } = ResponsiveGrid;
 const TimelineItem = Timeline.Item;

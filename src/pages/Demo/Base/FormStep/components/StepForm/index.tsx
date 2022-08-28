@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Form, Input, Icon, Radio, Field, Step, Button, Box, Typography } from '@alifd/next';
 
+import { Card, Form, Input, Icon, Radio, Field, Step, Button, Box, Typography } from '@alifd/next';
 import { Item } from '@alifd/next/types/step';
 
 import styles from './index.module.scss';
@@ -24,7 +24,7 @@ const DEFAULT_DATA: DataSource = {
   desc: '',
 };
 
-const StepForm: React.FunctionComponent<StepFormProps> = (props: StepFormProps): JSX.Element => {
+const StepForm: React.FunctionComponent<StepFormProps> = (props: StepFormProps): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA, onSubmit = (): void => {} } = props;
 
   const projectField = Field.useField({ values: dataSource });

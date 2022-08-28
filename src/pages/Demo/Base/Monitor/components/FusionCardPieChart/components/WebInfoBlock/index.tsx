@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Card } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -15,7 +16,9 @@ export interface WebInfoProps {
   cardConfig?: CardConfig;
 }
 
-const WebInfoBlock: React.FunctionComponent<WebInfoProps> = (props: WebInfoProps): JSX.Element => {
+const WebInfoBlock: React.FunctionComponent<WebInfoProps> = (
+  props: WebInfoProps,
+): JSX.Element                     => {
   const { cardConfig }: WebInfoProps = props;
   const { value, name, des, rate, isRise } = cardConfig;
 

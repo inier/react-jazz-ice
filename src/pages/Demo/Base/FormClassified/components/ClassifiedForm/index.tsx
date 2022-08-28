@@ -1,5 +1,7 @@
 import React, { SFC } from 'react';
+
 import { Box, Button, Card, Form, Input, Select, Radio, Field, Divider, Message } from '@alifd/next';
+
 import styles from './index.module.scss';
 
 export interface DataSource {
@@ -37,7 +39,7 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const ClassifiedForm: SFC<ClassifiedFormProps> = (props): JSX.Element => {
+const ClassifiedForm: SFC<ClassifiedFormProps> = (props): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
 
   const jobField = Field.useField({ values: dataSource.job });

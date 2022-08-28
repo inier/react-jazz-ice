@@ -143,16 +143,16 @@ instance.interceptors.response.use(
       }
       if (error.message) {
         if (typeof error.message === 'string') {
-          response = { code: 100002, message: error.message };
+          response = { result: 100002, message: error.message };
         } else if (typeof error.message === 'object') {
           response = error.message;
         }
       } else {
         response = {};
       }
-      return Promise.resolve(response || { code: 100002 });
+      return Promise.resolve(response || { result: 100002 });
     } else {
-      return Promise.resolve({ code: 100002 });
+      return Promise.resolve({ result: 100002 });
     }
   },
 );

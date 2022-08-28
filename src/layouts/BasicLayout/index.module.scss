@@ -6,34 +6,51 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
 .basic-layout {
   height: 100vh;
 
+  .content {
+    background: url('~@/assets/img/bg.jpg');
+    background-size: cover;
+  }
+
   :global {
     .next-shell-header {
+      flex-shrink: 0;
       border-bottom: none;
     }
-
     .next-shell-main .next-shell-content {
-      padding: 0;
+      padding: 0 !important;
     }
-    .next-shell-main {
-      // background-color: #fff;
-    }
-    .next-shell-aside.next-shell-navigation.next-shell-collapse {
-      overflow: hidden;
-    }
-    .next-shell-aside.next-shell-navigation.navigation {
-      padding: 0;
-      background-color: $basic-layout-aside-bgColor-light;
-      .next-menu,
-      .next-menu-item.next-nav-item.next-selected:before {
-        right: 0;
+    .next-shell-aside {
+      .navigation {
+        background-color: #fff;
+
+        &.next-shell-collapse {
+          .local-nav-trigger {
+            color: #fff;
+            background-color: $color-brand1-6;
+          }
+        }
+        // 折叠控制
+        .local-nav-trigger {
+          position: absolute !important;
+          right: 0;
+          z-index: 1;
+          border-radius: 0;
+          border-top-right-radius: $corner-1;
+          border-bottom-right-radius: $corner-1;
+        }
+        .next-menu-item-inner {
+          padding-right: 20px;
+        }
+        .next-nav.next-ver.next-left .next-nav-item:before {
+          left: 0;
+        }
+        .next-nav.next-ver.next-right .next-nav-item:before {
+          right: 0;
+        }
       }
     }
     .next-shell-sub-main {
       overflow: hidden;
-    }
-
-    .scrollbar {
-      overflow-x: hidden;
     }
   }
 
@@ -51,6 +68,15 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
           }
         }
       }
+    }
+  }
+}
+
+:global {
+  .next-shell.next-shell-tablet,
+  .next-shell.next-shell-phone {
+    .next-shell-aside.next-aside-localnavigation {
+      width: unset;
     }
   }
 }

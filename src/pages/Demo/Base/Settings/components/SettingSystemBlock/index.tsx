@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import {
   Avatar,
   Card,
@@ -17,6 +18,7 @@ import {
   Icon,
 } from '@alifd/next';
 import { UploadProps } from '@alifd/next/types/upload';
+
 import styles from './index.module.scss';
 
 const { Cell } = ResponsiveGrid;

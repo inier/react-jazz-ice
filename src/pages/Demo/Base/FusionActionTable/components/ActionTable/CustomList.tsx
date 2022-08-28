@@ -1,23 +1,23 @@
 import React, { useState, useRef } from 'react';
-import { Button, Icon, Checkbox, Overlay } from '@alifd/next';
-import { ReactSortable, ItemInterface } from 'react-sortablejs';
-import { ColumnProps } from '@alifd/next/types/table/index';
 
-import { getColumnKey } from './util';
+import { Button, Icon, Checkbox, Overlay } from '@alifd/next';
+import { ColumnProps } from '@alifd/next/types/table/index';
+import { ReactSortable, ItemInterface } from 'react-sortablejs';
 
 import styles from './index.module.scss';
+import { getColumnKey } from './util';
 
 export type Column = ColumnProps &
-  ItemInterface & {
-    id?: string | number;
-    children?: Column[];
-  };
+ItemInterface & {
+  id?: string | number;
+  children?: Column[];
+};
 
 const TableActionIcon = Icon.createFromIconfontCN({
   scriptUrl: '//at.alicdn.com/t/font_1899388_oxn3zhg34oj.js',
 });
 
-function CustomList({ columns, onChange }: { columns: Column[]; onChange: (cols: Column[]) => void }) {
+const CustomList = ({ columns, onChange }: { columns: Column[]; onChange: (cols: Column[]) => void })                     => {
   const buttonRef = useRef(null);
   const [visible, setVisible] = useState(false);
 
@@ -96,6 +96,6 @@ function CustomList({ columns, onChange }: { columns: Column[]; onChange: (cols:
       </Overlay>
     </React.Fragment>
   );
-}
+};
 
 export default CustomList;

@@ -6,7 +6,7 @@ import { Redirect } from 'react-router-dom';
 
 import { useMobxStores } from '@/hooks';
 
-const SecurityLayout = ({ children }) => {
+const SecurityLayout = ({ children })                     => {
   const { userStore } = useMobxStores();
   // 登录认证规则
   const isLogin = userStore.token;
@@ -19,6 +19,6 @@ const SecurityLayout = ({ children }) => {
   }
 
   return children;
-};
+});
 
 export default observer(SecurityLayout);

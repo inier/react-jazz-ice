@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Box, Form, Typography, Avatar, Tab, MenuButton, Button, Card, Step, Table, Divider } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -86,7 +87,9 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const AdvancedDetail: React.FunctionComponent<AdvancedDetailProps> = (props: AdvancedDetailProps): JSX.Element => {
+const AdvancedDetail: React.FunctionComponent<AdvancedDetailProps> = (
+  props: AdvancedDetailProps,
+): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA, onTabChange = (): viod => {}, onTableTabChange = (): void => {} } = props;
 
   const renderTab = (): JSX.Element => {

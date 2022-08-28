@@ -30,4 +30,10 @@ export default {
       };
     });
   },
+
+  async fakeAccountLogin() {
+    return request.get(apiUrls.GET_USER_INFO, {}, { loading: true }).then((res) => {
+      return res.data;
+    });
+  },
 };

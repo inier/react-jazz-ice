@@ -1,6 +1,9 @@
 import React from 'react';
+
 import { ResponsiveGrid } from '@alifd/next';
+
 import PageHeader from '@/components/PageHeader';
+
 import CardList from './components/CardList';
 
 const { Cell } = ResponsiveGrid;

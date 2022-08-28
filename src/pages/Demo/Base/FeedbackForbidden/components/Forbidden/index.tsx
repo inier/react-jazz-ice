@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Exception from './components/Exception';
 
-export default function Forbidden() {
+export default const Forbidden = function Forbidden() {
   return (
     <Exception
       statusCode="403"
@@ -9,4 +10,4 @@ export default function Forbidden() {
       description="服务器好像挂了你要等会了"
     />
   );
-}
+})

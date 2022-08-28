@@ -1,19 +1,19 @@
 import React from 'react';
-import resList from '@/../mock/resList';
-import { getInitialData } from 'ice';
-import { transform } from 'lodash-es';
 
-function trans(objA, objB) {
-  console.log(objA, objB);
-  transform();
-}
+import { Tab } from '@alifd/next';
 
-function Ui() {
-  const { flatRoutes } = getInitialData();
+import { UIList } from './config';
 
-  trans(resList, flatRoutes);
+const UI = () => {
+  return (
+    <Tab>
+      {UIList.map((item) => (
+        <Tab.Item key={item.tab} title={item.tab}>
+          {item.content}
+        </Tab.Item>
+      ))}
+    </Tab>
+  );
+};
 
-  return <div>Ui</div>;
-}
-
-export default Ui;
+export default UI;

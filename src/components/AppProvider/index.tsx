@@ -4,6 +4,7 @@ import { ConfigProvider } from '@alifd/next';
 import { Provider } from 'mobx-react';
 import { AliveScope } from 'react-activation';
 
+import ToastAndLoading from '@/modules/ToastAndLoading';
 import stores from '@/stores';
 
 import LocaleProvider from '../LocaleProvider';
@@ -53,28 +54,33 @@ const getDevice: IGetDevice = (width) => {
   }
 };
 
-function AppProvider(props: IProps) {
+const AppProvider = (props: IProps) => {
   const { keepAlive = true, locale = '', children } = props;
   const [device, setDevice] = useState(getDevice(NaN));
 
-  if (typeof window !== 'undefined') {
-    window.addEventListener('optimizedResize', (e) => {
-      const deviceWidth = (e && e.target && (e.target as Window).innerWidth) || NaN;
+  // if (typeof window !== 'undefined') {
+  //   window.addEventListener('optimizedResize', (e) => {
+  //     const deviceWidth = (e && e.target && (e.target as Window).innerWidth) || NaN;
 
-      setDevice(getDevice(deviceWidth));
-    });
-  }
+  //     setDevice(getDevice(deviceWidth));
+  //   });
+  // }
+
+  const content = (
+    <>
+      {Children.only(children)}
+      <ToastAndLoading />
+    </>
+  );
 
   return (
     <LocaleProvider locale={locale}>
       {/* 状态管理：服务类、函数组件 */}
       <Provider {...stores}>
-        <ConfigProvider device={device}>
-          {keepAlive ? <AliveScope>{Children.only(children)}</AliveScope> : Children.only(children)}
-        </ConfigProvider>
+        <ConfigProvider device={device}>{keepAlive ? <AliveScope>{content}</AliveScope> : content}</ConfigProvider>
       </Provider>
     </LocaleProvider>
   );
-}
+};
 
 export default AppProvider;

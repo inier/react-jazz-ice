@@ -29,7 +29,9 @@ interface LoginProps {
   dataSource?: IDataSource;
 }
 
-const LoginBlock: React.FunctionComponent<LoginProps> = (props = { dataSource: DEFAULT_DATA }): JSX.Element => {
+const LoginBlock: React.FunctionComponent<LoginProps> = (
+  props = { dataSource: DEFAULT_DATA },
+): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA } = props;
 
   const [postData, setValue] = useState(dataSource);

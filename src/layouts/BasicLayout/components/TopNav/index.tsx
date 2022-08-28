@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import { Nav } from '@alifd/next';
 import { Link, withRouter, getInitialData } from 'ice';
 import { observer } from 'mobx-react';
 
 import { useMobxStore } from '@/hooks';
+import { IMenuItem } from '@/stores/MenuStore';
 
 import styles from './index.module.scss';
 
@@ -51,7 +52,7 @@ const getSubNavItem = (item, options) => {
   return navItem;
 };
 
-function getNavMenuItems(menusData: any, options) {
+function getNavMenuItems(menusData: IMenuItem[], options) {
   const { token, auth } = options;
   if (!menusData) {
     return [];
@@ -73,17 +74,20 @@ function getNavMenuItems(menusData: any, options) {
     });
 }
 
-const TopNav = (props) => {
+const TopNav = (props)                     => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent, setAsideMenuCurrent, getDefaultMenuItemPath } =
     useMobxStore('menuStore');
 
   const handleNavClick = (key = []) => {
-    // 非外部链接可更改当前顶部菜单选项
-    if (key.length && key[0]?.indexOf('external=true') === -1) {
-      const defaultTab = getDefaultMenuItemPath({ pathname: key[0].split('?')[0], search: key[0].split('?')[1] });
+    const currentTopKey: string = key[0];
 
-      setHeaderMenuCurrent(key[0]);
+    // 非外部链接可更改当前顶部菜单选项
+    if (currentTopKey && currentTopKey.indexOf('external=true') === -1) {
+      const tArr = currentTopKey.split('?');
+      const defaultTab = getDefaultMenuItemPath({ pathname: tArr[0], search: tArr[1] });
+
+      setHeaderMenuCurrent(currentTopKey);
       setAsideMenuCurrent(defaultTab);
       props.history.push(defaultTab);
     }

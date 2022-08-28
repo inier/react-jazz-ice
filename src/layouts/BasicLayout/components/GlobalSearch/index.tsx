@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { Search } from '@alifd/next';
 
 export interface IData {
@@ -24,11 +25,11 @@ const mockData: IData[] = [
     value: '搜索条件四',
   },
 ];
-export default function GlobalSearch() {
+export default const GlobalSearch = function GlobalSearch() {
   const initData: IData[] = [];
   const [dataSource, setDataSource] = useState(initData);
   function onChange() {
     setDataSource(mockData);
   }
   return <Search dataSource={dataSource} shape="simple" type="dark" onChange={onChange} />;
-}
+})

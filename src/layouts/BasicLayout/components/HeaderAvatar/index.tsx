@@ -1,5 +1,9 @@
 import React from 'react';
+
 import { Avatar, Overlay, Menu, Icon } from '@alifd/next';
+
+import { useMobxStores } from '@/hooks';
+
 import styles from './index.module.scss';
 
 const { Item } = Menu;
@@ -8,10 +12,10 @@ const { Popup } = Overlay;
 export interface Props {
   name: string;
   avatar: string;
-  mail: string;
+  desc: string;
 }
 
-const UserProfile = ({ name, avatar, mail }) => {
+const UserProfile = ({ name, avatar, desc })                     => {
   return (
     <div className={styles.profile}>
       <div className={styles.avatar}>
@@ -19,14 +23,16 @@ const UserProfile = ({ name, avatar, mail }) => {
       </div>
       <div className={styles.content}>
         <h4>{name}</h4>
-        <span>{mail}</span>
+        <span>{desc}</span>
       </div>
     </div>
   );
 };
 
-const HeaderAvatar = (props: Props) => {
-  const { name, avatar } = props;
+const HeaderAvatar = (props: Props)                     => {
+  const { userStore } = useMobxStores();
+  const { name, avatar } = userStore.userInfo;
+
   return (
     <Popup
       trigger={
@@ -38,16 +44,15 @@ const HeaderAvatar = (props: Props) => {
       triggerType="click"
     >
       <div className={styles.avatarPopup}>
-        <UserProfile {...props} />
-        <Menu className={styles.menu}>
-          <Item>
-            <Icon size="small" type="account" />
-            个人设置
-          </Item>
-          <Item>
-            <Icon size="small" type="set" />
-            系统设置
-          </Item>
+        <UserProfile {...userStore.userInfo} />
+        <Menu
+          className={styles.menu}
+          onItemClick={(selectedKey) => {
+            if (selectedKey === '0-0') {
+              userStore.loginOut();
+            }
+          }}
+        >
           <Item>
             <Icon size="small" type="exit" />
             退出
@@ -59,9 +64,9 @@ const HeaderAvatar = (props: Props) => {
 };
 
 HeaderAvatar.defaultProps = {
-  name: 'Admin',
-  mail: 'admin@gmail.com',
-  avatar: 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png',
+  name: '',
+  desc: '',
+  avatar: '',
 };
 
 export default HeaderAvatar;

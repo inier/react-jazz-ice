@@ -6,6 +6,8 @@ import { request, apiUrls } from '@/api';
 class ResponseCode {
   // 错误码
   codes = {
+    '-1': '登录已过期，请重新登录',
+    1: '未知原因导致操作失败',
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',
     202: '一个请求已经进入后台排队（异步任务）。',
@@ -45,17 +47,17 @@ class ResponseCode {
    * @returns 错误的中文信息
    */
   codeMsg(code = '') {
-    if (code === '-1') return;
-
+    if (code === '-1') {
+      return;
+    }
     if (this.codes && Object.prototype.hasOwnProperty.call(this.codes, code)) {
       return this.codes[code.toString()];
     }
-
     if (this.newCodes && Object.prototype.hasOwnProperty.call(this.newCodes, code)) {
       return this.newCodes[code.toString()];
-    } else {
-      return '未知错误';
     }
+
+    return '';
   }
 
   // 获取在线错误码

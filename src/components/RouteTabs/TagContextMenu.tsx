@@ -27,7 +27,7 @@ const TagContextMenu = (props: IProps) => {
 
   const handleClick = useCallback(
     (cTab) => {
-      if (cTab.path === currentTab.path) {
+      if (cTab.routePath === currentTab.routePath) {
         return;
       }
       action.openTab(cTab);
@@ -127,8 +127,8 @@ const TagContextMenu = (props: IProps) => {
             title={tab.name}
             value={tab}
             isEllipsis={isShowNavControls}
-            isClose={length > 1 && tab.path === currentTab.path}
-            isActive={tab.path === currentTab.path}
+            isClose={length > 1 && tab.routePath === currentTab.routePath}
+            isActive={tab.routePath === currentTab.routePath}
             onClose={handleClose}
           />
         )}

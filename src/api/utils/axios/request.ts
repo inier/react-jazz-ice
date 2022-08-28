@@ -1,13 +1,11 @@
 /**
  * axios二次封装
  */
-import { Method } from 'axios';
-import qs from 'qs';
+import { IOptions, IRequest, Method } from 'axios';
 
 import stores from '@/stores';
 
 import instance from './interceptor';
-import { IRequest, IOptions } from './type';
 
 /**
  * 核心函数，可通过它处理一切请求数据，并做横向扩展
@@ -51,7 +49,7 @@ function request<T>(url: string, params: object, options: IOptions, method: Meth
         resolve(result);
       })
       .catch((error) => {
-        console.log(error.message);
+        console.log('request status > 400:', error);
       })
       .finally(() => {
         // 请求完关闭loading

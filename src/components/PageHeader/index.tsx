@@ -10,7 +10,7 @@ export interface PageHeaderProps {
   description?: string;
 }
 
-const PageHeader = (props: PageHeaderProps) => {
+const PageHeader = (props: PageHeaderProps)                     => {
   const { breadcrumbs, title, description, ...others } = props;
   return (
     <Box spacing={8} className={styles.PageHeader} {...others}>

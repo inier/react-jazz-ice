@@ -5,7 +5,7 @@ import isEqual from 'lodash-es/isEqual';
 
 import { isComponentClass } from './Secured'; // eslint-disable-next-line import/no-cycle
 
-export default class PromiseRender extends React.Component {
+export default const PromiseRender = observer(class PromiseRender extends React.Component {
   state = {
     component: () => null,
   };
@@ -77,4 +77,4 @@ export default class PromiseRender extends React.Component {
       </div>
     );
   }
-}
+})

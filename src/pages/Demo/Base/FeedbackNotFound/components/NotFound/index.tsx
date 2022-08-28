@@ -1,7 +1,8 @@
 import React from 'react';
+
 import Exception from './components/Exception';
 
-export default function NotFound() {
+export default const NotFound = function NotFound() {
   return (
     <Exception
       statusCode="404"
@@ -9,4 +10,4 @@ export default function NotFound() {
       description="服务器好像挂了你要等会了"
     />
   );
-}
+})

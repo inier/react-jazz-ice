@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 import { Message } from '@alifd/next';
 import { history, matchPath, getInitialData } from 'ice';
+import { cloneDeep } from 'lodash-es';
 import { useAliveController } from 'react-activation';
 
 import {
@@ -27,7 +28,17 @@ const getRouteConfig = (location) => {
     });
 
     if (match) {
-      matchList.push(routeConfig);
+      const tRouteConfig = cloneDeep(routeConfig);
+
+      if (match.params.orderId) {
+        tRouteConfig.pageConfig.title = `${match.params.orderId}-${routeConfig.pageConfig.title}`;
+      } else if (match.params.name) {
+        tRouteConfig.pageConfig.title = `${match.params.name}...-${routeConfig.pageConfig.title}`;
+      } else if (match.params.id) {
+        tRouteConfig.pageConfig.title = `${match.params.id}-${routeConfig.pageConfig.title}`;
+      }
+
+      matchList.push(tRouteConfig);
     }
   }
 
@@ -655,7 +666,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
   };
 
   /** 监听路由变化 */
-  const listenRouterChange = (location, action) => {
+  const listenRouterChange = (location, action?) => {
     let tabInstance;
     const execRefreshTab = () => {
       if (window.ROUTE_TABS_NEED_REFRESH_TAB) {
@@ -750,6 +761,14 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
           if (!routeTabsState.currentTab) {
             routeConfig.pageConfig.fixed = true;
           }
+          // "/"不加入到tabs中
+          if (location.pathname === '/') {
+            routeTabsDispatch({
+              type: 'TAB_RESET',
+            });
+            return;
+          }
+
           // 打开新的选项卡, 并设置高亮
           // 添加新记录
           tabInstance = createNewTab(location, routeConfig);
@@ -757,6 +776,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
             type: 'TAB_ADD',
             payload: tabInstance,
           });
+
           // 高亮选项卡
           routeTabsDispatch({
             type: 'CURRENT_UPDATE',
@@ -782,6 +802,7 @@ export const useRouteTabsApi = (routeTabsState, routeTabsDispatch) => {
     window.ROUTE_TABS_CHANGE_COMPLETE = true;
     window.ROUTE_TABS_NEXT_HIGHLIGHT_TAB = null;
     window.ROUTE_TABS_NEED_REFRESH_TAB = false;
+
     // 更新历史记录
     routeTabsDispatch({
       type: 'HISTORY_ADD',

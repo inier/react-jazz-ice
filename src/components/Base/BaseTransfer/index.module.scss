@@ -1,0 +1,15 @@
+.next-dialog {
+  :global {
+    .next-transfer-panel {
+      .next-transfer-panel-search {
+        width: 348px !important;
+      }
+    }
+    .next-menu.next-ver .next-menu-item {
+      padding: 0 4px 0 4px;
+    }
+    .next-transfer-panel-footer {
+      padding: 8px 4px;
+    }
+  }
+}

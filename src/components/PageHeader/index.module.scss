@@ -1,10 +1,8 @@
-@import '~@alifd/next/variables.scss';
+@import '@settings';
 
 .PageHeader {
-  margin-top: -$shell-dark-content-paddingTop;
-  // margin-right: -$shell-dark-content-paddingLeft;
-  margin-bottom: 0;
-  // margin-left: -$shell-dark-content-paddingLeft;
+  margin-right: -$shell-dark-content-paddingLeft;
+  margin-left: -$shell-dark-content-paddingLeft;
   padding: $shell-dark-content-paddingTop $shell-dark-content-paddingLeft;
   background-color: $color-white;
 }

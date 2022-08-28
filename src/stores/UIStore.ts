@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
-import { makeAutoObservable, observable, action } from 'mobx';
+import { makeAutoObservable } from 'mobx';
+
 import { isMobile } from '@/utils';
 
 /**
@@ -10,7 +11,6 @@ class UIStore {
 
   // 是否展示loading图标
   loading = false;
-
   // 需要展示的错误信息
   toastMsg: any;
   isMobile: boolean | RegExpMatchArray | null;
@@ -23,7 +23,7 @@ class UIStore {
     // 浏览器UA判断，true：微信，false：h5等其他
     this.isMobile = isMobile;
     // 数据持久化
-    rootStore.persistParam('isMobile', undefined, true);
+    rootStore.persistParam(this, 'isMobile', undefined, true);
   }
 
   setLoading(boolean: boolean) {
@@ -40,7 +40,7 @@ class UIStore {
    * @param {*} autoClose 是否自动关闭
    * @param {*} duration toast显示的持续时间，默认3秒
    */
-  showToast(msg: any, autoClose = true, duration = 3000) {
+  showToast = (msg: any, autoClose = true, duration = 3000) => {
     this.setToastMsg(msg);
 
     // 指定时间后自动关闭toast，默认3秒
@@ -49,7 +49,7 @@ class UIStore {
         this.setToastMsg('');
       }, duration);
     }
-  }
+  };
 }
 
 export default UIStore;

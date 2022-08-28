@@ -1,6 +1,8 @@
 import React, { SFC, useState, useEffect, useRef } from 'react';
-import { findDOMNode } from 'react-dom';
+
 import { Card, Form, Input, Select, Button, Table, Box, Divider, MenuButton, Dialog, Field } from '@alifd/next';
+import { findDOMNode } from 'react-dom';
+
 import styles from './index.module.scss';
 
 export interface Company {
@@ -101,7 +103,7 @@ const DEFAULT_DATA: DataSource = {
   ],
 };
 
-const GroupForm: SFC<GroupFormProps> = (props) => {
+const GroupForm: SFC<GroupFormProps> = (props)                     => {
   const { dataSource: defaultDataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
 
   const [dataSource, setDataSouce] = useState<DataSource>(defaultDataSource);

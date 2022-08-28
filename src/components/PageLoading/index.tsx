@@ -2,10 +2,8 @@ import React from 'react';
 
 import { Loading } from '@alifd/next';
 
-const PageLoading = () => (
-  <div style={{ paddingTop: 200, textAlign: 'center' }}>
-    <Loading color="#fff" />
-  </div>
-);
+const PageLoading = ({ visible }) => {
+  return <Loading fullScreen visible={visible} />;
+};
 
 export default PageLoading;

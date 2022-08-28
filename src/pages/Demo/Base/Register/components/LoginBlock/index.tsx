@@ -1,9 +1,11 @@
 /* eslint-disable @iceworks/best-practices/no-secret-info */
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import { Input, Message, Form } from '@alifd/next';
+import PropTypes from 'prop-types';
 
 import { useInterval } from '@/hooks';
+
 import styles from './index.module.scss';
 
 const { Item } = Form;
@@ -16,7 +18,7 @@ export interface RegisterProps {
   code: string;
 }
 
-export default function RegisterBlock() {
+const RegisterBlock = () => {
   const [postData, setValue] = useState({
     email: '',
     password: '',
@@ -142,7 +144,7 @@ export default function RegisterBlock() {
       </div>
     </div>
   );
-}
+};
 
 RegisterBlock.propTypes = {
   // eslint-disable-next-line react/no-unused-prop-types
@@ -152,3 +154,5 @@ RegisterBlock.propTypes = {
 RegisterBlock.defaultProps = {
   value: {},
 };
+
+export default RegisterBlock;

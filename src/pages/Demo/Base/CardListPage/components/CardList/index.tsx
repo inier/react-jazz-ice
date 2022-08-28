@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import { Box, Search, Card, Tag, ResponsiveGrid, Divider, Typography, Icon, Loading } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -31,7 +32,7 @@ const DEFAULT_DATA: DataSource = {
   }),
 };
 
-const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps): JSX.Element => {
+const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps): JSX.Element                     => {
   const { dataSource = DEFAULT_DATA, onSearch = (): void => {} } = props;
 
   const [tagAValue, setTagAValue] = useState(dataSource.tagA);

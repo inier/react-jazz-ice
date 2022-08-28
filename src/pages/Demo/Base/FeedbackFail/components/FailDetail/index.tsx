@@ -1,4 +1,5 @@
 import * as React from 'react';
+
 import { Button, Message, Card } from '@alifd/next';
 
 import styles from './index.module.scss';
@@ -13,7 +14,7 @@ export interface FailDetailProps {
   onButtonBack: () => any;
 }
 
-export default function FailDetail(props: FailDetailProps) {
+export default const FailDetail = function FailDetail(props: FailDetailProps) {
   const {
     statusCode = '提交失败',
     description = '请核对并修改信息后，再重新提交。',
@@ -44,4 +45,4 @@ export default function FailDetail(props: FailDetailProps) {
       </div>
     </Card>
   );
-}
+})

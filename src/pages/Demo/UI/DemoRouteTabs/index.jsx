@@ -1,8 +1,9 @@
 import { memo, useContext, useEffect, useState } from 'react';
 
+import { Button, List } from '@alifd/next';
+
 import { Link } from '@/components';
 import { useRouteTabsContext, useRouteEventListen } from '@/hooks';
-import { Button, List } from '@alifd/next';
 
 const TestIndex = () => {
   const { action } = useRouteTabsContext();
@@ -29,7 +30,7 @@ const TestIndex = () => {
         <List.Item>
           <Link
             to={{
-              pathname: '/test/detail',
+              pathname: '/demo/testRouteTabs/detail',
               query: {
                 id: 1,
               },
@@ -41,7 +42,7 @@ const TestIndex = () => {
         <List.Item>
           <Link
             to={{
-              pathname: '/test/detail',
+              pathname: '/demo/testRouteTabs/detail',
               query: {
                 id: 1,
                 type: 2,
@@ -54,7 +55,7 @@ const TestIndex = () => {
         <List.Item>
           <Link
             to={{
-              pathname: '/test/type/1',
+              pathname: '/demo/testRouteTabs/type/1',
             }}
           >
             Link标签打开 test/type/:id 页面, 验证 params
@@ -64,7 +65,7 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/test/detail',
+                pathname: '/demo/testRouteTabs/detail',
                 query: {
                   id: 1,
                 },
@@ -78,9 +79,9 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/test/detail',
+                pathname: '/demo/testRouteTabs/detail',
                 query: {
-                  id: 1,
+                  id: 789,
                 },
                 state: {
                   force: true,
@@ -96,7 +97,7 @@ const TestIndex = () => {
         <List.Item>
           <a
             onClick={() => {
-              action?.openTab('/test/detail?id=123');
+              action?.openTab('/demo/testRouteTabs/detail?id=123');
             }}
           >
             api 打开, 传入字符串格式
@@ -106,7 +107,7 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/test/list',
+                pathname: '/demo/testRouteTabs/list',
                 state: { force: true, name: '我是 api 强制打开的页面' },
               });
             }}
@@ -117,7 +118,7 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/test/list',
+                pathname: '/demo/testRouteTabs/list',
                 state: { force: true, keepAlive: false },
               });
             }}
@@ -129,7 +130,7 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/member/list',
+                pathname: '/demo/member/list',
                 state: { force: true, name: '不存在的页面', keepAlive: false },
               });
             }}
@@ -141,7 +142,7 @@ const TestIndex = () => {
           <a
             onClick={() => {
               action?.openTab({
-                pathname: '/test/list',
+                pathname: '/demo/testRouteTabs/list',
                 state: { force: true, keepAlive: false },
               });
             }}

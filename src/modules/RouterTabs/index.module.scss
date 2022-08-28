@@ -1,4 +1,4 @@
-@import '~@alifd/next/variables.scss';
+@import '@settings';
 
 //== RouterTabs
 $routerTabs-height: 40px;
@@ -20,16 +20,7 @@ $routerTabs-item-box-shadow-2: rgba(0, 0, 0, 0.12) 4px -4px 10px 0;
 .router-tabs-content {
   position: relative;
   display: flex;
-  flex-direction: column;
-  height: calc(100vh - 92px);
-  padding: 12px;
-  overflow: auto;
-  overflow-x: hidden;
-  background-color: #fff;
-  .ka-wrapper,
-  .ka-content {
-    min-height: 100%;
-  }
+  flex: 1;
 }
 .router-tabs-item {
   position: absolute;

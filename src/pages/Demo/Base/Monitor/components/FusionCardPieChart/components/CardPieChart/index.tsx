@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Card } from '@alifd/next';
 import { Chart, Geom, Coord, Axis, Legend } from 'bizcharts';
 
@@ -56,7 +57,7 @@ export interface FusionCardLineChartProps {
 
 const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
   props: FusionCardLineChartProps,
-): JSX.Element => {
+): JSX.Element                     => {
   const { cardConfig = DEFAULT_DATA } = props;
 
   const { title, chartData, chartHeight } = cardConfig;

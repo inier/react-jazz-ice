@@ -12,10 +12,11 @@ import './index.scss';
 
 const TABS_BAR_PADDING = 80;
 
-const RouteTabs = (props) => {
+const RouteTabs = (props)                     => {
   const { onTabChange, children } = props;
   const context = useRouteTabsContext();
   const { state, action } = context || {};
+  console.log('routeTabs: ', state);
 
   useEffect(() => {
     if (!context) {
@@ -174,7 +175,7 @@ const RouteTabs = (props) => {
           </div>
         </div>
       </div>
-      <div className="route-tabs-content scrollbar">{children}</div>
+      <div className="route-tabs-content">{children}</div>
     </div>
   );
 };

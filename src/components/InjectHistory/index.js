@@ -6,9 +6,9 @@ import { useHistory } from 'react-router-dom';
  * @date 2019-10-29
  * @returns 空
  */
-function InjectHistory() {
+const InjectHistory = () => {
   window.reactHistory = useHistory();
   return null;
-}
+});
 
 export default InjectHistory;

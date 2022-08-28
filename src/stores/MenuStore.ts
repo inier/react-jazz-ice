@@ -259,7 +259,9 @@ class MenuStore {
 
   setResList(value: any = []) {
     if (value && value.length) {
-      this.resList = [].concat(value.slice());
+      runInAction(() => {
+        this.resList = [].concat(value.slice());
+      });
     }
     console.log('resList:', toJS(this.resList));
   }
@@ -270,13 +272,16 @@ class MenuStore {
   }
 
   setAsideMenuCurrent(value = '') {
-    runInAction(() => {
-      if (this.headerMenuCurrent) {
-        this.asideMenuCurrent = value;
-        this.recentActiveMenuMap.set(this.headerMenuCurrent, value);
-      }
-    });
-    console.log('asideMenuCurrent:', this.asideMenuCurrent, toJS(this.recentActiveMenuMap));
+    if (this.headerMenuCurrent) {
+      this.asideMenuCurrent = value;
+    }
+    console.log('asideMenuCurrent:', this.asideMenuCurrent);
+  }
+  setRecentActiveMenu(key, value = '') {
+    if (key) {
+      this.recentActiveMenuMap.set(key, value);
+      console.log('recentActiveMenuMap:', key, value, toJS(this.recentActiveMenuMap));
+    }
   }
 
   // 采用jsonParse处理数据的错误处理回调
@@ -295,55 +300,65 @@ class MenuStore {
    * @returns {promise}
    */
   getAdminResList(params = {}, options = { loading: true, toast: true }) {
-    const { request } = this.rootStore;
     const { showToast } = this.rootStore.UIStore;
 
-    return request(getResList, params, options).then(({ result, data }): any => {
-      if (result === '0' && Array.isArray(data)) {
-        const tResourceList: IResItem[] = data.filter((item: IResItem) => {
-          const tExtras = jsonParse(item.extras);
+    return getResList(params, options)
+      .then(({ result, data }): any => {
+        if (result === '0' && Array.isArray(data)) {
+          const tResourceList: IResItem[] = data.filter((item: IResItem) => {
+            const tExtras = jsonParse(item.extras);
 
-          if (tExtras) {
-            item.extras = tExtras;
-            return true;
-          }
+            if (tExtras) {
+              item.extras = tExtras;
+              return true;
+            }
+            return false;
+          });
+
+          this.setResList(tResourceList);
+          this.initTopNav();
+
+          return true;
+        } else {
+          showToast(responseCode.codeMsg('2'));
+
           return false;
-        });
-
-        this.setResList(tResourceList);
-
-        return true;
-      } else {
-        showToast(responseCode.codeMsg('2'));
-
+        }
+      })
+      .catch((err) => {
+        console.log('权限菜单接口获取失败', err);
         return false;
-      }
-    });
+      });
   }
 
   // 通过 pathname 获取 pathname 对应到路由描述信息对象
-  getTitleByPathname(pathname): any {
+  getTitleByPathname(pathname) {
     // 模拟全局路由配置对象
     const routerConfig = this.pathValidate(pathname);
     if (typeof routerConfig === 'object' && Object.keys(routerConfig).length) {
       return routerConfig;
     }
 
-    return null;
+    return {};
   }
 
   // 可添加到标签页的菜单路径有效性检测，在menuPaths中视为有效
   pathValidate(path) {
     if (path) {
+      let tPath = path.split('?')[0];
+      if (tPath.includes(PUBLIC_URL)) {
+        tPath = tPath.slice(PUBLIC_URL.length);
+      }
+      console.log(tPath);
       return this.menuPaths.find((item) => {
-        return item.path === path;
+        return item.path === tPath || item.topPath === tPath || item.parentPath === tPath;
       });
     }
 
     return {};
   }
 
-  // 获取默认菜单项
+  // 获取默认菜单项: location
   getDefaultMenuItemPath(path?: any) {
     const { pathname = '', search = '' } = path || {};
 
@@ -373,7 +388,7 @@ class MenuStore {
       tMenuPath = tPathname;
     }
 
-    this.setAsideMenuCurrent(tMenuPath);
+    this.setRecentActiveMenu(pathname, tMenuPath);
 
     return tMenuPath;
   }
@@ -388,6 +403,27 @@ class MenuStore {
     }
 
     return '';
+  }
+
+  // 初始化菜单的默认选中
+  initTopNav(location?) {
+    const { pathname, search } = window.location;
+    const { topPath = '', path } = this.getTitleByPathname(pathname);
+
+    if (!topPath) {
+      // window.location.href = '/';
+    }
+
+    if (search.indexOf('type=top') > -1) {
+      this.setHeaderMenuCurrent(pathname);
+    } else if (topPath !== '/') {
+      this.setHeaderMenuCurrent(topPath);
+    }
+
+    // const defaultTab = this.getDefaultMenuItemPath({ pathname: topPath, search });
+
+    // this.setAsideMenuCurrent(defaultTab);
+    // window.location.href = defaultTab;
   }
 }
 

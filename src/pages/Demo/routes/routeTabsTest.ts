@@ -17,12 +17,12 @@ const routesConfig: ICustomRouterConfig[] = [
         pageConfig: {
           title: '列表测试页面',
         },
-        component: lazy(() => import('@/pages/Demo/Test/index')),
+        component: lazy(() => import('@/pages/Demo/UI/DemoRouteTabs/index')),
       },
       {
         path: 'detail',
         exact: true,
-        component: lazy(() => import('@/pages/Demo/Test/detail')),
+        component: lazy(() => import('@/pages/Demo/UI/DemoRouteTabs/detail')),
         pageConfig: {
           title: '详情测试页面',
         },
@@ -30,9 +30,10 @@ const routesConfig: ICustomRouterConfig[] = [
       {
         path: 'list',
         exact: true,
-        component: lazy(() => import('@/pages/Demo/Test/list')),
+        component: lazy(() => import('@/pages/Demo/UI/DemoRouteTabs/list')),
         pageConfig: {
           title: '长列表页',
+          keepAlive: true,
         },
       },
       {
@@ -43,7 +44,11 @@ const routesConfig: ICustomRouterConfig[] = [
           closeTips: true,
           hideInMenu: true,
         },
-        component: lazy(() => import('@/pages/Demo/Test/type')),
+        component: lazy(() => import('@/pages/Demo/UI/DemoRouteTabs/type')),
+      },
+      {
+        path: '/',
+        redirect: '/404',
       },
     ],
   },

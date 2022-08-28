@@ -1,6 +1,8 @@
 /* eslint-disable import/no-cycle */
 import React from 'react';
+
 import PromiseRender from './PromiseRender';
+
 import { CURRENT } from './index';
 // const CURRENT = 'admin';
 
