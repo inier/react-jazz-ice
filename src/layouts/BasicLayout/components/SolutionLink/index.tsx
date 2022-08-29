@@ -5,12 +5,14 @@ import { Link } from 'ice';
 
 import styles from './index.module.scss';
 
-const SolutionLink = function SolutionLink() => 
-  { return <div className={styles.link}>
-    <Link to="/solution" title="官方推荐方案">
-      <Icon type="smile" />
-    </Link>
-  </div> }
-));
+function SolutionLink() {
+  return (
+    <div className={styles.link}>
+      <Link to="/solution" title="官方推荐方案">
+        <Icon type="smile" />
+      </Link>
+    </div>
+  );
+}
 
 export default SolutionLink;

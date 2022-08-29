@@ -21,7 +21,7 @@ const styles = {
   },
 };
 
-export default const NotAuthority = observer(class NotAuthority extends Component {
+class NotAuthority extends Component {
   static displayName = 'NotAuthority';
 
   render() {
@@ -49,4 +49,6 @@ export default const NotAuthority = observer(class NotAuthority extends Componen
       </div>
     );
   }
-})
+}
+
+export default NotAuthority;

@@ -53,9 +53,7 @@ interface ITableListProps {
   dataSource: IDataSource;
 }
 
-const TableList: React.FunctionComponent<ITableListProps> = (
-  props: ITableListProps,
-): JSX.Element                     => {
+const TableList: React.FC<ITableListProps> = (props: ITableListProps) => {
   const { dataSource = DEFAULT_DATA } = props;
 
   const [loading, setLoading] = useState(true);

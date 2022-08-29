@@ -31,9 +31,7 @@ const DEFAULT_DATA: CardConfig = {
   ],
 };
 
-const FusionCardRankChart: React.FunctionComponent<FusionCardRankChartProps> = (
-  props: FusionCardRankChartProps,
-): JSX.Element                     => {
+const FusionCardRankChart = (props: FusionCardRankChartProps) => {
   const { cardConfig = DEFAULT_DATA } = props;
   const { title, dataSource } = cardConfig;
   return (

@@ -21,7 +21,7 @@ export interface SuccessDetailProps {
   onButtonContinue: DetailProcessFunc;
 }
 
-export default const SuccessDetail = function SuccessDetail(props: SuccessDetailProps) {
+export default function SuccessDetail(props: SuccessDetailProps) {
   const {
     statusCode = '提交成功',
     description = 's 后自动跳转至工单页',
@@ -76,4 +76,4 @@ export default const SuccessDetail = function SuccessDetail(props: SuccessDetail
       </div>
     </Card>
   );
-})
+}

@@ -9,4 +9,9 @@
 
 const { getStylelintConfig } = require('@iceworks/spec');
 
-module.exports = getStylelintConfig('react');
+module.exports = getStylelintConfig('react', {
+    customSyntax: "postcss-scss",
+    rules: {
+        'max-line-length': 200,
+    }
+});

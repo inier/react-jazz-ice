@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 const { SubMenu } = Menu;
 
 // Tab标签操作区
-const TabOptionArea = ({ tags, onClick })                     => {
+const TabOptionArea = ({ tags, onClick }) => {
   return (
     <div className={`${styles['router-tabs-options']}`}>
       <Dropdown

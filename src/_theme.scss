@@ -1,21 +1,21 @@
-//== 全局变量
+/* == 全局变量 */
 
-// 引入主题变量
+/* 引入主题变量 */
 @import '~@alifd/next/lib/core/index.scss';
-//== mixins
+/* == mixins */
 @import '@ozo/mixins-sass/src/mixins.scss';
 
-//== 项目相关重置或定义
+/* == 项目相关重置或定义 */
 
 $page-min-width: 1280px;
 $disabled-color: #ddd;
 
-//= Logo
+/* == Logo */
 $logo-width: 350px;
 $logo-img-width: 68px;
 $logo-img-height: 32px;
 
-//= Header
+/* == Header */
 $header-height: 52px;
 $header-bg-color: $color-brand1-6;
 $header-nav-size: $font-size-body-2;
@@ -24,8 +24,8 @@ $header-nav-bg-color: transparent;
 $header-nav-color-active: #fff;
 $header-nav-bg-color-active: rgba(24, 99, 224, 1);
 
-//== Aside
+/* == Aside */
 $aside-width: 280px;
 
-//== Table
+/* == Table */
 $table-header-bgColor: #e6f1fc;

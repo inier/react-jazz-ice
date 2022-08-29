@@ -57,9 +57,7 @@ export interface FusionCardLineChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardLineChart: React.FunctionComponent<FusionCardLineChartProps> = (
-  props: FusionCardLineChartProps,
-): JSX.Element                     => {
+const FusionCardLineChart = (props: FusionCardLineChartProps) => {
   const { cardConfig = DEFAULT_DATA } = props;
 
   const { title, value, chartData, chartHeight } = cardConfig;

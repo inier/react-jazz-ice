@@ -33,9 +33,7 @@ const DEFAULT_DATA: DataSource = {
   }),
 };
 
-const BasicList: React.FunctionComponent<BasicListProps> = (
-  props: BasicListProps,
-): JSX.Element                     => {
+const BasicList: React.FC<BasicListProps> = (props: BasicListProps) => {
   const { dataSource = DEFAULT_DATA, onSearch = (): void => {} } = props;
 
   const [tagAValue, setTagAValue] = useState(dataSource.tagA);
@@ -46,7 +44,7 @@ const BasicList: React.FunctionComponent<BasicListProps> = (
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  });
+  }, []);
 
   const onTagAValueChange = (v: string) => {
     setLoading(true);

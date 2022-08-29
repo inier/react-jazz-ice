@@ -5,7 +5,7 @@ import CheckPermissions from './CheckPermissions';
 
 const Exception403 = () => {
   return 403;
-});
+};
 
 export const isComponentClass = (component) => {
   if (!component) return false;

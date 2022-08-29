@@ -12,7 +12,7 @@ import './index.scss';
 
 const TABS_BAR_PADDING = 80;
 
-const RouteTabs = (props)                     => {
+const RouteTabs = (props) => {
   const { onTabChange, children } = props;
   const context = useRouteTabsContext();
   const { state, action } = context || {};

@@ -21,7 +21,7 @@ export interface HierarchicalFormProps {
   onCancel?: () => void;
 }
 
-const HierarchicalForm: SFC<HierarchicalFormProps> = (props)                     => {
+const HierarchicalForm: SFC<HierarchicalFormProps> = (props) => {
   const {
     dataSource = {
       authType: 1,

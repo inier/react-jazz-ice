@@ -32,7 +32,7 @@ const TabTagArea: React.FC<IProps> = ({
   className,
   style,
   getTitleByPathname,
-})                     => {
+}) => {
   const cls = classNames(styles['router-tabs-tags'], className);
   const tags = panes.map((pathname, index) => {
     // 通过pathname获取到指定的页面名称
@@ -90,7 +90,7 @@ const TabTagArea: React.FC<IProps> = ({
 };
 
 // Tab标签操作区
-const TabOptionArea = ({ tags, handleClick })                     => {
+const TabOptionArea = ({ tags, handleClick }) => {
   return (
     <div className={`${styles['router-tabs-options']}`}>
       <Dropdown

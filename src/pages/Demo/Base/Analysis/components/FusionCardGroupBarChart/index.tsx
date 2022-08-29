@@ -43,42 +43,40 @@ export interface FusionCardGroupBarChartProps {
   cardConfig?: CardConfig;
 }
 
-const FusionCardGroupBarChart: React.FunctionComponent<FusionCardGroupBarChartProps> = 
-  (props: FusionCardGroupBarChartProps): JSX.Element                     => {
-    const { cardConfig = DEFAULT_DATA } = props;
+const FusionCardGroupBarChart = (props: FusionCardGroupBarChartProps) => {
+  const { cardConfig = DEFAULT_DATA } = props;
 
-    const { title, chartData, chartHeight } = cardConfig;
+  const { title, chartData, chartHeight } = cardConfig;
 
-    return (
-      <Card free className={styles.FusionCardGroupBarChart}>
-        <Card.Header title={title} />
-        <Card.Divider />
-        <Card.Content>
-          <Chart renderer="canvas" forceFit width={10} height={chartHeight} data={chartData} padding={['80', 'auto']}>
-            <Axis name="category" />
-            <Axis name="value" />
-            <Legend
-              textStyle={{
-                fill: '#666',
-                fontSize: 14,
-              }}
-            />
-            <Geom
-              type="interval"
-              position="category*value"
-              color="type"
-              adjust={[
-                {
-                  type: 'dodge',
-                  marginRatio: 1 / 16,
-                },
-              ]}
-            />
-          </Chart>
-        </Card.Content>
-      </Card>
-    );
-  },
-);
+  return (
+    <Card free className={styles.FusionCardGroupBarChart}>
+      <Card.Header title={title} />
+      <Card.Divider />
+      <Card.Content>
+        <Chart renderer="canvas" forceFit width={10} height={chartHeight} data={chartData} padding={['80', 'auto']}>
+          <Axis name="category" />
+          <Axis name="value" />
+          <Legend
+            textStyle={{
+              fill: '#666',
+              fontSize: 14,
+            }}
+          />
+          <Geom
+            type="interval"
+            position="category*value"
+            color="type"
+            adjust={[
+              {
+                type: 'dodge',
+                marginRatio: 1 / 16,
+              },
+            ]}
+          />
+        </Chart>
+      </Card.Content>
+    </Card>
+  );
+};
 
 export default FusionCardGroupBarChart;

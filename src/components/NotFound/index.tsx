@@ -5,7 +5,7 @@ import { Shell } from '@alifd/next';
 
 import styles from './index.module.scss';
 
-const NotFound = ({ type, style })                     => {
+const NotFound = ({ type, style }) => {
   return (
     <div className={styles.basicnotfound} style={style}>
       <Shell

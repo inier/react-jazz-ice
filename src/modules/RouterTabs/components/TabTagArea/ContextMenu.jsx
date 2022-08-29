@@ -3,7 +3,7 @@ import React, { memo } from 'react';
 import { Menu } from '@alifd/next';
 import PropTypes from 'prop-types';
 
-const Tab = observer((props)                     => {
+const Tab = (props) => {
   const { isActive, index, contextMenu, handleTabItemMenuClick, children } = props;
 
   // 创建右键菜单
@@ -58,7 +58,7 @@ const Tab = observer((props)                     => {
       </div>
     </div>
   );
-});
+};
 
 Tab.propTypes = {
   /**

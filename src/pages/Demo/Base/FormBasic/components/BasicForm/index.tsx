@@ -31,16 +31,16 @@ const DEFAULT_DATA: DataSource = {
   type: 'private',
 };
 
-const DEFAULT_ON_SUBMIT = (values: BasicFormProps, errors: []): void                     => {
+const DEFAULT_ON_SUBMIT = (values: BasicFormProps, errors: []): void => {
   if (errors) {
     console.log('errors', errors);
     return;
   }
   console.log('values:', values);
   Message.success('提交成功');
-});
+};
 
-const BasicForm: React.SFC<BasicFormProps> = (props): JSX.Element                     => {
+const BasicForm = (props: BasicFormProps) => {
   const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT, onCancel = () => {} } = props;
 
   const [postData, setValue] = useState<BasicFormProps>(dataSource);
@@ -103,6 +103,6 @@ const BasicForm: React.SFC<BasicFormProps> = (props): JSX.Element               
       </Card.Content>
     </Card>
   );
-}
+};
 
 export default BasicForm;

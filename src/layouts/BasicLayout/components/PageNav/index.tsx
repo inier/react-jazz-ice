@@ -141,7 +141,7 @@ const Navigation = memo((props, context) => {
       {getNavMenuItems(asideMenuConfig, 0, AUTH_CONFIG)}
     </Nav>
   );
-}
+});
 
 Navigation.contextTypes = {
   isCollapse: PropTypes.bool,

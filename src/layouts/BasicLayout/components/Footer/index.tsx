@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './index.module.scss';
 
-export default const Footer = function Footer() {
+export default function Footer() {
   return (
     <p className={styles.footer}>
       {/* <span className={styles.logo}>XXX</span>
@@ -10,4 +10,4 @@ export default const Footer = function Footer() {
       <span className={styles.copyright}>Copyright© 2022 XXXXX</span>
     </p>
   );
-})
+}

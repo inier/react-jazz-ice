@@ -16,9 +16,7 @@ export interface WebInfoProps {
   cardConfig?: CardConfig;
 }
 
-const WebInfoBlock: React.FunctionComponent<WebInfoProps> = (
-  props: WebInfoProps,
-): JSX.Element                     => {
+const WebInfoBlock: React.FunctionComponent<WebInfoProps> = (props: WebInfoProps): JSX.Element => {
   const { cardConfig }: WebInfoProps = props;
   const { value, name, des, rate, isRise } = cardConfig;
 

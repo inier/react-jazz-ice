@@ -7,7 +7,7 @@ import styles from './index.module.scss';
 const { Item } = Form;
 
 // 图片验证码组件
-const PicCode = (props)                     => {
+const PicCode = (props) => {
   const {
     username,
     disabled = false,

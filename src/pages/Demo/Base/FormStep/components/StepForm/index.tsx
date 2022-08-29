@@ -24,7 +24,7 @@ const DEFAULT_DATA: DataSource = {
   desc: '',
 };
 
-const StepForm: React.FunctionComponent<StepFormProps> = (props: StepFormProps): JSX.Element                     => {
+const StepForm: React.FunctionComponent<StepFormProps> = (props: StepFormProps): JSX.Element => {
   const { dataSource = DEFAULT_DATA, onSubmit = (): void => {} } = props;
 
   const projectField = Field.useField({ values: dataSource });

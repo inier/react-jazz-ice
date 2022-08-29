@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 const { Tooltip } = Balloon;
 
 // 图标组件
-const TipIcon = ({ disabled, trigger, className, onClick, ...restProps })                     => {
+const TipIcon = ({ disabled, trigger, className, onClick, ...restProps }) => {
   return (
     <Tooltip
       v2

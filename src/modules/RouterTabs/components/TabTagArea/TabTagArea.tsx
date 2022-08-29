@@ -24,7 +24,7 @@ const TabTagArea: React.FC<IProps> = ({
   children,
   className,
   style,
-})                     => {
+}) => {
   const ref = useRef(null);
   const [isEllipsis, setIsEllipsis] = useState(false);
 

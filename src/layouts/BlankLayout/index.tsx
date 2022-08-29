@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Shell } from '@alifd/next';
 
-export default const BlankLayout = function BlankLayout({ children }: { children: React.ReactNode }) {
+export default function BlankLayout({ children }: { children: React.ReactNode }) {
   return (
     <Shell
       style={{
@@ -13,4 +13,4 @@ export default const BlankLayout = function BlankLayout({ children }: { children
       <Shell.Content>{children}</Shell.Content>
     </Shell>
   );
-})
+}

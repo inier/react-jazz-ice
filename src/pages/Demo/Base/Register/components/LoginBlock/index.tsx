@@ -1,4 +1,3 @@
-/* eslint-disable @iceworks/best-practices/no-secret-info */
 import React, { useState } from 'react';
 
 import { Input, Message, Form } from '@alifd/next';

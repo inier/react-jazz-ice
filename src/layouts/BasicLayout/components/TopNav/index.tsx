@@ -74,7 +74,7 @@ function getNavMenuItems(menusData: IMenuItem[], options) {
     });
 }
 
-const TopNav = (props)                     => {
+const TopNav = (props) => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { headerMenuConfig, headerMenuCurrent, setHeaderMenuCurrent, setAsideMenuCurrent, getDefaultMenuItemPath } =
     useMobxStore('menuStore');

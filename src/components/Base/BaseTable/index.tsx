@@ -24,9 +24,7 @@ function getViewPortHeight(fixHeight) {
  * @param props 接受Table基本属性
  * @returns  基础表格
  */
-const BaseTable: React.FunctionComponent<IBaseTablePage> = (
-  props: IBaseTablePage,
-): JSX.Element => {
+const BaseTable: React.FunctionComponent<IBaseTablePage> = (props: IBaseTablePage): JSX.Element => {
   const { columns, loading, isShowPagination, pagination, dataSource, children, fixHeight, padding, ...rest } = props;
   // console.log(columns);
 

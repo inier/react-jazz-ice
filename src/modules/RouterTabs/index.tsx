@@ -29,7 +29,7 @@ interface IRouterTabsStates {
   isRefreshCurrentPage: boolean; // 当前iframe是否刷新
 }
 
-const RouterTabs = @inject('UIStore', 'menuStore')
+@inject('UIStore', 'menuStore')
 @withRouter
 @observer
 class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
@@ -347,7 +347,7 @@ class RouterTabs extends Component<IRouterTabsProps, IRouterTabsStates> {
       </div>
     );
   }
-})
+}
 
 function getSearchByResCode(url, token, resCode) {
   let prefix = '';

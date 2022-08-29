@@ -11,7 +11,7 @@ export interface ILogoProps {
   onClick?: () => void;
 }
 
-export default const Logo = function Logo({ image, text, url, onClick }: ILogoProps) {
+export default function Logo({ image, text, url, onClick }: ILogoProps) {
   return (
     <div className="logo" onClick={onClick}>
       <Link to={url || '/'} className={styles.logo}>
@@ -20,4 +20,4 @@ export default const Logo = function Logo({ image, text, url, onClick }: ILogoPr
       </Link>
     </div>
   );
-})
+}

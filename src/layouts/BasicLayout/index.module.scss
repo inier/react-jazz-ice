@@ -29,7 +29,7 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
             background-color: $color-brand1-6;
           }
         }
-        // 折叠控制
+        /* 折叠控制 */
         .local-nav-trigger {
           position: absolute !important;
           right: 0;
@@ -37,6 +37,12 @@ $basic-layout-aside-bgColor-dark: $color-brand1-6;
           border-radius: 0;
           border-top-right-radius: $corner-1;
           border-bottom-right-radius: $corner-1;
+          transition: all 0.3s;
+          &:hover {
+            color: #fff;
+            background-color: $color-brand1-6;
+            transition: all 0.3s;
+          }
         }
         .next-menu-item-inner {
           padding-right: 20px;

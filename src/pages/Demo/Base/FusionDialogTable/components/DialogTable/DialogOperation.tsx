@@ -19,7 +19,7 @@ const getDialogTitle = (actionType: ActionType): string => {
   }
 };
 
-const DialogOperation: React.FC<OperaitionProps & DialogProps> = (props)                     => {
+const DialogOperation: React.FC<OperaitionProps & DialogProps> = (props) => {
   const { actionType, dataSource, onOk = () => {}, ...lastProps } = props;
   const operationRef = useRef<OperationRef>(null);
 

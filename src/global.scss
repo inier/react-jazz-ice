@@ -1,4 +1,4 @@
-// 引入默认全局样式
+/* 引入默认全局样式 */
 @import '@settings';
 @import '~@alifd/next/reset.scss';
 
@@ -32,9 +32,9 @@ a {
   box-shadow: inset 0 0 6px rgb(0 0 0 / 10%);
   background-color: #f9f9f9;
 }
-//== 超过几行显示省略号
+/* == 超过几行显示省略号 */
 
-// 单行文字截断
+/* 单行文字截断 */
 .nowrap {
   width: auto !important;
   max-width: 100%;
@@ -50,16 +50,16 @@ a {
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
 }
-// 两行文字截断
+/* 两行文字截断 */
 .nowrap-multi {
   @include ellipsis(2);
 }
-// 三行文字截断
+/* 三行文字截断 */
 .nowrap-multi-3 {
   @include ellipsis(3);
 }
 
-// 按钮：最小高度重置
+/* 按钮：最小高度重置 */
 .next-btn:not(.next-btn-text, .next-menu-btn, .next-range-picker-body, .next-transfer-operation, .next-split-btn-trigger) {
   &.next-small {
     min-width: 5em;
@@ -81,7 +81,7 @@ a {
 .next-pagination-size-selector + .next-pagination-pages {
   margin-left: 30px !important;
 }
-// 对话框：高度和位置重置
+/* 对话框：高度和位置重置 */
 .next-dialog-inner-wrapper {
   top: 50% !important;
   transform: translateY(-50%);

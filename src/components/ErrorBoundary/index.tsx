@@ -77,5 +77,4 @@ class ErrorBoundary extends Component<IProps, IState> {
   }
 }
 
-
 export default ErrorBoundary;

@@ -31,16 +31,16 @@ const DEFAULT_DATA: DataSource = {
   type: 'private',
 };
 
-const DEFAULT_ON_SUBMIT = (values: TwoColumnFormProps, errors: []): void                     => {
+const DEFAULT_ON_SUBMIT = (values: TwoColumnFormProps, errors: []): void => {
   if (errors) {
     console.log('errors', errors);
     return;
   }
   console.log('values:', values);
   Message.success('提交成功');
-});
+};
 
-const TwoColumnForm: React.SFC<TwoColumnFormProps> = (props): JSX.Element                     => {
+const TwoColumnForm = (props: TwoColumnFormProps) => {
   const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT, onCancel = () => {} } = props;
 
   const [postData, setValue] = useState<TwoColumnFormProps>(dataSource);
@@ -105,6 +105,6 @@ const TwoColumnForm: React.SFC<TwoColumnFormProps> = (props): JSX.Element       
       </Card.Content>
     </Card>
   );
-}
+};
 
 export default TwoColumnForm;

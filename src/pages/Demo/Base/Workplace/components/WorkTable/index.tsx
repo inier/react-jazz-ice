@@ -96,7 +96,7 @@ const colorMap = {
   low: 'green',
 };
 
-const WorkTable: SFC<WorkTableProps> = (props: WorkTableProps): JSX.Element => {
+const WorkTable = (props: WorkTableProps) => {
   const { dataSource = DEFAULT_DATA } = props;
 
   const { person, orderList, projectList, timeLineList, updateList, entranceList } = dataSource;
@@ -262,8 +262,9 @@ const WorkTable: SFC<WorkTableProps> = (props: WorkTableProps): JSX.Element => {
               <Card.Divider />
               <Card.Content>
                 <List>
-                  {updateList.map((one, idx) => {
+                  {updateList.map((one, index) => {
                     let title;
+                    const idx = `${one.name}-${index}`;
                     switch (one.action) {
                       case 'create':
                         title = (

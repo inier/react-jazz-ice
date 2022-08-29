@@ -20,7 +20,7 @@ import styles from './index.module.scss';
 const siteLogo = 'https://img.alicdn.com/tfs/TB1.ZBecq67gK0jSZFHXXa9jVXa-904-826.png';
 const siteName = 'Site Name';
 
-const BasicLayout = ({ children })                     => {
+const BasicLayout = ({ children }) => {
   const { userStore, menuStore } = useMobxStores();
   const { token } = userStore;
 

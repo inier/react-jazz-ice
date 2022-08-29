@@ -105,7 +105,7 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const FlowForm: SFC<FlowFormProps> = (props)                     => {
+const FlowForm: SFC<FlowFormProps> = (props) => {
   const {
     dataSource = DEFAULT_DATA,
     onAgree = () => {},

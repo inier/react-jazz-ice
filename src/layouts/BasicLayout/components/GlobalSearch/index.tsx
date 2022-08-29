@@ -25,11 +25,11 @@ const mockData: IData[] = [
     value: '搜索条件四',
   },
 ];
-export default const GlobalSearch = function GlobalSearch() {
+export default function GlobalSearch() {
   const initData: IData[] = [];
   const [dataSource, setDataSource] = useState(initData);
   function onChange() {
     setDataSource(mockData);
   }
   return <Search dataSource={dataSource} shape="simple" type="dark" onChange={onChange} />;
-})
+}

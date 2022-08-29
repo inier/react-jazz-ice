@@ -33,16 +33,16 @@ const DEFAULT_DATA: DataSource = {
   type: 'private',
 };
 
-const DEFAULT_ON_SUBMIT = (values: ThreeColumnFormProps, errors: []): void                     => {
+const DEFAULT_ON_SUBMIT = (values: ThreeColumnFormProps, errors: []): void => {
   if (errors) {
     console.log('errors', errors);
     return;
   }
   console.log('values:', values);
   Message.success('提交成功');
-});
+};
 
-const ThreeColumnForm: React.SFC<ThreeColumnFormProps> = (props): JSX.Element                     => {
+const ThreeColumnForm = (props: ThreeColumnFormProps) => {
   const { dataSource = DEFAULT_DATA, onSubmit = DEFAULT_ON_SUBMIT, onCancel = () => {} } = props;
 
   const [postData, setValue] = useState<ThreeColumnFormProps>(dataSource);
@@ -125,6 +125,6 @@ const ThreeColumnForm: React.SFC<ThreeColumnFormProps> = (props): JSX.Element   
       </Card.Content>
     </Card>
   );
-}
+};
 
 export default ThreeColumnForm;

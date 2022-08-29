@@ -18,12 +18,7 @@ function isFunction<T>(obj: any): obj is T {
   return typeof obj === 'function';
 }
 
-const BaseTabs: React.FunctionComponent<BaseTabsTypes> = ({
-  tabsList,
-  style,
-  tabsProps,
-  unmountInactiveTabs,
-}) => {
+const BaseTabs: React.FunctionComponent<BaseTabsTypes> = ({ tabsList, style, tabsProps, unmountInactiveTabs }) => {
   return (
     <div style={style}>
       {tabsList && tabsList.length > 0 ? (

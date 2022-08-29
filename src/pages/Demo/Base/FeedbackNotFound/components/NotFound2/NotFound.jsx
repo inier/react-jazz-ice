@@ -15,7 +15,7 @@ const styles = {
   },
 };
 
-export default const NotFound = observer(class NotFound extends Component {
+class NotFound extends Component {
   static displayName = 'NotFound';
 
   render() {
@@ -42,4 +42,6 @@ export default const NotFound = observer(class NotFound extends Component {
       </div>
     );
   }
-})
+}
+
+export default NotFound;

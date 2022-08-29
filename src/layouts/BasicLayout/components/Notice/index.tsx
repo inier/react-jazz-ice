@@ -31,7 +31,7 @@ export interface NoticeProps {
   noticeList?: INoticeItem[];
 }
 
-const Notice: React.FC<NoticeProps> = ({ noticeList })                     => {
+const Notice: React.FC<NoticeProps> = ({ noticeList }) => {
   const [badgeCount, setBadgeCount] = useState(2);
   const [readList, setReadList] = useState<number[]>([]);
 

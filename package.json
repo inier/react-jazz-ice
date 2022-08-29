@@ -114,8 +114,7 @@
     "deploy": "gh-pages -d build"
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "echo 'Pre-commit checks......' && lint-staged --allow-empty",
+    "hooks": {      
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },

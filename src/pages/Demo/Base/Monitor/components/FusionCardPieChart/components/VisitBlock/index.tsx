@@ -116,9 +116,7 @@ const RenderPvChart: React.FunctionComponent<CardConfig> = (props = DEFAULT_DATA
   );
 };
 
-const VisitBlock: React.FunctionComponent<CardConfigProps> = ({
-  cardConfig = DEFAULT_DATA,
-}): JSX.Element                     => {
+const VisitBlock: React.FunctionComponent<CardConfigProps> = ({ cardConfig = DEFAULT_DATA }): JSX.Element => {
   const { titleItem, chartData, chartHeight } = cardConfig;
 
   return (

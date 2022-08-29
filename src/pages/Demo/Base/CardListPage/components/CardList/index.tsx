@@ -32,7 +32,7 @@ const DEFAULT_DATA: DataSource = {
   }),
 };
 
-const CardList: React.FunctionComponent<CardListProps> = (props: CardListProps): JSX.Element                     => {
+const CardList: React.FC<CardListProps> = (props: CardListProps) => {
   const { dataSource = DEFAULT_DATA, onSearch = (): void => {} } = props;
 
   const [tagAValue, setTagAValue] = useState(dataSource.tagA);

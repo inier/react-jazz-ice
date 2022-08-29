@@ -103,7 +103,7 @@ const DEFAULT_DATA: DataSource = {
   ],
 };
 
-const GroupForm: SFC<GroupFormProps> = (props)                     => {
+const GroupForm: SFC<GroupFormProps> = (props) => {
   const { dataSource: defaultDataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
 
   const [dataSource, setDataSouce] = useState<DataSource>(defaultDataSource);

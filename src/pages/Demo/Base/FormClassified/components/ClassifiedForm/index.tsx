@@ -39,7 +39,7 @@ const DEFAULT_DATA: DataSource = {
   },
 };
 
-const ClassifiedForm: SFC<ClassifiedFormProps> = (props): JSX.Element                     => {
+const ClassifiedForm = (props: ClassifiedFormProps) => {
   const { dataSource = DEFAULT_DATA, onSubmit = () => {}, onCancel = () => {} } = props;
 
   const jobField = Field.useField({ values: dataSource.job });

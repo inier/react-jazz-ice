@@ -52,7 +52,7 @@ const DEFAULT_DATA: DataSource = {
   }),
 };
 
-const BasicDetail: React.FunctionComponent<BasicDetailProps> = (props) => {
+const BasicDetail: React.FC<BasicDetailProps> = (props: BasicDetailProps) => {
   const { dataSource = DEFAULT_DATA } = props;
 
   return (

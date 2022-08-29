@@ -5,7 +5,7 @@ import { Button, List } from '@alifd/next';
 import { Link } from '@/components';
 import { useRouteTabsContext, useRouteEventListen } from '@/hooks';
 
-const TestIndex = () => {
+const RouteTabs = () => {
   const { action } = useRouteTabsContext();
   const [eventValue, setEventValue] = useState();
 
@@ -206,17 +206,10 @@ const TestIndex = () => {
           <div>事件测试(通过 action?.registerEvent 注册了个 test 的事件), 其他页面回调的值是: {eventValue}</div>
         </List.Item>
       </List>
-      <br />
-      <br />
-
-      <br />
-      <br />
-      <br />
-      <br />
     </>
   );
 };
 
-TestIndex.displayName = 'ListDemo';
+RouteTabs.displayName = 'ListDemo';
 
-export default memo(TestIndex);
+export default memo(RouteTabs);

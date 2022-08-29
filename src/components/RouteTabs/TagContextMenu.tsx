@@ -93,7 +93,7 @@ const TagContextMenu = (props: IProps) => {
         <Menu.Item disabled={cIndex === 0} key="closeCurrent">
           关闭
         </Menu.Item>,
-        <Menu.Item disabled={length === 2} key="closeOther">
+        <Menu.Item disabled={length <= 1} key="closeOther">
           关闭其他标签
         </Menu.Item>,
         <Menu.Item disabled={length === +cIndex + 1} key="closeRight">

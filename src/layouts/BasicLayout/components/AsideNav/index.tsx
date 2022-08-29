@@ -73,7 +73,7 @@ function getSubMenuOrItem(item: IMenuItem, index?: number | string, auth?: any) 
   return navItem;
 }
 
-const Navigation = (props, context)                     => {
+const Navigation = (props, context) => {
   const { auth: AUTH_CONFIG = {} } = getInitialData();
   const { location } = props;
   const { pathname } = location;

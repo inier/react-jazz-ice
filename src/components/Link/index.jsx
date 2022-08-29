@@ -4,7 +4,7 @@ import * as qs from 'qs';
 /**
  * 继承自 ice 的 Link, 增加对参数 query (对象格式的 search 参数) 的解析
  */
-const Link = observer(({ to, children, ...otherProps })                     => {
+const Link = ({ to, children, ...otherProps }) => {
   if (typeof to === 'string') {
     return <IceLink to={to} {...otherProps} />;
   }
@@ -19,7 +19,7 @@ const Link = observer(({ to, children, ...otherProps })                     => {
       {children}
     </IceLink>
   );
-});
+};
 
 Link.displayName = 'Link';
 

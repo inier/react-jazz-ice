@@ -15,7 +15,7 @@ export interface Props {
   desc: string;
 }
 
-const UserProfile = ({ name, avatar, desc })                     => {
+const UserProfile = ({ name, avatar, desc }) => {
   return (
     <div className={styles.profile}>
       <div className={styles.avatar}>
@@ -29,7 +29,7 @@ const UserProfile = ({ name, avatar, desc })                     => {
   );
 };
 
-const HeaderAvatar = (props: Props)                     => {
+const HeaderAvatar = (props: Props) => {
   const { userStore } = useMobxStores();
   const { name, avatar } = userStore.userInfo;
 
