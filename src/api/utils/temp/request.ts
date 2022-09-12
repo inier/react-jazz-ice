@@ -62,7 +62,8 @@ http.interceptors.request.use((config: AxiosRequestConfig) => {
           type: CANCEL_TYPE.REPEAT,
           data: '重复请求，以取消',
         }),
-      ));
+      ),
+    );
   }
   /**
    * 将当前请求添加进请求对列中

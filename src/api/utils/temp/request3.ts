@@ -20,7 +20,7 @@ interface HttpRequest {
 
 export default class Http {
   response;
-  request;
+  request: any;
   // 以 method 和 url 区分请求类型，保存不同类型的配置项
   optionList: Partial<{ [key: string]: HttpOption }> = {};
   // 节流请求的 timeout 列表
@@ -145,9 +145,7 @@ export default class Http {
         // eslint-disable-next-line no-nested-ternary
         return config.transformRequest
           ? Array.isArray(config.transformRequest)
-            ? config.transformRequest.reduce((p, c) => {
-              return c(p, config.headers);
-            }, config.data)
+            ? config.transformRequest.reduce((p, c) => c(p, config.headers), config.data)
             : config.transformRequest(config.data, config.headers)
           : config.data;
       },
