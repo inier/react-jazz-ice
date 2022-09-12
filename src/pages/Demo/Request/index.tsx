@@ -56,7 +56,12 @@ const Request = () => {
             id={15}
             title={'测试缓存请求带参数：setExpireTime 为缓存有效时间ms'}
             name={'request缓存请求带参数'}
-            options={{ loading: false, method: 'get', cache: true, setExpireTime: 30000 }}
+            options={{
+              loading: false,
+              method: 'get',
+              cache: true,
+              setExpireTime: 30000,
+            }}
           />
           <DemoRequest
             id={16}

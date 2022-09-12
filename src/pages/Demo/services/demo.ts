@@ -31,8 +31,8 @@ export default {
     });
   },
 
-  async fakeAccountLogin() {
-    return request.get(apiUrls.GET_USER_INFO, {}, { loading: true }).then((res) => {
+  async fakeAccountLogin(params: object, options: any) {
+    return request.get(apiUrls.GET_USER_INFO, params, { loading: true, ...options }).then((res) => {
       return res.data;
     });
   },

@@ -17,8 +17,8 @@ class DemoStore {
     this.userInfo = res;
   }
 
-  async getUser() {
-    return userService.fakeAccountLogin().then((res: any) => {
+  async getUser(params, options) {
+    return userService.fakeAccountLogin(params, options).then((res: any) => {
       this.setUserInfo(res);
       console.log('getUser:', res);
 

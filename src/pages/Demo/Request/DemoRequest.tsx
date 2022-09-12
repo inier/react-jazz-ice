@@ -1,12 +1,21 @@
 import React from 'react';
 
-import { inject, observer } from 'mobx-react';
+import { Avatar } from '@alifd/next';
+import { observer, useLocalObservable } from 'mobx-react';
+
+import demoStore from '../stores/DemoStore';
+
+let timestamp = +new Date();
 
 const DemoRequest = (props) => {
-  const { menuStore, id, title, name, data = { x: 100 }, options = {} } = props;
-  const { resList = [] } = menuStore;
+  const { id, title, name, data = { x: 100 }, options = {} } = props;
+  const localStore = useLocalObservable(() => demoStore);
+  const { avatar, name: username } = localStore.userInfo;
+  const handleRefresh = () => {
+    timestamp = +new Date();
+  };
   const handleClick = () => {
-    menuStore.getAdminResList(data, options);
+    localStore.getUser({ ...data, name: `request-${id}-${timestamp}` }, options);
   };
 
   return (
@@ -14,15 +23,20 @@ const DemoRequest = (props) => {
       <h6>{title}</h6>
       <div>
         <button onClick={handleClick}>{name}</button>
-        <span>
+        <button onClick={handleRefresh}>刷新时间戳</button>
+        <div>
           data: {JSON.stringify(data)}, options：{JSON.stringify(options)}
-        </span>
-        <span>
-          {id}-result: <span>{resList[0]?.resourceName}</span>
-        </span>
+        </div>
+        <div>
+          {id}-result:
+          <div>
+            <Avatar size="small" src={avatar} />
+            <span style={{ marginLeft: 10 }}>{username}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
 
-export default inject('menuStore')(observer(DemoRequest));
+export default observer(DemoRequest);

@@ -16,9 +16,9 @@ export const DemoUseRequest1 = ({ id, options = {} }) => {
       <h6>用法：传入字符串</h6>
       <div>
         <button onClick={handleClick1}>useRequest</button>
-        <span>
+        <div>
           {id}-result: {data?.data?.name}
-        </span>
+        </div>
       </div>
     </div>
   );
@@ -40,9 +40,9 @@ export const DemoUseRequest2 = ({ id, options = {} }) => {
       <h6>用法：传入配置对象</h6>
       <div>
         <button onClick={handleClick}>useRequest</button>
-        <span>
+        <div>
           {id}-result: {data?.data?.name}
-        </span>
+        </div>
       </div>
     </div>
   );
@@ -64,9 +64,9 @@ export const DemoUseRequest3 = ({ id, options = {} }) => {
       <div>
         <button onClick={handleClick}>useRequest</button>
         <span> options：{JSON.stringify(options)}</span>
-        <span>
+        <div>
           {id}-result: {data?.data[0]?.resourceName}
-        </span>
+        </div>
       </div>
     </div>
   );

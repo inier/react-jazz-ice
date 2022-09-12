@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import axios, { CancelToken, CancelTokenSource, AxiosResponse, AxiosRequestConfig, AxiosError } from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import qs from 'qs';
 
 /** axios封装 请求拦截、响应拦截 */
@@ -17,19 +17,22 @@ interface ICancel {
 interface ITaskList {
   original: string;
   cancelToken: any;
+  [propName: string]: any;
 }
 
 const apiCache = {
-  cacheMap: new Map() /** 缓存列表 */,
-  taskList: [] /** 请求任务列表 */,
+  // 缓存列表
+  cacheMap: new Map(),
+  // 请求任务列表
+  taskList: [] as ITaskList[],
   /** 新增任务 */
-  addTask(config, cancelToken) {
+  addTask(config, cancelToken: any) {
     this.taskList.push({ original: `${config.url}&${config.method}`, cancelToken });
   },
   /** 删除任务 */
   deleteTask(config, start, cancelToken?) {
     let cancel = false;
-    for (const i in this.taskList) {
+    for (let i = 0; i < this.taskList.length; i++) {
       if (this.taskList[i].original === `${config.url}&${config.method}`) {
         this.taskList[i].cancelToken('');
         this.taskList.splice(i, 1);
@@ -106,7 +109,7 @@ instance.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlenco
 /** 请求拦截器 */
 instance.interceptors.request.use(
   (config: any) => {
-    config.cancelToken = new CancelToken((c) => {
+    config.cancelToken = new axios.CancelToken((c) => {
       /** 删除任务 | 缓存 */
       apiCache.deleteTask(config, true, c);
       /** 新增任务 | 缓存 */

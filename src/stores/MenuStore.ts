@@ -31,7 +31,7 @@ interface IResItem {
   resourceName?: string;
   resourceCode?: string;
   resourceList?: object[];
-  extras?: string;
+  extras?: object;
 }
 
 /**
