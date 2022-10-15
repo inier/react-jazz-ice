@@ -12,26 +12,22 @@
 
 所有配置根据[官方文档](https://babeljs.io/docs/plugins/)提供，更新时间：2016-12-05。
 
-
-
 ## 预设(presets)
 
 使用的时候需要安装对应的插件，对应 babel-preset-xxx，例如下面的配置，需要`npm install babel-preset-es2015`。
 
 ```json
-{  
-    "presets": [
-        "es2015"
-    ]
+{
+  "presets": ["es2015"]
 }
 ```
 
 ### env
 
 ```json
-{  
+{
     "presets": [
-        "env", 
+        "env",
         options
     ]
 }
@@ -62,10 +58,8 @@
 ### es2015/es2016/es2017/latest
 
 ```json
-{  
-    "presets": [
-        "env"
-    ]
+{
+  "presets": ["env"]
 }
 ```
 
@@ -144,7 +138,7 @@ stage-x 和上面的 es2015 等有些类似，但是它是按照 JavaScript 的�
 除了 stage-2 的内容，还包括以下插件，更多细节请看[文档](http://babeljs.io/docs/plugins/preset-stage-1/)。
 
 - transform-class-constructor-call // 编译 class 中的 constructor，在 Babel7 中会被移除
-- transform-export-extensions // 编译额外的 exprt 语法，如 export * as ns from "mod";细节可以看[这个](https://github.com/leebyron/ecmascript-more-export-from)
+- transform-export-extensions // 编译额外的 exprt 语法，如 export \* as ns from "mod";细节可以看[这个](https://github.com/leebyron/ecmascript-more-export-from)
 
 #### stage-0
 
@@ -158,10 +152,8 @@ stage-x 和上面的 es2015 等有些类似，但是它是按照 JavaScript 的�
 其实看了上面的应该也明白了，presets，也就是一堆 plugins 的预设，起到方便的作用。如果你不采用 presets，完全可以单独引入某个功能，比如以下的设置就会引入编译箭头函数的功能。
 
 ```json
-{  
-    "plugins": [
-        "transform-es2015-arrow-functions"
-    ]
+{
+  "plugins": ["transform-es2015-arrow-functions"]
 }
 ```
 
@@ -172,7 +164,7 @@ stage-x 和上面的 es2015 等有些类似，但是它是按照 JavaScript 的�
 ```json
 {
     "plugins": [
-        "transform-runtime", 
+        "transform-runtime",
         options
     ]
 }
@@ -206,10 +198,8 @@ stage-x 和上面的 es2015 等有些类似，但是它是按照 JavaScript 的�
 ### transform-remove-console
 
 ```json
-{  
-    "plugins": [
-        "transform-remove-console"
-    ]
+{
+  "plugins": ["transform-remove-console"]
 }
 ```
 
@@ -236,19 +226,17 @@ presets 同理。
 因为自己对.babelrc 文件的设置有点疑问，花了大半天撸了下官方的[文档](https://babeljs.io/docs/plugins/)。很多内容是英文的，可能翻译并不准确，希望大家多多指教。
 
 ```json
-{  
-    "presets": [
-        [
-            "@babel/preset-env",
-            {
-                "useBuiltIns": "usage"              
-            }
-        ],
-        "react-app"
-    ], 
-    "plugins": [
-         ["@babel/plugin-proposal-decorators", { "legacy": true }]
-    ]
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ],
+    "react-app"
+  ],
+  "plugins": [["@babel/plugin-proposal-decorators", { "legacy": true }]]
 }
 ```
 
@@ -256,7 +244,4 @@ presets 同理。
 
 当然，如果你的项目需要 react 或者 flow 这些语法的编译，请在 presets 里加入对应的值即可。如果你需要非实例方法`"foobar".includes("foo")`之类的方法，按需引入 babel-polyfill。
 
-
-
-https://github.com/facebook/create-react-app/tree/master/packages/babel-preset-react-app
-
+[babel-preset-react-app](https://github.com/facebook/create-react-app/tree/master/packages/babel-preset-react-app)

@@ -1,4 +1,4 @@
-### Git 分支与版本发布规范
+# Git 分支与版本发布规范
 
 - 基本原则：master 为保护分支，不直接在 master 上进行代码修改和提交。
 
@@ -10,7 +10,7 @@
 
   。分支命名规范：
 
-  - 分支版本命名规则：分支类型 _ 分支发布时间 _ 分支功能。比如：feature_20170401_fairy_flower
+  - 分支版本命名规则：分支类型*分支发布时间*分支功能。比如：feature_20170401_fairy_flower
   - 分支类型包括：feature、 bugfix、refactor 三种类型，即新功能开发、bug 修复和代码重构
   - 时间使用年月日进行命名，不足 2 位补 0
   - 分支功能命名使用 snake case 命名法，即下划线命名。
@@ -23,8 +23,6 @@
     - v2.0.0-belta-1
 
 - 版本正式发布前需要生成 changelog 文档，然后再发布上线。
-
-  
 
 > 后续还可以，采用`@semantic-release/changelog`来根据 Commit 中 type 自动增量生成 CHANGELOG；
 >

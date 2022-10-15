@@ -6,8 +6,6 @@
 
 > VS Code，建议安装 Document this 插件
 
-
-
 ## JSDoc 注释示例
 
 JSDoc 注释一般应该放置在方法或函数声明之前，它必须以 `/**` 开始，其他任何以 `/*`，`/***` 或者超过 3 个星号的注释，都将被 JSDoc 解析器忽略。例如：
@@ -19,31 +17,29 @@ JSDoc 注释一般应该放置在方法或函数声明之前，它必须以 `/**
  * @param {string} title - 书本的标题
  * @param {string} author - 书本的作者
  */
-class Book{
-	constructor(title, author){
-        this.title=title;
-    this.author=author;
-	}
-    //属性c
-    c;
-    /**
-     * 获取书本的标题
-     * @returns {string|*}
-     */
-    getTitle(){
-        return this.title;
-    }
-    /**
-     * 设置书本的页数
-     * @param pageNum {number} 页数
-     */
-    setPageNum(pageNum){
-        this.pageNum=pageNum;
-    }
+class Book {
+  constructor(title, author) {
+    this.title = title;
+    this.author = author;
+  }
+  //属性c
+  c;
+  /**
+   * 获取书本的标题
+   * @returns {string|*}
+   */
+  getTitle() {
+    return this.title;
+  }
+  /**
+   * 设置书本的页数
+   * @param pageNum {number} 页数
+   */
+  setPageNum(pageNum) {
+    this.pageNum = pageNum;
+  }
 }
 ```
-
-
 
 ## JSDoc 标签一览
 
@@ -107,11 +103,8 @@ class Book{
 - `@variation`: 区分不同的对象具有相同名称的
 - `@version`: 版本
 
-
-
 ## 把注释生成文档的工具
 
 - [jsdoc](https://github.com/jsdoc3/jsdoc): 官方提供的工具
 - [documentation.js](https://github.com/documentationjs/documentation): 另外一个可供选择的工具，支持生成 `html`，`markdown`， `json`
 - [dox](https://github.com/tj/dox): tj 大神的作品
-

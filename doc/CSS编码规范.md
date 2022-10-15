@@ -15,50 +15,58 @@
 
 ![clipboard.png](https://segmentfault.com/img/bVbictd?w=673&h=297)
 
-
-
 ## 命名规范
 
-+ 通俗易懂，尽量保持不重复（冲突），尽量不要用 id。
+- 通俗易懂，尽量保持不重复（冲突），尽量不要用 id。
 
-+ `class` 名称中只能出现小写字符和破折号（dashe）（不是下划线，也不是驼峰命名法）。破折号应当用于相关 class 的命名（类似于命名空间）（例如，.btn 和 .btn-danger）。
+- `class` 名称中只能出现小写字符和破折号（dashe）（不是下划线，也不是驼峰命名法）。破折号应当用于相关 class 的命名（类似于命名空间）（例如，.btn 和 .btn-danger）。
 
   ```css
   .demo-test,
   #test-demo {
-      width: 100%;
+    width: 100%;
   }
   ```
 
-+ 避免过度任意的简写。.btn 代表 button，但是 .s 不能表达任何意思。
+- 避免过度任意的简写。.btn 代表 button，但是 .s 不能表达任何意思。
 
-+ `class` 名称应当尽可能短，并且意义明确。
+- `class` 名称应当尽可能短，并且意义明确。
 
-+ 使用有意义的名称。使用有组织的或目的明确的名称，不要使用表现形式（presentational）的名称。
+- 使用有意义的名称。使用有组织的或目的明确的名称，不要使用表现形式（presentational）的名称。
 
-+ 基于最近的父 `class` 或基本（base） class 作为新 class 的前缀。
+- 基于最近的父 `class` 或基本（base） class 作为新 class 的前缀。
 
-+ 使用 `.js-*` class 来标识行为（与样式相对），并且不要将这些 class 包含到 CSS 文件中。
+- 使用 `.js-*` class 来标识行为（与样式相对），并且不要将这些 class 包含到 CSS 文件中。
 
-+ 在为 SASS 和 LESS 变量命名是也可以参考上面列出的各项规范。
+- 在为 SASS 和 LESS 变量命名是也可以参考上面列出的各项规范。
 
 ```css
-    /* Bad example */
-    .t { ... }
-    .red { ... }
-    .header { ... }
-    
-    /* Good example */
-    .tweet { ... }
-    .important { ... }
-    .tweet-header { ... }
+/* Bad example */
+.t {
+  ...;
+}
+.red {
+  ...;
+}
+.header {
+  ...;
+}
+
+/* Good example */
+.tweet {
+  ...;
+}
+.important {
+  ...;
+}
+.tweet-header {
+  ...;
+}
 ```
-
-
 
 ### BEM
 
-经常在 css 代码中看到“--”和“__”是什么意思？它们的出现是源于[BEM](http://bem.info/)和[Nicolas Gallagher](http://twitter.com/necolas)...
+经常在 css 代码中看到“--”和“\_\_”是什么意思？它们的出现是源于[BEM](http://bem.info/)和[Nicolas Gallagher](http://twitter.com/necolas)...
 
 BEM 的意思就是块（block）、元素（element）、修饰符（modifier）,是由[Yandex](http://yandex.ru/)团队提出的一种前端命名方法论。这种巧妙的命名方法让 CSS 类对其他开发者来说更加透明而且更有意义。
 
@@ -67,9 +75,12 @@ BEM 命名约定更加严格，而且包含更多的信息，它们用于一个�
 命名约定的模式如下：
 
 ```css
-    .block{}
-    .block__element{}
-    .block--modifier{}    
+.block {
+}
+.block__element {
+}
+.block--modifier {
+}
 ```
 
 `.block` 代表了更高级别的抽象或组件。
@@ -79,9 +90,12 @@ BEM 命名约定更加严格，而且包含更多的信息，它们用于一个�
 之所以使用两个连字符和下划线而不是一个，是为了让你自己的块可以用单个连字符来界定，如：
 
 ```css
-.site-search{} /* 块 */  
-.site-search__field{} /* 元素 */  
-.site-search--full{} /* 修饰符 */    
+.site-search {
+} /* 块 */
+.site-search__field {
+} /* 元素 */
+.site-search--full {
+} /* 修饰符 */
 ```
 
 [参考原文](https://www.w3cplus.com/css/mindbemding-getting-your-head-round-bem-syntax.html)
@@ -90,13 +104,9 @@ BEM 的关键是，可以获得更多的描述和更加清晰的结构，从其�
 
 [BEM 命名规范](https://juejin.im/post/5b925e616fb9a05cdd2ce70d)
 
-
-
 ### CSS-Modules
 
 通过对当前引入的 css class 的命名增加 hash 来避免命名冲突。
-
-
 
 ### CSS-In-JS
 
@@ -115,36 +125,26 @@ const styles = StyleSheet.create({
 <span className={css(styles.myStyle)}>Hello World!</p>
 ```
 
-
-
 其他第三方库推荐：
 
 - [Emotion](https://emotion.sh/)
 - [JSS](http://cssinjs.org/)
 - [Radium](https://formidable.com/open-source/radium/)
-- [Styled-components](https://www.styled-components.com/) 
+- [Styled-components](https://www.styled-components.com/)
 
 搭配用于在 JavaScript 中编写样式的轻量级工具集[polished](https://polished.js.org/)，可以获得更好的体验。
 
-
-
 参考文章
 
-https://www.jianshu.com/p/d30d0b0705db
+<https://www.jianshu.com/p/d30d0b0705db>
 
-https://segmentfault.com/a/1190000017543565
+<https://segmentfault.com/a/1190000017543565>
 
-https://segmentfault.com/p/1210000011172751/read
-
-
+<https://segmentfault.com/p/1210000011172751/read>
 
 在这个 [页面](https://css-in-js-playground.com/) 中，您可以测试和比较许多 CSS-in-JS 的库。
 
-
-
 > 还有其他库正在进一步采用 CSS，JavaScript 和类型的概念。其中一个库是 [stylable](https://github.com/wix/stylable)，一个基于组件的库，带有一个预处理器，可以将 stylable 的 CSS 转换成最小的跨浏览器的 vanilla CSS。
-
-
 
 目前大多数项目都采用了 CSS-Modules 来避免命名冲突，适合的才是最好的。
 
@@ -155,19 +155,15 @@ https://segmentfault.com/p/1210000011172751/read
 >
 > 避免全篇使用，会导致 class 命名冗余。并且用预处理器拼接出来的 class 名称，在维护代码时，不方便定位。
 
-
-
 ## 代码风格
 
 ### 编码
 
-统一字符编码 utf-8 
+统一字符编码 utf-8
 
 ```css
 charset 'utf-8';
 ```
-
-
 
 ### 缩进
 
@@ -175,12 +171,10 @@ charset 'utf-8';
 
 ```css
 .selector {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 ```
-
-
 
 ### 分号
 
@@ -188,12 +182,10 @@ charset 'utf-8';
 
 ```css
 .selector {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 ```
-
-
 
 ### 空格
 
@@ -206,13 +198,11 @@ charset 'utf-8';
 
 ```css
 .selector > .wrapper {
-    font-family: "Hiragino Sans GB", sans-serif;
-    background: rgba(0, 0, 0, 0.5) url(logo.png) no-repeat center / contain;
-    height: 100%;
+  font-family: 'Hiragino Sans GB', sans-serif;
+  background: rgba(0, 0, 0, 0.5) url(logo.png) no-repeat center / contain;
+  height: 100%;
 }
 ```
-
-
 
 ### 空行
 
@@ -221,22 +211,20 @@ charset 'utf-8';
 
 ```css
 .wrapper {
-    height: 100%;
+  height: 100%;
 
-    /* 字体相关 */
-    font-family: 'DINPro';
-    font-size: 16px;
-    font-weight: 700;
+  /* 字体相关 */
+  font-family: 'DINPro';
+  font-size: 16px;
+  font-weight: 700;
 
-    background: #000;
+  background: #000;
 }
 
 .selector {
-    height: 100%;
+  height: 100%;
 }
 ```
-
-
 
 ### 换行
 
@@ -247,12 +235,10 @@ charset 'utf-8';
 ```css
 .wrapper,
 .selector {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 ```
-
-
 
 ### 引号
 
@@ -260,12 +246,10 @@ charset 'utf-8';
 - 属性选择器中的属性值需要引号
 
 ```css
-[class="demo"]::after {
-    content: "";
+[class='demo']::after {
+  content: '';
 }
 ```
-
-
 
 ### 颜色
 
@@ -275,16 +259,14 @@ charset 'utf-8';
 ```css
 /* good */
 .selector {
-    color: #abc;
+  color: #abc;
 }
 
 /* bad */
 .selector {
-    color: #AABBCC;
+  color: #aabbcc;
 }
 ```
-
-
 
 ### 简写
 
@@ -299,20 +281,18 @@ charset 'utf-8';
 ```css
 /* better */
 .selector {
-    background: rgba(0, 0, 0, 0.5) url(logo.png) no-repeat center / contain;
+  background: rgba(0, 0, 0, 0.5) url(logo.png) no-repeat center / contain;
 }
 
 /* bad */
 .selector {
-    background-color: rgba(0, 0, 0, 0.5);
-    background-image: url(logo.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-image: url(logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 ```
-
-
 
 ### 顺序
 
@@ -321,22 +301,18 @@ charset 'utf-8';
 1. 布局属性，如定位、层级、显示等，影响文档流（比如：`display / position / float / clear / visibility / top / right / z-index` 等）
 2. 自身属性，盒模型等（比如：`width / height / margin / padding / border` 等）
 3. 文本属性，排版相关（比如：`font / line-height / letter-spacing / text-align / vertical-align` 等）
-4. 装饰属性（比如：`color / background / opacity / cursor` 等） 
+4. 装饰属性（比如：`color / background / opacity / cursor` 等）
 5. CSS3 新特性（比如：`transform / transition / animation` 等）
-
-
 
 ### 嵌套
 
 （1）嵌套层级不超过 3 个层级。
 
 ```css
-.outer .inner .innercontent{
-    // no more!
+.outer .inner .innercontent {
+  // no more!
 }
 ```
-
-
 
 ### 注释
 
@@ -349,15 +325,12 @@ charset 'utf-8';
 ```css
 .wrapper,
 .selector {
-
-    /* 字体相关 */
-    font-family: 'DINPro';
-    font-size: 16px;
-    font-weight: 700; /* 字重 */
+  /* 字体相关 */
+  font-family: 'DINPro';
+  font-size: 16px;
+  font-weight: 700; /* 字重 */
 }
 ```
-
-
 
 ### 引用
 
@@ -365,21 +338,17 @@ charset 'utf-8';
 
 **引用图片：**使用 PNG 格式时，使用场景为单色背景、图中主要颜色不超过 3 种的，应采用 PNG-8 编码保存。其它场合下，采用 PNG-24 保存。推荐单个图片体积在 10kb 以下时，应考虑在 css 中以 base64 编码内联提供，不单独提供图片文件。
 
-
-
 ### 特性
 
 根据项目的兼容性选择采用适合的特性。如移动端可使用 `flexbox` 布局，需兼容低版本 IE 项目除外。
 
 ```scss
 .selector {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 ```
-
-
 
 ### 其他
 
@@ -401,8 +370,6 @@ charset 'utf-8';
 
 [Sass 进阶](https://www.jianshu.com/p/bd2b221260b8)
 
-
-
 ### 结构
 
 建议使用模块化写法,每个组件单独写个 scss 文件,通过@import 来汇总成一个主 scss 文件,这样非常有利于维护;
@@ -418,7 +385,7 @@ charset 'utf-8';
 ```scss
 .overlay {
   // modals are 6000, saving messages are 5500, header is 2000
-  z-index: 5000; 
+  z-index: 5000;
 }
 ```
 
@@ -428,7 +395,6 @@ charset 'utf-8';
 
 ```scss
 @mixin shadows($shadows...) {
-
 }
 ```
 
@@ -437,8 +403,8 @@ charset 'utf-8';
 循环条件判断可以参考 JS 的规范写法
 
 ```scss
-@if (true){
-} @else (){
+@if (true) {
+} @else () {
 }
 ```
 
@@ -448,7 +414,7 @@ charset 'utf-8';
 
 ```scss
 .test {
-  @extend %module; 
+  @extend %module;
   @include transition(all 0.3s ease-out);
   background: #000;
     &:hover {
@@ -467,8 +433,8 @@ charset 'utf-8';
 map 上,推荐 json 的写法;
 
 ```scss
-'name': 'CRPER', //冒号后空格再写值,逗号结尾
-'mage': 22,  //每个值对独占一行
+'name':'CRPER', //冒号后空格再写值,逗号结尾
+'mage': 22; //每个值对独占一行
 ```
 
 ### 嵌套
@@ -500,18 +466,16 @@ map 上,推荐 json 的写法;
 嵌套中,不仅仅考虑使用 CSS 的写法,跟应该使用新属性&来减少变量名的书写,方便阅读和引用正确
 
 ```scss
-a{
-   &:link,
-    &:visited{
-       color:#000;
-   }
-   &:hover{
-           color:#000;
-   }
+a {
+  &:link,
+  &:visited {
+    color: #000;
+  }
+  &:hover {
+    color: #000;
+  }
 }
 ```
-
-
 
 嵌套中,属性根据类型进行排序（position, display, colors, font, miscellaneous……）,类型之间隔行
 
@@ -544,6 +508,3 @@ a{
   box-shadow: 1px 1px 1px rgba(0,0,0,.5);
 
 ```
-
-
-

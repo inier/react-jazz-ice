@@ -1,8 +1,8 @@
-## 为什么选择用 stylelint
+# 为什么选择用 stylelint
 
 这个问题有两层含义，一是为什么要使用这个样式代码风格检查工具；二是与其他工具相比，为什么选择 [stylelint](https://stylelint.io/) ，而不是其他如 [stylefmt](https://github.com/morishitter/stylefmt) 等。
 
-### 使用 linter 的原因
+## 使用 linter 的原因
 
 相信很多小伙伴都有多人协同开发时样式代码风格不一（换行、缩进和空格等）的困扰。特别是可能会遇上类似的祖传代码：
 
@@ -20,7 +20,7 @@
 
 CSS 代码太灵活，在缺乏完善的代码评审等制度的项目中，很容易由于图方便或赶工中积累大量可阅读性低、较难维护的 css。需要统一。
 
-### 同类工具比较
+## 同类工具比较
 
 选择 stylelint 的原因很简单，它是当前所有[同类工具中](https://www.cnblogs.com/BlackStorm/archive/2019/01/06/add-stylelint-to-your-vue-project.html)使用人数最多的，社区较为活跃。当下很多大厂都在使用，如 github 的 [primer](https://styleguide.github.com/primer/) 体系就定制了一套自己的[规则](https://styleguide.github.com/primer/tools/linting/#configuration)`stylelint-config-primer` 。
 

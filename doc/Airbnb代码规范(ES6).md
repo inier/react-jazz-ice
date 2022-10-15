@@ -1,4 +1,8 @@
-## Airbnb 代码规范(ES6)
+# Airbnb 代码规范(ES6)
+
+[TOC]
+
+## 细则
 
 ### 1 [引用](#refrence)
 
@@ -7,14 +11,14 @@
 > 为什么？这能确保你无法对引用重新赋值，也不会导致出现 bug 或难以理解。
 
 ```js
-  // bad
-  var a = 1;
-  var b = 2;
+// bad
+var a = 1;
+var b = 2;
 
- // twj test
-  // good
-  const a = 1;
-  const b = 2;
+// twj test
+// good
+const a = 1;
+const b = 2;
 ```
 
 - 1.2 如果一定要使用可变动的引用，使用`let`代替`var`.
@@ -22,17 +26,17 @@
 > 为什么？因为 let 是块级作用域，而 var 是函数作用域。
 
 ```js
-  // bad
-  var count = 1;
-  if (true) {
-    count += 1;
-  }
+// bad
+var count = 1;
+if (true) {
+  count += 1;
+}
 
-  // good, use the let.
-  let count = 1;
-  if (true) {
-    count += 1;
-  }
+// good, use the let.
+let count = 1;
+if (true) {
+  count += 1;
+}
 ```
 
 - 1.3 注意`let`和`const`，都是块级作用域。
@@ -74,34 +78,35 @@ const superman = {
   hidden: true,
 };
 ```
+
 - 2.3 创建有动态属性名的对象时，使用可被计算的属性名称。
 
 > 为什么？因为这样可以让你在一个地方定义所有的对象属性。
 
 ```js
-  function getKey(k) {
-    return `a key named ${k}`;
-  }
+function getKey(k) {
+  return `a key named ${k}`;
+}
 
-  // bad
-  const obj = {
-    id: 5,
-    name: 'San Francisco',
-  };
-  obj[getKey('enabled')] = true;
+// bad
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+};
+obj[getKey('enabled')] = true;
 
-  // good
-  const obj = {
-    id: 5,
-    name: 'San Francisco',
-    [getKey('enabled')]: true,
-  };
+// good
+const obj = {
+  id: 5,
+  name: 'San Francisco',
+  [getKey('enabled')]: true,
+};
 ```
 
 - 2.4 使用对象方法简写。
 
 ```js
-  // bad
+// bad
 const atom = {
   value: 1,
 
@@ -163,7 +168,7 @@ const itemsCopy = [...items];
 - 3.4 使用 Array.from 把一个类数组对象转换成数组。
 
 ```js
-const bar = ["a", "b", "c"];
+const bar = ['a', 'b', 'c'];
 Array.from(bar);
 // ["a", "b", "c"]
 
@@ -178,24 +183,24 @@ Array.from('foo');
 > 为什么？因为解构能减少临时引用属性。
 
 ```js
-  // bad
-  function getFullName(user) {
-    const firstName = user.firstName;
-    const lastName = user.lastName;
+// bad
+function getFullName(user) {
+  const firstName = user.firstName;
+  const lastName = user.lastName;
 
-    return `${firstName} ${lastName}`;
-  }
+  return `${firstName} ${lastName}`;
+}
 
-  // good
-  function getFullName(obj) {
-    const { firstName, lastName } = obj;
-    return `${firstName} ${lastName}`;
-  }
+// good
+function getFullName(obj) {
+  const { firstName, lastName } = obj;
+  return `${firstName} ${lastName}`;
+}
 
-  // best
-  function getFullName({ firstName, lastName }) {
-    return `${firstName} ${lastName}`;
-  }
+// best
+function getFullName({ firstName, lastName }) {
+  return `${firstName} ${lastName}`;
+}
 ```
 
 - 4.2 对数组使用解构赋值。
@@ -213,26 +218,26 @@ const [first, second] = arr;
 
 - 4.3 需要回传多个值时，使用对象解构，而不是数组解构.
 
->为什么？增加属性或者改变排序不会改变调用时的位置。
+> 为什么？增加属性或者改变排序不会改变调用时的位置。
 
 ```js
-  // bad
-  function processInput(input) {
-    // then a miracle occurs
-    return [left, right, top, bottom];
-  }
+// bad
+function processInput(input) {
+  // then a miracle occurs
+  return [left, right, top, bottom];
+}
 
-  // 调用时需要考虑回调数据的顺序。
-  const [left, __, top] = processInput(input);
+// 调用时需要考虑回调数据的顺序。
+const [left, __, top] = processInput(input);
 
-  // good
-  function processInput(input) {
-    // then a miracle occurs
-    return { left, right, top, bottom };
-  }
+// good
+function processInput(input) {
+  // then a miracle occurs
+  return { left, right, top, bottom };
+}
 
-  // 调用时只选择需要的数据
-  const { left, right } = processInput(input);
+// 调用时只选择需要的数据
+const { left, right } = processInput(input);
 ```
 
 ### 5 [字符串](#string)
@@ -241,7 +246,7 @@ const [first, second] = arr;
 
 ```js
 // bad
-const name = "Capt. Janeway";
+const name = 'Capt. Janeway';
 
 // good
 const name = 'Capt. Janeway';
@@ -256,57 +261,55 @@ const name = 'Capt. Janeway';
 const errorMessage = 'This is a super long error that was thrown because of Batman.';
 
 // bad
-const errorMessage = 'This is a super long error that was thrown because \
+const errorMessage =
+  'This is a super long error that was thrown because \
 of Batman. ';
 
 // good
-const errorMessage = 'This is a super long error that was thrown because ' +
-  'of Batman.';
+const errorMessage = 'This is a super long error that was thrown because ' + 'of Batman.';
 ```
 
 - 5.3 程序化生成字符串时，使用模板字符串代替字符串连接。
 
->为什么？模板字符串更为简洁，更具可读性。
+> 为什么？模板字符串更为简洁，更具可读性。
 
 ```js
-  // bad
-  function sayHi(name) {
-    return 'How are you, ' + name + '?';
-  }
+// bad
+function sayHi(name) {
+  return 'How are you, ' + name + '?';
+}
 
-  // bad
-  function sayHi(name) {
-    return ['How are you, ', name, '?'].join();
-  }
+// bad
+function sayHi(name) {
+  return ['How are you, ', name, '?'].join();
+}
 
-  // good
-  function sayHi(name) {
-    return `How are you, ${name}?`;
-  }
+// good
+function sayHi(name) {
+  return `How are you, ${name}?`;
+}
 ```
 
 ### 6 [函数](#function)
 
-- 6.1  使用函数声明代替函数表达式
+- 6.1 使用函数声明代替函数表达式
 
->为什么？因为函数声明是可命名的，所以他们在调用栈中更容易被识别。此外，函数声明会把整个函数提升（hoisted），而函数表达式只会把函数的引用变量名提升
+> 为什么？因为函数声明是可命名的，所以他们在调用栈中更容易被识别。此外，函数声明会把整个函数提升（hoisted），而函数表达式只会把函数的引用变量名提升
 
 ```js
-    // bad
-  const foo = function () {
-  };
+// bad
+const foo = function () {};
 
-  // good
-  function foo() {
-  }
+// good
+function foo() {}
 ```
 
 - 6.2 永远不要在一个非函数代码块（if、while 等）中声明一个函数，把那个函数赋给一个变量。浏览器允许你这么做，但它们的解析表现不一致。
 
->注意: ECMA-262 把 block 定义为一组语句。函数声明不是语句。
+> 注意: ECMA-262 把 block 定义为一组语句。函数声明不是语句。
 
 ```js
-  // bad
+// bad
 if (currentUser) {
   function test() {
     console.log('Nope.');
@@ -338,19 +341,19 @@ function yup(name, options, args) {
 
 - 6.4 不要使用 arguments。可以选择 rest 语法 `...` 替代。
 
->为什么？使用 `...` 能明确你要传入的参数。另外 rest 参数是一个真正的数组，而 arguments 是一个类数组。
+> 为什么？使用 `...` 能明确你要传入的参数。另外 rest 参数是一个真正的数组，而 arguments 是一个类数组。
 
 ```js
-  // bad
-  function concatenateAll() {
-    const args = Array.prototype.slice.call(arguments);
-    return args.join('');
-  }
+// bad
+function concatenateAll() {
+  const args = Array.prototype.slice.call(arguments);
+  return args.join('');
+}
 
-  // good
-  function concatenateAll(...args) {
-    return args.join('');
-  }
+// good
+function concatenateAll(...args) {
+  return args.join('');
+}
 ```
 
 - 6.5 直接给函数的参数指定默认值，不要使用一个变化的函数参数。
@@ -384,101 +387,101 @@ function handleThings(opts = {}) {
 
 - 7.1 当你必须使用函数表达式（或传递一个匿名函数）时，使用箭头函数符号。
 
->为什么?因为箭头函数创造了新的一个 this 执行环境，通常情况下都能满足你的需求，而且这样的写法更为简洁。
+> 为什么?因为箭头函数创造了新的一个 this 执行环境，通常情况下都能满足你的需求，而且这样的写法更为简洁。
 
->为什么不？如果你有一个相当复杂的函数，你或许可以把逻辑部分转移到一个函数声明上。
+> 为什么不？如果你有一个相当复杂的函数，你或许可以把逻辑部分转移到一个函数声明上。
 
 ```js
-  // bad
-  [1, 2, 3].map(function (x) {
-    return x * x;
-  });
+// bad
+[1, 2, 3].map(function (x) {
+  return x * x;
+});
 
-  // good
-  [1, 2, 3].map((x) => {
-    return x * x;
-  });
+// good
+[1, 2, 3].map((x) => {
+  return x * x;
+});
 ```
 
 - 7.2 如果一个函数适合用一行写出并且只有一个参数，那就把花括号、圆括号和 return 都省略掉。如果不是，那就不要省略。
 
->为什么？语法糖。在链式调用中可读性很高。
+> 为什么？语法糖。在链式调用中可读性很高。
 
->为什么不？当你打算回传一个对象的时候。
+> 为什么不？当你打算回传一个对象的时候。
 
 ```js
-    // good
-  [1, 2, 3].map(x => x * x);
+// good
+[1, 2, 3].map((x) => x * x);
 
-  // good
-  [1, 2, 3].reduce((total, n) => {
-    return total + n;
-  }, 0);
+// good
+[1, 2, 3].reduce((total, n) => {
+  return total + n;
+}, 0);
 ```
 
 ### 8 [构造函数](#consturor)
 
-- 8.1  总是使用`class`。避免直接操作`prototype`。
+- 8.1 总是使用`class`。避免直接操作`prototype`。
 
->为什么? 因为 class 语法更为简洁更易读。
+> 为什么? 因为 class 语法更为简洁更易读。
 
 ```js
-    // bad
-  function Queue(contents = []) {
+// bad
+function Queue(contents = []) {
+  this._queue = [...contents];
+}
+Queue.prototype.pop = function () {
+  const value = this._queue[0];
+  this._queue.splice(0, 1);
+  return value;
+};
+
+// good
+class Queue {
+  constructor(contents = []) {
     this._queue = [...contents];
   }
-  Queue.prototype.pop = function() {
+  pop() {
     const value = this._queue[0];
     this._queue.splice(0, 1);
     return value;
   }
-
-  // good
-  class Queue {
-    constructor(contents = []) {
-      this._queue = [...contents];
-    }
-    pop() {
-      const value = this._queue[0];
-      this._queue.splice(0, 1);
-      return value;
-    }
-  }
+}
 ```
 
 - 8.2 使用`extends`继承。
 
->为什么？因为 extends 是一个内建的原型继承方法并且不会破坏 instanceof。
+> 为什么？因为 extends 是一个内建的原型继承方法并且不会破坏 instanceof。
 
 ```js
-  // bad
-  const inherits = require('inherits');
-  function PeekableQueue(contents) {
-    Queue.apply(this, contents);
-  }
-  inherits(PeekableQueue, Queue);
-  PeekableQueue.prototype.peek = function() {
+// bad
+const inherits = require('inherits');
+function PeekableQueue(contents) {
+  Queue.apply(this, contents);
+}
+inherits(PeekableQueue, Queue);
+PeekableQueue.prototype.peek = function () {
+  return this._queue[0];
+};
+
+// good
+class PeekableQueue extends Queue {
+  peek() {
     return this._queue[0];
   }
-
-  // good
-  class PeekableQueue extends Queue {
-    peek() {
-      return this._queue[0];
-    }
-  }
+}
 ```
 
 - 8.3 方法可以返回 this 来帮助链式调用。
 
 ```js
-  // bad
-Jedi.prototype.jump = function() {
+// bad
+Jedi.prototype.jump = function () {
   this.jumping = true;
   return true;
 };
 
-Jedi.prototype.setHeight = function(height) {
+Jedi.prototype.setHeight = function (height) {
   this.height = height;
 };
 
@@ -501,8 +504,7 @@ class Jedi {
 
 const luke = new Jedi();
 
-luke.jump()
-  .setHeight(20);
+luke.jump().setHeight(20);
 ```
 
 - 8.4 可以写一个自定义的 toString() 方法，但要确保它能正常运行并且不会引起副作用。
@@ -527,7 +529,7 @@ class Jedi {
 
 - 9.1 总是使用模组 (import/export) 而不是其他非标准模块系统。你可以编译为你喜欢的模块系统。
 
->为什么？模块就是未来，让我们开始迈向未来吧。
+> 为什么？模块就是未来，让我们开始迈向未来吧。
 
 ```js
   // bad
@@ -545,19 +547,19 @@ class Jedi {
 
 - 9.2 不要使用通配符 import。
 
->为什么？这样能确保你只有一个默认 export。
+> 为什么？这样能确保你只有一个默认 export。
 
 ```js
-  // bad
-  import * as AirbnbStyleGuide from './AirbnbStyleGuide';
+// bad
+import * as AirbnbStyleGuide from './AirbnbStyleGuide';
 
-  // good
-  import AirbnbStyleGuide from './AirbnbStyleGuide';
+// good
+import AirbnbStyleGuide from './AirbnbStyleGuide';
 ```
 
 - 9.3 不要从 import 中直接 export。
 
->为什么？虽然一行代码简洁明了，但让 import 和 export 各司其职让事情能保持一致。
+> 为什么？虽然一行代码简洁明了，但让 import 和 export 各司其职让事情能保持一致。
 
 ```js
   // bad
@@ -574,32 +576,32 @@ class Jedi {
 
 - 10.1 不要使用 iterators。使用高阶函数例如 map() 和 reduce() 替代 for-of。
 
->为什么？这加强了我们不变的规则。处理纯函数的回调值更易读，这比它带来的副作用更重要。
+> 为什么？这加强了我们不变的规则。处理纯函数的回调值更易读，这比它带来的副作用更重要。
 
 ```js
-  const numbers = [1, 2, 3, 4, 5];
+const numbers = [1, 2, 3, 4, 5];
 
-  // bad
-  let sum = 0;
-  for (let num of numbers) {
-    sum += num;
-  }
+// bad
+let sum = 0;
+for (let num of numbers) {
+  sum += num;
+}
 
-  sum === 15;
+sum === 15;
 
-  // good
-  let sum = 0;
-  numbers.forEach((num) => sum += num);
-  sum === 15;
+// good
+let sum = 0;
+numbers.forEach((num) => (sum += num));
+sum === 15;
 
-  // best (use the functional force)
-  const sum = numbers.reduce((total, num) => total + num, 0);
-  sum === 15;
+// best (use the functional force)
+const sum = numbers.reduce((total, num) => total + num, 0);
+sum === 15;
 ```
 
 - 10.2 现在还不要使用 generators。
 
->为什么？因为它们现在还没法很好地编译到 ES5。
+> 为什么？因为它们现在还没法很好地编译到 ES5。
 
 ### 11 [属性](#attr)
 
@@ -647,19 +649,19 @@ const superPower = new SuperPower();
 
 - 12.2 连续声明变量时，使用`const`或`let`声明每个变量。
 
->为什么？增加新变量将变的更加容易，而且你永远不用再担心调换错`;` 跟 `,`。
+> 为什么？增加新变量将变的更加容易，而且你永远不用再担心调换错`;` 跟 `,`。
 
 ```js
 // bad
 const items = getItems(),
-    goSportsTeam = true,
-    dragonball = 'z';
+  goSportsTeam = true,
+  dragonball = 'z';
 
 // bad
 // (compare to above, and try to spot the mistake)
 const items = getItems(),
-    goSportsTeam = true;
-    dragonball = 'z';
+  goSportsTeam = true;
+dragonball = 'z';
 
 // good
 const items = getItems();
@@ -669,32 +671,34 @@ const dragonball = 'z';
 
 - 12.3 将所有的 const 和 let 分组
 
->为什么？当你需要把已赋值变量赋值给未赋值变量时非常有用。
+> 为什么？当你需要把已赋值变量赋值给未赋值变量时非常有用。
 
 ```js
-  // bad
-  let i, len, dragonball,
-      items = getItems(),
-      goSportsTeam = true;
+// bad
+let i,
+  len,
+  dragonball,
+  items = getItems(),
+  goSportsTeam = true;
 
-  // bad
-  let i;
-  const items = getItems();
-  let dragonball;
-  const goSportsTeam = true;
-  let len;
+// bad
+let i;
+const items = getItems();
+let dragonball;
+const goSportsTeam = true;
+let len;
 
-  // good
-  const goSportsTeam = true;
-  const items = getItems();
-  let dragonball;
-  let i;
-  let length;
+// good
+const goSportsTeam = true;
+const items = getItems();
+let dragonball;
+let i;
+let length;
 ```
 
 - 12.4 在你需要的地方给变量赋值，但请把它们放在一个合理的位置。
 
->为什么？let 和 const 是块级作用域而不是函数作用域。
+> 为什么？let 和 const 是块级作用域而不是函数作用域。
 
 ```js
   // good
@@ -741,7 +745,7 @@ const dragonball = 'z';
 
 - 12.5 不要使用链式变量赋值。
 
->为什么？链式变量赋值会产生全局作用域污染
+> 为什么？链式变量赋值会产生全局作用域污染
 
 ```js
 // bad
@@ -750,8 +754,8 @@ const dragonball = 'z';
   // let a = ( b = ( c = 1 ) );
   // The let keyword only applies to variable a; variables b and c become
   // global variables.
-  let a = b = c = 1;
-}());
+  let a = (b = c = 1);
+})();
 
 console.log(a); // throws ReferenceError
 console.log(b); // 1
@@ -762,7 +766,7 @@ console.log(c); // 1
   let a = 1;
   let b = a;
   let c = a;
-}());
+})();
 
 console.log(a); // throws ReferenceError
 console.log(b); // throws ReferenceError
@@ -773,7 +777,7 @@ console.log(c); // throws ReferenceError
 
 - 12.6 避免使用一员递增和递减(`++`,`--`)
 
->根据 eslint 文档，一元递增和递减语句会受到自动分号插入的影响，并且可能导致应用程序中的值递增或递减，从而导致无提示错误。 使用诸如 num + = 1 而不是 num ++或 num ++之类的语句来更改您的值也更具表现力。 禁止一元递增和递减语句也会阻止您无意中预先递增/预递减值，这也会导致程序中的意外行为。
+> 根据 eslint 文档，一元递增和递减语句会受到自动分号插入的影响，并且可能导致应用程序中的值递增或递减，从而导致无提示错误。 使用诸如 num + = 1 而不是 num ++或 num ++之类的语句来更改您的值也更具表现力。 禁止一元递增和递减语句也会阻止您无意中预先递增/预递减值，这也会导致程序中的意外行为。
 
 ```js
 // bad
@@ -847,7 +851,7 @@ function example() {
 
   anonymous(); // => TypeError anonymous is not a function
 
-  var anonymous = function() {
+  var anonymous = function () {
     console.log('anonymous function expression');
   };
 }
@@ -877,7 +881,7 @@ function example() {
 
   var named = function named() {
     console.log('named');
-  }
+  };
 }
 ```
 
@@ -899,14 +903,16 @@ function example() {
 
 - 14.2 条件表达式例如 if 语句通过抽象方法 ToBoolean 强制计算它们的表达式并且总是遵守下面的规则：
 
-***
+---
+
 对象 被计算为 true
 Undefined 被计算为 false
 Null 被计算为 false
 布尔值 被计算为 布尔的值
 数字 如果是 +0、-0、或 NaN 被计算为 false, 否则为 true
 字符串 如果是空字符串 '' 被计算为 false，否则为 true
-***
+
+---
 
 ```js
 if ([0]) {
@@ -937,7 +943,7 @@ if (collection.length) {
 
 - 14.3 在`switch`语句中，使用括号把`case`和`default`语句块包裹起来。
 
->为什么?词法声明在整个`switch`块中都是可见的，但只有在赋值时才会被初始化。 所以当多个 case 子句试图定义相同的变量时，可以能会出现 bug。
+> 为什么?词法声明在整个`switch`块中都是可见的，但只有在赋值时才会被初始化。 所以当多个 case 子句试图定义相同的变量时，可以能会出现 bug。
 
 ```js
 // bad
@@ -1002,25 +1008,17 @@ const baz = !c;
 
 ```js
 // bad
-const story = [
-    once
-  , upon
-  , aTime
-];
+const story = [once, upon, aTime];
 
 // good
-const story = [
-  once,
-  upon,
-  aTime,
-];
+const story = [once, upon, aTime];
 
 // bad
 const hero = {
-    firstName: 'Ada'
-  , lastName: 'Lovelace'
-  , birthYear: 1815
-  , superPower: 'computers'
+  firstName: 'Ada',
+  lastName: 'Lovelace',
+  birthYear: 1815,
+  superPower: 'computers',
 };
 
 // good
@@ -1034,7 +1032,7 @@ const hero = {
 
 - 15.2 增加结尾的逗号: 需要。
 
->为什么? 这会让 git diffs 更干净。另外，像 babel 这样的转译器会移除结尾多余的逗号，也就是说你不必担心老旧浏览器的尾逗号问题。
+> 为什么? 这会让 git diffs 更干净。另外，像 babel 这样的转译器会移除结尾多余的逗号，也就是说你不必担心老旧浏览器的尾逗号问题。
 
 ```js
   // bad - git diff without trailing comma
@@ -1054,27 +1052,21 @@ const hero = {
 ```
 
 ```js
-  // bad
-  const hero = {
-    firstName: 'Dana',
-    lastName: 'Scully'
-  };
+// bad
+const hero = {
+  firstName: 'Dana',
+  lastName: 'Scully',
+};
 
-  const heroes = [
-    'Batman',
-    'Superman'
-  ];
+const heroes = ['Batman', 'Superman'];
 
-  // good
-  const hero = {
-    firstName: 'Dana',
-    lastName: 'Scully',
-  };
+// good
+const hero = {
+  firstName: 'Dana',
+  lastName: 'Scully',
+};
 
-  const heroes = [
-    'Batman',
-    'Superman',
-  ];
+const heroes = ['Batman', 'Superman'];
 ```
 
 ### 16 [类型转换](#typecasting)
@@ -1129,9 +1121,9 @@ const val = inputValue >> 0;
 - 16.4 注: 小心使用位操作运算符。数字会被当成 64 位值，但是位操作运算符总是返回 32 位的整数（参考）。位操作处理大于 32 位的整数值时还会导致意料之外的行为。关于这个问题的讨论。最大的 32 位整数是 2,147,483,647：
 
 ```js
-2147483647 >> 0 //=> 2147483647
-2147483648 >> 0 //=> -2147483648
-2147483649 >> 0 //=> -2147483647
+2147483647 >> 0; //=> 2147483647
+2147483648 >> 0; //=> -2147483648
+2147483649 >> 0; //=> -2147483647
 ```
 
 - 16.5 布尔:
@@ -1188,7 +1180,7 @@ const good = new User({
 });
 ```
 
-- 17.3 使用下划线 _ 开头命名私有属性。
+- 17.3 使用下划线 \_ 开头命名私有属性。
 
 ```js
 // bad
@@ -1205,7 +1197,7 @@ this._firstName = 'Panda';
 // bad
 function foo() {
   const self = this;
-  return function() {
+  return function () {
     console.log(self);
   };
 }
@@ -1213,7 +1205,7 @@ function foo() {
 // bad
 function foo() {
   const that = this;
-  return function() {
+  return function () {
     console.log(that);
   };
 }
@@ -1249,8 +1241,7 @@ import CheckBox from './CheckBox';
 - 17.6 当你导出默认的函数时使用驼峰式命名。你的文件名必须和函数名完全保持一致。
 
 ```js
-function makeStyleGuide() {
-}
+function makeStyleGuide() {}
 
 export default makeStyleGuide;
 ```
@@ -1259,8 +1250,7 @@ export default makeStyleGuide;
 
 ```js
 const AirbnbStyleGuide = {
-  es6: {
-  }
+  es6: {},
 };
 
 export default AirbnbStyleGuide;
